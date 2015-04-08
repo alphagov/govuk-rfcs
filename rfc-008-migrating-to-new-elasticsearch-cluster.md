@@ -14,7 +14,7 @@ api-elasticsearch-[123].api cluster is running elasticsearch 1.4.4, with all ind
 
 search-[123].api cluster is running rummager, talking to api-elasticsearch-[123].api cluster, but handling no requests from apps. &nbsp;Rummager is deployed on these machines under the app name "rummager".
 
-# Plan
+# Steps
 
 | Aim | How | Preparation |
 | --- | --- | --- |
