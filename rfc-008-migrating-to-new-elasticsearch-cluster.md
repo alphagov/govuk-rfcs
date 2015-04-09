@@ -61,5 +61,11 @@ None
 
  |
 | Copy all indexes from the old cluster to the new cluster again, to make sure that updates that happened after the initial copy are present in the new cluster. | Same scripts as run earlier. | None |
-| Start the indexing on the new cluster, to catch up with the changes that happened during the migration | Start the sidekiq workers on the new cluster | None |
+| Start the indexing on the new cluster, to catch up with the changes that happened during the migration | 
+
+Start the sidekiq workers on the new cluster
+
+Updates from the time we switched applications to point at the new rummager cluster should be in the sidekiq queue at this point, and this will apply them to the index in the new cluster.
+
+ | None |
 
