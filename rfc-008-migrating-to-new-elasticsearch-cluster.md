@@ -40,7 +40,13 @@ Also, check that the indexing queue is growing (using sidekiq-monitoring).
 
  | None |
 | Wait for the sidekiq workers on the old cluster to finish draining the queue | This is likely to have already happened - it should be very quick. Just needs a check using sidekiq-monitoring. | None |
-| Disable the rummager app on the old cluster | "sudo service search stop" | None |
+| Disable the rummager app on the old cluster | 
+
+"sudo service search stop" and disable puppet to prevent restarts.
+
+AND/OR: use a feature flag to say whether rummager should be enabled on the old cluster
+
+ | Implement feature flag for whether rummager is running. |
 | Check that all applications are running correctly.
 
 There should be no errors (if there are errors, restart rummager, and work out why).
