@@ -18,7 +18,8 @@ search-[123].api cluster is running rummager, talking to api-elasticsearch-[123]
 
 | Aim | How | Preparation |
 | --- | --- | --- |
-| Prevent indexing on the new cluster, to make sure that any changes which get to this cluster aren't applied before we're ready | Stop sidekiq workers on the new cluster. Ack the alerts in nagios. | None |
+| Ensure that the latest version of rummager is deployed to the new cluster | There's a separate deploy job: "Rummager Test" | None |
+| Prevent indexing on the new cluster, to make sure that any changes which get to this cluster aren't applied before we're ready | Stop sidekiq workers on the new cluster. Ack the alerts in nagios. Disable puppet on the new cluster (search-[123].api.production) to ensure they're not started again. | None |
 | Copy all indexes from the old cluster to the new cluster | This should be possible using something like the env-dump-restore script, but we need to ensure the schemas are copied across.  
 I'd expect this to take about 15 minutes to run. | Make a script for copying data and schemas between clusters |
 | Change which machines searches and index requests go to, to point to the new rummager instances. From this point, users won't see updates in the search index until we finish the migration. | 
@@ -42,7 +43,7 @@ Also, check that the indexing queue is growing (using sidekiq-monitoring).
 | Wait for the sidekiq workers on the old cluster to finish draining the queue | This is likely to have already happened - it should be very quick. Just needs a check using sidekiq-monitoring. | None |
 | Disable the rummager app on the old cluster | 
 
-"sudo service search stop" and disable puppet to prevent restarts.
+disable puppet to prevent restarts.
 
 AND/OR: use a feature flag to say whether rummager should be enabled on the old cluster
 
