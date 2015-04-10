@@ -18,21 +18,39 @@ search-[123].api cluster is running rummager, talking to api-elasticsearch-[123]
 
 | Aim | How | Preparation |
 | --- | --- | --- |
-| Ensure that the latest version of rummager is deployed to the new cluster | There's a separate deploy job: "Rummager Test" | None |
-| Prevent indexing on the new cluster, to make sure that any changes which get to this cluster aren't applied before we're ready | Stop sidekiq workers on the new cluster. Ack the alerts in nagios. Disable puppet on the new cluster (search-[123].api.production) to ensure they're not started again. | None |
-| Copy all indexes from the old cluster to the new cluster | This should be possible using something like the env-dump-restore script, but we need to ensure the schemas are copied across.  
-I'd expect this to take about 15 minutes to run. | Make a script for copying data and schemas between clusters |
+| Ensure that the latest version of rummager is deployed to the new cluster | 
+
+There's a separate deploy job: "Rummager Test"
+
+ | None |
+| Prevent indexing on the new cluster, to make sure that any changes which get to this cluster aren't applied before we're ready | 
+- Disable puppet on the new cluster (search-[123].api.production) to ensure they're not started again.
+- Stop sidekiq workers on the new cluster. Ack the alerts in nagios.
+ | None |
+| Copy all indexes from the old cluster to the new cluster | 
+
+Use es\_dump\_restore. However, es\_dump\_restore upstream doesn't work correctly with aliased indexes, so use the branch at "[https://github.com/rboulton/es\_dump\_restore/tree/fix-dumping](https://github.com/rboulton/es_dump_restore/tree/fix-dumping)".
+
+I'd expect this to take about 15 minutes to run.
+
+ | Create jenkins job to run es\_dump\_restore on the appropriate indexes and copy the data across. |
 | Change which machines searches and index requests go to, to point to the new rummager instances. From this point, users won't see updates in the search index until we finish the migration. | 
 
-Various possibilities:
+Change where the "search" name points to, to switch requests and indexing over to the new cluster.
 
-1. Change where the "search" name points to, to switch requests and indexing over to the new cluster.
-  - This would require a deploy of puppet, followed by convergence (we'd probably force a puppet run on the machines we care about).
+1. 
+  - Merge PR to change target of search.
+  - Deploy puppet, force convergence on machines we care about
   - We'd then need to restart all affected apps.
-2. Or, we could have a set of PRs to change all the applications which talk to "search" to try and contact "rummager".
-  - Would require multiple app deploys
-3. Fiddle with nginx configuration on backend machines to redirect requests to the rummager app there to go to the new cluster
- | Discuss, and prepare appropriate pull requests |
+ | 
+
+Prepare puppet PR
+
+List machines we should force / wait for convergence on
+
+List apps we need to restart
+
+ |
 | Check that all searches are being served from the new cluster, and updates are being queued on the new cluster | 
 
 Check that the old rummager application isn't receiving any traffic, and the new one is. Easiest way is probably just to tail the application logs, given that kibana is missing the data at present.
@@ -42,26 +60,26 @@ Also, check that the indexing queue is growing (using sidekiq-monitoring).
  | None |
 | Wait for the sidekiq workers on the old cluster to finish draining the queue | This is likely to have already happened - it should be very quick. Just needs a check using sidekiq-monitoring. | None |
 | Disable the rummager app on the old cluster | 
+- disable puppet on backend-[123].backend machines
+- stop "search" app on backend machines
 
-disable puppet to prevent restarts.
+&nbsp;
 
-AND/OR: use a feature flag to say whether rummager should be enabled on the old cluster
-
- | Implement feature flag for whether rummager is running. |
+ | Prepare fabric commands |
+| Copy all indexes from the old cluster to the new cluster again, to make sure that updates that happened after the initial copy are present in the new cluster. | Same scripts as run earlier. | None |
 | Check that all applications are running correctly.
 
 There should be no errors (if there are errors, restart rummager, and work out why).
 
  | 
 
-&nbsp;
+Wait for a while (30 minutes?) and check for errors.
 
  | 
 
 None
 
  |
-| Copy all indexes from the old cluster to the new cluster again, to make sure that updates that happened after the initial copy are present in the new cluster. | Same scripts as run earlier. | None |
 | Start the indexing on the new cluster, to catch up with the changes that happened during the migration | 
 
 Start the sidekiq workers on the new cluster
