@@ -22,6 +22,8 @@ search-[123].api cluster is running rummager, talking to api-elasticsearch-[123]
 
 There's a separate deploy job: "Rummager Test"
 
+Deploy release\_971
+
  | None |
 | Prevent indexing on the new cluster, to make sure that any changes which get to this cluster aren't applied before we're ready | 
 - Disable puppet on the new cluster (search-[123].api.production) to ensure they're not started again.  
@@ -45,12 +47,13 @@ Change where the "search" name points to, to switch requests and indexing over t
 
 1. 
   - Merge PR to change target of search.
-  - Deploy puppet, force convergence on machines we care about:  
+  - Deploy puppet: build\_15653
+  - Force convergence on machines we care about:  
   
-`fab preview class:backend puppet:'-v'`  
-`fab preview class:whitehall_backend puppet:'-v'`  
-`fab preview class:whitehall_frontend puppet:'-v'`  
-`fab preview class:frontend puppet:'-v'`  
+`fab $ENV class:backend puppet:'-v'`  
+`fab $ENV class:whitehall_backend puppet:'-v'`  
+`fab $ENV class:whitehall_frontend puppet:'-v'`  
+`fab $ENV class:frontend puppet:'-v'`  
   
   - We then need to restart all apps which index or search:
     - whitehall (indexes + searches)
@@ -80,28 +83,28 @@ design-principles (searches)
     - collections-api (searches)
     - collections (searches)
 
-fab preview class:whitehall\_backend app.reload:whitehall
+fab $ENV class:whitehall\_backend app.reload:whitehall
 
-fab preview class:whitehall\_backend app.reload:whitehall-admin-procfile-worker
+fab $ENV class:whitehall\_backend app.reload:whitehall-admin-procfile-worker
 
-fab preview class:backend app.reload:panopticon
+fab $ENV class:backend app.reload:panopticon
 
-fab preview class:backend app.reload:specialist-publisher
+fab $ENV class:backend app.reload:specialist-publisher
 
-fab preview class:backend app.reload:search-admin
+fab $ENV class:backend app.reload:search-admin
 
-fab preview class:whitehall\_frontend app.reload:whitehall
+fab $ENV class:whitehall\_frontend app.reload:whitehall
 
-fab preview class:frontend app.reload:frontend
-fab preview class:calculators\_frontend app.reload:finder-frontend
+fab $ENV class:frontend app.reload:frontend
+fab $ENV class:calculators\_frontend app.reload:finder-frontend
 
-fab preview class:backend app.reload:contentapi
+fab $ENV class:backend app.reload:contentapi
 
-fab preview class:frontend app.reload:collections
+fab $ENV class:frontend app.reload:collections
 
-fab preview class:backend app.reload:collections-api
+fab $ENV class:backend app.reload:collections-api
 
-fab preview class:frontend app.reload:designprinciples
+fab $ENV class:frontend app.reload:designprinciples
 
  | 
 
@@ -120,7 +123,7 @@ Also, check that the indexing queue is growing (using sidekiq-monitoring).
 
 For sidekiq monitoring:
 
-ssh backend-1.backend.preview -CNL 9000:127.0.0.1:80
+ssh backend-1.backend.$ENV -CNL 9000:127.0.0.1:80
 
 Then visit http://localhost:9000/
 
