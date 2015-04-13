@@ -24,8 +24,11 @@ There's a separate deploy job: "Rummager Test"
 
  | None |
 | Prevent indexing on the new cluster, to make sure that any changes which get to this cluster aren't applied before we're ready | 
-- Disable puppet on the new cluster (search-[123].api.production) to ensure they're not started again.
-- Stop sidekiq workers on the new cluster. Ack the alerts in nagios.
+- Disable puppet on the new cluster (search-[123].api.production) to ensure they're not started again.  
+`fab preview class:search puppet.disable:'Rummager migration - see https://gov-uk.atlassian.net/wiki/x/XAGKAQ'`
+- Stop sidekiq workers on the new cluster.  
+`fab preview class:search sdo:'service rummager-procfile-worker stop'`
+- Ack the alerts in nagios.
  | None |
 | Copy all indexes from the old cluster to the new cluster | 
 
@@ -42,7 +45,13 @@ Change where the "search" name points to, to switch requests and indexing over t
 
 1. 
   - Merge PR to change target of search.
-  - Deploy puppet, force convergence on machines we care about
+  - Deploy puppet, force convergence on machines we care about:  
+  
+`fab preview class:backend puppet:'-v'`  
+`fab preview class:whitehall_backend puppet:'-v'`  
+`fab preview class:whitehall_frontend puppet:'-v'`  
+`fab preview class:frontend puppet:'-v'`  
+  
   - We then need to restart all apps which index or search:
     - whitehall (indexes + searches)
     - 
@@ -53,6 +62,7 @@ panopticon (indexes)
 
 specialist-publisher (indexes)
 
+    - search-admin (indexes)
     - 
 
 frontend (searches)
@@ -63,7 +73,37 @@ finder-frontend (searches)
 
     - 
 
-service-design-manual (searches)
+design-principles (searches)
+
+    - government-service-design-manual (searches)
+    - govuk\_content\_api (searches)
+    - collections-api (searches)
+    - collections (searches)
+
+fab preview class:whitehall\_backend app.reload:whitehall
+
+fab preview class:whitehall\_backend app.reload:whitehall-admin-procfile-worker
+
+fab preview class:backend app.reload:panopticon
+
+fab preview class:backend app.reload:specialist-publisher
+
+fab preview class:backend app.reload:search-admin
+
+fab preview class:whitehall\_frontend app.reload:whitehall
+
+fab preview class:frontend app.reload:frontend
+fab preview class:calculators\_frontend app.reload:finder-frontend
+
+fab preview class:backend app.reload:contentapi
+
+fab preview class:frontend app.reload:collections
+
+fab preview class:backend app.reload:collections-api
+
+fab preview class:frontend app.reload:designprinciples
+
+fab preview class:frontend app.reload:
 
  | 
 
