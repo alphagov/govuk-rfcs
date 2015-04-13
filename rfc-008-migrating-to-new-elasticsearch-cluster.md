@@ -53,6 +53,7 @@ Change where the "search" name points to, to switch requests and indexing over t
 `fab $ENV class:backend puppet:'-v'`  
 `fab $ENV class:whitehall_backend puppet:'-v'`  
 `fab $ENV class:whitehall_frontend puppet:'-v'`  
+fab $ENV class:calculators\_frontend puppet:'-v'  
 `fab $ENV class:frontend puppet:'-v'`  
   
   - We then need to restart all apps which index or search:
