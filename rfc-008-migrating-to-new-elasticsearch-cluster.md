@@ -55,6 +55,7 @@ Change where the "search" name points to, to switch requests and indexing over t
 `fab $ENV class:whitehall_frontend puppet:'-v'`  
 fab $ENV class:calculators\_frontend puppet:'-v'  
 `fab $ENV class:frontend puppet:'-v'`  
+`fab $ENV class:frontend_lb puppet:'-v'`  
   
   - We then need to restart all apps which index or search:
     - whitehall (indexes + searches)
@@ -106,6 +107,8 @@ fab $ENV class:frontend app.reload:collections
 fab $ENV class:backend app.reload:collections-api
 
 fab $ENV class:frontend app.reload:designprinciples
+
+fab $ENV class:frontend\_lb sdo:'service nginx reload'
 
  | 
 
