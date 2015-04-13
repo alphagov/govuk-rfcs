@@ -103,8 +103,6 @@ fab preview class:backend app.reload:collections-api
 
 fab preview class:frontend app.reload:designprinciples
 
-fab preview class:frontend app.reload:
-
  | 
 
 Prepare puppet PR
@@ -119,6 +117,12 @@ List apps we need to restart
 Check that the old rummager application isn't receiving any traffic, and the new one is. Easiest way is probably just to tail the application logs, given that kibana is missing the data at present.
 
 Also, check that the indexing queue is growing (using sidekiq-monitoring).
+
+For sidekiq monitoring:
+
+ssh backend-1.backend.preview -CNL 9000:127.0.0.1:80
+
+Then visit http://localhost:9000/
 
  | None |
 | Wait for the sidekiq workers on the old cluster to finish draining the queue | This is likely to have already happened - it should be very quick. Just needs a check using sidekiq-monitoring. | None |
