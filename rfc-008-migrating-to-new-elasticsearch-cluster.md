@@ -142,7 +142,7 @@ fab $ENV class:backend sdo:'service search stop'
 &nbsp;
 
  | Prepare fabric commands |
-| Copy all indexes from the old cluster to the new cluster again, to make sure that updates that happened after the initial copy are present in the new cluster. | Same scripts as run earlier. | None |
+| Copy all indexes from the old cluster to the new cluster again, to make sure that updates that happened after the initial copy are present in the new cluster. | Same jenkins job as run earlier. | None |
 | Check that all applications are running correctly.
 
 There should be no errors (if there are errors, restart rummager, and work out why).
@@ -159,6 +159,8 @@ None
 | Start the indexing on the new cluster, to catch up with the changes that happened during the migration | 
 
 Start the sidekiq workers on the new cluster
+
+`fab $ENV class:search sdo:'service rummager-procfile-worker start'`
 
 Updates from the time we switched applications to point at the new rummager cluster should be in the sidekiq queue at this point, and this will apply them to the index in the new cluster.
 
