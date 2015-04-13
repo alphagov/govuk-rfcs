@@ -27,9 +27,9 @@ Deploy: release\_971
  | None |
 | Prevent indexing on the new cluster, to make sure that any changes which get to this cluster aren't applied before we're ready | 
 - Disable puppet on the new cluster (search-[123].api.production) to sidekiq workers aren't started again.  
-`fab preview class:search puppet.disable:'Rummager migration - see https://gov-uk.atlassian.net/wiki/x/XAGKAQ'`
+`fab $ENV class:search puppet.disable:'Rummager migration - see https://gov-uk.atlassian.net/wiki/x/XAGKAQ'`
 - Stop sidekiq workers on the new cluster.  
-`fab preview class:search sdo:'service rummager-procfile-worker stop'`
+`fab $ENV class:search sdo:'service rummager-procfile-worker stop'`
 - Ack the alerts in nagios (should be 3 of them, saying the workers aren't running)
  | None |
 | Copy all indexes from the old cluster to the new cluster | 
@@ -134,8 +134,10 @@ Then visit http://localhost:9000/
  | None |
 | Wait for the sidekiq workers on the old cluster to finish draining the queue | This is likely to have already happened - it should be very quick. Just needs a check using sidekiq-monitoring. | None |
 | Disable the rummager app on the old cluster | 
-- disable puppet on backend-[123].backend machines
-- stop "search" app on backend machines
+- disable puppet on backend-[123].backend machines  
+fab $ENV class:backend puppet.disable:'stopping rummager for migration'
+- stop "search" app on backend machines  
+fab $ENV class:backend sdo:'service search stop'
 
 &nbsp;
 
