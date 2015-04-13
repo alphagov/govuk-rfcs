@@ -22,15 +22,15 @@ search-[123].api cluster is running rummager, talking to api-elasticsearch-[123]
 
 There's a separate deploy job: "Rummager Test"
 
-Deploy release\_971
+Deploy: release\_971
 
  | None |
 | Prevent indexing on the new cluster, to make sure that any changes which get to this cluster aren't applied before we're ready | 
-- Disable puppet on the new cluster (search-[123].api.production) to ensure they're not started again.  
+- Disable puppet on the new cluster (search-[123].api.production) to sidekiq workers aren't started again.  
 `fab preview class:search puppet.disable:'Rummager migration - see https://gov-uk.atlassian.net/wiki/x/XAGKAQ'`
 - Stop sidekiq workers on the new cluster.  
 `fab preview class:search sdo:'service rummager-procfile-worker stop'`
-- Ack the alerts in nagios.
+- Ack the alerts in nagios (should be 3 of them, saying the workers aren't running)
  | None |
 | Copy all indexes from the old cluster to the new cluster | 
 
