@@ -29,11 +29,13 @@ There's a separate deploy job: "Rummager Test"
  | None |
 | Copy all indexes from the old cluster to the new cluster | 
 
-Use es\_dump\_restore. However, es\_dump\_restore upstream doesn't work correctly with aliased indexes, so use the branch at "[https://github.com/rboulton/es\_dump\_restore/tree/fix-dumping](https://github.com/rboulton/es_dump_restore/tree/fix-dumping)".
+Use the "[https://deploy.preview.alphagov.co.uk/job/Migrate\_elasticsearch\_indexes\_to\_new\_cluster](https://deploy.preview.alphagov.co.uk/job/Migrate_elasticsearch_indexes_to_new_cluster)" job.
 
-I'd expect this to take about 15 minutes to run.
+This should take around 10 minutes to run.
 
- | Create jenkins job to run es\_dump\_restore on the appropriate indexes and copy the data across. |
+&nbsp;
+
+ | None. |
 | Change which machines searches and index requests go to, to point to the new rummager instances. From this point, users won't see updates in the search index until we finish the migration. | 
 
 Change where the "search" name points to, to switch requests and indexing over to the new cluster.
@@ -41,7 +43,28 @@ Change where the "search" name points to, to switch requests and indexing over t
 1. 
   - Merge PR to change target of search.
   - Deploy puppet, force convergence on machines we care about
-  - We'd then need to restart all affected apps.
+  - We then need to restart all apps which index or search:
+    - whitehall (indexes + searches)
+    - 
+
+panopticon (indexes)
+
+    - 
+
+specialist-publisher (indexes)
+
+    - 
+
+frontend (searches)
+
+    - 
+
+finder-frontend (searches)
+
+    - 
+
+service-design-manual (searches)
+
  | 
 
 Prepare puppet PR
