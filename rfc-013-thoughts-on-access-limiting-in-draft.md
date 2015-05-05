@@ -46,6 +46,29 @@ Wouldn't solve issue of requesting data twice though, and would need to have a w
 
 &nbsp;
 
+### Agreed solution
+
+After discussion it has been decided to split authorisation and authentication. The content-store will be responsible for authorisation. A new minimal app will live in front of the router and be responsible for authentication.
+
+**content-store**
+
+- Matches user\_id from request header with permitted users/organisations in content item data
+- Returns 403 if user is not permitted to see that item
+
+**gds-api-adapters**
+
+- Understands a "needs authentication" response from the content-store and provides a way of passing it back to the user
+- Parses user token out of the received request and passes it on to all content-store API requests (following the pattern of gds-request-id, which uses middleware with a threadlocal)
+
+**Authenticator/Enforcer service**
+
+- Prevents all access to draft stack for users without a signon cookie;
+- Acts as destination page for redirection from signon and sets a signed cookie containing user data&nbsp;
+  - this may mean we don't want to use gds-sso, since that uses a db table - can we use plain Warden, or is there a conflict with its session cookie?
+- On subsequent requests, gets user\_id from cookie and puts it in a header which is passed on through the stack.
+
+&nbsp;
+
 &nbsp;
 
 &nbsp;
