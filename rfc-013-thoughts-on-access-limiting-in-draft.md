@@ -70,6 +70,8 @@ After discussion it has been decided to split authorisation and authentication. 
 
 ### Flow diagram
 
+&nbsp;
+
 Flow diagram generated using [http://bramp.github.io/js-sequence-diagrams/](http://bramp.github.io/js-sequence-diagrams/)&nbsp;graph source at&nbsp;[https://gist.github.com/heathd/44dd5e0aaede647121f2](https://gist.github.com/heathd/44dd5e0aaede647121f2)
 
 ### Data representation
