@@ -68,9 +68,11 @@ After discussion it has been decided to split authorisation and authentication. 
   - this may mean we don't want to use gds-sso, since that uses a db table - can we use plain Warden, or is there a conflict with its session cookie?
 - On subsequent requests, gets user\_id from cookie and puts it in a header which is passed on through the stack.
 
-&nbsp;
+### Flow diagram
 
-Data representation
+Flow diagram generated using [http://bramp.github.io/js-sequence-diagrams/](http://bramp.github.io/js-sequence-diagrams/)&nbsp;graph source at&nbsp;[https://gist.github.com/heathd/44dd5e0aaede647121f2](https://gist.github.com/heathd/44dd5e0aaede647121f2)
+
+### Data representation
 
 The content item should contain the list of user ids who are allowed to access this item. The publishing application is responsible for providing this list; for example in the case of Whitehall, where access limits are defined by organisation, the app would expand the organisation into a list of its member users. Since draft items are relatively ephemeral, there should no need to provide functionality to republish them if organisation membership changes.
 
