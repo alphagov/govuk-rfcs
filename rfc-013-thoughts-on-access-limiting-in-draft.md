@@ -66,7 +66,7 @@ After discussion it has been decided to split authorisation and authentication. 
 - Prevents all access to draft stack for users without a signon cookie;
 - Acts as destination page for redirection from signon and sets a signed cookie containing user data&nbsp;
   - this may mean we don't want to use gds-sso, since that uses a db table - can we use plain Warden, or is there a conflict with its session cookie?
-- On subsequent requests, gets user\_id from cookie and puts it in a header which is passed on through the stack.
+- On subsequent requests, strips any existing `X-GOVUK-USER`&nbsp;header, gets user\_id from cookie and puts it back into `X-GOVUK-USER`&nbsp;header which is passed on through the stack.
 
 ### Flow diagram
 
