@@ -54,6 +54,7 @@ After discussion it has been decided to split authorisation and authentication. 
 
 - Matches user\_id from request header with permitted users/organisations in content item data
 - Returns 403 if user is not permitted to see that item
+- Ensures that responses from access limited items are marked with no\_cache headers.
 
 **gds-api-adapters**
 
@@ -69,7 +70,13 @@ After discussion it has been decided to split authorisation and authentication. 
 
 &nbsp;
 
-&nbsp;
+Data representation
+
+The content item should contain the list of user ids who are allowed to access this item. The publishing application is responsible for providing this list; for example in the case of Whitehall, where access limits are defined by organisation, the app would expand the organisation into a list of its member users. Since draft items are relatively ephemeral, there should no need to provide functionality to republish them if organisation membership changes.
+
+The `access_limited`&nbsp;object will be constructed as follows:
+
+Defining this as an object with a single "users" key provides flexibility in case we do need to add alternative authorisation methods in the future.
 
 &nbsp;
 
