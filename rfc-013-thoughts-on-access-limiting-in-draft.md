@@ -20,9 +20,7 @@ After discussion it has been decided to split authorisation and authentication. 
 
 **Updates to gds-api-adapters**
 
-&nbsp;
-
-- propagates&nbsp;the user ID in the&nbsp;`X-GOVUK-AUTHENTICATED-USER`&nbsp;header to content-store API requests.
+- propagates&nbsp;the user ID in the&nbsp;`X-GOVUK-AUTHENTICATED-USER`&nbsp;header to content-store API requests
 
 **Updates to government-frontend**
 
