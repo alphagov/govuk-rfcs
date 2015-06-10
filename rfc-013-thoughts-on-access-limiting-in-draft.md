@@ -36,9 +36,9 @@ Flow diagram generated using [http://bramp.github.io/js-sequence-diagrams/](http
 
 The content item should contain the list of user ids who are allowed to access this item. The publishing application is responsible for providing this list; for example in the case of Whitehall, where access limits are defined by organisation, the app would expand the organisation into a list of its member users. Since draft items are relatively ephemeral, there should no need to provide functionality to republish them if organisation membership changes.
 
-The `access_limited`&nbsp;object will be constructed as follows:
+The `access_limited`&nbsp;object may look something like this:
 
-Defining this as an object with a single "users" key provides flexibility in case we do need to add alternative authorisation methods in the future.
+Defining this as an object with a single "users" key provides flexibility in case we do need to add alternative authorisation methods in the future. The exact structure is [to be decided](https://trello.com/c/2DtVf4Yb/198-define-the-schema-for-describing-access-limiting-of-content-items).
 
 &nbsp;
 
