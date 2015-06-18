@@ -8,16 +8,16 @@ The current naming scheme for our different environments is confusing and does n
 
 &nbsp;
 
-| Environment name | Live URL | Preview URL |
-| --- | --- | --- |
+| Environment name | Live URL | Preview URL | Existing environment name | Existing live URL |
+| --- | --- | --- | --- | --- |
 | Production | 
 
 www.gov.uk  
 (www.publishing.service.gov.uk)
 
- | www-preview.publishing.service.gov.uk |
-| Staging | www.staging.publishing.service.gov.uk | www-preview.staging.publishing.service.gov.uk |
-| UAT | www.uat.publishing.service.gov.uk | www-preview.uat.publishing.service.gov.uk |
+ | www-preview.publishing.service.gov.uk | Production | www.gov.uk |
+| Staging | www.staging.publishing.service.gov.uk | www-preview.staging.publishing.service.gov.uk | Staging | production.alphagov.co.uk |
+| UAT | www.uat.publishing.service.gov.uk | www-preview.uat.publishing.service.gov.uk | Preview | preview.alphagov.couk |
 
 &nbsp;
 
