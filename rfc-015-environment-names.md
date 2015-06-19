@@ -17,14 +17,14 @@ www.gov.uk
 
  | www-preview.publishing.service.gov.uk | Production | www.gov.uk |
 | Staging | www.staging.publishing.service.gov.uk | www-preview.staging.publishing.service.gov.uk | Staging | production.alphagov.co.uk |
-| UAT | www.uat.publishing.service.gov.uk | www-preview.uat.publishing.service.gov.uk | Preview | preview.alphagov.couk |
+| Integration | www.integration.publishing.service.gov.uk | www-preview.integration.publishing.service.gov.uk | Preview | preview.alphagov.couk |
 
 &nbsp;
 
 This involves reassigning some existing names for other purposes, and using some completely new names. In particular, what is currently known as the "Draft" stack becomes "Preview". This has two benefits:
 
 - It matches what editors are expecting to do - that is, preview their content before making it live.
-- It weans them off using the separate environment that we currently call "preview", allowing us to rename it to match its actual intended usage, which is for UAT (user acceptance testing).
+- It weans them off using the separate environment that we currently call "preview", allowing us to rename it to match its actual intended usage, which is for integration&nbsp;testing.
 
 Note that the transition will not be as painful as it could be, as no editors are currently using "draft". The main re-education task will be to stop thinking of "preview" as a scratchpad that gets reset regularly, but as somewhere to actually preview content that is going to be live.
 
