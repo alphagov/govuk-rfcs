@@ -31,6 +31,10 @@ This has a few advantages over the previous design:
 
 it also has one main negative - the security model previously offered (total separation of content and data/requests) is no longer as simple to come by. We plan to address this using vShield Edge firewalling.
 
+**Related RFCs**
+
+- &nbsp;
+
 &nbsp;
 
 &nbsp;
