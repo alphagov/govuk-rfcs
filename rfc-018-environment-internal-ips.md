@@ -28,11 +28,11 @@ We will have 3 environments(ENV)(Preview, Staging, Production), Each ENV will ha
 
 | &nbsp; | Preview | Staging | Production | Notes |
 | --- | --- | --- | --- | --- |
-| ENV | 10.0.0.1/13 | 10.8.0.1/13 | 10.16.0.1/13 | &nbsp; |
-| Live ORG | 10.0.0.1/16 | 10.8.0.1/16 | 10.16.0.1/16 | &nbsp; |
+| ENV | 10.0.0.1/13 | 10.8.0.1/13 | 10.16.0.1/13 | 10.X.0.1 -\> 10.(X+7).255.255 = 524,288 addresses |
+| Live ORG | 10.0.0.1/16 | 10.8.0.1/16 | 10.16.0.1/16 | 10.X.0.1 -\> 10.X.255.255 = 65,536 addresses |
 | Licensify ORG | 10.1.0.1/16 | 10.9.0.1/16 | 10.17.0.1/16 | &nbsp; |
 | DR ORG | 10.2.0.1/16 | 10.10.0.1/16 | 10.18.0.1/16 | &nbsp; |
-| Live - Management VDC | 10.0.0.1/23 | 10.8.0.1/23 | 10.16.0.1/23 | &nbsp; |
+| Live - Management VDC | 10.0.0.1/23 | 10.8.0.1/23 | 10.16.0.1/23 | 10.X.Y.1 -\> 10.X.(Y+1).255 = 512 addresses |
 | DR - Management VDC | 10.2.0.1/23 | 10.10.0.1/23 | 10.18.0.1/23 | &nbsp; |
 | Live - Router VDC | 10.0.2.1/23 | 10.8.2.1/23 | 10.16.2.1/23 | &nbsp; |
 | DR - Router VDC | 10.2.2.1/23 | 10.10.2.1/23 | 10.18.2.1/23 | &nbsp; |
