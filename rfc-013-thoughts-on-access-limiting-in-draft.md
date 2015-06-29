@@ -38,7 +38,7 @@ The content item should contain the list of user ids who are allowed to access t
 
 The `access_limited`&nbsp;object may look something like this:
 
-Defining this as an object with a single "users" key provides flexibility in case we do need to add alternative authorisation methods in the future. The exact structure is [to be decided](https://trello.com/c/2DtVf4Yb/198-define-the-schema-for-describing-access-limiting-of-content-items).
+Defining this as an object with a single "users" key provides flexibility in case we do need to add alternative authorisation methods in the future. The exact structure is defined in [govuk-content-schemas](https://github.com/alphagov/govuk-content-schemas/pull/85).
 
 &nbsp;
 
