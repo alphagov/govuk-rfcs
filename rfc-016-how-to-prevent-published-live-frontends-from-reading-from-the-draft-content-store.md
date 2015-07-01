@@ -25,7 +25,15 @@ The draft instance of the content-store application is fronted by Nginx the exis
 
 We initially explored access limiting by IP address within the Nginx virtual host for requests going to `draft-content-store.production.alphagov.co.uk` on the api\_lb machines so as to block requests coming from published instances of frontend applications, however this was not possible because the client IP address in the HTTP request is presented as originating from the API vDC network's gateway IP address. This makes it impossible, in this configuration, to differentiate between requests from published and draft instances of frontend applications.
 
-The only other possibility for implementing access control by IP address would be in the vShield Edge Gateway's firewall rules. Applying a firewall rule for the [existing API vSE load balancer](https://github.gds/gds/govuk-provisioning/blob/c33df9b/vcloud-edge_gateway/rules/lb.yaml.mustache#L169-L175) would not work as both published and draft applications would require access to it
+The only other possibility for implementing access control by IP address would be in the vShield Edge Gateway's firewall rules. Applying a firewall rule for the [existing API vSE load balancer](https://github.gds/gds/govuk-provisioning/blob/c33df9b/vcloud-edge_gateway/rules/lb.yaml.mustache#L169-L175) would not work as both published and draft applications would make requests through the same path and there would be no way to distinguish between requests intended for the published versus draft instances of content-store.&nbsp;
+
+To make that distinction possible, we propose to:
+
+- Instantiate a new vShield Edge Gateway (vSE) named 'DraftAPI', which will use the existing api\_lb machines as its pool members on port 8443.
+- Add a new virtual host to Nginx on the api\_lb machines that listens on port 8443 and have it serve requests destined for `draft-content-store.production.alphagov.co.uk`
+- Add a firewall rule to the vShield Edge Gateway that prevents IP addresses other than those used by the draft\_frontend machines from connecting to the new 'DraftAPI' vSE load balancer.
+
+&nbsp;
 
 &nbsp;
 
