@@ -8,7 +8,9 @@ Now that applications serving draft content are hosted in the same vCloud organi
 
 **Proposal**
 
-We have identified vectors through which a published frontend application might inadvertently read from the draft instance of the content-store application:
+### Risk vectors
+
+We have identified two ways that a published frontend application might inadvertently read from the draft instance of the content-store application:
 
 1. The instance of the content-store used for published content could inadvertently read from the draft instance of the content-store database if its database settings were misconfigured.
 2. Draft instances of frontend applications could inadvertently read from the draft instance of the content-store application if their configuration was incorrect.
