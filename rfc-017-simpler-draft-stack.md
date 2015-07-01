@@ -29,7 +29,7 @@ This has a few advantages over the previous design:
 - It simplifies deployments - we're deploying into a single Org so no need for extra Jenkins machines
 - It simplifies operations - we can use the existing Errbit, Icinga, and Kibana setups; and for 2nd line staff no change is required to SSH configuration
 
-it also has one main negative - the security model previously offered (total separation of content and data/requests) is no longer as simple to come by. We plan to address this using vShield Edge firewalling - RFC to follow describing this.
+it also has one main negative - the security model previously offered (total separation of content and data/requests) is no longer as simple to come by. We plan to address this using vShield Edge firewalling (see ).
 
 **Related RFCs**
 
