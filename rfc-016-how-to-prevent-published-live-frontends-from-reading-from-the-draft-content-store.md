@@ -29,7 +29,7 @@ The only other possibility for implementing access control by IP address would b
 
 To make that distinction possible, we propose to:
 
-- Instantiate a new vShield Edge Gateway (vSE) named 'DraftAPI', which will use the existing api\_lb machines as its pool members on port 8443.
+- Instantiate a new vShield Edge Gateway (vSE) load balancer named 'DraftAPI', which will use the existing api\_lb machines as its pool members on port 8443.
 - Add a new virtual host to Nginx on the api\_lb machines that listens on port 8443 and have it serve requests destined for `draft-content-store.production.alphagov.co.uk`
 - Add a firewall rule to the vShield Edge Gateway that prevents IP addresses other than those used by the draft\_frontend machines from connecting to the new 'DraftAPI' vSE load balancer.
 
