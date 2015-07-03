@@ -14,13 +14,9 @@ Store [manual\_slug =\> [topic content ids]] in a file in HMRC manual API
  - live querying content register;  
  - put sending to rummager into a background worker
 
-Send changenotes to rummager from HMRC Manuals API.
+Send changenotes to rummager from HMRC Manuals API
 
-&nbsp;
-
-&nbsp;
-
-&nbsp;
+Make sure longform changenotes are truncated appropriately in latest feed (in collections app)
 
 &nbsp;
 
