@@ -10,28 +10,14 @@ A further problem is that, even if the HMRC-manuals-API application sent topic t
 
 **Proposal**
 
-Collections reads list of content tagged to a topic from rummager instead of content api (for topic page - already does it for latest feeds)
+Rather than update content-api to know about HMRC manuals, and allow tagging to them, we will update Collections to use Rummager to get the list of content in a topic, rather than Content-API. This should be low-risk, because it's what Collections already uses to display the "latest" feed for a topic.
 
-- makes this different for mainsteam browse pages (but we could add mainstream browse pages to search, or refactor to handle separately)
+Steps:
 
-Store [manual\_slug =\> [topic content ids]] in a file in HMRC manual API  
- - send in links field to publishing API  
- - convert to topic slugs, and send to rummager.  
- - convert to topic slugs by: hardcoding, or querying content register.  
- - live querying content register;  
- - put sending to rummager into a background worker
+1incompleteCollections reads list of content tagged to a topic from rummager instead of content api (for serving the main topic page - it already does this for latest feeds).2incompleteStore a mapping from "manual\_slug" to a list of "topic page" content ids in a file in HMRC manual API. &nbsp;This will be updated by developers, based on tagging assignments&nbsp;from HMRC.3incompleteUse this mapping to populate a "links" field to send to the publishing API for the overall "manual" documents.4incompletePut the "sending to rummager" part of HMRC manuals API into a background worker; only the sending to the "publishing API" will be synchronous.5incompleteIn this background worker, when sending a manual to rummager, first make a call to content register to convert the content ids for the topics to slugs, and then populate the document sent to rummager with these topic slugs.6incompleteAdditionally, we need to update the HMRC Manuals API to send changenotes to rummager, so that the "latest" feed for topic pages will display the latest change note. (There is prior art for this - publisher and whitehall publisher send changenotes to rummager.)7incompleteAlso, we need to make sure that long changenotes are truncated appropriately when displayed in latest feed (in collections app)
+## Problems
 
-Send changenotes to rummager from HMRC Manuals API
-
-Make sure longform changenotes are truncated appropriately in latest feed (in collections app)
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
+This&nbsp;makes the way Collections gathers the content links for topics&nbsp;different to the way it does them for mainsteam browse pages. &nbsp;We'll either have to refactor Collections to do this fetching differently for mainstream browse, or add full information on which mainstream browse pages content is tagged to to the search index (currently, search only knows about the "first" mainstream browse page that content is tagged to, but some content is tagged to multiple mainstream browse pages). &nbsp;I suspect that refactoring to continue serving mainstream browse from the content-api will be the least work for now.
 
 &nbsp;
 
