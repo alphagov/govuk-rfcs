@@ -14,7 +14,7 @@ Ensuring new detailed guides are served under /guidance/
 
   1. 
 
-adding 'guidance/' in front of the detailed\_guides#show route in routes.rb (but keeping the old route live (without 'as:detailed\_guides') to cover deploy time - to be removed 30mn after deploy)
+adding 'guidance/' in front of the detailed\_guides#show route in routes.rb. However keeping the old route live to cover deploy time (to be removed 30mn+ after deploy). It will be the same as the current route,&nbsp;without 'as:detailed\_guides'.
 
 2. 
 
@@ -26,7 +26,7 @@ check in the console that when adding "guidance/" in front of the existing detai
 
   2. 
 
-create a data migration that publishes the new routes and the redirect routes to the router
+create a data migration that publishes the new routes and the redirect routes to the content-store
 
 3. 
 
