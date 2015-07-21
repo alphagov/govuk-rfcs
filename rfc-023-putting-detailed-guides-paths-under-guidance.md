@@ -23,7 +23,7 @@ in Whitehall, adding 'guidance/' in front of the detailed\_guides#show route in 
   1. Panopticon migration to reslug all detailed guides and avoid creating duplicates
   2. 
 
-Republish - run [panopticon::register\_guidance rake task](https://github.com/alphagov/whitehall/blob/master/lib/tasks/panopticon.rake#L24)&nbsp;to republish the content items of existing detailed guides. Because of 1.b, we expect this republish to add another slug under the new url guidance/existing-detailed-guide-slug
+Republish - run [panopticon::register\_guidance rake task](https://github.com/alphagov/whitehall/blob/master/lib/tasks/panopticon.rake#L24)&nbsp;to republish the content items of existing detailed guides.
 
   3. 
 
