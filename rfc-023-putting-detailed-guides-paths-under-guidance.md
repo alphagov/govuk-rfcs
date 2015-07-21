@@ -17,7 +17,7 @@ Ensuring new detailed guides are served under guidance/
 in Whitehall, adding 'guidance/' in front of the detailed\_guides#show route in routes.rb. However keeping the old route live to cover deploy time (to be removed 30mn+ after deploy). It will be the same as the current route,&nbsp;without 'as:detailed\_guides'.
 
   2. in Whitehall, update&nbsp;the [presenter](https://github.com/alphagov/whitehall/blob/master/app/models/registerable_edition.rb#L26-L32)for sending the paths to panopticon to reflect the changes in the paths
-  3. In Panopticon, we&nbsp;might also need to update the slug validation code as it may not accept detailed\_guide artefacts with a `/` in the slug
+  3. In Panopticon, we&nbsp;might also need to [update the slug validation code](https://github.com/alphagov/govuk_content_models/blob/master/app/validators/slug_validator.rb) as it may not accept detailed\_guide artefacts with a `/` in the slug
 2. Ensuring the existing detailed guides are served under guidance/
   1. 
 
