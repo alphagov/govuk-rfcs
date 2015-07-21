@@ -36,7 +36,7 @@ Tell Content-store about new routes
 
   1. 
 
-publish the content items with updated routes to content-store, and create redirect items in content store - question for the publishing team: does content-store update placeholder content-items in the router?
+publish the content items with updated routes to content-store, and create redirect items in content store - question for the publishing team: does content-store update placeholder content-items in the router? answer: no
 
 &nbsp;
 
