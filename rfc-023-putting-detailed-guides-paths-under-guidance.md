@@ -33,6 +33,10 @@ We need to create an equivalent rake task to republish to publishing-api
 
 In Whitehall, run [search reindex](https://github.com/alphagov/whitehall/blob/master/lib/tasks/rummager.rake#L19)&nbsp;
 
+  5. 
+
+In collections-publisher, run a data migration to update all api-urls for when detailed guidance is curated into topics
+
 3. Redirecting old paths of existing detailed guides
   1. Several options:
     1. extract the urls to a csv and put them into router data
