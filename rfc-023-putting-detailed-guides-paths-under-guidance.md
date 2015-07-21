@@ -14,8 +14,10 @@ Ensuring new detailed guides are served under /guidance/
 
   1. 
 
-adding 'guidance/' in front of the detailed\_guides#show route in routes.rb. However keeping the old route live to cover deploy time (to be removed 30mn+ after deploy). It will be the same as the current route,&nbsp;without 'as:detailed\_guides'.
+in Whitehall, adding 'guidance/' in front of the detailed\_guides#show route in routes.rb. However keeping the old route live to cover deploy time (to be removed 30mn+ after deploy). It will be the same as the current route,&nbsp;without 'as:detailed\_guides'.
 
+  2. in Whitehall, update&nbsp;the presenter for sending the paths to panopticon will need to be updated to reflect the changes in the paths -&nbsp;
+  3. We&nbsp;may also need to update the slug validation code in panopticon as it may not accept detailed\_guide artefacts with a `/` in the slug
 2. 
 
 Data migration
