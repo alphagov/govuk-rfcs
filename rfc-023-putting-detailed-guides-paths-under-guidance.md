@@ -17,7 +17,8 @@ Ensuring new detailed guides are served under guidance/
 in Whitehall, adding 'guidance/' in front of the detailed\_guides#show route in routes.rb. However keeping the old route live to cover deploy time (to be removed 30mn+ after deploy). It will be the same as the current route,&nbsp;without 'as:detailed\_guides'.
 
   2. in Whitehall, update&nbsp;the [presenter](https://github.com/alphagov/whitehall/blob/master/app/models/registerable_edition.rb#L26-L32)for sending the paths to panopticon to reflect the changes in the paths
-  3. In Panopticon, we&nbsp;might also need to [update the slug validation code](https://github.com/alphagov/govuk_content_models/blob/master/app/validators/slug_validator.rb) as it may not accept detailed\_guide artefacts with a `/` in the slug
+  3. In Panopticon, we&nbsp;might also need to [update the slug validation code](https://github.com/alphagov/govuk_content_models/blob/master/app/validators/slug_validator.rb) as it may not accept detailed\_guide artefacts with a `/` in the slug  
+  
 2. Ensuring the existing detailed guides are served under guidance/
   1. Panopticon migration to reslug all detailed guides and avoid creating duplicates
   2. 
@@ -26,16 +27,16 @@ Republish - run [rake task](https://github.com/alphagov/whitehall/blob/master/li
 
   3. 
 
-We need to create an equivalent rake task to republish to publishing-api&nbsp;
+We need to create an equivalent rake task to republish to publishing-api
 
-&nbsp;
+  4. 
+
+In Whitehall, run [search reindex](https://github.com/alphagov/whitehall/blob/master/lib/tasks/rummager.rake#L19)&nbsp;
 
 3. Redirecting old paths of existing detailed guides
   1. Several options:
     1. extract the urls to a csv and put them into router data
-    2. add an "was\_previously\_under\_root" boolean to detailed\_guide model, create redirect item for each detailed guide for which it is true
-4. Cleanup in panopticon?
-5. Search and browse
+    2. add an "was\_previously\_under\_root" boolean to detailed\_guide model, create redirect item for each detailed guide for which it is true&nbsp;
 
 &nbsp;
 
