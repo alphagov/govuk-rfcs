@@ -41,6 +41,7 @@ In collections-publisher, run a data migration to update all api-urls for when d
   1. Several options:
     1. extract the urls to a csv and put them into router data
     2. add an "was\_previously\_under\_root" boolean to detailed\_guide model, create redirect item for each detailed guide for which it is true&nbsp;
+    3. add redirects as a model so that a detailed guide has a redirects association, and the redirects are pushed to the Publishing API when a detailed guide is published.
 
 &nbsp;
 
