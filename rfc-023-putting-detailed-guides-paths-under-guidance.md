@@ -25,24 +25,11 @@ Republish
 
     1. 
 
-In url-arbiter, reserve a path for each "guidance/existing-detailed-guide-slug", to ensure there are no duplicates (since manuals also use guidance/)
+In url-arbiter, [reserve a path](https://github.com/alphagov/url-arbiter#reserving-a-path) for each "guidance/existing-detailed-guide-slug", to ensure there are no duplicates (since manuals also use guidance/)
 
     2. Create and run a script to republish the content items of existing detailed guides. Because of 1.b, we expect this republish to update the slugs of the existing detailed guides to guidance/existing-detailed-guide-slug, and the publishing-api to get the updated slug through the republish and 1.a.
-  2.   
-
-    1. 
-
-In Whitehall, create a data migration that publishes the new routes and the redirect routes to the content-store
-
-  3. 
-
-Tell Content-store about new routes
-
-  4. 
-
-publish the content items with updated routes to content-store, and create redirect items in content store - question for the publishing team: does content-store update placeholder content-items in the router? answer: no
-
 3. Redirecting old paths of existing detailed guides
+  1. In Content-store, create a data migration that will create a redirect item for each existing detailed-guide (from /slug to guidance/slug)
 
 &nbsp;
 
