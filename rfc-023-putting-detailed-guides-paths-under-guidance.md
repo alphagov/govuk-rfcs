@@ -10,33 +10,39 @@ Note that currently manuals are also published under `/guidance` so we will need
 
 1. 
 
-Ensuring new detailed guides are served under /guidance/
+Ensuring new detailed guides are served under guidance/
 
   1. 
 
 in Whitehall, adding 'guidance/' in front of the detailed\_guides#show route in routes.rb. However keeping the old route live to cover deploy time (to be removed 30mn+ after deploy). It will be the same as the current route,&nbsp;without 'as:detailed\_guides'.
 
-  2. in Whitehall, update&nbsp;the presenter for sending the paths to panopticon will need to be updated to reflect the changes in the paths -&nbsp;
-  3. We&nbsp;may also need to update the slug validation code in panopticon as it may not accept detailed\_guide artefacts with a `/` in the slug
-2. 
-
-Data migration
-
+  2. in Whitehall, update&nbsp;the [presenter](https://github.com/alphagov/whitehall/blob/master/app/models/registerable_edition.rb#L26-L32)for sending the paths to panopticon to reflect the changes in the paths
+  3. In Panopticon, we&nbsp;might also need to update the slug validation code as it may not accept detailed\_guide artefacts with a `/` in the slug
+2. Ensuring the existing detailed guides are served under guidance/
   1. 
 
-check in the console that when adding "guidance/" in front of the existing detailed guides path, there are no duplicates (since manuals also use guidance/), by asking url-arbiter
+Republish
 
-  2. 
+    1. 
 
-create a data migration that publishes the new routes and the redirect routes to the content-store
+In url-arbiter, reserve a path for each "guidance/existing-detailed-guide-slug", to ensure there are no duplicates (since manuals also use guidance/)
 
-3. 
+    2. Create and run a script to republish the content items of existing detailed guides. Because of 1.b, we expect this republish to update the slugs of the existing detailed guides to guidance/existing-detailed-guide-slug, and the publishing-api to get the updated slug through the republish and 1.a.
+  2.   
+
+    1. 
+
+In Whitehall, create a data migration that publishes the new routes and the redirect routes to the content-store
+
+  3. 
 
 Tell Content-store about new routes
 
-  1. 
+  4. 
 
 publish the content items with updated routes to content-store, and create redirect items in content store - question for the publishing team: does content-store update placeholder content-items in the router? answer: no
+
+3. Redirecting old paths of existing detailed guides
 
 &nbsp;
 
