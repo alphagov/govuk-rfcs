@@ -19,13 +19,16 @@ in Whitehall, adding 'guidance/' in front of the detailed\_guides#show route in 
   2. in Whitehall, update&nbsp;the [presenter](https://github.com/alphagov/whitehall/blob/master/app/models/registerable_edition.rb#L26-L32)for sending the paths to panopticon to reflect the changes in the paths
   3. In Panopticon, we&nbsp;might also need to [update the slug validation code](https://github.com/alphagov/govuk_content_models/blob/master/app/validators/slug_validator.rb) as it may not accept detailed\_guide artefacts with a `/` in the slug
 2. Ensuring the existing detailed guides are served under guidance/
-  1. 
+  1. Panopticon migration to reslug all detailed guides and avoid creating duplicates
+  2. 
 
 Republish - run [rake task](https://github.com/alphagov/whitehall/blob/master/lib/tasks/panopticon.rake#L24)&nbsp;to republish the content items of existing detailed guides. Because of 1.b, we expect this republish to add another slug under the new url guidance/existing-detailed-guide-slug
 
-  2. 
+  3. 
 
 We need to create an equivalent rake task to republish to publishing-api&nbsp;
+
+&nbsp;
 
 3. Redirecting old paths of existing detailed guides
   1. Several options:
