@@ -25,22 +25,29 @@ We currently have a nightly jenkins job which runs to fetch from GA the number o
 
 The downloaded data could also be used to populate a list of pages which have received traffic in the last fortnight. GA information includes the response status code for the pages, so could be filtered to only return pages which are currently returning a 2xx response.
 
-The requests made to GA could be extended to also fetch the frontend app serving each page, and could be extended to populate a list of the top pages by traffic for all time. &nbsp;(Fetching all pages by all-time traffic is possible, but would produce a heavily sample response, ie, many pages would be omitted if you asked GA for this directly.)
+The requests made to GA could be extended to also fetch the frontend app serving each page, and a list of the top pages by traffic for all time. &nbsp;(Fetching all pages by all-time traffic is possible, but would produce a heavily sampled response, ie, many pages would be omitted if you asked GA for this directly.)
 
 **Problems** :
 
-- Pages which aren't visited won't be represented in this output.
-- Need to implement fetching status code and frontend app together with the other data.
+- This won't cover any "assets" urls - eg, PDFs, since no GA event is triggered for these. (Do we already have separate monitoring for assets working, though?)
+- What should be done with query parameters? &nbsp;For most pages, we should ignore query parameters - but for some pages (eg, search forms) they are significant, and it would be good to be checking that common search pages work. &nbsp;We may need to have a whitelist of pages where we preserve query parameters.
+- We have sometimes had pages on the site which ignore all path components after a certain point. &nbsp;This can lead to an arbitrary number of different paths, made up by users, being visited (and getting HTTP 200 responses). &nbsp;This might make the list of all pages visited grow indefinitely. &nbsp;(We should probably fix such cases to return either an error, or a redirect to the canonical URL.)
+- Pages which have never been visited won't be represented in this output. (This probably only affects very new pages.)
+- There's currently very few people who know the search-analytics code base. &nbsp;(This problem is also an opportunity!)
+- Fetching data from GA is mildly tricky (due to quirks of the platform).
 
 ### Search index
 
 The search index contains a list of pages on the site. &nbsp;This is used to populate the "sitemap" pages.&nbsp;The list of pages in the search index could be used for the monitoring.
 
+Popularity information is also loaded into the search index nightly, so this could be used to identify the top pages.
+
 **Problems:**
 
-A failure of the search index system which lost some documents from it could plausibly cause some pages on the site to start returning 4xx errors, or erroring. &nbsp;However, this wouldn't be detected if the monitoring used the same list of documents.
-
-However, the search index could be used in the same way as suggested for GA above, as a source of URLs to add to a list held in a separate system.
+- Not all documents are in search.
+- The frontend app serving a page isn't currently recorded in search. &nbsp;(And it would be awkward to add it currently)
+- Search only has a "canonical" URL for documents. &nbsp;Multi-page documents (eg, guidance) often only have the entry page of them represented in search.
+- A failure of the search index system which lost some documents from it could plausibly cause some pages on the site to start returning 4xx errors, or erroring. &nbsp;However, this wouldn't be detected if the monitoring used the same list of documents.
 
 ### Content store
 
@@ -48,9 +55,8 @@ The content store apps (perhaps the content-register part of this app cluster) c
 
 **Problems** :
 
-As with the search index, if the content store lost information on a page, we wouldn't get alerts if the content store was also the source of the list of pages to monitor.
-
-Also, we want to monitor all the urls that are active on the site: a content store item may represent content spread across multiple urls, and there may be no easy way to get a list of all the urls that the item can be accessed at.
+- No information on traffic levels to pages
+- A content store item may represent content spread across multiple urls, and there may be no easy way to get a list of all the urls that the item can be accessed at
 
 ### Direct from apps
 
@@ -58,7 +64,11 @@ The individual apps could generate lists of their pages to be monitored.
 
 **Problems:**
 
-There are a lot of apps, and custom code would need to be written and maintained for each one. &nbsp;This is probably a non-starter.
+- There are a lot of apps, and custom code would need to be written and maintained for each one. &nbsp;This is probably a non-starter.
+
+### Recommendation
+
+Fetching data from GA is probably the simplest way to get a good coverage of pages.
 
 ## What to do with the lists of pages
 
@@ -66,21 +76,34 @@ The result of fetching this data could either be written directly to a file in s
 
 Using a git repository for this monitoring would have the nice property that false positives could be resolved by manually editing the repository to remove incorrect entries. &nbsp;Further, it would produce a history of which pages were live on the site at a particular time.
 
-**Recommendation: use a git repository**** , pushing updates to it nightly. &nbsp;Have nagios monitoring on the timestamp of the last push to this repository.** I don't see any reason that such a repository couldn't be open access. &nbsp;I would imagine this git repository containing a single, large, CSV file, with one line per page on the site. (in sorted order by base\_path,&nbsp;
+### **Recommendation**
 
-## Where to run the monitoring
-
-We want monitoring on high-traffic pages to run frequently.
-
-Checks should be run avoiding caches - so we need to ensure that they don't put too high a load on the apps themselves.
+- Use a git repository, pushing updates to it nightly. **&nbsp;&nbsp;** I would imagine this git repository containing a single, large, CSV file, with one line per page on the site. (in sorted order by base\_path, to make for minimal diffs). &nbsp;It might also contain a separate file with top pages by traffic for each frontend app.
+- Ensure that the nightly automatic update of this repository performs a "pull" of the repository before updating it, so that it copes with intervening manual edits.
+- Have a nagios monitoring check on the timestamp of the last push to this repository, to ensure it's being successfully updated.
+- If exceptions to the monitoring are required (eg, paths which we do not want the monitoring to check), record these in the same git repository, such that the monitoring can be entirely configured by editing the repository.
 
 &nbsp;
 
+## Where to run the monitoring
+
+Requirements are:
+
+- Identify problems on high traffic pages quickly (within 5 minutes)
+- Identify problems on lower traffic pages "eventually" (ideally within a few hours)
+- It should be easy to trigger a check of the top pages for a given app (ideally, this would happen automatically after a deploy)
+- 
+
+The checks should be run avoiding caches - so we need to ensure that they don't put too high a load on the apps themselves.
+
 **Question** : should smokey run these tests?&nbsp;Or should we have a separate persistent app?
 
-One advantage of a persistent app is that &nbsp;which gradually covers all pages? &nbsp;Or do statistical sampling (pick N of the "not highest traffic" pages)
+Suggestion:
 
-## Accidentally reverted pages
+- Smokey runs automatic checks of the top few pages.
+- A separate persistent app performs a gradual sampling of pages on the site, reporting problems via nagios.
+
+## Accidentally published pages
 
 Some pages are accidentally published, and then have to be reverted.&nbsp;This normally only happens to comply with legal obligations.
 
@@ -91,7 +114,7 @@ We'll make two assumptions about accidentally published pages:
 
 To avoid making false-positive alerts about such pages, we'll exclude any such pages; ie, any pages which haven't been published for more than 7 days, unless they're in the top 100 pages served by their app. This information is available from analytics.
 
-These assumptions aren't "watertight", but if violated will result in false positive alerts. We'd probably want to know about such problems anyway, and I think they'll very rarely be incorrect assumptions, so this seems likely not to be a problem. We can iterate the thresholds if they do turn out to be a problem.
+These assumptions aren't "watertight", but if violated would result in false positive alerts. We'd probably want to know about such problems anyway, and I think they'll very rarely be incorrect assumptions, so this seems likely not to be a problem. We can iterate the thresholds if they do turn out to be a problem.
 
 &nbsp;
 
