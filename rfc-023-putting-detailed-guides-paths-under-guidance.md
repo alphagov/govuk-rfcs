@@ -21,11 +21,7 @@ in Whitehall, adding 'guidance/' in front of the detailed\_guides#show route in 
 2. Ensuring the existing detailed guides are served under guidance/
   1. 
 
-Republish
-
-    1. 
-
-Create and run a script to republish the content items of existing detailed guides. Because of 1.b, we expect this republish to update the slugs of the existing detailed guides to guidance/existing-detailed-guide-slug, and the publishing-api to get the updated slug through the republish and 1.a.
+Republish - run rake task&nbsp;to republish the content items of existing detailed guides. Because of 1.b, we expect this republish to update the slugs of the existing detailed guides to guidance/existing-detailed-guide-slug, and the publishing-api to get the updated slug through the republish and 1.a.
 
 3. Redirecting old paths of existing detailed guides
   1. In Content-store, create and run a script that will create a [redirect item](https://github.com/alphagov/content-store/blob/master/doc/redirect_item.md) for each existing detailed-guide (from /slug to guidance/slug). We hope that this will inform the router about the new route.
