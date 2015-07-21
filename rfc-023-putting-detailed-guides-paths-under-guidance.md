@@ -29,9 +29,10 @@ We need to create an equivalent rake task to republish to publishing-api&nbsp;
 
 3. Redirecting old paths of existing detailed guides
   1. Several options:
-    1. extract the urls to a csv
+    1. extract the urls to a csv and put them into router data
     2. add an "was\_previously\_under\_root" boolean to detailed\_guide model, create redirect item for each detailed guide for which it is true
-  2. In Whitehall, create and run a script that will create a [redirect item](https://github.com/alphagov/content-store/blob/master/doc/redirect_item.md) for each existing detailed-guide (from /slug to guidance/slug). We hope that this will inform the router about the new route.
+4. Cleanup in panopticon?
+5. Search and browse
 
 &nbsp;
 
