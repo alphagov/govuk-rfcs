@@ -35,8 +35,8 @@ In collections-publisher, run a data migration to update all api-urls for when d
 
 3. Redirecting old paths of existing detailed guides
   1. Several options:
-    1. extract the urls to a csv and put them into router data
-    2. add an "was\_previously\_under\_root" boolean to detailed\_guide model, create redirect item for each detailed guide for which it is true&nbsp;
+    1. extract the URLs to a CSV and add them into router-data
+    2. in Whitehall, add a "was\_previously\_under\_root" boolean attribute to the DetailedGuide model; for&nbsp;each detailed guide which has this attribute as true,&nbsp;push a redirect to the Publishing API
     3. add redirects as a model so that a detailed guide has a redirects association, and the redirects are pushed to the Publishing API when a detailed guide is published.
 
 # To do
