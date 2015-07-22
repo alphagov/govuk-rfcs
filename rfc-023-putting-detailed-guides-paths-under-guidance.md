@@ -27,7 +27,7 @@ Republish - run [panopticon::register\_guidance rake task](https://github.com/al
 
   3. 
 
-We need to create an equivalent rake task to republish to publishing-api
+We need to create an equivalent rake task to republish to publishing-api.&nbsp;There is already a&nbsp;[PublishingApiRepublisher](https://github.com/alphagov/whitehall/blob/master/lib/data_hygiene/publishing_api_republisher.rb)&nbsp;class in&nbsp;lib/data\_hygiene that takes an edition scope (eg DetailedGuide.published) and republishes them - we would need to call that from the rake task.
 
   4. 
 
