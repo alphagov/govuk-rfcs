@@ -23,17 +23,13 @@ in Whitehall, adding 'guidance/' in front of the detailed\_guides#show route in 
   1. Panopticon migration to reslug all detailed guides and avoid creating duplicates
   2. 
 
- of existing detailed guides.
+We need to create a rake task to republish to publishing-api.&nbsp;There is already a&nbsp;[PublishingApiRepublisher](https://github.com/alphagov/whitehall/blob/master/lib/data_hygiene/publishing_api_republisher.rb)&nbsp;class in&nbsp;lib/data\_hygiene that takes an edition scope (eg DetailedGuide.published) and republishes them - we would need to call that from the rake task.
 
   3. 
 
-We need to create an equivalent rake task to republish to publishing-api.&nbsp;There is already a&nbsp;[PublishingApiRepublisher](https://github.com/alphagov/whitehall/blob/master/lib/data_hygiene/publishing_api_republisher.rb)&nbsp;class in&nbsp;lib/data\_hygiene that takes an edition scope (eg DetailedGuide.published) and republishes them - we would need to call that from the rake task.
+In Whitehall, run the [rummager::reset::detailed](https://github.com/alphagov/whitehall/blob/master/lib/tasks/rummager.rake#L44) rake task to reindex the detailed guides in search.
 
   4. 
-
-In Whitehall, run the [rummager::reset::detailed](https://github.com/alphagov/whitehall/blob/master/lib/tasks/rummager.rake#L44) rake task
-
-  5. 
 
 In collections-publisher, run a data migration to update all api-urls for when detailed guidance is curated into topics
 
