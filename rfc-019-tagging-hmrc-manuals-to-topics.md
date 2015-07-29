@@ -25,7 +25,3 @@ This&nbsp;makes the way Collections gathers the content links for topics&nbsp;di
 
 &nbsp;
 
-&nbsp;
-
-&nbsp;
-
