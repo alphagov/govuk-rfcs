@@ -19,6 +19,12 @@ Steps:
 
 This&nbsp;makes the way Collections gathers the content links for topics&nbsp;different to the way it does them for mainsteam browse pages. &nbsp;We'll either have to refactor Collections to do this fetching differently for mainstream browse, or add full information on which mainstream browse pages content is tagged to to the search index (currently, search only knows about the "first" mainstream browse page that content is tagged to, but some content is tagged to multiple mainstream browse pages). &nbsp;I suspect that refactoring to continue serving mainstream browse from the content-api will be the least work for now.
 
+### Related pages:
+
+&nbsp;
+
+&nbsp;
+
 &nbsp;
 
 &nbsp;
