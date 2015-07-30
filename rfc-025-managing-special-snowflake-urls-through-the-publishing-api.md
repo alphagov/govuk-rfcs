@@ -1,6 +1,6 @@
 ## **Problem**
 
-There are a [number of URLs on GOV.UK](https://docs.google.com/spreadsheets/d/1LUpym0SVeOkom-k6qnqUic1tyIRhnHgKrAsXwr1kX5w/edit#gid=0) which do not fall into the category of traditional leaf-node published content e.g. robots.txt, search, or the homepage.
+There are a number of URLs on GOV.UK which do not fall into the category of traditional leaf-node published content e.g. robots.txt, search, or the homepage.
 
 These URLs are frequently registered with the router directly. &nbsp;Since they aren't entered into the URL arbiter this sometimes causes clashes and/or [downtime if important routes are overwritten](https://docs.google.com/document/d/1Ev_axmMdvsg3WTnYpdYVBciSAzM3q64QklB8MOZl7Go).
 
