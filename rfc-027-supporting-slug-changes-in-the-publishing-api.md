@@ -9,7 +9,7 @@ GOV.UK's existing publishing tools were built upon the assumption that document 
 
 However as GOV.UK has matured, the factors in this trade-off have changed:
 
-- we now have vastly more content on GOV.UK, so although the probability of a slug change per document may be unchanged, slug change requests are much more frequent
+- we now have vastly more content on GOV.UK, so although the chance of a particular document needing a slug change remains low, slug change requests are still much more frequent
 - our systems have become more complex over time and the effort involved in performing a slug change manually without introducing errors has increased
 
 If we need evidence of the cost and the frequency of slug changes, we could review the workload of 2nd line support.
