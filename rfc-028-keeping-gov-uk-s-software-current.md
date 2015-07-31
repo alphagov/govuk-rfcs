@@ -21,7 +21,7 @@ New versions of Ruby bring us improved performance and nicer syntax for certain 
 - Be running on the current major version - this currently means `2.y.z`
 - Maintain our applications at the current or next-to-current minor version - this means `2.2.z` or `2.1.z`, depending on your app's dependencies
 
-We have several applications still running the `1.9.3`&nbsp;family (this version and `2.y.z`&nbsp;are now obsolete) - these applications should have their upgrade path captured in backlogs and prioritised for the next time an application is worked on, or within the quarter: whichever is first.
+We have several applications still running the `1.9.3`&nbsp;family (this version and `2.0.z`&nbsp;are now obsolete) - these applications should have their upgrade path captured in backlogs and prioritised for the next time an application is worked on, or within the quarter: whichever is first.
 
 # Current state
 
