@@ -14,6 +14,8 @@ Many of the default generated Rails config files include code to read these&nbsp
 
 These environment variables will be set by whatever mechanism is responsible for&nbsp;starting the app. At present, this is handled by the `govuk_setenv` script that&nbsp;reads environment variables from files managed by puppet. In future this&nbsp;mechanism may change, but the important point is that the applications&nbsp;themselves won't need to be updated to reflect this change, they'll continue to&nbsp;read the same environment variables.
 
+## Logging
+
 &nbsp;
 
 &nbsp;
