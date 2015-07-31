@@ -30,7 +30,15 @@ TODO: Document how to configure Rails to follow the above.
 - omniauth logs things to STDOUT by default. gds-sso will need to be updated to&nbsp;configure it to log elsewhere.  
 Alternatively it may be easier and safer to redirect STDOUT to STDERR, so that only known things will log to the real STDOUT&nbsp;
 
-&nbsp;
+## Asset serving
+
+Twelve-factor recommends that:
+
+> " **The twelve-factor app is completely self-contained** &nbsp;and does not rely on runtime injection of a webserver into the execution environment to create a web-facing service." -&nbsp;[reference](http://12factor.net/port-binding)
+
+This is at odds with the way we currently serve static assets (nginx is configured to serve everything from the public directory). Some thought needs to be given as to whether this is an acceptable deviation for the efficiency benefits.
+
+The alternative would be to have these assets served by the application process using some rack middleware. We'd need to ensure that this was as efficient as possible (ensure it could be multi-threaded so as not to block application requests), and set appropriate cache headers.
 
 &nbsp;
 
