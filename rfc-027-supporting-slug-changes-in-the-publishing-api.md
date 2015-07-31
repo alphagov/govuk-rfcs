@@ -63,6 +63,7 @@ This is an early draft, there are probably many things I have missed or not thou
 - Do you agree with the end goal?
 - Do you see any issues with migrating to this?
 - Can you see any problems or risks I haven't identified?  
+- Does anything need fleshing out further?
 
 Thanks for reading and for your input!
 
