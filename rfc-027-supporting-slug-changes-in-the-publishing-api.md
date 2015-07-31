@@ -43,7 +43,7 @@ This implies that&nbsp;`content_id` would be **required** &nbsp;for all content 
 In order to transition to this approach there are a few options:
 
 - introduce a set of publishing API endpoints which accept content by guid (e.g.&nbsp;`PUT /content_by_guid/,`&nbsp;`PUT /draft_content_by_guid/` or something similar)
-- allow the existing endpoints to detect a slug which looks like a guid and treat it as such. Although slightly hacky, I the chance that a normal slug would match the patter for a guid is extremely low.
+- allow the existing endpoints to detect a slug which looks like a guid and treat it as such. Although slightly hacky, the chance that a normal slug would match the pattern for a guid is extremely low.
 
 #### Benefits of using `content_id`&nbsp;as primary identifier
 
