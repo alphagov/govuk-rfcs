@@ -25,7 +25,10 @@ We have several applications still running the `1.9.3`&nbsp;family (this version
 
 # Current state
 
-The current state of the Ruby and Rails versions is [listed in this versions spreadsheet](https://docs.google.com/spreadsheets/d/1FJmr39c9eXgpA-qHUU6GAbbJrnenc0P7JcyY2NB9PgU/edit#gid=1480786499) by&nbsp;alext.&nbsp;
+The current state of the Ruby and Rails versions is:
+
+- [Listed in this versions spreadsheet](https://docs.google.com/spreadsheets/d/1FJmr39c9eXgpA-qHUU6GAbbJrnenc0P7JcyY2NB9PgU/edit#gid=1480786499) by&nbsp;alext
+- [Another spreadsheet with team ownership](https://docs.google.com/a/digital.cabinet-office.gov.uk/spreadsheets/d/17SaFqFqVEMoabq-FjEeCHpUmA5yAjqLr_Vt-lDeXMsE/edit?usp=sharing) by&nbsp;alexandria.jackson.
 
 &nbsp;
 
