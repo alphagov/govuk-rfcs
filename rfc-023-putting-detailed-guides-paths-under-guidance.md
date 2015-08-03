@@ -20,6 +20,7 @@ in Whitehall, adding 'guidance/' in front of the detailed\_guides#show route in 
   3. In Panopticon, we&nbsp;might also need to [update the slug validation code](https://github.com/alphagov/govuk_content_models/blob/master/app/validators/slug_validator.rb) as it may not accept detailed\_guide artefacts with a `/` in the slug  
   
 NB: in the routes, /specialist/detailed-guide-slug redirects to root/detailed-guide-slug, so as another story we should make it redirect to /guidance/detailed-guide-slug directly.  
+NB: also, in govuk\_content\_models, we will need to disallow URLs at the root once the migration of old guides is complete  
   
 2. Ensuring the existing detailed guides are served under guidance/
   1. Panopticon migration to reslug all detailed guides and avoid creating duplicates
