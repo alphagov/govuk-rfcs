@@ -46,3 +46,7 @@ In collections-publisher, run a data migration to update all api-urls for when d
 
 Arrange the above steps in such a way that nothing breaks.
 
+---
+status: "ONGOING"
+notes: " "
+---
