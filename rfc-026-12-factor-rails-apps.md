@@ -12,7 +12,7 @@ Any config details that are specific to the deployment environment should be&nbs
 
 Many of the default generated Rails config files include code to read these&nbsp;values from the environment in production (eg [secrets.yml](https://github.com/rails/rails/blob/4-2-stable/railties/lib/rails/generators/rails/app/templates/config/secrets.yml)).&nbsp;We should use these environment variable names where they exist.
 
-These environment variables will be set by whatever mechanism is responsible for&nbsp;starting the app. At present, this is handled by the `govuk_setenv` script that&nbsp;reads environment variables from files managed by puppet. In future this&nbsp;mechanism may change, but the important point is that the applications&nbsp;themselves won't need to be updated to reflect this change, they'll continue to&nbsp;read the same environment variables.
+These environment variables will be set by whatever mechanism is responsible for&nbsp;starting the app. At present, this is handled by the `govuk_setenv`&nbsp;script that&nbsp;reads environment variables from files managed by puppet. In future this&nbsp;mechanism may change, but the important point is that the applications&nbsp;themselves won't need to be updated to reflect this change, they'll continue to&nbsp;read the same environment variables.
 
 ## Logging
 
@@ -34,7 +34,7 @@ Alternatively it may be easier and safer to redirect STDOUT to STDERR, so that o
 
 Twelve-factor recommends that:
 
-> " **The twelve-factor app is completely self-contained** &nbsp;and does not rely on runtime injection of a webserver into the execution environment to create a web-facing service." -&nbsp;[reference](http://12factor.net/port-binding)
+> "The twelve-factor app is completely self-contained&nbsp;and does not rely on runtime injection of a webserver into the execution environment to create a web-facing service." -&nbsp;[reference](http://12factor.net/port-binding)
 
 This is at odds with the way we currently serve static assets (nginx is configured to serve everything from the public directory). Some thought needs to be given as to whether this is an acceptable deviation for the efficiency benefits.
 
