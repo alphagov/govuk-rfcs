@@ -16,19 +16,19 @@ These environment variables will be set by whatever mechanism is responsible for
 
 ## Logging
 
-Applications should not deal with opening logfiles etc. Instead they should log&nbsp;to STDOUT, and STDERR. The OS should deal with capturing these streams and&nbsp;storing them as appropriate. Details - [http://12factor.net/logs](http://12factor.net/logs)
+Applications should not deal with opening logfiles etc. Instead they should log&nbsp;to `STDOUT`, and `STDERR`. The OS should deal with capturing these streams and&nbsp;storing them as appropriate. Details - [http://12factor.net/logs](http://12factor.net/logs)
 
-- General logging SHOULD be sent to STDERR.
-- Request logs SHOULD be sent to STDOUT as JSON lines suitable for logstash.
-- Apps MAY send additional log lines to STDOUT providing they are JSON formatted.
-- Apps MUST NOT send any non-JSON logging to STDOUT.
+- General logging SHOULD be sent to `STDERR`.
+- Request logs SHOULD be sent to `STDOUT` as JSON lines suitable for logstash.
+- Apps MAY send additional log lines to `STDOUT` providing they are JSON formatted.
+- Apps MUST NOT send any non-JSON logging to `STDOUT`.
 
 TODO: Document how to configure Rails to follow the above.
 
 ### Known issues
 
-- omniauth logs things to STDOUT by default. gds-sso will need to be updated to&nbsp;configure it to log elsewhere.  
-Alternatively it may be easier and safer to redirect STDOUT to STDERR, so that only known things will log to the real STDOUT&nbsp;
+- omniauth logs things to `STDOUT` by default. gds-sso will need to be updated to&nbsp;configure it to log elsewhere.  
+Alternatively it may be easier and safer to redirect `STDOUT` to `STDERR`, so that only known things will log to the real `STDOUT`&nbsp;
 
 ## Asset serving
 
