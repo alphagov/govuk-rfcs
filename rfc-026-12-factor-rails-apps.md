@@ -46,6 +46,66 @@ A twelve-factor app should "Explicitly declare and isolate dependencies" ([http:
 
 One area that's not so well covered is any non-gem dependencies provided by the&nbsp;OS. This includes things like external programs (imagemagick, tika etc...), and&nbsp;any libraries required by gems with native extensions (eg libxml), and the&nbsp;compilers necessary to build them. There's no obvious way to resolve this with&nbsp;our current infrastructure, we therefore recommend that a decision on how to&nbsp;resolve this is deferred until we migrate to a containerised setup.
 
+## Separate the build and release stages
+
+Our current deploy process doesn't map onto the process described by twelve-factor ([http://12factor.net/build-release-run](http://12factor.net/build-release-run)).
+
+We're currently using a Capistrano deploy style which does most of the building on the app servers at deploy time. Given ruby is a non-compiled language, there isn't much building to do - it mostly comes down to building assets, and bundling.
+
+We should investigate how to build a single artefact that can be simply deployed and run on servers taking all the necessary config from the environment. &nbsp;This is probably another point that should be deferred until we are transitioning to a containerised setup.
+
+# 12-factor principles
+
+For reference these are all the twelve-factor principles:
+
+[I. Codebase](http://12factor.net/codebase)&nbsp;-&nbsp;One codebase tracked in revision control, many deploys
+
+We already do this.
+
+[II. Dependencies](http://12factor.net/dependencies)&nbsp;-&nbsp;Explicitly declare and isolate dependencies
+
+See above...
+
+[III. Config](http://12factor.net/config)&nbsp;-&nbsp;Store config in the environment
+
+See above...
+
+[IV. Backing Services](http://12factor.net/backing-services)&nbsp;-&nbsp;Treat backing services as attached resources
+
+We already do this (when combined with the Config approach above).
+
+[V. Build, release, run](http://12factor.net/build-release-run)&nbsp;-&nbsp;Strictly separate build and run stages
+
+See above...
+
+[VI. Processes](http://12factor.net/processes)&nbsp;-&nbsp;Execute the app as one or more stateless processes
+
+We already do this
+
+[VII. Port binding](http://12factor.net/port-binding)&nbsp;-&nbsp;Export services via port binding
+
+We already do this
+
+[VIII. Concurrency](http://12factor.net/concurrency)&nbsp;-&nbsp;Scale out via the process model
+
+We already do this
+
+[IX. Disposability](http://12factor.net/disposability)&nbsp;-&nbsp;Maximize robustness with fast startup and graceful shutdown
+
+Unicorn given us this feature.
+
+[X. Dev/prod parity](http://12factor.net/dev-prod-parity)&nbsp;-&nbsp;Keep development, staging, and production as similar as possible
+
+We already do this
+
+[XI. Logs](http://12factor.net/logs)&nbsp;-&nbsp;Treat logs as event streams
+
+See above...
+
+[XII. Admin processes](http://12factor.net/admin-processes)&nbsp;-&nbsp;Run admin/management tasks as one-off processes
+
+Rake tasks give us this.
+
 &nbsp;
 
 &nbsp;
