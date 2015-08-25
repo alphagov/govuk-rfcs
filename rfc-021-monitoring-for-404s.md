@@ -1,4 +1,4 @@
-##### **Problem**
+## **Problem**
 
 We have recently experienced two incidents ( and&nbsp;) where sections of GOV.UK started returning HTTP 404 responses for content which was previously valid. &nbsp;No automated monitoring picked up these incidents - we'd like to have automated monitoring if this happens in future.
 
@@ -18,6 +18,24 @@ If such a page returns an HTTP 5xx response, we probably have a temporary proble
 ## Getting a list of pages to monitor
 
 There are various possible sources of lists of pages to monitor.
+
+### CDN logs
+
+We have access to the logs from our CDN. &nbsp;These contain the following information for each page viewed on the site:
+
+- IP address
+- Timestamp
+- HTTP method
+- Full path (including query parameters)
+- HTTP response status
+
+We could process these (perhaps daily) to get a count of the number of times each path was accessed, and returned a 2xx status code. &nbsp;The transitiion-stats repo performs similar analysis for the logs for sites which have been transitioned to GOV.UK.
+
+**Problems:**
+
+- No information on which app owns a path
+
+**Note** :&nbsp;Some other summary information from this might be of interest to analysts (eg, counts of the number of accesses of particular asset URLs), so we should consider whether there's any easy way to expose such data for other uses.
 
 ### GA
 
@@ -68,7 +86,7 @@ The individual apps could generate lists of their pages to be monitored.
 
 ### Recommendation
 
-Fetching data from GA is probably the simplest way to get a good coverage of pages.
+Fetching data from the CDN logs is probably the simplest way to get a good coverage of pages. &nbsp;This might be done using the code in the transistion-stats repo, or some other approach.
 
 ## What to do with the lists of pages
 
