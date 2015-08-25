@@ -3,8 +3,8 @@
 &nbsp;
 
 ---
-status: "IN PROGRESS"
-notes: "Closing for comments on 25th Aug, 2015"
+status: "ACCEPTED"
+notes: "Got thumbsups from a developer and an interaction designer"
 ---
 
 ## Problem
