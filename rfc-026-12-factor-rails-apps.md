@@ -92,7 +92,7 @@ We already do this
 
 [IX. Disposability](http://12factor.net/disposability)&nbsp;-&nbsp;Maximize robustness with fast startup and graceful shutdown
 
-Unicorn given us this feature.
+Unicorn gives us this feature.
 
 [X. Dev/prod parity](http://12factor.net/dev-prod-parity)&nbsp;-&nbsp;Keep development, staging, and production as similar as possible
 
