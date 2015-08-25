@@ -40,6 +40,12 @@ This is at odds with the way we currently serve static assets (nginx is configur
 
 The alternative would be to have these assets served by the application process using some rack middleware. We'd need to ensure that this was as efficient as possible (ensure it could be multi-threaded so as not to block application requests), and set appropriate cache headers.
 
+## Dependencies
+
+A twelve-factor app should "Explicitly declare and isolate dependencies" ([http://12factor.net/dependencies](http://12factor.net/dependencies)). Rails apps mostly have this covered through the use of Bundler and Gemfiles.
+
+One area that's not so well covered is any non-gem dependencies provided by the&nbsp;OS. This includes things like external programs (imagemagick, tika etc...), and&nbsp;any libraries required by gems with native extensions (eg libxml), and the&nbsp;compilers necessary to build them. There's no obvious way to resolve this with&nbsp;our current infrastructure, we therefore recommend that a decision on how to&nbsp;resolve this is deferred until we migrate to a containerised setup.
+
 &nbsp;
 
 &nbsp;
