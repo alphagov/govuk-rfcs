@@ -64,16 +64,40 @@ Get a list of the content which has a link of the given type to the given conten
  | 
 - Collections-publisher
  |
-| **frontend-get** | `GET http://frontend-api/content/<base_path>` | Get a content item, with details of many of the fields in linked items expanded. Ideally, we want this call to take no options, allowing us to pre-calculate all these responses. | 
+| **frontend-get** | `GET http://frontend-api/content/<base_path>` | 
+
+Get a content item, with details of many of the fields in linked items expanded. Ideally, we want this call to take no options, allowing us to pre-calculate all these responses. Only returns information on pages which are live (eg, links to draft content wouldn't be included in responses).
+
+It would be useful for the content-id to be included in the response (and for the content-id of items in expanded links fields to be included, too).
+
+ | 
 - Frontend applications
+ |
+| **frontend-draft-get** | `GET http://frontend-api/draft-content/<base_path>` | 
+
+Same as **frontend-get** , but would return information on pages in draft state.
+
+ | 
+- Frontend applications in content-preview
  |
 | **frontend-feed** | 
 
 probably not pure HTTP - but could be websocket based, or raw AMQP / kafka, etc.
 
- | Get a push notification when the frontend representation of any piece of content changes. The **frontend-get** API could be implemented using a key-value store which is populated from this feed. Note that the frontend representation includes expanded linked items, so if, say, the title of a **page**  **A** changes, all other content-items **B** which include a reference to **A** anywhere in their links hash also need to be updated. The frontend feed should indicate the type of the update, including whether the original update was a "major" update to content, or a change in the tagging, or a change to one of the fields in a tagged document. | 
+ | 
+
+Get a push notification when the frontend representation of any piece of content changes.
+
+The feed would contain sufficient information that the **frontend-get** API could be implemented using a key-value store which is populated directly from this feed.
+
+Note that the frontend representation includes expanded linked items, so if, say, the title of a **page**  **A** changes, all other content-items **B** which include a reference to **A** anywhere in their links hash also need to be updated. The frontend feed should indicate the type of the update, including whether the original update was a "major" update to content, or a change in the tagging, or a change to one of the fields in a tagged document.
+
+ | 
 - Search indexing
 - Email alerting
+ |
+| **frontend-draft-feed** | see frontend-feed | Same as frontend-feed, but would include information on pages and linked pages in draft state. | 
+- Search indexing in content preview
  |
 
 &nbsp;
@@ -163,17 +187,23 @@ This needs the following APIs:
 
 The indexer needs the "links" fields to be in their expanded form, so that it is possible to index things like the slugs of organisations and topics, rather than their content-ids. &nbsp;It would also be desirable to index the actual titles of things like organisations / topics, to avoid the current approach used in rummager of keeping an in-memory cache of organisation slug -\> display name mappings.
 
+Having content-ids available in the feed would be useful to use as unique identifiers (but not essential).
+
+Having content-ids available would be essential if publishing tools want to be able to use the same search index as frontend, to locate pages to edit (or to find tags to suggest adding to a page, etc).
+
 ## Email alerting
 
 This needs the following APIs:
 
-- **frontend-feed** : get a list of all content modified
+- **frontend-feed** : get a list of all content modified, with details of the type of the change (eg, major/minor/republish).
 
-Note that the feed needs to include the modification type that triggered the entry.
+Status:
 
-Note - need modification type
+- The current implementation of email-alert-monitor listens to a feed but ignores the "links" field - it uses information in the details hash to determine whether content is tagged appropriately. &nbsp;This breaks if slugs of topics change.
 
-Note - topics tagged after a major modification
+Things that would be useful here:
+
+- If topics were represented in the links hash, the email-alert-monitor would probably be best implemented by listening for the relevant content-ids in the links field. &nbsp;The expanded form for links field isn't actually needed currently.
 
 # Features
 
@@ -186,7 +216,7 @@ We might represent a "path" for this information in the content item as somethin
 - For a piece of content with some related content tagged to it, we currently need to know which topics and policy areas that related content is tagged to. &nbsp;This is so that we can group the related links by whether they are in the same topics as the current content.&nbsp;  
 We might represent a "path" for this information in the content item as something like "`links.related_content.links.topics.{base_path}`".
 
-These examples can be implemented in other ways, but deep expansion would be convenient for frontend applications. &nbsp;Implementing it seems likely to require that &nbsp;FIXME
+These examples can be implemented in other ways, but deep expansion would be convenient for frontend applications.
 
 ## Links to things which aren't content-items
 
@@ -195,7 +225,7 @@ It may be necessary to link to things which aren't content items, and hence do n
 - needs. We currently link to needs using the special "need\_id" field in content-items. &nbsp;It would seem cleaner if we could link to needs using the same mechanism as other links.
 - external content. &nbsp;We might want to hook into the wider world of "linked open data".
 
-It's unclear that there's any pressing need to implement this, but if we did implement it, we might do so by allowing a "prefix" form to be specified for such links. &nbsp;
+It's unclear that there's any pressing need to implement this, but if we did implement it, we might do so by allowing a "prefix:" form to be specified for such links. No currently valid content-id contains a colon character, so we could add this in a backwards compatible way, by defining any link value without a ":" to be using a default namespace.
 
 &nbsp;
 
