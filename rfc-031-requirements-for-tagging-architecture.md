@@ -73,7 +73,7 @@ It would be useful for the content-id to be included in the response (and for th
  | 
 - Frontend applications
  |
-| **frontend-draft-get** | `GET http://frontend-api/draft-content/<base_path>` | 
+| **frontend-draft-get** | `GET http://draft-frontend-api/content/<base_path>` | 
 
 Same as **frontend-get** , but would return information on pages in draft state.
 
