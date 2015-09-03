@@ -1,6 +1,6 @@
 # Problem
 
-Our applications at the moment are more tightly coupled to the infrastructure that is necessary or good. This is going to make transitioning to a containerised setup harder.
+Our applications at the moment are more tightly coupled to the infrastructure than is necessary or good. This is going to make transitioning to a containerised setup harder.
 
 # Proposal
 
