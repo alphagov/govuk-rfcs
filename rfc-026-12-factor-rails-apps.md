@@ -44,7 +44,7 @@ The alternative would be to have these assets served by the application process 
 
 A twelve-factor app should "Explicitly declare and isolate dependencies" ([http://12factor.net/dependencies](http://12factor.net/dependencies)). Rails apps mostly have this covered through the use of Bundler and Gemfiles.
 
-One area that's not so well covered is any non-gem dependencies provided by the&nbsp;OS. This includes things like external programs (imagemagick, tika etc...), and&nbsp;any libraries required by gems with native extensions (eg libxml), and the&nbsp;compilers necessary to build them. There's no obvious way to resolve this with&nbsp;our current infrastructure, we therefore recommend that a decision on how to&nbsp;resolve this is deferred until we migrate to a containerised setup.
+One area that's not so well covered is any non-gem dependencies provided by the&nbsp;OS. This includes things like external programs (imagemagick, tika etc...), and&nbsp;any libraries required by gems with native extensions (eg libxml), and the&nbsp;compilers necessary to build them. This also includes the ruby interpreter itself (currently specified by the .ruby-version file, but provided by the OS). There's no obvious way to resolve this with&nbsp;our current infrastructure, we therefore recommend that a decision on how to&nbsp;resolve this is deferred until we migrate to a containerised setup.
 
 ## Separate the build and release stages
 
