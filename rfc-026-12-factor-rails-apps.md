@@ -18,10 +18,10 @@ These environment variables will be set by whatever mechanism is responsible for
 
 Applications should not deal with opening logfiles etc. Instead they should log&nbsp;to `STDOUT`, and `STDERR`. The OS should deal with capturing these streams and&nbsp;storing them as appropriate. Details - [http://12factor.net/logs](http://12factor.net/logs)
 
-- General logging SHOULD be sent to `STDERR`.
--  as JSON lines suitable for logstash.
+- Anything sent to `STDOUT` MUST be JSON lines suitable for use in logstash
+- Other non-JSON logging SHOULD be sent to `STDERR`.
+-  as JSON.
 - Apps MAY send additional log lines to `STDOUT` providing they are JSON formatted.
-- Apps MUST NOT send any non-JSON logging to `STDOUT`.
 
 I've created an example app, and configured it to log as described -&nbsp;[https://github.com/alext/twelve-factor-rails/pull/1](https://github.com/alext/twelve-factor-rails/pull/1)
 
