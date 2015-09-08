@@ -38,7 +38,13 @@ Twelve-factor recommends that:
 
 This is at odds with the way we currently serve static assets (nginx is configured to serve everything from the public directory). Some thought needs to be given as to whether this is an acceptable deviation for the efficiency benefits.
 
-The alternative would be to have these assets served by the application process using some rack middleware. We'd need to ensure that this was as efficient as possible (ensure it could be multi-threaded so as not to block application requests), and set appropriate cache headers.
+The alternative would be to have these assets served by the application process using some rack middleware. &nbsp;This has some efficiency implications because it will use the app workers to serve static files, but due to the cacheability of these files, this can be mitigated by setting appropriate `Cache-Control` headers.
+
+This RFC proposes that:
+
+- apps MUST serve their own assets. They MUST NOT assume the presence of a web server that will serve anything from the public directory.
+- apps MAY use a Sendfile mechanism to offload the serving of files **if and only if** the request includes an `X-Sendfile-Type` header (Rails already provides this feature via the `Rack::Sendfile` middleware which is included by default)
+- apps SHOULD set appropriate `Cache-Control` headers for the assets they serve.
 
 ## Dependencies
 
