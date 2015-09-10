@@ -20,7 +20,7 @@ Applications should not deal with opening logfiles etc. Instead they should log&
 
 - Anything sent to `STDOUT` MUST be JSON lines suitable for use in logstash
 - .
--  as JSON.
+- .
 - Apps MAY send additional log lines to `STDOUT` providing they are JSON formatted.
 
 I've created an example app, and configured it to log as described -&nbsp;[https://github.com/alext/twelve-factor-rails/pull/1](https://github.com/alext/twelve-factor-rails/pull/1)
