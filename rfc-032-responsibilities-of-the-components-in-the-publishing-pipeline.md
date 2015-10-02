@@ -70,7 +70,7 @@ The Front-End Applications should not have to transform govspeak into HTML at re
 
 Therefore, govspeak needs to be transformed into HTML **before** it goes into the Content Store.
 
-Some govspeak features are restricted to certain formats, for example [some manuals allow "\<strong\>" to be formatted as bold](https://github.com/alphagov/manuals-frontend/pull/161), while non manuals don't. At the moment all publishers generate govspeak including "\<strong\>" tags and frontends conditionally add the styling. This works for simpler cases like bold, but for more complex content, like [the newly proposed stat headlines](https://github.com/alphagov/govspeak/pull/60) we may not be able to depend only on styling to give the right behaviour. In some cases we may want to strip/prevent certain govspeak features, which would need to happen in the publishing tool/whatever we decide here. In the simpler case of the "\<strong\>" tag this would mean the manuals publisher generating it, but other publishers stripping the tag.
+&nbsp;
 
 Currently, the application immediately prior to pushing content into the Content Store is the Publishing API.
 
@@ -102,103 +102,19 @@ This adds latency to the request and means that we are doing addition processing
 
 Instead, it would be better to track these dependencies and update the dependee article when one of its dependencies changes.
 
-that these dependencies be tracked and the dependee article be re-published by the Publishing API when this happens.
+RFC-12 suggests that these dependencies be tracked and the dependee article be re-published by the Publishing API when this happens.
 
 However, this means that the Publishing API would have to understand the semantics of dependencies between articles and it adds an additional responsibility to this application.
 
 This might be OK, but it could make more sense to handle this separately through some kind of "dependency management" application that tracks dependencies as its sole responsibility.
 
-This is elaborated on further in and .
+This is elaborated on further in RFC-24 and RFC-31.
 
-## **Update: 8th October, 2015**
+## **What next?**
 
-We held a meeting to discuss this further. Here is the whiteboard from that meeting:
+If anything in this write-up is not correct, please let me know as it would help with my understanding of the system.
 
-&nbsp;
-
-The main realisation was that&nbsp;Govspeak and Dependency Resolution are separate topics and should be considered separately.
-
-There were three proposals for where to do the Govspeak to HTML transformation.
-
-&nbsp;
-
-**1) Publishing Applications**
-
-The publishing applications would render HTML and send both Govspeak and HTML to the Publishing API.
-
-They'd need to send both in order to allow content editors to work with draft content. The publishing apps no longer hold their own data.
-
-&nbsp;
-
-**2) Something in the middle**
-
-We could invent something that sits between the Publishing API and Content Store that transforms Govspeak to HTML.
-
-It was noted that neither the Publishing API or Content Store should understand the content payload and should be Single Responsibility services.
-
-&nbsp;
-
-**3) Frontend Applications**
-
-This is currently what happens now (largely because of the dependencies issue). We could continue to do this, but it does add an overhead to every request.
-
-If we did this, it would mean that the Publishing Pipeline isn't even aware of Govspeak and it's just another field that sits in a content payload.
-
-This effectively pushes the responsibility of transforming Govspeak to HTML onto the applications external to the pipeline. This may not necessarily be a good thing.
-
-&nbsp;
-
-There were a number of questions that we should follow-up on (in no particular order):
-
-- Where do we sanitise / validate HTML?
-- Dialects?
-- How do we model dependencies?
-- What does dependency resolution?
-- Where do we transform Govspeak to HTML? (this question is the main focus of this topic)
-
-**Update: 14th October, 2015**
-
-We held another meeting following comments and discussion on Govspeak, specifically.
-
-At the end of the meeting there was general consensus on the following things:
-
-&nbsp;
-
-**Architectural change**
-
-There will be a service that sits between the Publishing Apps and the Publishing API and acts as a facade. It will have the same interface as the Publishing API.
-
-This service will perform the Govspeak -\> HTML transformation and could (in the future) perform other transformations in order to produce "renderable" content for the front-end applications.
-
-This transformation will store the HTML representation next to the field that produced it. We will aim to standardise how this works in case we want to support other content types in the future (plaintext?).
-
-&nbsp;
-
-**Dependencies**
-
-Dependencies (such as contacts and attachments) will be identified by this service and captured in the JSON document.
-
-These dependencies will not be resolved at this point (that will come later), but will simply be stored in a format that is no longer coupled to Govspeak.
-
-This means that the rest of the publishing pipeline need not know what Govspeak is or how it works.
-
-&nbsp;
-
-**Govspeak validation**
-
-It was noted that content editors should be allowed to produce a draft content item that has invalid Govspeak. They should not be able to publish it in this state, but would still like to save their progress.
-
-This will need to be addressed in the future, but it was generally agreed that this won't significantly impact the proposed solution.
-
-&nbsp;
-
-**Next steps**
-
-As of the 14th October meeting, we will consider this proposal agreed and move forward with this plan.
-
-If you'd like to question or challenge the proposal, please add your comments and thoughts to this document.
-
-Thanks
+I think we need to agree on the "govspeak transformation" and "content item dependencies" approaches. This will likely require collaboration between the Publishing Platform and Finding Things teams.
 
 &nbsp;
 
