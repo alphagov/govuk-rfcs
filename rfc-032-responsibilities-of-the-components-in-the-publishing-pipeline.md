@@ -110,9 +110,9 @@ This might be OK, but it could make more sense to handle this separately through
 
 This is elaborated on further in RFC-24 and RFC-31.
 
-## **Update following Meeting**
+## **Update: 8th October, 2015**
 
-We held a meeting at 11am on Thursday the 8th October. Here is the whiteboard from that meeting:
+We held a meeting to discuss this further. Here is the whiteboard from that meeting:
 
 &nbsp;
 
