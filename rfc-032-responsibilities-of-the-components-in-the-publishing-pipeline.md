@@ -70,7 +70,7 @@ The Front-End Applications should not have to transform govspeak into HTML at re
 
 Therefore, govspeak needs to be transformed into HTML **before** it goes into the Content Store.
 
-&nbsp;
+Some govspeak features are restricted to certain formats, for example [some manuals allow "\<strong\>" to be formatted as bold](https://github.com/alphagov/manuals-frontend/pull/161), while non manuals don't. At the moment all publishers generate govspeak including "\<strong\>" tags and frontends conditionally add the styling. This works for simpler cases like bold, but for more complex content, like [the newly proposed stat headlines](https://github.com/alphagov/govspeak/pull/60) we may not be able to depend only on styling to give the right behaviour. In some cases we may want to strip/prevent certain govspeak features, which would need to happen in the publishing tool/whatever we decide here. In the simpler case of the "\<strong\>" tag this would mean the manuals publisher generating it, but other publishers stripping the tag.
 
 Currently, the application immediately prior to pushing content into the Content Store is the Publishing API.
 
