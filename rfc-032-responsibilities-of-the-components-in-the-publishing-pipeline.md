@@ -110,11 +110,57 @@ This might be OK, but it could make more sense to handle this separately through
 
 This is elaborated on further in RFC-24 and RFC-31.
 
-## **What next?**
+## **Update following Meeting**
 
-If anything in this write-up is not correct, please let me know as it would help with my understanding of the system.
+We held a meeting at 11am on Thursday the 8th October. Here is the whiteboard from that meeting:
 
-I think we need to agree on the "govspeak transformation" and "content item dependencies" approaches. This will likely require collaboration between the Publishing Platform and Finding Things teams.
+&nbsp;
+
+The main realisation was that&nbsp;Govspeak and Dependency Resolution are separate topics and should be considered separately.
+
+There were three proposals for where to do the Govspeak to HTML transformation.
+
+&nbsp;
+
+1) Publishing Applications
+
+The publishing applications would render HTML and send both Govspeak and HTML to the Publishing API.
+
+They'd need to send both in order to allow content editors to work with draft content. The publishing apps no longer hold their own data.
+
+&nbsp;
+
+2) Something in the middle
+
+We could invent something that sits between the Publishing API and Content Store that transforms Govspeak to HTML.
+
+It was noted that neither the Publishing API or Content Store should understand the content payload and should be Single Responsibility services.
+
+&nbsp;
+
+3) Frontend Applications
+
+This is currently what happens now (largely because of the dependencies issue). We could continue to do this, but it does add an overhead to every request.
+
+If we did this, it would mean that the Publishing Pipeline isn't even aware of Govspeak and it's just another field that sits in a content payload.
+
+This effectively pushes the responsibility of transforming Govspeak to HTML onto the applications external to the pipeline. This may not necessarily be a good thing.
+
+&nbsp;
+
+There were a number of questions that we should follow-up on (in no particular order):
+
+1) Where do we sanitise / validate HTML?
+
+2) Dialects?
+
+3) How do we model dependencies?
+
+4) What does dependency resolution?
+
+5) Where do we transform Govspeak to HTML? (this question is the main focus of this topic)
+
+&nbsp;
 
 &nbsp;
 
