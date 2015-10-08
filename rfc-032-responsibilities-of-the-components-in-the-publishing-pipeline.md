@@ -156,7 +156,11 @@ There were a number of questions that we should follow-up on (in no particular o
 - What does dependency resolution?
 - Where do we transform Govspeak to HTML? (this question is the main focus of this topic)
 
-&nbsp;
+**Next steps**
+
+Please add your comments and thoughts to this document.
+
+I propose we meet again next week (preferably when we all have more time) to seek agreement on which proposal to proceed with.
 
 &nbsp;
 
