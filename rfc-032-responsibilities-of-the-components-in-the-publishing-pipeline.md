@@ -122,7 +122,7 @@ There were three proposals for where to do the Govspeak to HTML transformation.
 
 &nbsp;
 
-1) Publishing Applications
+**1) Publishing Applications**
 
 The publishing applications would render HTML and send both Govspeak and HTML to the Publishing API.
 
@@ -130,7 +130,7 @@ They'd need to send both in order to allow content editors to work with draft co
 
 &nbsp;
 
-2) Something in the middle
+**2) Something in the middle**
 
 We could invent something that sits between the Publishing API and Content Store that transforms Govspeak to HTML.
 
@@ -138,7 +138,7 @@ It was noted that neither the Publishing API or Content Store should understand 
 
 &nbsp;
 
-3) Frontend Applications
+**3) Frontend Applications**
 
 This is currently what happens now (largely because of the dependencies issue). We could continue to do this, but it does add an overhead to every request.
 
@@ -150,15 +150,11 @@ This effectively pushes the responsibility of transforming Govspeak to HTML onto
 
 There were a number of questions that we should follow-up on (in no particular order):
 
-1) Where do we sanitise / validate HTML?
-
-2) Dialects?
-
-3) How do we model dependencies?
-
-4) What does dependency resolution?
-
-5) Where do we transform Govspeak to HTML? (this question is the main focus of this topic)
+- Where do we sanitise / validate HTML?
+- Dialects?
+- How do we model dependencies?
+- What does dependency resolution?
+- Where do we transform Govspeak to HTML? (this question is the main focus of this topic)
 
 &nbsp;
 
