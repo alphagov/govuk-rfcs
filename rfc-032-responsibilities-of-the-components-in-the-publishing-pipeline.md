@@ -102,13 +102,13 @@ This adds latency to the request and means that we are doing addition processing
 
 Instead, it would be better to track these dependencies and update the dependee article when one of its dependencies changes.
 
-RFC-12 suggests that these dependencies be tracked and the dependee article be re-published by the Publishing API when this happens.
+that these dependencies be tracked and the dependee article be re-published by the Publishing API when this happens.
 
 However, this means that the Publishing API would have to understand the semantics of dependencies between articles and it adds an additional responsibility to this application.
 
 This might be OK, but it could make more sense to handle this separately through some kind of "dependency management" application that tracks dependencies as its sole responsibility.
 
-This is elaborated on further in RFC-24 and RFC-31.
+This is elaborated on further in and .
 
 ## **Update: 8th October, 2015**
 
