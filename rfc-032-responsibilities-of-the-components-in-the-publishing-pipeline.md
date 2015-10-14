@@ -156,11 +156,49 @@ There were a number of questions that we should follow-up on (in no particular o
 - What does dependency resolution?
 - Where do we transform Govspeak to HTML? (this question is the main focus of this topic)
 
+**Update: 14th October, 2015**
+
+We held another meeting following comments and discussion on Govspeak, specifically.
+
+At the end of the meeting there was general consensus on the following things:
+
+&nbsp;
+
+**Architectural change**
+
+There will be a service that sits between the Publishing Apps and the Publishing API and acts as a facade. It will have the same interface as the Publishing API.
+
+This service will perform the Govspeak -\> HTML transformation and could (in the future) perform other transformations in order to produce "renderable" content for the front-end applications.
+
+This transformation will store the HTML representation next to the field that produced it. We will aim to standardise how this works in case we want to support other content types in the future (plaintext?).
+
+&nbsp;
+
+**Dependencies**
+
+Dependencies (such as contacts and attachments) will be identified by this service and captured in the JSON document.
+
+These dependencies will not be resolved at this point (that will come later), but will simply be stored in a format that is no longer coupled to Govspeak.
+
+This means that the rest of the publishing pipeline need not know what Govspeak is or how it works.
+
+&nbsp;
+
+**Govspeak validation**
+
+It was noted that content editors should be allowed to produce a draft content item that has invalid Govspeak. They should not be able to publish it in this state, but would still like to save their progress.
+
+This will need to be addressed in the future, but it was generally agreed that this won't significantly impact the proposed solution.
+
+&nbsp;
+
 **Next steps**
 
-Please add your comments and thoughts to this document.
+As of the 14th October meeting, we will consider this proposal agreed and move forward with this plan.
 
-I propose we meet again next week (preferably when we all have more time) to seek agreement on which proposal to proceed with.
+If you'd like to question or challenge the proposal, please add your comments and thoughts to this document.
+
+Thanks
 
 &nbsp;
 
