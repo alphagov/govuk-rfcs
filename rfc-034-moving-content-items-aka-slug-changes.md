@@ -1,12 +1,3 @@
-&nbsp;
-
-&nbsp;
-
----
-status: "IN PROGRESS"
-notes: "Closing for comments on ..."
----
-
 ## Problem
 
 We have a policy that no URL be left behind. &nbsp;This means that when a piece of content moves, we need to arrange for redirects from the old location to the new.
@@ -38,19 +29,9 @@ We might need to create a new update type (as we did for the links endpoint) sin
 
 &nbsp;
 
-## Revised Proposal
+&nbsp;
 
-In a discussion on 2015/10/21, a revised proposal was made. Under this proposal, any moves happen implicitly when a new draft is published.&nbsp;The workflow now goes as follows:
-
-1. User publishes item with base path of /old\_path
-2. User makes new draft and edits base path to /new\_path
-3. Draft content item is saved with new path, this is available on content-preview at the new URL. The original item is still available on both live and content-preview at the old URL.
-4. User publishes the item. This makes it available at /new\_path on live. A redirect is automatically created from /old\_path to /new\_path.
-
-This requires two changes to publishing API functionality:
-
-- Remove the restriction on changing the base path on draft items that have been published.
-- On publish, the command checks whether the base path has changed from the previously published version. If so, it adds a redirect from old\_path to new\_path.
+&nbsp;
 
 &nbsp;
 
