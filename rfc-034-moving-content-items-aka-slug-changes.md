@@ -1,3 +1,12 @@
+&nbsp;
+
+&nbsp;
+
+---
+status: "IN PROGRESS"
+notes: "Closing for comments on ..."
+---
+
 ## Problem
 
 We have a policy that no URL be left behind. &nbsp;This means that when a piece of content moves, we need to arrange for redirects from the old location to the new.
