@@ -47,13 +47,13 @@ Here is an object diagram that shows this composition:
 
 &nbsp;
 
-- The **single responsibility principle** recommends that you give each class/object in your system a single responsibility.
+- The **[single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle)** recommends that you give each class/object in your system a single responsibility.
 
 In this case, ContentItem has more than responsibility because it is inheriting the responsibilities of its mixed-in concerns (effectively through multiple inheritance).
 
 &nbsp;
 
-- The **open/closed principle** recommends that you build your objects such that they are closed for modification and open for extension.
+- The **[open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle)** recommends that you build your objects such that they are closed for modification and open for extension.
 
 In this case, every time you want to add a new feature to your system, you have to open the ContentItem model and modify it to incorporate new behaviour.
 
