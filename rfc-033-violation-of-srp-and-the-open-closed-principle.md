@@ -61,7 +61,7 @@ In this case, every time you want to add a new feature to your system, you have 
 
 I have seen this problem before and solved a similar problem in my last role.
 
-It tends to arise because it is the easiest thing to do at the time, but it quickly leads you into trouble as the system grows in complexity.
+It tends to arise because it is the _easiest_ thing to do at the time, but it quickly leads you into trouble as the system grows in complexity.
 
 I propose that we refactor to something the promotes extensibility:
 
