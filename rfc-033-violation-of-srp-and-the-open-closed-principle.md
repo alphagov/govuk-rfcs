@@ -29,11 +29,11 @@ A cursory look at these models reveals that they are responsible for:
 - Versioning
 - Workflow (draft vs. published)
 
-I think it would be fair to say that DraftContentItem and LiveContentItem are **in danger of becoming god objects**.
+I think it would be fair to say that DraftContentItem and LiveContentItem are starting to take on too many responsibilities.
 
-It follows that this would make the Publishing API difficult to work on, largely due to the likeliness that it becomes a monolithic application.
+This could make the Publishing API difficult to work on as it might start to become a monolithic application.
 
-## Problem Analysis
+## Code Analysis
 
 Currently, the ContentItem models are **composed of** the responsibilities listed above.
 
@@ -59,9 +59,9 @@ In this case, every time you want to add a new feature to your system, you have 
 
 ## Proposal
 
-I have seen this problem before and solved a similar problem in my last role.
+I saw a similar problem in my last role:
 
-It tends to arise because it is the _easiest_ thing to do at the time, but it quickly leads you into trouble as the system grows in complexity.
+It tends to arise because it is quick and easy to add new responsibilities in this way, but it quickly leads you into trouble as the system grows in complexity.
 
 I propose that we refactor to something the promotes extensibility:
 
@@ -69,11 +69,13 @@ I propose that we refactor to something the promotes extensibility:
 
 &nbsp;
 
-We essential flip the direction of the arrows round.
+We effectively flip the direction of the arrows round.
 
 This means that an AccessLimited responsibility would know about ContentItems, but ContentItems wouldn't have anything to do with AccessLimited.
 
 This allows you to introduce new concepts and features without interfering with features that already exist.
+
+(I can elaborate more on how this might be done if needed)
 
 ## Further References
 
@@ -81,7 +83,7 @@ I spoke about Domain Driven Design at LRUG. I talk about this specific problem a
 
 [https://skillsmatter.com/skillscasts/6524-domain-driven-design-in-the-wild](https://skillsmatter.com/skillscasts/6524-domain-driven-design-in-the-wild)
 
-## Migration Plan
+## Refactor Plan
 
 If this RFC is favourable, I think we should take one concept and extract it from the ContentItem models and into its own model.
 
@@ -91,9 +93,9 @@ This can all be done as a refactor and the outermost tests should not be effecte
 
 ## Closing Thoughts
 
-I strongly believe that we need to do this to future-proof the application. This is something we want to support for a long time to come and continue development on.
+I really think that this refactor would help to future-proof the application. We want to support this app for a long time and this would help make that easier.
 
-There will always be complexity in the business requirements and incoming feature requests and if we don't take steps to adequately manage that, we will get ourselves into trouble.
+There will always be complexity in the business requirements and incoming feature requests and if we don't take steps to adequately manage that, we could slow down.
 
 ## What Next?
 
