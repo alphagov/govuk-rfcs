@@ -75,7 +75,65 @@ This means that an AccessLimited responsibility would know about ContentItems, b
 
 This allows you to introduce new concepts and features without interfering with features that already exist.
 
-(I can elaborate more on how this might be done if needed)
+## Examples
+
+Here's are some examples of the kind of things I'm proposing:
+
+&nbsp;
+
+**1) You could introduce the notion of a Workflow to relieve the ContentItem of this responsibility:**
+
+```
+content_item = Workflow.fetch("content-item-id", :draft) # or :live
+```
+
+If you did this, you could collapse the DraftContentItem and LiveContentItem tables into a single table.
+
+The resulting ContentItem model would be free of workflow concerns, i.e. it wouldn't know or care whether it was in a Draft or a Live state.
+
+This means that you could work on the business logic for workflow in isolation without needing to change the ContentItem model.
+
+Consider what might happen if you decided to change your workflow: "draft", "proofread", "editing", "pre-publish", "published"
+
+You could simply introduce these as new states without having to add three extra tables to the database.
+
+This applies for other changes you might decide to make for workflow, e.g. rules for when a content item is allowed to transition from draft -\> live.
+
+&nbsp;
+
+**2) You could introduce the notion of a VersionArbiter (or some better name):**
+
+```
+version = VersionArbiter.version_for(content_item)
+```
+
+If you did this, the ContentItem model would no longer need to store its version and any validation rules could be extracted from this model.
+
+For example, there is an invariant which states that the live version cannot be ahead of the draft version of a content item.
+
+You could pull this out into the VersionArbiter who is responsible for enforcing this. The ContentItem simply focuses on storing its content - not on versioning.
+
+&nbsp;
+
+**3) You could introduce the notion of an AccessLimitation or Restriction to relieve the ContentItem of this responsibility:**
+
+```
+restrictions = Restriction.restrictions_for(content_item)
+```
+
+If you did this, you could remove the access\_limited field from ContentItem and you could focus on Restriction related business logic in isolation.
+
+At present, only the DraftContentItem is eligible for AccessLimitation and so it appears as a field on that table.
+
+You could remove that field and move it into a separate table which references the content item.
+
+&nbsp;
+
+**In summary**
+
+My proposal is all about refactoring the system such that objects, with clear responsibilities, are working together to get things done.
+
+When new concepts are added to the system, we can create objects that model those concepts and extend the system to incorporate them.
 
 ## Further References
 
