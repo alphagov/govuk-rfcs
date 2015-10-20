@@ -49,7 +49,7 @@ Here is an object diagram that shows this composition:
 
 - The **[single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle)** recommends that you give each class/object in your system a single responsibility.
 
-In this case, ContentItem has more than responsibility because it is inheriting the responsibilities of its mixed-in concerns (effectively through multiple inheritance).
+In this case, ContentItem has more than one responsibility because it is inheriting the responsibilities of its mixed-in concerns (effectively through multiple inheritance).
 
 &nbsp;
 
@@ -63,7 +63,7 @@ I saw a similar problem in my last role:
 
 It tends to arise because it is quick and easy to add new responsibilities in this way, but it quickly leads you into trouble as the system grows in complexity.
 
-I propose that we refactor to something the promotes extensibility:
+I propose that we refactor to something that promotes extensibility:
 
 &nbsp;
 
