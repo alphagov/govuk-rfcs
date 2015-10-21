@@ -155,9 +155,19 @@ I really think that this refactor would help to future-proof the application. We
 
 There will always be complexity in the business requirements and incoming feature requests and if we don't take steps to adequately manage that, we could slow down.
 
-## What Next?
+## Update, 20th October 2015
 
-Please leave your thoughts and feedback on this document.
+We had a whiteboard session to discuss some of the ideas in this RFC. Here is the whiteboard from that session:
 
-Thanks
+It was noted that have been gradually introducing more business logic into the Publishing API. One example of this are the validations of ContentItem versions.
+
+The current "Derived Representation" models were originally intended to be a presentation of data that relates to a downstream system.
+
+We decided to try a spike to investigate what the application would look like if there was a separate domain layer.
+
+This domain layer would be where we place the business logic in a way that's decoupled from the representations for downstream systems.
+
+&nbsp;
+
+&nbsp;
 
