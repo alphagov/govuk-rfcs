@@ -8,11 +8,11 @@ The reality is that in the [govuk-content-schemas](https://github.com/alphagov/g
 - [finders](https://github.com/alphagov/govuk-content-schemas/blob/b02afaac06ddd965e114b3ff577faf1952c628e0/formats/finder/publisher/details.json)
 - [specialist documents](https://github.com/alphagov/govuk-content-schemas/blob/b02afaac06ddd965e114b3ff577faf1952c628e0/formats/specialist_document/publisher/details.json)
 
-all these required fields are for the rendering apps to have enough data to fulfil the business logic required of the format.
+All these required fields are for the rendering apps to have enough data to fulfil the business logic required of the format.
+
+In order to provide bespoke validation of the schemas within the publishing API, we need to inspect the JSON payloads and validate them using JSON schema. We may also want to provide additional parsing (eg a future dependency resolver will want to know which fields are&nbsp;`govspeak`&nbsp;vs plain text in order to rewrite links and dependencies, or when attachments get out of virus scanning).
 
 ## Proposal
-
-In order to provide bespoke validation of the schemas within the publishing API, we need to inspect the JSON payloads and validate them using JSON schema. We may also want to provide additional parsing (eg a future dependency resolver will want to know which fields are `govspeak` vs plain text in order to rewrite links and dependencies, or when attachments get out of virus scanning).
 
 Therefore we propose to no longer treat the `details`&nbsp;part of the payload as entirely opaque, but instead allow for inspection and enhancement when required of the format.
 
