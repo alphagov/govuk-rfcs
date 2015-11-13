@@ -4,9 +4,9 @@ In the JSON schemas we use to send data between our systems, we've traditionally
 
 The reality is that in the [govuk-content-schemas](https://github.com/alphagov/govuk-content-schemas) repository, almost all formats have required fields in the details hash. Examples:
 
-- [case studies](https://github.com/alphagov/govuk-content-schemas/blob/b02afaac06ddd965e114b3ff577faf1952c628e0/formats/case_study/publisher/details.json)
-- [finders](https://github.com/alphagov/govuk-content-schemas/blob/b02afaac06ddd965e114b3ff577faf1952c628e0/formats/finder/publisher/details.json)
-- [specialist documents](https://github.com/alphagov/govuk-content-schemas/blob/b02afaac06ddd965e114b3ff577faf1952c628e0/formats/specialist_document/publisher/details.json)
+- [case studies](https://github.com/alphagov/govuk-content-schemas/blob/b02afaac06ddd965e114b3ff577faf1952c628e0/formats/case_study/publisher/details.json#L6-L7)
+- [finders](https://github.com/alphagov/govuk-content-schemas/blob/b02afaac06ddd965e114b3ff577faf1952c628e0/formats/finder/publisher/details.json#L6-L7)
+- [specialist documents](https://github.com/alphagov/govuk-content-schemas/blob/b02afaac06ddd965e114b3ff577faf1952c628e0/formats/specialist_document/publisher/details.json#L6-L8)
 
 All these required fields are for the rendering apps to have enough data to fulfil the business logic required of the format.
 
