@@ -2,7 +2,7 @@
 
 In the JSON schemas we use to send data between our systems, we've traditionally tried to treat the `details` part of the payload as entirely opaque (eg no special knowledge should be required of anything between the publishing tool sending and the frontend rendering the payload).
 
-The reality is that in the [govuk-content-schemas](https://github.com/alphagov/govuk-content-schemas) repository, almost all formats have specific fields in the details hash. Examples:
+The reality is that in the [govuk-content-schemas](https://github.com/alphagov/govuk-content-schemas) repository, almost all formats have required fields in the details hash. Examples:
 
 - [case studies](https://github.com/alphagov/govuk-content-schemas/blob/b02afaac06ddd965e114b3ff577faf1952c628e0/formats/case_study/publisher/details.json)
 - [finders](https://github.com/alphagov/govuk-content-schemas/blob/b02afaac06ddd965e114b3ff577faf1952c628e0/formats/finder/publisher/details.json)
