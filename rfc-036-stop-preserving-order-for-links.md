@@ -1,0 +1,47 @@
+## Problem
+
+A links hash in a content item looks like this:
+
+`"links": {`  
+`  "lead_organisation": ['ORG-CONTENT-ID'],`  
+`  "organisations": ['ORG-CONTENT-ID', 'ANOTHER-ORG-CONTENT-ID'],`  
+`  "topics": ['TOPIC-CONTENT-ID'],`  
+`  "available_translations": [... automatically generated ...]`  
+`}`
+
+The array of links is currently guaranteed to preserve its order when sent to the publishing-api. From the content-store documentation:
+
+> The list\_of\_links is an array of content items, order is preserved.
+> 
+> [https://github.com/alphagov/content-store/blob/4b4a82a279de11a2af27b05dfc61d5f18a250c75/doc/content\_item\_fields.md#links](https://github.com/alphagov/content-store/blob/4b4a82a279de11a2af27b05dfc61d5f18a250c75/doc/content_item_fields.md#links)
+
+The order preserving complicates the following things:
+
+1. **Complicates tagging tools**. We are building a generic tagging tool that defines the relationships between content items. It shouldn't be concerned with how these relationships are presented on the site.
+2. May make&nbsp; **bulk tagging** more difficult.
+3. **Complicates implementation.** &nbsp;The publishing-api currently saved the links array and forwards it without manipulating it. To build a more flexible system, the links are being extracted into it's own table ([https://trello.com/c/zppxFP6p](https://trello.com/c/zppxFP6p)). We'll lose the "free" preservation with that change and will have to add code specifically to preserve the ordering.
+4. In most cases, the ordering of the links should be a **presentation concern** anyway. For example, the [collections-publisher app sorts the related topics by title](https://github.com/alphagov/collections-publisher/blob/37830fd561b9cd8c212a9c63b126ed93bb655dc1/app/presenters/mainstream_browse_page_presenter.rb#L15) before sending the links to the publishing-api, which effectively reserves the `related_topics` for this use. If we were to use the related\_topics somewhere else, it wouldn't be able use a different ordering defined in collections-publisher.
+5. It's **easily abused to add meaning**. The mainstream browse pages (sections in content api) used to display the first entry in the breadcrumb. This means we can't easily query "pages that have x as their breadcrumb".  
+
+&nbsp;
+
+## Proposal
+
+- We stop guaranteeing the order of the links.
+- During the tagging migration we get rid of the usage of the first item as breadcrumb. &nbsp;
+
+## Impact
+
+- Add a&nbsp;`breadcrumb` tag-type and populate it&nbsp;[during the tagging migration](https://github.com/alphagov/panopticon/blob/8d0c3bf8fe013ad06a61a6adb4f773ee6b3e60f5/lib/tagging_migrator.rb#L31).&nbsp;Make sure this tag is merged back into the section tags ([in the TagUpdater](https://github.com/alphagov/panopticon/blob/893857e2eb7c1f21e7382f761dde806fdd2cd8b0/app/queue_consumers/tagging_updater.rb#L46)) to keep current breadcrumbs intact.
+- Audit pages using links to make sure nothing is using it.
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
