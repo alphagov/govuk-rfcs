@@ -21,7 +21,7 @@ The order preserving complicates the following things:
 2. May make&nbsp; **bulk tagging** more difficult.
 3. **Complicates implementation.** &nbsp;The publishing-api currently saved the links array and forwards it without manipulating it. To build a more flexible system, the links are being extracted into it's own table ([https://trello.com/c/zppxFP6p](https://trello.com/c/zppxFP6p)). We'll lose the "free" preservation with that change and will have to add code specifically to preserve the ordering.
 4. In most cases, the ordering of the links should be a **presentation concern** anyway. For example, the [collections-publisher app sorts the related topics by title](https://github.com/alphagov/collections-publisher/blob/37830fd561b9cd8c212a9c63b126ed93bb655dc1/app/presenters/mainstream_browse_page_presenter.rb#L15) before sending the links to the publishing-api, which effectively reserves the `related_topics` for this use. If we were to use the related\_topics somewhere else, it wouldn't be able use a different ordering defined in collections-publisher.
-5. It's **easily abused to add meaning**. The mainstream browse pages (sections in content api) used to display the first entry in the breadcrumb. This means we can't easily query "pages that have x as their breadcrumb".  
+5. It's **easily abused to add meaning**. We use the first item in the `sections` tag in govuk\_content\_models for the breadcrumb ([code](https://github.com/alphagov/govuk_content_models/blob/master/app/traits/taggable.rb#L29-L48)). This means we can't easily query "pages that have x as their breadcrumb".  
 
 &nbsp;
 
