@@ -20,7 +20,7 @@ Therefore we propose to no longer treat the `details`&nbsp;part of the payload a
 
 This requires no work as we're already doing this in code in some places - but we would change our expectations about certain fields (eg datetime fields, govspeak fields, attachments).
 
-We should mark these fields as special somehow so that it's clear they carry special meaning in the publishing pipeline.
+These fields will be marked as custom types in the content schemas (code TBD), and documented, with their addition to be discussed as part of code review. They&nbsp; **will not** be added on a per format basis - any special fields added should be re-usable across the entire dataset.
 
 &nbsp;
 
