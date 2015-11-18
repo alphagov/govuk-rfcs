@@ -31,10 +31,13 @@ The order preserving complicates the following things:
 
 ## Impact
 
-- Add a&nbsp;`breadcrumb` tag-type and populate it&nbsp;[during the tagging migration](https://github.com/alphagov/panopticon/blob/8d0c3bf8fe013ad06a61a6adb4f773ee6b3e60f5/lib/tagging_migrator.rb#L31).&nbsp;Make sure this tag is merged back into the section tags ([in the TagUpdater](https://github.com/alphagov/panopticon/blob/893857e2eb7c1f21e7382f761dde806fdd2cd8b0/app/queue_consumers/tagging_updater.rb#L46)) to keep current breadcrumbs intact.
 - Audit pages using links to make sure nothing is using it.
 
-&nbsp;
+## Impact on breadrumbs
+
+Our proposal is to&nbsp;add a&nbsp;`parent`&nbsp;tag-type and populate it&nbsp;[during the tagging migration](https://github.com/alphagov/panopticon/blob/8d0c3bf8fe013ad06a61a6adb4f773ee6b3e60f5/lib/tagging_migrator.rb#L31)&nbsp;with the primary mainstream browse page. We also make&nbsp;sure this tag is merged back into the section tags ([in the TagUpdater](https://github.com/alphagov/panopticon/blob/893857e2eb7c1f21e7382f761dde806fdd2cd8b0/app/queue_consumers/tagging_updater.rb#L46)) to keep current breadcrumbs intact.
+
+This&nbsp;`parent`&nbsp;type would then be usable by all apps to populate a breadcrumb.&nbsp;Content-store would recursively resolve all the parents to return this in the item:
 
 &nbsp;
 
