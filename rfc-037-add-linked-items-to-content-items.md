@@ -12,7 +12,7 @@ The content-store should return incoming links as well as outgoing links.
 
 However, we do not wish to do this automatically, because some items have an extreme amount of incoming links (there are almost [10K](https://www.gov.uk/api/search.json?filter_organisations=hm-revenue-customs&count=0) incoming links for the HMRC organisation).
 
-Therefore we propose that each document describes which incoming links should be returned.
+Therefore we propose that each document describes which incoming links should be returned,&nbsp;in order that all information is present that is needed to render information about content linking to that page.
 
 ## Example
 
