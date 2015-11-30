@@ -14,37 +14,13 @@ However, we do not wish to do this automatically, because some items have an ext
 
 Therefore we propose that each document describes which incoming links should be returned.
 
-&nbsp;
-
 ## Example
 
 Given we have a content item, with a 'parent' link to another item:
 
-&nbsp;
-
 We specify the dependencies in the other content item:
 
-&nbsp;
-
-&nbsp;
-
 Which will cause this to be returned from the content-store:
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-  
 
 &nbsp;
 
