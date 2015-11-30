@@ -18,7 +18,7 @@ Therefore we propose that each document describes which incoming links should be
 
 ## Example
 
-Given we have a content items, with a 'parent' link to another item:
+Given we have a content item, with a 'parent' link to another item:
 
 &nbsp;
 
