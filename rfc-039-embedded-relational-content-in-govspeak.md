@@ -10,12 +10,12 @@ The current Whitehall behaviour looks like this:
   - they add the embed syntax (eg, `[contact:1234]`,` !@1`)
   - the document is persisted in the WH database
 - The document (fetched from WH database) is rendered by a WH Frontend
-  - where the embed govspeak syntax is parsed
+  - where the [embed govspeak syntax is parsed](https://github.com/alphagov/whitehall/blob/master/app/helpers/govspeak_helper.rb#L133-L143)
   - the embed ID is extracted and a embed record fetched from the Whitehall database
-  - a template (contacts, attachments) is rendered using the embed record replaces the embed syntax
+  - an [embed template](https://github.com/alphagov/whitehall/blob/master/app/views/contacts/_contact.html.erb) is rendered using the embed record replaces the embed syntax
   - (govspeak is then cached)
 - An editor updates a contact/attachment embedded in the previous document
-  - whitehall keeps a track of embedding relationships
+  - [whitehall keeps a track of embedding relationships](https://github.com/alphagov/whitehall/blob/5631a1722e186b194f4f7bb1f53cd2eb56e48034/lib/dependable.rb#L9-L11)
   - when a dependency embedded in a document changes the govspeak cache is invalidated
   - allow the updated embed record to be used when rendering the govspeak on next request
 
@@ -42,7 +42,7 @@ This is effectively what case study does for contacts, which are already support
   - no change to content schema,&nbsp;frontend, or&nbsp;publisher (case studies already do this for contacts)
   - maintains simple content item body representation, just HTML, keeps frontend simple
   - no need to model embed records as content store items/links
-  - whitehall already [tracks dependency changes and republishes](https://github.com/alphagov/whitehall/blob/5631a1722e186b194f4f7bb1f53cd2eb56e48034/lib/dependable.rb#L9-L11)
+  - whitehall already tracks dependency changes and republishes
 - cons
   - making design changes to embed templates is harder to keep in sync with component CSS&nbsp;
   - making design/copy changes requires republishing/re-rendering documents
@@ -53,7 +53,7 @@ This is effectively what case study does for contacts, which are already support
 - Change content item body to be govspeak, not HTML
 - Move govspeak parsing/embedding logic (and templates) into frontend
 - Include embed data in links hash, for frontend to interpolate
-- CSS/JS for embeds lives in frontend(s?), more likely still govspeak component on static
+- CSS/JS for embeds lives in frontend(s)?, more likely still govspeak component on static
 - pros
   - embed templates live in frontend, right separation of concerns
   - frontend has freedom in how to render embeds
@@ -62,7 +62,7 @@ This is effectively what case study does for contacts, which are already support
   - big change to our representation of content in content items
   - adds&nbsp;significant complexity into all frontends (as the new world decouples publisher from frontend, any frontend may need to render embeds)
   - attachments and contacts need to exist in content store for link expansion
-  - CSS/JS for embeds still lives in a separate repo (static, for components) to the template, which will be in frontend(s?)
+  - CSS/JS for embeds still lives in a separate repo (static, for components) to the template, which will be in frontend(s)?
   - Harder for non-government users to consume the content store item via API
 
 ### 3) Publish HTML with embed placeholders, have Frontend parse/embed
