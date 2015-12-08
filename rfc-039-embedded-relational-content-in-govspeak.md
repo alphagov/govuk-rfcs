@@ -6,8 +6,6 @@ There are two cases, Embedded Contacts (example) and Embedded Attachments (examp
 
 The current Whitehall behaviour looks like this:
 
-&nbsp;
-
 - An editor adds an embed to their document, and publishes
   - they add the embed syntax (eg, `[contact:1234]`,` !@1`)
   - the document is persisted in the WH database
@@ -27,13 +25,15 @@ The qualities of this system that we would like to maintain are:
 - The embed templates and their CSS/JS live in the same repo, and can be iterated at in tandem.
 - Changes to the copy/design of the the embed templates can be applied by uncaching the govspeak of those documents
 
-## Proposals
+As part of the migration work Core Formats looked at the World Location News Article Format, which supports embedded attachments. In order to progress that work we need to decide where the above qualities are managed, and represented in the new world architecture, at the very least in the short term, finding a way that works that we can revisit later without too much pain.
 
-&nbsp;
+**Note** : There is already some support for embedded contacts for Case Studies, but as this format was migrated quickly, and as a very early example of the new world, we want to make re-evaluate the approach taken and compare to other options.
+
+## Proposals
 
 ### 1) Render embed template behaviour in publisher, send HTML to publishing API
 
-&nbsp;
+This is effectively what case study does for contacts, which are already supported in the [govspeak component](http://govuk-component-guide.herokuapp.com/components/govspeak/fixtures/contact), equivalent styling would need to be added for attachments.&nbsp;
 
 - publisher creates HTML body (including flattened embeds) and sends it to publishing API (embed templates stay in publisher)
 - frontend reads HTML body from content from and passes it to govspeak component
@@ -53,18 +53,35 @@ The qualities of this system that we would like to maintain are:
 - Change content item body to be govspeak, not HTML
 - Move govspeak parsing/embedding logic (and templates) into frontend
 - Include embed data in links hash, for frontend to interpolate
+- CSS/JS for embeds lives in frontend(s?), more likely still govspeak component on static
 - pros
   - embed templates live in frontend, right separation of concerns
   - frontend has freedom in how to render embeds
   - link expansion means embed data will automatically update on change
 - cons
-  - fundemental change to our representation of content
-  - introduces significant complexity into all frontends (as the new world decouples publisher from frontend, any frontend may need to render embeds)
+  - big change to our representation of content in content items
+  - adds&nbsp;significant complexity into all frontends (as the new world decouples publisher from frontend, any frontend may need to render embeds)
   - attachments and contacts need to exist in content store for link expansion
+  - CSS/JS for embeds still lives in a separate repo (static, for components) to the template, which will be in frontend(s?)
+  - Harder for non-government users to consume the content store item via API
 
-### 3) Publish HTML with embed placeholders, have frontend
+### 3) Publish HTML with embed placeholders, have Frontend parse/embed
 
-- Not as extreme as&nbsp;
+_((please expand, based on rough notes in meeting last week))_
+
+- Not as extreme as **2),** govspeak is still converted to HTML by the publisher, hiding most of the complexity from FE
+- embeds are represented as [SSI style](https://en.wikipedia.org/wiki/Server_Side_Includes) includes in HTML (so transparent to 'dumb' frontend, or api client)
+- otherwise same issues as above
+
+### 4) A rendering service sits between content store/frontends and performs govspeak parsing/embedding
+
+_((please expand, based on rough notes in meeting last week - Possibly suggested by chris.patuzzo&nbsp;or&nbsp;__paul.bowsher ?))_
+
+- Rendering services takes govspeak. or SSI html, and expands embeds on request
+- The frontend still deals with 'dumb' HTML, example content items stay the same
+- Mix of concerns less of an issue, as embed rendering isn't in the publisher
+
+&nbsp;
 
 &nbsp;
 
