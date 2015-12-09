@@ -30,7 +30,7 @@ Considerations and constraints in new world architecture:
 - The embedded records may not be owned by the same publishing application, eg, contacts moving to their own publisher
 - We may want the same embedding (possibly for the same types) in different publishing apps (eg, embedding contacts in mainstream content)
 - We may introduce new types of embedded content
-- Frequency of use of contact &nbsp;and attachment (1,320 published documents)&nbsp;embeds
+- Frequency of use of contact (8,486 published documents) and attachment (1,320 published documents with callout, 1,864 with inline)&nbsp;embeds
 - Frequency of change to design/markup of embed templates
 
 As part of the migration work Core Formats looked at the World Location News Article Format, which supports embedded attachments. In order to progress that work we need to decide where the above qualities are managed, and represented in the new world architecture, at the very least in the short term, finding a way that works that we can revisit later without too much pain.
