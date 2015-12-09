@@ -253,6 +253,7 @@ For example:
 
 - Building a dependency resolution service is probably going to take a while
 - Dependency resolution could be abused and could send thousands of updates if we're not careful
+- Adds complexity to front-end apps in order to resolve dependency and inject template
 
 &nbsp;
 
