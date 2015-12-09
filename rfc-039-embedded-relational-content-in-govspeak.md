@@ -25,9 +25,18 @@ The qualities of this system that we would like to maintain are:
 - The embed templates and their CSS/JS live in the same repo, and can be iterated at in tandem.
 - Changes to the copy/design of the the embed templates can be applied by uncaching the govspeak of those documents
 
+Considerations and constraints in new world architecture:
+
+- The embedded records may not be owned by the same publishing application, eg, contacts moving to their own publisher
+- We may introduce new types of embedded content
+- Frequency of use of contact and attachment embeds
+- Frequency of change to design/markup of embed templates
+
 As part of the migration work Core Formats looked at the World Location News Article Format, which supports embedded attachments. In order to progress that work we need to decide where the above qualities are managed, and represented in the new world architecture, at the very least in the short term, finding a way that works that we can revisit later without too much pain.
 
 **Note** : There is already some support for embedded contacts for Case Studies, but as this format was migrated quickly, and as a very early example of the new world, we want to make re-evaluate the approach taken and compare to other options.
+
+&nbsp;
 
 ## Proposals
 
@@ -47,6 +56,7 @@ This is effectively what case study does for contacts, which are already support
   - making design changes to embed templates is harder to keep in sync with component CSS&nbsp;
   - making design/copy changes requires republishing/re-rendering documents
   - mix of concerns - frontend/presentational content (inc translations) in publisher
+  - embedded&nbsp;
 
 ### 2) Publish raw govspeak, have frontend parse govspeak/embeds/etc
 
@@ -64,6 +74,7 @@ This is effectively what case study does for contacts, which are already support
   - attachments and contacts need to exist in content store for link expansion
   - CSS/JS for embeds still lives in a separate repo (static, for components) to the template, which will be in frontend(s)?
   - Harder for non-government users to consume the content store item via API
+  - Publisher still needs to be aware of embed syntax, to send right links
 
 ### 3) Publish HTML with embed placeholders, have Frontend parse/embed
 
@@ -80,6 +91,7 @@ _((please expand, based on rough notes in meeting last week - Possibly suggested
 - Rendering services takes govspeak. or SSI html, and expands embeds on request
 - The frontend still deals with 'dumb' HTML, example content items stay the same
 - Mix of concerns less of an issue, as embed rendering isn't in the publisher
+- Needs dependency tracking/re-rendering system
 
 &nbsp;
 
