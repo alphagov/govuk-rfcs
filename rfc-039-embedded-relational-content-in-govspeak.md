@@ -127,7 +127,132 @@ Supports future Phase 2 work by allowing publishing apps to store content source
   - Additional complexity in Publishing API
   - Mismatch of content schema between publishing and frontend
 
+**Platform team proposal:**
+
+Note: This proposal is in review by the publishing platform team (it is likely to change very shortly)
+
+The platform team spoke about this issue on the afternoon of 8th December, 2015. Here is our proposal:
+
 &nbsp;
+
+**1) We create a Govspeak Service that sits entirely outside of the publshing pipeline**
+
+**2) Front-End applications use the Govspeak Service to perform a simple translation of Govspeak to HTML:**
+
+For example:
+
+```
+[contact: 2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]
+```
+
+translates to
+
+```
+<!-- GOV.UK DEPENDENCY { format: "contact", content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c" } -->
+```
+
+&nbsp;
+
+**3) Front-End applications list all dependencies in the links hash:**
+
+For example:
+
+```
+links: {
+```
+
+```
+  dependencies: ["2b4d92f3-f8cd-4284-aaaa-25b3a640d26c"]
+```
+
+```
+}
+```
+
+&nbsp;
+
+**4) We create a Dependency Resolution Service that sits between the Publishing API and the Content Store:**
+
+This service tracks the dependencies of all content items.
+
+When someone changes a content item, it's dependent content items are looked up.
+
+The Dependency Resolution Service sends the content item and re-sends its dependents to the content store.
+
+```
+ 
+```
+
+When it does this, it adds a 'dependencies' key to the top-level of the content item payload.
+
+For example:
+
+```
+{
+```
+
+```
+  title: "Some content item",
+```
+
+```
+  body: "
+```
+
+```
+    <h1>Some header</h1>
+```
+
+```
+    Authored by: <!-- GOV.UK DEPENDENCY { format: "contact", content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c" } -->
+```
+
+```
+  "
+```
+
+```
+  dependencies: {
+```
+
+```
+    2b4d92f3-f8cd-4284-aaaa-25b3a640d26c: {
+```
+
+```
+      title: "Some contact",
+```
+
+```
+      ...
+```
+
+```
+    }
+```
+
+```
+  }
+```
+
+```
+}
+```
+
+&nbsp;
+
+**5) The front-end application then parses this body and replaces the \<!-- GOV.UK DEPENDENCY --\> tag for the template it wishes to render**
+
+**Pros:**
+
+- Govspeak and HTML are separate features (decoupled). The "special syntax" is govspeak is just translated into some "special syntax" in HTML
+- Govspeak remains outside of the publishing pipeline. The publishing pipeline doesn't need to know anything about Govspeak rendering
+- The dependency resolution feature can be used for other things too – inlining contacts/attachment is just one use case of this
+
+**Cons:**
+
+- Building a dependency resolution service is probably going to take a while
+- Dependency resolution could be abused and could send thousands of updates if we're not careful
 
 &nbsp;
 
