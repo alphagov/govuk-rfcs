@@ -1,6 +1,6 @@
 ## Related RFCs
 
-- 
+- &nbsp;(some thinking done, but no activity recently)
 
 ## Problem
 
