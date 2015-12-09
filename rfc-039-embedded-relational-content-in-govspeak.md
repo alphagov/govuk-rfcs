@@ -137,7 +137,7 @@ The platform team spoke about this issue on the afternoon of 8th December, 2015.
 
 **1) We create a Govspeak Service that sits entirely outside of the publshing pipeline**
 
-**2) Front-End applications use the Govspeak Service to perform a simple translation of Govspeak to HTML:**
+**2) Publishing applications use the Govspeak Service to perform a simple translation of Govspeak to HTML:**
 
 For example:
 
@@ -145,7 +145,7 @@ For example:
 [contact: 2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]
 ```
 
-translates to
+translates to an SSI-like construct of:
 
 ```
 <!-- GOV.UK DEPENDENCY { format: "contact", content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c" } -->
@@ -153,7 +153,7 @@ translates to
 
 &nbsp;
 
-**3) Front-End applications list all dependencies in the links hash:**
+**3) Publishing applications list all dependencies in the links hash:**
 
 For example:
 
