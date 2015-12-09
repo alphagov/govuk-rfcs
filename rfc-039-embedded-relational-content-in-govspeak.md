@@ -127,7 +127,7 @@ Supports future Phase 2 work by allowing publishing apps to store content source
   - Additional complexity in Publishing API
   - Mismatch of content schema between publishing and frontend
 
-**6) Platform team proposal:**
+**6a) Original platform team proposal:**
 
 Note: This proposal is in review by the publishing platform team (it is likely to change very shortly)
 
@@ -254,6 +254,29 @@ For example:
 - Building a dependency resolution service is probably going to take a while
 - Dependency resolution could be abused and could send thousands of updates if we're not careful
 - Adds complexity to front-end apps in order to resolve dependency and inject template
+
+&nbsp;
+
+### 6b) Simplified Publishing Platform disposal
+
+1. Split Govspeak rendering into Markdown parsing, and turning external dependencies into an interstitial format (eg XML or SSI comments). This could look like:  
+
+```
+<p>Blah blah</p><govspeak:contact id="123" /><p>Blah</p>
+```
+
+&nbsp;instead of inlining the rendered content.
+
+2. 
+
+Things which are converted to the interstitial format are stored separately to the Content Item in a `Dependencies`&nbsp;collection or similar. This is stored in a triple of `(content_id, type, json`
+
+3. 
+
+These dependencies are returned from the Content Store with the main Content Item document as a `dependencies`&nbsp;JSON sub-entry in the main content item.
+
+4. Frontend apps use the interstitial syntax to call out to Rails helpers or Components (up to them, really: they're the owners of the display logic)
+5. When things in the dependencies collection are updated in a publishing app, we notify the `Dependencies`&nbsp;collection which performs an upsert to the Content Item - the next API call to Content Store will include the updated dependency for frontend apps to use
 
 &nbsp;
 
