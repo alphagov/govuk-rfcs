@@ -91,14 +91,41 @@ _((please expand, based on rough notes in meeting last week))_
 
 ### 4) A rendering service sits between content store/frontends and performs govspeak parsing/embedding
 
-_((please expand, based on rough notes in meeting last week - Possibly suggested by chris.patuzzo&nbsp;or&nbsp;__paul.bowsher ?))_
-
-- Rendering services takes govspeak. or SSI html, and expands embeds on request
-- The frontend still deals with 'dumb' HTML, example content items stay the same
+- Rendering services takes govspeak and expands embeds on request
+- Frontends receive rendered HTML as normal
 - Mix of concerns less of an issue, as embed rendering isn't in the publisher
-- Needs dependency tracking/re-rendering system
+- Pros
+  - Single versionable service responsible for rendering Govspeak
+  - Changes to rendering of Govspeak won't require republishing of documents
+  - UNIX-like single responsibility principle
+- Cons
+  - Layer of indirection between Content Store and Frontend
+  - Would do a lot of on-the-fly processing, rendering Govspeak for each cache miss
+  - Yet Another Microservice, adds operational complexity
+- An alternative to some complexity would be to add the rendering component directly into Content Store
 
-&nbsp;
+### 5)&nbsp;Publishing API renders Govspeak into HTML for Content Store
+
+- Publishing apps send Govspeak to Publishing API, along with embeddable data, e.g. attachments, images
+- Publishing API renders Govspeak into HTML at publish time, and stores HTML in Content Store
+- Publishing API will handle re-rendering/republishing if Govspeak design changes
+- Pros
+  - Publish-time rendering rather than on-the-fly frontend rendering
+  - 
+
+Single versionable service responsible for rendering Govspeak
+
+  - 
+
+Publishing apps don't need to re-render or republish documents if designs change
+
+  - 
+
+Supports future Phase 2 work by allowing publishing apps to store content source in Publishing API
+
+- Cons
+  - Additional complexity in Publishing API
+  - Mismatch of content schema between publishing and frontend
 
 &nbsp;
 
