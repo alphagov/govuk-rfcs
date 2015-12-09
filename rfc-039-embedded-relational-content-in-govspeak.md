@@ -127,7 +127,7 @@ Supports future Phase 2 work by allowing publishing apps to store content source
   - Additional complexity in Publishing API
   - Mismatch of content schema between publishing and frontend
 
-**Platform team proposal:**
+**6) Platform team proposal:**
 
 Note: This proposal is in review by the publishing platform team (it is likely to change very shortly)
 
@@ -175,7 +175,7 @@ links: {
 
 This service tracks the dependencies of all content items.
 
-When someone changes a content item, it's dependent content items are looked up.
+When someone changes a content item, its dependent content items are looked up.
 
 The Dependency Resolution Service sends the content item and re-sends its dependents to the content store.
 
