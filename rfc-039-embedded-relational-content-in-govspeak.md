@@ -129,9 +129,9 @@ Supports future Phase 2 work by allowing publishing apps to store content source
 
 **6a) Original platform team proposal:**
 
-Note: This proposal is in review by the publishing platform team (it is likely to change very shortly)
+The platform team spoke about this issue on the afternoon of 8th December, 2015. Here is our proposal.
 
-The platform team spoke about this issue on the afternoon of 8th December, 2015. Here is our proposal:
+There's a more concise version below. See 6b) for an overview.
 
 &nbsp;
 
