@@ -13,7 +13,7 @@ Track content item dependencies and update dependent content items when content 
 
 ### How will dependencies be denoted?
 
-We will add an optional _dependencies_ key to the default content item schema:&nbsp;
+ key to the default content item schema:&nbsp;
 
 &nbsp;
 
@@ -43,7 +43,11 @@ TBC
 
 Potentially yes. We might only include select fields in the _resolved\_dependencies_ such as title, description, etc.
 
-We might provide support for this list to be specified upfront in the&nbsp;_dependencies_ property.
+ property.
+
+### How would I annotate dependencies with additional metadata?
+
+This would be placed elsewhere in the document. Perhaps in the details hash.
 
 &nbsp;
 
