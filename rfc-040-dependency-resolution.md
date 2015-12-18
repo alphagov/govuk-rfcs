@@ -13,23 +13,13 @@ Track content item dependencies and update dependent content items when content 
 
 ### How will dependencies be denoted?
 
-We will add an optional _dependencies_ key to the default content item schema:
-
-```
-dependencies: ["content-id-1", "content-id-2"]
-```
-
-```
- 
-```
+We will add an optional _dependencies_ key to the default content item schema:&nbsp;
 
 &nbsp;
 
 ### How will this information be delivered to front-end apps?
 
 The response from the content store will contain the dependent content items:
-
-&nbsp;
 
 &nbsp;
 
