@@ -9,29 +9,27 @@ When content items are presented to users, they can contain information from oth
 
 ## Proposal
 
-Introduce a Dependency Resolution Service that operates within the Publishing Pipeline.
+Track content item dependencies and update dependent content items when content items are written to the content store. This would be the responsibility of the content store.
 
-This service would keep track of content item dependencies and provide an API to query this information.
+### How will dependencies be denoted?
 
-### How would it keep track of dependencies?
+We will add an optional _dependencies_ key to the default content item schema:
 
-Content items currently reference other content items in the links hash.
+```
+dependencies: ["content-id-1", "content-id-2"]
+```
 
-The dependency resolution service would consider these content items to be its dependencies.
-
-It would store these dependencies as a directed graph in a relational database (details TBC).
-
-### How would applications interact with the service?
-
-TBC
-
-### What would the API look like?
-
-TBC
+```
+ 
+```
 
 &nbsp;
 
-TODO - requires further discussion
+### How will this information be delivered to front-end apps?
+
+The response from the content store will contain the dependent content items:
+
+&nbsp;
 
 &nbsp;
 
