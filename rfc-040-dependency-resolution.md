@@ -19,7 +19,31 @@ We will add an optional _dependencies_ key to the default content item schema:&n
 
 ### How will this information be delivered to front-end apps?
 
-The response from the content store will contain the dependent content items:
+The response from the content store will contain the resolved dependencies:
+
+&nbsp;
+
+### When will dependencies be resolved?
+
+Dependencies will be resolved when writes are made to the content store.
+
+A query will run against mongo to find all content items that depend on the content id of the incoming request.
+
+The&nbsp;_resolved\_dependencies_ of these content items will be updated to include the updated content item.
+
+### What about dependencies of depth greater than 1?
+
+Not supported.
+
+### What about search indexing?
+
+TBC
+
+### What if a content item has lots of dependencies, won't the documents be huge?
+
+Potentially yes. We might only include select fields in the _resolved\_dependencies_ such as title, description, etc.
+
+We might provide support for this list to be specified upfront in the&nbsp;_dependencies_ property.
 
 &nbsp;
 
