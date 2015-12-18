@@ -11,19 +11,23 @@ When content items are presented to users, they can contain information from oth
 
 Introduce a Dependency Resolution Service that operates within the Publishing Pipeline.
 
-### Key responsibilities
+This service would keep track of content item dependencies and provide an API to query this information.
 
-1) Keep track of content item dependencies
+### How would it keep track of dependencies?
 
-2) Automatically update content items whose dependencies have changed
+Content items currently reference other content items in the links hash.
 
-### Change to architecture
+The dependency resolution service would consider these content items to be its dependencies.
+
+It would store these dependencies as a directed graph in a relational database (details TBC).
+
+### How would applications interact with the service?
 
 TBC
 
-- Should this sit in between the publishing api and the content store?
-- Should this be a separate service that the publishing api speaks to?
-- Should this be an additional responsibility of the publishing api?
+### What would the API look like?
+
+TBC
 
 &nbsp;
 
