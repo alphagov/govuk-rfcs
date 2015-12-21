@@ -49,6 +49,10 @@ Potentially yes. We might only include select fields in the _resolved\_dependenc
 
 This would be placed elsewhere in the document. Perhaps in the details hash.
 
+### What about rendering pages that use reverse dependencies?
+
+We're going to tackle this separately. This should be easier once we're tracking the dependency graph.
+
 &nbsp;
 
 &nbsp;
