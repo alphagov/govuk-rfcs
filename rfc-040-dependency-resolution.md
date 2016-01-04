@@ -51,9 +51,7 @@ TBC – we plan on discussing this with the Finding Things team shortly.
 
 ### What if a content item has lots of dependencies, won't the documents be huge?
 
-Potentially yes. We might only include select fields in the _resolved\_dependencies_ such as title, description, etc.
-
- property.
+Potentially yes. We will have to be mindful of this when we specify which fields should be included in the content schemas.
 
 ### How would I annotate dependencies with additional metadata?
 
