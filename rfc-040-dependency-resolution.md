@@ -23,6 +23,8 @@ The response from the content store will contain the resolved dependencies:
 
 &nbsp;
 
+Note: We could make it so that this key is called "dependencies" and it instead replaces that portion of the document.&nbsp;This is an implementation detail we can discuss later.
+
 ### Which fields will be included in the resolved\_dependencies?
 
 These fields will be specified in the content schemas.
