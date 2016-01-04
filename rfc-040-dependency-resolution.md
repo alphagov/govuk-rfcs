@@ -23,6 +23,14 @@ The response from the content store will contain the resolved dependencies:
 
 &nbsp;
 
+### Which fields will be included in the resolved\_dependencies?
+
+These fields will be specified in the content schemas.
+
+There will be a default set of attributes that applies for to all dependencies (such as title).
+
+You will be able to customise this on a per format basis.
+
 ### When will dependencies be resolved?
 
 Dependencies will be resolved when writes are made to the content store.
