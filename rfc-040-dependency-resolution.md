@@ -47,7 +47,7 @@ Not supported.
 
 ### What about search indexing?
 
-TBC
+TBC – we plan on discussing this with the Finding Things team shortly.
 
 ### What if a content item has lots of dependencies, won't the documents be huge?
 
