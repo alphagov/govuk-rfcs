@@ -55,7 +55,7 @@ Potentially yes. We will have to be mindful of this when we specify which fields
 
 ### How would I annotate dependencies with additional metadata?
 
-This would be placed elsewhere in the document. Perhaps in the details hash.
+This would be placed elsewhere, in the details hash.
 
 ### What about rendering pages that use reverse dependencies?
 
