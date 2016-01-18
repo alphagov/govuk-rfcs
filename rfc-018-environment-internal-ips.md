@@ -29,10 +29,7 @@ We will have three environments - preview, staging and production. Each envirion
 | &nbsp; | Integration | Staging | Production | Notes |
 | --- | --- | --- | --- | --- |
 | ENV Carrenza | 10.1.0.1/19 | 10.2.0.1/19 | 10.3.0.1/19 | 10.X.0.1 -\> 10.(X+7).255.255 = 524,288 addresses |
-| ENV Skyscape (DR) | N/A | 10.0.0.1/8 | 10.0.0.1/8 | &nbsp; |
 | GOV.UK Org. | 10.1.0.1/21 | 10.2.0.1/21 | 10.3.0.1/21 | 10.X.0.1 -\> 10.X.255.255 = 65,536 addresses |
-| EFG Org. | N/A | 10.0.0.1/8 | 10.0.0.1/8 | &nbsp; |
-| Licensify Org. | 10.0.0.1/8 | 10.0.0.1/8 | 10.0.0.1/8 | &nbsp; |
 | DR Org. | 10.1.8.1/21 | 10.2.8.1/21 | 10.3.8.1/21 | &nbsp; |
 | GOV.UK - Management VDC | 10.1.0.1/24 | 10.2.0.1/24 | 10.3.0.1/24 | 10.X.Y.1 -\> 10.X.(Y+1).255 = 512 addresses |
 | DR - Management VDC | 10.1.8.1/24 | 10.2.8.1/24 | 10.3.8.1/24 | &nbsp; |
@@ -54,6 +51,12 @@ We will have three environments - preview, staging and production. Each envirion
 &nbsp;
 
  |
+
+| &nbsp; | Integration | Staging | Production | Notes |
+| --- | --- | --- | --- | --- |
+| ENV Skyscape (Licensify & EFG) | N/A | 10.0.0.1/8 | 10.0.0.1/8 | &nbsp; |
+| EFG Org. | N/A | 10.0.0.1/8 | 10.0.0.1/8 | &nbsp; |
+| Licensify Org. | 10.0.0.1/8 | 10.0.0.1/8 | 10.0.0.1/8 | &nbsp; |
 | EFG - EFG VDC | N/A | 10.4.0.1/16 | 10.4.0.1/16 | Uses old numbering format |
 | Licensify - Licensify VDC | 10.5.0.1/16 | 10.5.0.1/16 | 10.5.0.1/16 | Uses old numbering format |
 
