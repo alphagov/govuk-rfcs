@@ -3,7 +3,7 @@
 &nbsp;
 
 ---
-status: "IN PROGRESS"
+status: "aPPROVED"
 notes: " "
 ---
 
@@ -11,12 +11,12 @@ notes: " "
 
 Currently all our environments use the same very large internal IP ranges
 
-1. Identical IPs makes using VPNs to talk between Org.s within an environment hard
+1. Identical IPs makes using VPNs to talk between organisations within an environment hard
 2. We are being really wasteful with IPs
 
 **Proposal**
 
-We will have three environments - preview, staging and production. Each envirionment will have three organisations - GOV.UK, Disaster Recovery and Licensify. GOV.UK and DR organisations will contain six vDCs - management, router, frontend, backend, API and redirector. The Licensify org will contain one vDC called Licensify.
+We will have three environments - preview, staging and production. Each environment will have three organisations - GOV.UK, Disaster Recovery and Licensify. GOV.UK and DR organisations will contain six vDCs - management, router, frontend, backend, API and redirector. The Licensify organisation will contain one vDC called Licensify.
 
 - Each VDC should have a /24 assigned to it
 - Each Org. should have a /21&nbsp;assigned to it
