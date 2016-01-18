@@ -26,7 +26,7 @@ We will have three environments - preview, staging and production. Each envirion
 
 &nbsp;
 
-| &nbsp; | Preview | Staging | Production | Notes |
+| &nbsp; | Integration | Staging | Production | Notes |
 | --- | --- | --- | --- | --- |
 | ENV | 10.0.0.1/19 | 10.8.0.1/19 | 10.16.0.1/19 | 10.X.0.1 -\> 10.(X+7).255.255 = 524,288 addresses |
 | GOV.UK Org. | 10.0.0.1/21 | 10.8.0.1/21 | 10.16.0.1/21 | 10.X.0.1 -\> 10.X.255.255 = 65,536 addresses |
