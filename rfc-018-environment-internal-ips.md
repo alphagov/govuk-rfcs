@@ -28,10 +28,10 @@ We will have three environments - preview, staging and production. Each environm
 
 | &nbsp; | Integration | Staging | Production | Notes |
 | --- | --- | --- | --- | --- |
-| Environment | 10.1.0.1/19 | 10.2.0.1/19 | 10.3.0.1/19 | 10.X.0.1 -\> 10.(X+7).255.255 = 524,288 addresses |
-| Main organisation | 10.1.0.1/21 | 10.2.0.1/21 | 10.3.0.1/21 | 10.X.0.1 -\> 10.X.255.255 = 65,536 addresses |
-| DR organisation | 10.1.8.1/21 | 10.2.8.1/21 | 10.3.8.1/21 | &nbsp; |
-| GOV.UK - Management VDC | 10.1.0.1/24 | 10.2.0.1/24 | 10.3.0.1/24 | 10.X.Y.1 -\> 10.X.(Y+1).255 = 512 addresses |
+| Environment | 10.1.0.1/19 | 10.2.0.1/19 | 10.3.0.1/19 | 10.X.0.1 -\> 10.X.31.255 = 8192 addresses |
+| Main organisation | 10.1.0.1/21 | 10.2.0.1/21 | 10.3.0.1/21 | 10.X.0.1 -\> 10.X.7.255 = 2048 addresses |
+| DR organisation | 10.1.8.1/21 | 10.2.8.1/21 | 10.3.8.1/21 | 10.X.8.1 -\> 10.X.15.255 = 2048 addresses |
+| GOV.UK - Management VDC | 10.1.0.1/24 | 10.2.0.1/24 | 10.3.0.1/24 | 10.X.Y.1 -\> 10.X.Y.255 = 256 addresses |
 | GOV.UK - Router VDC | 10.1.1.1/24 | 10.2.1.1/24 | 10.3.1.1/24 | &nbsp; |
 | GOV.UK - Frontend VDC | 10.1.2.1/24 | 10.2.2.1/24 | 10.3.2.1/24 | &nbsp; |
 | GOV.UK - Backend VDC | 
