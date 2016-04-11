@@ -3,8 +3,8 @@
 &nbsp;
 
 ---
-status: "IN PROGRESS"
-notes: "Closing for comments on ..."
+status: "OPEN"
+notes: "Open for review"
 ---
 
 ## Problem
