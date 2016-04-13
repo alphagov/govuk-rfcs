@@ -1,12 +1,3 @@
-&nbsp;
-
-&nbsp;
-
----
-status: "IN DRAFT"
-notes: "Currently being drafted - still WIP"
----
-
 ## Problem
 
 There's a need for "unadressable content" on GOV.UK. These are content items without a URL (base path) that won't be visible on GOV.UK. They would be used in the links hash and for dependency resolution.
