@@ -17,7 +17,7 @@ Other use cases for this are:
 
 - **The tags for the new single taxonomy**. Linking to things without a base path means we don't need a page for each "tag", but we can have a more flexible architecture where we display multiple tags on one page.
 - **Adding external links to the search index**. These currently live in [recommended links repo](https://github.com/alphagov/recommended-links) and are put directly into rummager. In the future we'll populate the search index from the message queue exclusively. This means that everything that should be in search also needs to be in the publishing-api.
-- **Councils** don't have a URL on GOV.UK but should be added. This will be part of the work the Custom team is doing to [rebuild local transactions](https://gov-uk.atlassian.net/wiki/display/GOVUK/RFC+33+Local+transactions+migration+approach).
+- **Councils** &nbsp;may be added as part of the work the Custom team is doing to [rebuild local transactions](https://gov-uk.atlassian.net/wiki/display/GOVUK/RFC+33+Local+transactions+migration+approach).
 
 There has been some work done on this:&nbsp;[https://trello.com/c/b77KFGgc/523-add-support-for-nil-base-paths-in-publishing-api](https://trello.com/c/b77KFGgc/523-add-support-for-nil-base-paths-in-publishing-api).&nbsp;
 
