@@ -32,7 +32,7 @@ We recommend the following steps:
 3. **Refuse to clobber existing documents**. &nbsp;We currently allow gones/redirects to take the place (base\_path) of documents, and vice versa. &nbsp;This provides an in-app way to implement unpublishing (and republishing). &nbsp;We should remove the first case of this functionality and require the existing content to be unpublished via the new endpoints&nbsp;`/v2/content/:id/unpublish` or moved by altering its base\_path and publishing (which automatically creates a redirect). &nbsp;Allowing gones/redirects to be clobbered still makes sense as it is a reclamation of an unused path.
 4. **Create `/v2/content/:id/unpublish`** &nbsp;accepting a POST with \<format TBC\>, which returns the content item to draft and creates & publishes the resulting format (gone/unpublishing/redirect). &nbsp;Question: should we autodiscard an existing draft if there is one, or refuse to take action?
 5. **Populate gone items** with enough information to render the page seen after unpublishing, which in the case of Whitehall is the reason for unpublishing and/or alternate URL. &nbsp;This page presentation can then be tidied up and standardised across publishers / frontends.
-6. **Indicate unpublished state** back to the user. &nbsp;We need to be able to indicate that a piece of content was withdrawn and is currently showing a gone page. &nbsp;Likewise indicating that content is "draft and redirected" would be useful to give visibility on the whole state of the item to the user.
+6. **Indicate unpublished state** back to the user. &nbsp;We need to be able to indicate that a piece of content was More thought warranted on this.
 
 &nbsp;
 
