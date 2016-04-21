@@ -25,15 +25,13 @@ Proposal
 
 Currently it is up to the publishing apps to send the relevant formats to publishing-api in each of these cases above. This involves sending a new draft item - of the original format updated to include the message for case 1, an Unpublishing item for case 2, a Redirect for case 3 and a Gone for cases 4 and 5 - and then a second call to publish.
 
-We propose to leave withdrawing as it is, but simplify the unpublishing workflow by adding&nbsp;a new endpoint,&nbsp;`/v2/content/:id/unpublish`. This will accept a POST with **\<format TBC\>** and move the content item to the correct state and sending the resulting format (gone/unpublishing/redirect) to content-store.
+We recommend the following steps:
 
-...details...
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
+1. **Clarify our language**. &nbsp;We adopted "withdrawing" as a verb in the publishing API when really that should be constrained to occasions when the content remains on the site but is removed from the canon of the current government. &nbsp;Everything else is "unpublishing".
+2. **Flag documents as withdrawn** &nbsp;from the publishing app rather than supporting "withdrawn" as a first-class state, so the front-ends can render the appropriate banner. &nbsp;This should be handled the same way when we do "historic" documents.
+3. **Refuse to clobber existing documents**. &nbsp;We currently allow gones/redirects to take the place (base\_path) of documents, and vice versa. &nbsp;This provides an in-app way to implement unpublishing (and republishing). &nbsp;We should remove the first case of this functionality and require the existing content to be unpublished via the new endpoints&nbsp;`/v2/content/:id/unpublish` or moved by altering its base\_path and publishing (which automatically creates a redirect). &nbsp;Allowing gones/redirects to be clobbered still makes sense as it is a reclamation of an unused path.
+4. **Create `/v2/content/:id/unpublish`** &nbsp;accepting a POST with \<format TBC\>, which returns the content item to draft and sends the resulting format (gone/unpublishing/redirect) to content-store. &nbsp;Question: should we autodiscard an existing draft if there is one, or refuse to take action?
+5. **Populate gone items** with enough information to render the page seen after unpublishing, which in the case of Whitehall is the reason for unpublishing and/or alternate URL. &nbsp;This page presentation can then be tidied up and standardised across publishers / frontends.
 
 &nbsp;
 
