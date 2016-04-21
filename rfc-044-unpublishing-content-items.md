@@ -1,3 +1,12 @@
+&nbsp;
+
+&nbsp;
+
+---
+status: "IN PROGRESS"
+notes: "Closing for comments on Friday 29 April"
+---
+
 ## Problem
 
 The workflow around unpublishing and withdrawing content items in the publishing-api is unclear and does not cover all the use cases of the different publishing apps. We need to simplify the processes, while making sure that all current actions are supported.
