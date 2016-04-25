@@ -16,7 +16,7 @@ This RFC is intended to give us the opportunity to really think this through, as
 
 ## Proposed requirements
 
-1. Publishing API&nbsp;should support these content items without knowing about the formats. Instead, whether or not the format is adressable or not should be set in the content-schemas.
+1. Publishing API&nbsp;should support these content items without knowing about the formats. Instead, whether or not the format is addressable or not should be set in the content-schemas.
 2. The content item needs testable with [govuk-content-schemas](https://github.com/alphagov/govuk-content-schemas) (the current build process assumes that all schemas will have a required `base_path`)
 3. Publishing API validates that the items don't have a `base_path`, `rendering_app`, `redirects` and `routes` when writing
 4. Publishing API&nbsp;doesn't include `base_path`, `rendering_app`, `redirects` and `routes` in the GET responses and message queue payload  
