@@ -16,7 +16,7 @@ This RFC is intended to give us the opportunity to really think this through, as
 
 ## Proposed requirements
 
-1. Publishing API&nbsp;should support these content items without knowing about the formats. Instead, sending a content item with an explicit `addressable: false` attribute would be required to make a item without a base\_path. This makes the behaviour explicit and prevents the publishing-api from knowing too much about formats
+1. Publishing API&nbsp;should support these content items without knowing about the formats. Instead, whether or not the format is adressable or not should be set in the content-schemas.
 2. The content item needs testable with [govuk-content-schemas](https://github.com/alphagov/govuk-content-schemas) (the current build process assumes that all schemas will have a required `base_path`)
 3. Publishing API validates that the items don't have a `base_path`, `rendering_app`, `redirects` and `routes` when writing
 4. Publishing API&nbsp;doesn't include `base_path`, `rendering_app`, `redirects` and `routes` in the GET responses and message queue payload  
@@ -25,7 +25,6 @@ This RFC is intended to give us the opportunity to really think this through, as
 Open questions
 
 - Do we add a explicit attribute on the presented content item that it's addressable/non-addressable?
-- Is "addressable" vs "non-addressable" content the correct terminology? Do we need another name for this?
 - Can all message queue consumers cope with non-addressable content?
 - Are there any other places where we assume that content items have a base path?
 
