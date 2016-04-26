@@ -15,7 +15,7 @@ Introduce a `govuk-sidekiq` gem that consolidates all GOV.UK Sidekiq conventions
 - Use logging (`sidekiq-logging-json` is used very&nbsp;inconsistently)
 - Perhaps setup & configuration
 
-&nbsp;
+This will make all our apps easier to manage and upgrade.
 
 &nbsp;
 
