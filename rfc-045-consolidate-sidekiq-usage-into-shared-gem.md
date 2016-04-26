@@ -1,6 +1,6 @@
 ## Problem
 
-The Publishing Platform team is currently working on adding request tracing to all apps that use the Publishing API in a asynchronous way via Sidekiq - [https://github.com/alphagov/collections-publisher/pull/194](https://github.com/alphagov/collections-publisher/pull/194)&nbsp;and&nbsp;[https://github.com/alphagov/whitehall/pull/2567](https://github.com/alphagov/whitehall/pull/2567). This will need repeating across many apps. The implementation is sufficiently complex that a mass-change of all apps in the future is not unlikely.
+The Publishing Platform team is currently working on adding request tracing to all apps that use the Publishing API in an asynchronous way via Sidekiq - [https://github.com/alphagov/collections-publisher/pull/194](https://github.com/alphagov/collections-publisher/pull/194)&nbsp;and&nbsp;[https://github.com/alphagov/whitehall/pull/2567](https://github.com/alphagov/whitehall/pull/2567). This will need repeating across many apps. The implementation is sufficiently complex that a mass-change of all apps in the future is not unlikely.
 
 A previous shotgun surgery on apps with Sidekiq was the adding of sidekiq-statsd -&nbsp;[https://trello.com/c/z2aHqwS8/48-add-sidekiq-statsd-to-apps-that-use-sidekiq](https://trello.com/c/z2aHqwS8/48-add-sidekiq-statsd-to-apps-that-use-sidekiq)&nbsp;which needed ~10 PRs.
 
