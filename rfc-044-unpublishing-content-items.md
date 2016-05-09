@@ -3,8 +3,8 @@
 &nbsp;
 
 ---
-status: "IN PROGRESS"
-notes: "Closing for comments on Friday 29 April"
+status: "IN DEV"
+notes: "Development has started (2nd May, 2016)"
 ---
 
 ## Problem
