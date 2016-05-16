@@ -14,17 +14,3 @@ The event log needs to be retained for now as the primary key for the table is u
 
 &nbsp;
 
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
