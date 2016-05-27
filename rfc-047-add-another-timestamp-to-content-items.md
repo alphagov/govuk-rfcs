@@ -4,7 +4,7 @@ One of the goals of migration is to make publishing apps use the publishing api 
 
 ## Proposal
 
-Introduce a new timestamp for content items in publishing api that is updated whenever there is a major or minor update, but not on republishes. This field should be called something like 'edited\_at' or 'private\_updated\_at' and is for internal use only. It should not be sent downstream to the content store. Publishing apps then specify this sort order in the request to publishing api when requesting content for the index page.
+Introduce a new timestamp for content items in publishing api that is updated whenever there is a major or minor update, but not on republishes. This field should be called something like 'edited\_at' or 'private\_updated\_at' and is for internal use only. It should not be sent downstream to the content store. Publishing apps then specify this sort order in the request to publishing api when requesting content for index pages.
 
 &nbsp;
 
