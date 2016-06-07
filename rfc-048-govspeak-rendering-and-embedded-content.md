@@ -122,7 +122,7 @@ Pros
 
 Cons
 
-- Publishing apps have to explicitly include dependent content in it's links hash (as publishing api is unaware of govspeak)
+- Publishing apps have to explicitly include dependent content in its links hash (as publishing api is unaware of govspeak)
 - Rendering of govspeak is done repeatedly - could be performance issue
 - Increases complexity in frontends
 - Makes content store a less useful API for 3rd parties
