@@ -20,21 +20,25 @@ The work was [picked up again recently](https://github.com/alphagov/publishing-a
 - Team turnover: many people involved in that discussion are no longer, and some&nbsp;who've joined since.
 - Through migration we've learnt a lot about new architecture and hopefully have a better understanding of it.
 
-## Problem
-
-&nbsp;
-
-- _embedded dependency -&nbsp;_a contact, or attachment
-- _embedded content layout -_&nbsp;the templating logic/markup for rendering an embedded dependency
-
 ## Qualities of an ideal solution
 
 - Minimal logic in Frontend applications, with the long-term goal of static frontends
-- Content store is a useful API to 3rd Parties
-- Avoid bulk republishing?
-- Govspeak HTML stays in sync with CSS/JS
+- Content store is a useful API to 3rd Parties without additional work
+- Content items can be consumed/processed by search
+- When an embedded dependency changes any documents containing it are automatically updated in a timely fashion
+- The embed content templates and their CSS/JS stay in sync with each other
+
+Each of the proposals describes where the responsibilities sit within the architecture, and what would need to happen in common scenarios where something changes:
+
+- embedded dependency changed: a embeddable piece of content (eg, a contact or attachment) is updated in a publishing app by an editor
+- embedded content layout changed: the template for rendering an embeddedable piece if content (eg, contact.html.erb) is updated/deployed by a developer
+- govspeak rendering output changes: all content items are re-rendered and updated in content-store
 
 ## Proposals
+
+&nbsp;
+
+For all the proposals it's assumed a publishing app
 
 ### 1. 100% Publishing: Govspeak rendering, and embedded content, is done on the Publishers (or shared service)
 
@@ -42,27 +46,61 @@ The work was [picked up again recently](https://github.com/alphagov/publishing-a
 - publishing-api responsible for converting govspeak to HTML
 - publishing-api responsible for converting embedded dependencies to HTML
 - publishing api responsible for tracking changes to embedded dependencies and re-generating HTML
-- frontend receives content item with HTML - no dependencies in links hash
+- frontend apps receive content item with plain HTML - no dependencies in links hash
 
 When...
 
-- embedded dependency changed: publishing app needs to tracl when an embedded dependency has changed, and re-render the HTML, and put in content-store
-- embedded content layout changed: all content items with an embedded dependency using that layout need to have HTML re-generated
+- embedded dependency changed: publishing api needs to track when an embedded dependency has changed, re-render the HTML, and update content-store
+- embedded content layout changed: all content items with an embedded dependency of that layout type are re-rendered and updated in content-store
+- govspeak rendering output changes: all content items are re-rendered and updated in content-store
+
+Pros
+
+- frontend apps stay simple, easier to reason abut
+- complexity limited to publishing api
+
+Cons
+
+- changes to embedded dependency template can require re-rendering a lot of content
+- govspeak HTML can be out of sync with CSS/JS
+- embedded dependency template HTML can be out of sync with&nbsp;CSS/JS
 
 ### 2. Hybrid: Govspeak rendering&nbsp;
 
-- content-store returns partially rendered HTML - no raw govspeak, but placeholders for&nbsp;
-- embedded dependency data is included in links hash
+- content-store returns partially rendered HTML, with embedded placeholders
+- publishing-api responsible for converting govspeak to HTML with embed placeholders
+- publishing-api responsible for exposing embedded depencency data in links hash
+- publishing api responsible for embedded dependencies links hash being up to date
+- frontend receives content item HTML with embedded placeholders
 
-&nbsp;
+When...
 
 - embedded dependency changed: publishing app needs to tract when an embedded dependency has changed, and re-render the&nbsp;
 - embedded content layout changed: all content items with an embedded dependency using that layout need to re-generate HTML
+
+Pros
+
+- Common case, embedded dependencys changing, is optimised
+- embedded dependency template HTML can be kept in sync with&nbsp;CSS/JS
+
+Cons
+
+- Complexity is spread across publishing-api and frontend apps, harder to reason about
+- Possible additional microservice dependencies for frontends to avoid duplicating embedding logic
+- govspeak HTML can be out of sync with it's CSS/JS
 
 ### 3. 100% Frontend:&nbsp;Govspeak rendering, and embedded content, is done by Frontends (or shared service)
 
 - content-store returns raw govspeak, no HTML, with standard Govspeak syntax for embedded dependencies
 - embedded dependency data is included in links hash
+
+when
+
+Pros
+
+- embedded dependency template HTML can be kept in sync with&nbsp;CSS/JS
+
+Cons
 
 &nbsp;
 
