@@ -36,9 +36,10 @@ Each of the proposals describes where the responsibilities sit within the archit
 
 ## Proposals
 
-&nbsp;
+It's assumed that the govspeak going in to publishing-api, from publishing apps, would have a standardised format for embedded content, that includes
 
-For all the proposals it's assumed a publishing app
+- a unique identifier for the embedded content
+- the type of embedded content
 
 ### 1. 100% Publishing: Govspeak rendering, and embedded content, is done on the Publishers (or shared service)
 
@@ -56,51 +57,70 @@ When...
 
 Pros
 
-- frontend apps stay simple, easier to reason abut
 - complexity limited to publishing api
+- frontend apps and publishing api are easier to reason about
+- best perfomance for users - rendering is done once and cached in content store
+- publishing apps don't have to send embedded dependencies in links hash
 
 Cons
 
-- changes to embedded dependency template can require re-rendering a lot of content
+- changes to embedded dependency template will require re-rendering a lot of content (eg, all publishings)
+- changes to govspeak rendering will require re-rendering all content with govspeak
 - govspeak HTML can be out of sync with CSS/JS
 - embedded dependency template HTML can be out of sync with&nbsp;CSS/JS
 
 ### 2. Hybrid: Govspeak rendering&nbsp;
 
-- content-store returns partially rendered HTML, with embedded placeholders
+- content-store returns partially rendered HTML, with embedded placeholders (eg, SSI-style syntax)
 - publishing-api responsible for converting govspeak to HTML with embed placeholders
 - publishing-api responsible for exposing embedded depencency data in links hash
 - publishing api responsible for embedded dependencies links hash being up to date
 - frontend receives content item HTML with embedded placeholders
+- frontend parses HTML for placeholders and renders&nbsp;embedded dependency templates with data from links hash
 
 When...
 
-- embedded dependency changed: publishing app needs to tract when an embedded dependency has changed, and re-render the&nbsp;
-- embedded content layout changed: all content items with an embedded dependency using that layout need to re-generate HTML
+- embedded dependency changed: dependency resolution will update the content item, and frontend will automatically reflect
+- embedded content layout changed:&nbsp;frontend will automatically reflect
+- govspeak rendering output changes: all content items need to be re-rendered and updated in content-store
 
 Pros
 
-- Common case, embedded dependencys changing, is optimised
-- embedded dependency template HTML can be kept in sync with&nbsp;CSS/JS
+- Common updated case, embedded dependencys changing, doesn't require re-rendering
+- embedded dependency templates HTML can be kept in sync with&nbsp;CSS/JS
+- publishing apps don't have to send embedded dependencies in links hash (can be infered while processing govspeak to placeholders)
 
 Cons
 
 - Complexity is spread across publishing-api and frontend apps, harder to reason about
 - Possible additional microservice dependencies for frontends to avoid duplicating embedding logic
 - govspeak HTML can be out of sync with it's CSS/JS
+- Makes content store a less useful API for 3rd parties (but not in an obvious way)
 
 ### 3. 100% Frontend:&nbsp;Govspeak rendering, and embedded content, is done by Frontends (or shared service)
 
-- content-store returns raw govspeak, no HTML, with standard Govspeak syntax for embedded dependencies
+- content-store returns raw govspeak, no HTML
 - embedded dependency data is included in links hash
+- frontend renders govspeak to HTML
 
-when
+When...
+
+- embedded dependency changed: dependency resolution will update the content item, and frontend will automatically reflect
+- embedded content layout changed:&nbsp;frontends will automatically reflect
+- govspeak rendering output changes: frontends will automatically reflect
 
 Pros
 
-- embedded dependency template HTML can be kept in sync with&nbsp;CSS/JS
+- embedded dependency template HTML kept in sync with&nbsp;CSS/JS
+- govspeak HTML kept in sync with it's CSS/JS
+- govspeak complexity is limited to frontend only
 
 Cons
+
+- Publishing apps have to explicitly include dependent content in it's links hash (as publishing api is unaware of govspeak)
+- Rendering of govspeak is done repeatedly - could be performance issue
+- Increases complexity in frontends
+- Makes content store a less useful API for 3rd parties
 
 &nbsp;
 
