@@ -37,7 +37,7 @@ The scenarios are ordered from most to least frequent
 - embedded content layout changed: the template for rendering an embeddedable piece of content (eg, contact.html.erb) is updated/deployed by a developer
   - This happens occasionally, as part of design iteration
 - govspeak rendering output changes:&nbsp;the output of regular govspeak changes eg,&nbsp;[change of markup of our extensions](https://github.com/alphagov/govspeak#extensions)
-  - This happens rarely - significant, and backwards-compatible changes haven't happened very often in my experience, but this may be down to it being _very hard_ in the current sytem, so we've not botehred.
+  - This happens rarely - significant, and backwards-compatible changes haven't happened very often in my experience, but this may be down to it being _very hard_ in the current sytem, so we've not bothered.
 
 ## Proposals
 
