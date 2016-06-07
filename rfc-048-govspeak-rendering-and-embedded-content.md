@@ -32,7 +32,7 @@ Each of the proposals describes where the responsibilities sit within the archit
 
 - embedded dependency changed: a embeddable piece of content (eg, a contact or attachment) is updated in a publishing app by an editor
 - embedded content layout changed: the template for rendering an embeddedable piece if content (eg, contact.html.erb) is updated/deployed by a developer
-- govspeak rendering output changes: all content items are re-rendered and updated in content-store
+- govspeak rendering output changes:&nbsp;the output of regular govspeak changes eg,&nbsp;[change of markup of our extensions](https://github.com/alphagov/govspeak#extensions)
 
 ## Proposals
 
@@ -41,7 +41,7 @@ It's assumed that the govspeak going in to publishing-api, from publishing apps,
 - a unique identifier for the embedded content
 - the type of embedded content
 
-### 1. 100% Publishing: Govspeak rendering, and embedded content, is done on the Publishers (or shared service)
+### 1. 100% Publishing: Govspeak rendering, and embedded content, is done by publishing-api&nbsp;(or shared service)
 
 - content-store returns fully rendered HTML, including embedded content
 - publishing-api responsible for converting govspeak to HTML
