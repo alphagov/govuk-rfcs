@@ -28,11 +28,16 @@ The work was [picked up again recently](https://github.com/alphagov/publishing-a
 - When an embedded dependency changes any documents containing it are automatically updated in a timely fashion
 - The embed content templates and their CSS/JS stay in sync with each other
 
-Each of the proposals describes where the responsibilities sit within the architecture, and what would need to happen in common scenarios where something changes:
+Each of the proposals describes where the responsibilities sit within the architecture, and what happens in each of the scenarios where something changes.
 
-- embedded dependency changed: a embeddable piece of content (eg, a contact or attachment) is updated in a publishing app by an editor
+The scenarios are ordered from most to least frequent
+
+- embedded dependency changed: a embeddable piece of content (eg, a contact or attachment) is updated in a publishing app by an editor.
+  - This happens literally all the time, especially for things like contacts
 - embedded content layout changed: the template for rendering an embeddedable piece if content (eg, contact.html.erb) is updated/deployed by a developer
+  - This happens occasionally, as part of design iteration
 - govspeak rendering output changes:&nbsp;the output of regular govspeak changes eg,&nbsp;[change of markup of our extensions](https://github.com/alphagov/govspeak#extensions)
+  - This happens rarely - significant, and backwards-compatible changes haven't happened very often in my experience, but this may be down to it being _very hard_ in the current sytem, so we've not botehred.
 
 ## Proposals
 
