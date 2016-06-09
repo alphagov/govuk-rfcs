@@ -125,6 +125,7 @@ Cons
 - Publishing apps have to explicitly include dependent content in its links hash (as publishing api is unaware of govspeak)
 - Rendering of govspeak is done repeatedly - could be performance issue
 - Increases complexity in frontends
+- Harder for search to consume govspeak vs html content
 - Makes content store a less useful API for 3rd parties
 
 &nbsp;
