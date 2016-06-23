@@ -21,8 +21,6 @@ The consensus was that:
 - the ordering of links within a page is a presentational concern
 - the links data should be easy to update outside of the owning publishing app (i.e. content tagger) without needing to specify how the frontend will present it
 
-Further background on what we are aiming for can be found in&nbsp;
-
 In this RFC when I talk about tagging, I mean any activity that creates a link between a content item and some kind of "linkable" content item, i.e. mainstream browse page, topic page, organisation etc.
 
 This doesn't have to take place within the normal workflow for changing content - for certain link types and formats, we can change the tags in content tagger without creating a new draft of the content item.
@@ -36,7 +34,7 @@ Collections-publisher is also used to curate content, i.e. pick out content to d
 When we implemented RFC 36, we removed all ordering information about links from the publishing api. Since then, we've since noticed two places on GOV.UK that used to rely on the ordering of links:
 
 1. Some organisations get emphasised (come first) on whitehall content pages, eg a policy page
-2. On mainstream browse pages, you have the option to change the ordering of second-level browse pages: eg&nbsp;[https://collections-publisher.integration.publishing.service.gov.uk/mainstream-browse-pages/451c8029-6fe3-41cf-80e8-717debd317bd/manage-child-ordering](https://collections-publisher.integration.publishing.service.gov.uk/mainstream-browse-pages/451c8029-6fe3-41cf-80e8-717debd317bd/manage-child-ordering)&nbsp;- this functionality is now broken.
+2. On mainstream browse pages, you have the option to change the ordering of second-level browse pages: [https://collections-publisher.integration.publishing.service.gov.uk/mainstream-browse-pages/451c8029-6fe3-41cf-80e8-717debd317bd/manage-child-ordering](https://collections-publisher.integration.publishing.service.gov.uk/mainstream-browse-pages/451c8029-6fe3-41cf-80e8-717debd317bd/manage-child-ordering)&nbsp;- this functionality is now broken.
 
 We can foresee similar needs arising as we continue to develop the alpha taxonomy for education and prototype new navigation structures.
 
