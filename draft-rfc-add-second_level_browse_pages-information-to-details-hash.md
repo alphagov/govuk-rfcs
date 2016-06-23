@@ -3,8 +3,8 @@
 &nbsp;
 
 ---
-status: "IN DRAFT"
-notes: "Closing for comments on (TBC)"
+status: "Open"
+notes: "Open for review"
 ---
 
 ## Background
