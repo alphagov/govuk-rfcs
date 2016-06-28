@@ -3,8 +3,8 @@
 &nbsp;
 
 ---
-status: "DRAFT"
-notes: "Being written up"
+status: "OPEN"
+notes: "Open for comments and questions"
 ---
 
 ## Background
