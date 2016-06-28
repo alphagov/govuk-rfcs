@@ -3,15 +3,15 @@
 &nbsp;
 
 ---
-status: "OPEN"
-notes: "Open for comments and questions"
+status: "DRAFT"
+notes: "Being written up"
 ---
 
 ## Background
 
 We have almost finished migrating Specialist Publisher onto the Publishing Platform.
 
-In doing so, we've written lots of tests to ensure the application meets its requirements.
+In doing so, we've written lots of tests that ensure the application meets its requirements.
 
 The majority of our tests follow this pattern:
 
@@ -23,13 +23,13 @@ The majority of our tests follow this pattern:
 
 **Unable to test user-journeys**
 
-Because we're returning canned responses, we're unable to test user-journeys within the publishing app. We **can't** write tests like this:
+Because we're returning canned responses, we're unable to test user-journeys within the publishing app. We can't write tests like this:
 
 1. Visit the new document page
 2. Create a new document
 3. Assert that the document is visible in the interface
 
-We can't write these tests because no state is preserved after we have created the document. The next time a request is made to get that document, it will return the original response that the stub set up and won't reflect that change that would have happened in the Publishing API if we were interacting with the application for real.
+We can't write these tests is because no state is preserved after we have created the document. The next time a request is made to get that document, it will return the original response that the stub set up and won't reflect that change that would have happened in the Publishing API if we were interacting with the application for real.
 
 The same is true for all user-journeys in the application. There are no tests that span more than a single page of the publishing app..
 
