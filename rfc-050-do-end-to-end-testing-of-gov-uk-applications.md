@@ -29,7 +29,7 @@ Because we're returning canned responses, we're unable to test user-journeys wit
 2. Create a new document
 3. Assert that the document is visible in the interface
 
-We can't write these tests is because no state is preserved after we have created the document. The next time a request is made to get that document, it will return the original response that the stub set up and won't reflect that change that would have happened in the Publishing API if we were interacting with the application for real.
+We can't write these tests because no state is preserved after we have created the document. The next time a request is made to get that document, it will return the original response that the stub set up and won't reflect that change that would have happened in the Publishing API if we were interacting with the application for real.
 
 The same is true for all user-journeys in the application. There are no tests that span more than a single page of the publishing app..
 
