@@ -23,7 +23,7 @@ The majority of our tests follow this pattern:
 
 **Unable to test user-journeys**
 
-Because we're returning canned responses, we're unable to test user-journeys within the publishing app. We can't write tests like this:
+Because we're returning canned responses, we're unable to test user-journeys within the publishing app. We **can't** write tests like this:
 
 1. Visit the new document page
 2. Create a new document
