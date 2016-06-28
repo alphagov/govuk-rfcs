@@ -11,7 +11,7 @@ notes: "Open for comments and questions"
 
 We have almost finished migrating Specialist Publisher onto the Publishing Platform.
 
-In doing so, we've written lots of tests that ensure the application meets its requirements.
+In doing so, we've written lots of tests to ensure the application meets its requirements.
 
 The majority of our tests follow this pattern:
 
