@@ -4,7 +4,7 @@
 
 ---
 status: "Open"
-notes: "Open for review"
+notes: "Decision deferred until Finding Things start designing the new navigation."
 ---
 
 ## Background
