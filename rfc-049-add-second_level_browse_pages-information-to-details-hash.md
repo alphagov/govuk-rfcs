@@ -3,7 +3,7 @@
 &nbsp;
 
 ---
-status: "Open"
+status: "PAUSED"
 notes: "Deferred until Finding Things start designing the new navigation."
 ---
 
