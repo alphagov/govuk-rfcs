@@ -41,6 +41,7 @@ We occasionally receive PRs from external contributors who use our code. These w
 1. It's ok for someone other than the author to merge a PR in the "merge when green" or "[Do not merge]" scenarios above, particularly if the author is off work
 2. If a PR is particularly good, remember to praise the author for it. Emoji are a great way of showing appreciation for a PR that fixes a problem you've been having, or implements something you've wanted to do for a while.
 3. It's sometimes ok for merges to happen when test suites are failing. This ability is limited to repo administrators and account owners, so ask them if you need them to force a merge. This is particularly useful in a catch-22 situation of two repos with failing test suites that depend on each other.
+4. "👍" isn't the only method of approval. As long as the intent is very clear, creative comments are fine. "💥. 🚢 it!" is acceptable.&nbsp;
 
 &nbsp;
 
