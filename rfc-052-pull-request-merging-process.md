@@ -12,7 +12,7 @@ There are just two rules of merging PRs:
 
 2. The change must have two reviews from people from GDS (preferably GOV.UK). This can (and normally will) include the author.
 
-As long as these rules are followed, PRs can be reviewed and merged in a way best suited to the situation.
+These rules apply to all applications, including Whitehall. As long as these rules are followed, PRs can be reviewed and merged in a way best suited to the situation.
 
 ### Example scenarios
 
