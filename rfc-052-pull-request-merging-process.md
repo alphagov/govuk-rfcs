@@ -36,6 +36,10 @@ If a change is ready to be reviewed but must wait to be merged for some other ev
 
 We occasionally receive PRs from external contributors who use our code. These will come from forks of the main repo. In the majority of cases, our test suite will not run automatically against these PRs. First, review the code carefully for anything that might be malicious and damaging if run inside our infrastructure. Once you're satisfied, follow Github's instructions to pull the forked branch locally, then push it to origin. This will cause the test suite to run with the original commits, which will cause Github to (hopefully, eventually) green light the original PR. Two people from GDS should review this PR. The first reviewer should comment with a "👍", and the second reviewer should merge. You should also thank the contributor with an amount of emoji proportional to the time they're saving GDS developers.
 
+#### A change where two people worked on the same branch
+
+If two members of GOV.UK staff worked on the same branch and individually contributed commits, they can approve each other's work. If they worked as a pair, that pair counts as a single contributor, so someone else should review the work.
+
 ### Other considerations
 
 1. When raising a PR, if you feel you don't have full confidence in your change and want a particular review from someone, it's ok to ask for that review in the PR description. For example, a puppet change might warrant a particular review from a member of the Infrastructure team.
@@ -43,14 +47,4 @@ We occasionally receive PRs from external contributors who use our code. These w
 3. If a PR is particularly good, remember to praise the author for it. Emoji are a great way of showing appreciation for a PR that fixes a problem you've been having, or implements something you've wanted to do for a while.
 4. It's sometimes ok for merges to happen when test suites are failing. This ability is limited to repo administrators and account owners, so ask them if you need them to force a merge. This is particularly useful in a catch-22 situation of two repos with failing test suites that depend on each other.
 5. "👍" isn't the only method of approval. As long as the intent is very clear, creative comments are fine. "💥. 🚢 it!" is acceptable.
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
 
