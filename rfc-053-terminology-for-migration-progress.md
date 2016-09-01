@@ -12,7 +12,7 @@ Our proposed terminology is:
 | --- | --- |
 | **Pre-migration** | Publishing API is unaware of the existence of this format. The publishing app does not send this content to the API |
 | **Placeholder** | Placeholders are sent to the Publishing API to represent the existence of documents of this format. They have at least a base path (where appropriate) and a title. |
-| **Content complete** | The Publishing API has everything needed for a frontend application to render the static content of documents of this format. The rendering application does not yet use this content to render documents. |
+| **Content complete** | The Publishing API has everything needed for a frontend application to render the static content of documents of this format. The frontend application does not yet use this content to render documents. |
 | **Rendered** | As above, but a frontend application makes a request to the content store in order to render the static content. |
 | **Migrated** | The Publishing API is the canonical source of truth for the content for this format. The publishing app treats the Publishing API as its database |
 
