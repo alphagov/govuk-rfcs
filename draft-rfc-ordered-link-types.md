@@ -61,11 +61,11 @@ As we have migrated more things to the new publishing platform, we've become awa
 
 Without the manual override, the sections would be sorted alphabetically, which is generally not very useful unless the user knows the exact name of the section they need. In the absence of more content-specific metadata to order by, manual ordering gets the job done.
 
-Detailed guides and policies have lists of organisations where one or more organisations is displayed prominently, followed by some less important organisations, depending on level of involvement with the topic. Example: [https://www.gov.uk/government/policies/2012-olympic-and-paralympic-legacy](https://www.gov.uk/government/policies/2012-olympic-and-paralympic-legacy)&nbsp;
+Detailed guides and policies can link to _ **organisations** _ where one or more organisations is displayed prominently, followed by some less important organisations, depending on level of involvement with the topic. Example: [https://www.gov.uk/government/policies/2012-olympic-and-paralympic-legacy](https://www.gov.uk/government/policies/2012-olympic-and-paralympic-legacy)&nbsp;
 
-Related links are another set of links that can be manually ordered at the moment, for example on&nbsp;[https://www.gov.uk/set-up-business](https://www.gov.uk/set-up-business)&nbsp;the links are manually ordered by relevance rather than A-Z.
+_ **Related** _ links are another set of links that can be manually ordered at the moment, for example on&nbsp;[https://www.gov.uk/set-up-business](https://www.gov.uk/set-up-business)&nbsp;the links are manually ordered by relevance rather than A-Z.
 
-In the future, we may want to change the way we represent the stages in a service (for example&nbsp;[https://www.gov.uk/browse/business/setting-up](https://www.gov.uk/browse/business/setting-up)) to make it easier for service designers to draw a path through the content without updating individual pages - an ordered list of content items could be one way of implementing that.
+In the future, we may want to change the way we represent the stages in a service (for example&nbsp;[https://www.gov.uk/browse/business/setting-up](https://www.gov.uk/browse/business/setting-up)) to make it easier for service designers to draw a path through the content without having to update all the individual pages separately. Ordered lists might be one way to represent this information.
 
 # Proposal&nbsp;
 
