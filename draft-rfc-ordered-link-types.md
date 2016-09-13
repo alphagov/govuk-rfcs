@@ -1,10 +1,3 @@
-  
-
-# Related RFCs
-
-- 
-- 
-
 # How links work now
 
 The publishing API allows us to represent links between content items by posting a links hash containing arrays of content ids.
@@ -124,4 +117,10 @@ Apps are forced to handle both cases separately, so there is more room for error
 - 
 
 Doesn't provide any additional benefit over RFC 38
+
+# Related RFCs
+
+- 
+- 
+- 
 
