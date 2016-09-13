@@ -29,33 +29,23 @@ The existing apps support a mixture of these history types:
 
 - Public change history only: date, change note (currently being sent embedded in details, built up manually)
 
-**Service Manual Publisher**
-
-- Public change history: date, change summary, reason for change
-- State change events: new draft, assign author, add comment, request review, approve, publish
-
 **Content tagger**
 
 - No history
 
-## Proposal
+Proposal
 
-###   
-Public change history
+Publishing API should support the concept of **Actions**. An action will link to a UserFacingVersion and record all the activity that happens to that version - create, update, publish, unpublish etc - along with the ID of the user who performed that action, and the text of the note/remark. Actions could also link to the Event that caused the change.
 
-The&nbsp;`change_history`&nbsp;element will be deprecated in the publisher schemas; apps will stop building up this history themselves, and instead just send the current public change note.&nbsp;
-
-Publishing API will record, in a separate table, the set of **change notes**associated with a specific content ID. The&nbsp;`publish` command will, for major versions only, add an entry in this table with the contents of the&nbsp;`change_note`&nbsp;in the ContentItem to be published and the publish time. To support Service Manual Publisher,&nbsp;`reason_for_change` will be accepted in the schemas directly at the same level as&nbsp;`change_note`&nbsp;and recorded alongside it in the change notes table.
-
-The downstream presenters will assemble the public content history from the list of change notes.
-
-### Version history
-
-Publishing API should support the concept of **actions**. An action will link to a ContentItem or LinkSet and record all the activity that happens to that version - create, update, publish, unpublish etc - along with the ID of the user who performed that action, the email address of any recipient, and the text of any note/remark. Actions could also link to the Event that caused the change.
-
-&nbsp;will be each create an action when they are called. In addition, we could store the diff between the current and previous versions on each change; a&nbsp;[spike into this](https://github.com/alphagov/publishing-api/compare/content_history) already exists.
+The existing commands will be modified so that they each create an action when they are called.
 
 The list of action types will be a superset of all those supported by the publishing apps, and no extra validation will be carried out to ensure that the action makes sense given the current state; at this point we are only recording history, we are not providing workflow or a state machine.
 
+The `change_history`&nbsp;element will be removed from the publisher schemas; Specialist Publisher and Whitehall will stop building up this history themselves, and instead just send the current public change note. The downstream presenters will be modified to assemble the public content history from the list of major version publishing actions.
+
 Whitehall (and Publisher once we start migrating it) will also need to start sending data specifically for those actions that do not result from existing commands - eg add note/remark, send for fact check, etc. This will probably need to be on a new&nbsp;`action` endpoint; we might later decide to split these out into separate endpoints when we start implementing the workflow itself, but it will be helpful to start storing the data now.
+
+## Issues
+
+Changes to links happen outside the edition workflow and therefore do not relate to a UserFacingVersion. There is a requirement to record link changes, for auditing purposes, so it would make sense to include these as actions. Potentially the association with UFV could be optional, so that `patch_links`&nbsp;creates an Action in the normal way except for that link.
 
