@@ -16,13 +16,13 @@ The ordering of items within the arrays is arbitrary in these requests: the publ
 
 As we've migrated more things to the new publishing platform, we've come across use cases where ordering of links matters, and have had to implement error-prone workarounds.
 
-[ link type. There is a natural ordering around age of the child, which helps the user identify the section they need more quickly.
-
-Without the manual override, the sections would be sorted alphabetically, which is generally not very useful unless the user knows the exact name of the section they need. In the absence of more content-specific metadata to order by, manual ordering gets the job done.
-
+1. [ link type. There is a natural ordering around age of the child, which helps the user identify the section they need more quickly.  
+  
+Without the manual override, the sections would be sorted alphabetically, which is generally not very useful unless the user knows the exact name of the section they need. In the absence of more content-specific metadata to order by, manual ordering gets the job done.  
 &nbsp;
-
-_ **&nbsp;the links are manually ordered by relevance rather than A-Z.
+2. &nbsp;  
+&nbsp;
+3. _ **&nbsp;the links are manually ordered by relevance rather than A-Z.
 
 # Proposal&nbsp;
 
@@ -38,15 +38,15 @@ _ **&nbsp;the links are manually ordered by relevance rather than A-Z.
 
 ## Semantics
 
-Ordered links are intended to be used as a curation mechanism when there is a natural ordering to a link set that is not possible to infer from content item metadata.
-
-Ordered links should not be used if the ordering can be inferred from the content itself by examining the expanded links hash, for example, A-Z ordering by title.
-
-Frontend applications shouldn't make any assumptions about what ordered links are ordered by; publishers should be free to order links differently depending on the content.
-
-The PATCH semantics of publishing API will be unchanged: it is not possible to change part of a link set without sending the entire thing to the publishing API.
-
-Ordered link types should not contain unordered link sets. In cases where the publisher doesn't need to order the links in all cases, we recommend making this clear in the user interface, and using separate link types for ordered/unordered link sets. For example, collections publisher presents ordering as an extra step:
+- Ordered links are intended to be used as a curation mechanism when there is a natural ordering to a link set that is not possible to infer from content item metadata.  
+&nbsp;
+- Ordered links should not be used if the ordering can be inferred from the content itself by examining the expanded links hash, for example, A-Z ordering by title.  
+&nbsp;
+- Frontend applications shouldn't make any assumptions about what ordered links are ordered by; publishers should be free to order links differently depending on the content.  
+&nbsp;
+- The PATCH semantics of publishing API will be unchanged: it is not possible to change part of a link set without sending the entire thing to the publishing API.  
+&nbsp;
+- Ordered link types should not contain unordered link sets. In cases where the publisher doesn't need to order the links in all cases, we recommend making this clear in the user interface, and using separate link types for ordered/unordered link sets. For example, collections publisher presents ordering as an extra step:
 
 # Alternatives rejected by this proposal
 
