@@ -40,7 +40,7 @@ Without the manual override, the sections would be sorted alphabetically, which 
 
 - Ordered links are intended to be used as a curation mechanism when there is a natural ordering to a link set that is not possible to infer from metadata of the target content items.  
 &nbsp;
-- Ordered links should not be used if the ordering can be inferred from the content itself by examining the expanded links hash, for example, A-Z ordering by title.  
+- Ordered links should not be used if the ordering can be inferred from the content itself by examining the expanded links hash, such as A-Z ordering by title.  
 &nbsp;
 - Frontend applications shouldn't make any assumptions about what ordered links are ordered by; publishers should be free to choose an appropriate ordering for their content; for example, "early years comes before schools".  
 &nbsp;
