@@ -4,43 +4,7 @@ The publishing API allows us to represent links between content items by posting
 
 In our current model, a link stores 3 pieces of information about the relationship between two items:
 
-We have many link types, which are used in different ways by the frontend applications:
-
-- active\_top\_level\_browse\_page
-- children
-- content\_owners
-- document\_collections
-- documents
-- email\_alert\_signup
-- lead\_organisations
-- linked\_items
-- mainstream\_browse\_pages
-- manual
-- ministers
-- organisations
-- parent
-- parent\_taxons
-- people
-- policy\_areas
-- press\_releases
-- related
-- related\_guides
-- related\_mainstream
-- related\_policies
-- related\_statistical\_data\_sets
-- related\_topics
-- second\_level\_browse\_pages
-- sections
-- service\_manual\_topics
-- supporting\_organisations
-- taxons
-- topical\_events
-- topics
-- top\_level\_browse\_pages
-- working\_groups
-- world\_locations
-- worldwide\_organisations
-- worldwide\_priorities
+We have [many link types](https://gist.github.com/MatMoore/e047a2807807c960e1f7c5fc3a7e34e3), which are used in different ways by the frontend applications.
 
 Links can be updated as part of the publishing workflow, or they can updated separately (for example through content tagger). When we change the links originating from a content item, we make a PATCH request to its links URL, with a JSON object describing&nbsp;_link sets_.&nbsp;For example:
 
