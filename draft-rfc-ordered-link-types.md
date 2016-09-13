@@ -2,7 +2,7 @@
 
 The publishing API allows us to represent links between content items by posting a links hash containing arrays of content ids.
 
-In our current model, a link encodes stores 3 pieces of information about the relationship between two items:
+In our current model, a link stores 3 pieces of information about the relationship between two items:
 
 We have many link types, which are used in different ways by the frontend applications:
 
@@ -52,13 +52,13 @@ The ordering of items within the arrays is arbitrary in these requests: the publ
 
 As we've migrated more things to the new publishing platform, we've come across use cases where ordering of links matters, and have had to implement error-prone workarounds.
 
-[https://www.gov.uk/browse/childcare-parenting](https://www.gov.uk/browse/childcare-parenting)&nbsp;is an example of a browse page that has been manually ordered in collections publisher. It uses the&nbsp; **_second\_level\_browse\_pages_** link type. There is a natural ordering around age of the child, which helps the user identify the section they need more quickly.
+[ link type. There is a natural ordering around age of the child, which helps the user identify the section they need more quickly.
 
 Without the manual override, the sections would be sorted alphabetically, which is generally not very useful unless the user knows the exact name of the section they need. In the absence of more content-specific metadata to order by, manual ordering gets the job done.
 
-Detailed guides and policies can link to _ **organisations** _ where one or more organisations is displayed prominently, followed by some less important organisations, depending on level of involvement with the topic. Example: [https://www.gov.uk/government/policies/2012-olympic-and-paralympic-legacy](https://www.gov.uk/government/policies/2012-olympic-and-paralympic-legacy)&nbsp;
+&nbsp;
 
-_ **Related** _ links are another set of links that can be manually ordered at the moment, for example on&nbsp;[https://www.gov.uk/set-up-business](https://www.gov.uk/set-up-business)&nbsp;the links are manually ordered by relevance rather than A-Z.
+_ **&nbsp;the links are manually ordered by relevance rather than A-Z.
 
 # Proposal&nbsp;
 
