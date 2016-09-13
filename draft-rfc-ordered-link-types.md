@@ -28,7 +28,7 @@ Without the manual override, the sections would be sorted alphabetically, which 
 
 # Proposal&nbsp;
 
-1. It should be possible to define, for each link type, whether the links are ordered or unordered.  
+1. It should be possible to define, for each link type, whether the links are ordered or unordered. No change is required to the patch links payload.  
 &nbsp;
 2. Unordered link sets will be handled in the same way we handle all link sets now.  
 &nbsp;
