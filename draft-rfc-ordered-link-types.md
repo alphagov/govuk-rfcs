@@ -60,8 +60,6 @@ Detailed guides and policies can link to _ **organisations** _ where one or more
 
 _ **Related** _ links are another set of links that can be manually ordered at the moment, for example on&nbsp;[https://www.gov.uk/set-up-business](https://www.gov.uk/set-up-business)&nbsp;the links are manually ordered by relevance rather than A-Z.
 
-In the future, we may want to change the way we represent the stages in a service (for example&nbsp;[https://www.gov.uk/browse/business/setting-up](https://www.gov.uk/browse/business/setting-up)) to make it easier for service designers to draw a path through the content without having to update all the individual pages separately. Ordered lists might be one way to represent this information.
-
 # Proposal&nbsp;
 
 It should be possible to define, for each link type, whether the links are ordered or unordered.
