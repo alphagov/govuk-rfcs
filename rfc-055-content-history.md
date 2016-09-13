@@ -37,7 +37,7 @@ Proposal
 
 Publishing API should support the concept of **Actions**. An action will link to a UserFacingVersion and record all the activity that happens to that version - create, update, publish, unpublish etc - along with the ID of the user who performed that action, and the text of the note/remark. Actions could also link to the Event that caused the change.
 
-The existing commands will be modified so that they each create an action when they are called.
+&nbsp;will be modified so that they each create an action when they are called.
 
 The list of action types will be a superset of all those supported by the publishing apps, and no extra validation will be carried out to ensure that the action makes sense given the current state; at this point we are only recording history, we are not providing workflow or a state machine.
 
@@ -47,5 +47,5 @@ Whitehall (and Publisher once we start migrating it) will also need to start sen
 
 ## Issues
 
-Changes to links happen outside the edition workflow and therefore do not relate to a UserFacingVersion. There is a requirement to record link changes, for auditing purposes, so it would make sense to include these as actions. Potentially the association with UFV could be optional, so that `patch_links`&nbsp;creates an Action in the normal way except for that link.
+Changes to links happen outside the UserFacingVersion could be optional, so that `patch_links`&nbsp;creates an Action in the normal way except for that link.
 
