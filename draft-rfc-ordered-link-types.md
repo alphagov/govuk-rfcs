@@ -8,8 +8,6 @@ We have [many link types](https://gist.github.com/MatMoore/e047a2807807c960e1f7c
 
 Links can be updated as part of the publishing workflow, or they can updated separately (for example through content tagger). When we change the links originating from a content item, we make a PATCH request to its links URL, with a JSON object describing&nbsp;_link sets_.&nbsp;For example:
 
-Content items aren't required to have an HTML representation, and not everything has a base path (for example contacts can be base-path-less).
-
 The ordering of items within the arrays is arbitrary in these requests: the publishing API deliberately ignores the ordering.
 
 # Problem
