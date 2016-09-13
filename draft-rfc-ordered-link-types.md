@@ -42,9 +42,9 @@ Without the manual override, the sections would be sorted alphabetically, which 
 &nbsp;
 - Ordered links should not be used if the ordering can be inferred from the content itself by examining the expanded links hash, for example, A-Z ordering by title.  
 &nbsp;
-- Frontend applications shouldn't make any assumptions about what ordered links are ordered by; publishers should be free to choose an appropriate ordering for their content.  
+- Frontend applications shouldn't make any assumptions about what ordered links are ordered by; publishers should be free to choose an appropriate ordering for their content; for example, "early years content comes before schools content"  
 &nbsp;
-- Using an ordered link type should not place any restrictions on frontend rendering. It is possible for the rendering app to sort the links differently. For example, by providing alternate views that show recently updated pages first.  
+- Using an ordered link type should not place any restrictions on frontend rendering. It is possible for the rendering app to sort the links differently; for example, by providing alternate views that show recently updated pages first.  
 &nbsp;
 - The PATCH semantics of publishing API will be unchanged: it is not possible to change part of a link set without sending the entire thing to the publishing API.  
 &nbsp;
