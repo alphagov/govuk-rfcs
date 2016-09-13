@@ -48,7 +48,7 @@ Content items aren't required to have an HTML representation, and not everything
 
 The ordering of items within the arrays is arbitrary in these requests: the publishing API deliberately ignores the ordering.
 
-# The case for publisher-controlled ordering
+# Problem
 
 As we've migrated more things to the new publishing platform, we've come across use cases where ordering of links matters, and have had to implement error-prone workarounds.
 
