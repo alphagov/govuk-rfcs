@@ -1,3 +1,7 @@
+# TL;DR
+
+Links should be ordered again, but only when the name of the link type communicates that they're ordered.
+
 # How links work now
 
 The publishing API allows us to represent links between content items by posting a links hash containing arrays of content ids.
@@ -30,20 +34,27 @@ Without the manual override, the sections would be sorted alphabetically, which 
 &nbsp;
 3. When a patch links request operates on ordered links, the publishing API must retain the ordering of the array when persisting the links to its database and loading them, and the expanded links passed to the content store should retain this ordering.  
 &nbsp;
-4. Whether the link type is ordered or unordered should be conveyed to the frontend applications. We suggest that the ordered/unordered distinction is conveyed by a naming convention: link types are unordered by default unless they start with the string "ordered\_". For example, to introduce ordering on related links, we would introduce a new link type, "ordered\_related\_links".  
-&nbsp;
-5. Using an ordered link type should not place any restrictions on frontend rendering. It is possible for the rendering app to sort the links in different ways depending on context.
+4. Whether the link type is ordered or unordered should be conveyed to the frontend applications. We suggest that the ordered/unordered distinction is conveyed by a naming convention: link types are unordered by default unless they start with the string "ordered\_". For example, to introduce ordering on related links, we would introduce a new link type, "ordered\_related\_links".
 
 ## Semantics
 
-- Ordered links are intended to be used as a curation mechanism when there is a natural ordering to a link set that is not possible to infer from content item metadata.  
+- Ordered links are intended to be used as a curation mechanism when there is a natural ordering to a link set that is not possible to infer from metadata of the target content items.  
 &nbsp;
 - Ordered links should not be used if the ordering can be inferred from the content itself by examining the expanded links hash, for example, A-Z ordering by title.  
 &nbsp;
-- Frontend applications shouldn't make any assumptions about what ordered links are ordered by; publishers should be free to order links differently depending on the content.  
+- Frontend applications shouldn't make any assumptions about what ordered links are ordered by; publishers should be free to choose an appropriate ordering for their content.  
+&nbsp;
+- Using an ordered link type should not place any restrictions on frontend rendering. It is possible for the rendering app to sort the links differently. For example, by providing alternate views that show recently updated pages first.  
 &nbsp;
 - The PATCH semantics of publishing API will be unchanged: it is not possible to change part of a link set without sending the entire thing to the publishing API.  
 &nbsp;
+- Frontend applications should use _ordered\_foo_ over&nbsp;_foo_ if both are available.&nbsp;  
+&nbsp;
+- Setting a link\_set of type&nbsp;_ordered\_foo_&nbsp;should automatically clear links with type&nbsp;_foo.  
+&nbsp;_  
+- Setting a link\_set of type&nbsp;_foo_ when a link set of type&nbsp;_ordered\_foo_ exists is allowed, so that publishing apps have the option to capture the ordering in a separate step.  
+&nbsp;
+
 - Ordered link types should not contain unordered link sets. In cases where the publisher doesn't need to order the links in all cases, we recommend making this clear in the user interface, and using separate link types for ordered/unordered link sets. For example, collections publisher presents ordering as an extra step:
 
 # Alternatives rejected by this proposal
