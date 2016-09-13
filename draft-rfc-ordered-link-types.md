@@ -26,17 +26,15 @@ _ **&nbsp;the links are manually ordered by relevance rather than A-Z.
 
 # Proposal&nbsp;
 
-It should be possible to define, for each link type, whether the links are ordered or unordered.
-
-Unordered link sets will be handled in the same way we handle all link sets now.
-
-When a patch links request operates on ordered links, the publishing API must retain the ordering of the array when persisting the links to its database and loading them, and the expanded links passed to the content store should retain this ordering.
-
-Whether the link type is ordered or unordered should be conveyed to the frontend applications. We suggest that the ordered/unordered distinction is conveyed by a naming convention: link types are unordered by default unless they start with the string "ordered\_". For example, to introduce ordering on related links, we would introduce a new link type, "ordered\_related\_links".
-
-Using an ordered link type should not place any restrictions on frontend rendering. It is possible for the rendering app to sort the links in different ways depending on context.
-
-When using ordered link types it should be clear to the user&nbsp;
+1. It should be possible to define, for each link type, whether the links are ordered or unordered.  
+&nbsp;
+2. Unordered link sets will be handled in the same way we handle all link sets now.  
+&nbsp;
+3. When a patch links request operates on ordered links, the publishing API must retain the ordering of the array when persisting the links to its database and loading them, and the expanded links passed to the content store should retain this ordering.  
+&nbsp;
+4. Whether the link type is ordered or unordered should be conveyed to the frontend applications. We suggest that the ordered/unordered distinction is conveyed by a naming convention: link types are unordered by default unless they start with the string "ordered\_". For example, to introduce ordering on related links, we would introduce a new link type, "ordered\_related\_links".  
+&nbsp;
+5. Using an ordered link type should not place any restrictions on frontend rendering. It is possible for the rendering app to sort the links in different ways depending on context.
 
 ## Semantics
 
