@@ -55,7 +55,7 @@ Without the manual override, the sections would be sorted alphabetically, which 
 - Setting a link\_set of type&nbsp;_foo_ when a link set of type&nbsp;_ordered\_foo_ exists is allowed, so that publishing apps have the option to capture the ordering in a separate step.  
 &nbsp;
 
-- Ordered link types should not contain unordered link sets. In cases where the publisher doesn't need to order the links in all cases, we recommend making this clear in the user interface, and using separate link types for ordered/unordered link sets. For example, collections publisher presents ordering as an extra step:
+- Ordered link types should not contain unordered link sets. Instead, use two link types, one ordered and one unordered. It should be obvious from the user interface what is being captured; for example, collections publisher presents ordering as an extra step:
 
 # Alternatives rejected by this proposal
 
