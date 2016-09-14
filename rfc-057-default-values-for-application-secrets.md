@@ -35,5 +35,5 @@ Secrets must be configured in the environment for development as well as in prod
 
 ### Default behaviour when secrets are not present
 
-Applications must fail to start if secret configuration is not present in the environment. This prevents the case where a secret can be set to an empty string or a nil value.
+Applications must fail to start if a piece of secret configuration is either not present in the environment or is set to an empty string.
 
