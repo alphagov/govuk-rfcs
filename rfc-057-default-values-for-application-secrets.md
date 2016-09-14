@@ -2,11 +2,11 @@
 
 We discovered that the EFG application had 2 Devise configuration files in production. This is because it uses alphagov-deployment to copy configuration files into place during deployment. Each of these Devise configuration files had a `secret_key` value (one was in the public repo and used for development, the other was from alphagov-deployment). By luck, we were using the value of the `secret_key` which was not public (this was due to the order that Rails loaded the initializers).
 
-If we had been using the public value of the secret key this would have been a security incident for GOV.UK which may have resulted in all 3000 EFG users having their passwords reset.
+If we had been using the public value of the secret key this would have been a security incident for GOV.UK which would probably have resulted in all 3000 EFG users having their passwords reset.
 
 ## Proposal
 
-"Secrets" are defined as any values which would result in a security incident if disclosed. These can include, but are not limited to, cookie encryption seeds and password encryption seeds.
+"Secrets" are defined as any values which would result in a security incident if disclosed. These can include, but are not limited to, value
 
 ### Configuration
 
@@ -31,19 +31,9 @@ Good: GovernmentApp::Application.config.secret_token = ENV['SECRET_TOKEN']
 
 ### Maintaining dev-prod parity for secret configuration
 
-Secrets must be configured in the environment for development as well as in production. An acceptable alternative to using environment variables in development is to use the [`config/secrets.yml` functionality available in Rails 4.1 and later](http://edgeguides.rubyonrails.org/4_1_release_notes.html#config-secrets-yml):
-
-```
-development: secret_key_base: development_example_secret_keyproduction: secret_key_base: ENV['SECRET_KEY_BASE']
-```
-
-This maintains close enough configuration between development and production without needing environment variables in every environment.
+Secrets must be configured in the environment for development as well as in production.
 
 ### Default behaviour when secrets are not present
 
-If a piece of secret configuration being missing could result in a security incident, applications must fail to start if it is not present at boot or is set to an empty string. A good example of this is an empty cookie token, which in a bad framework could result in unencrypted cookies. For example:
-
-```
-if Rails.application.secrets[:secret_key_base].blank? raise 'Required setting for secret_key_base is not set'end
-```
+Applications must fail to start if secret configuration is not present in the environment. This prevents the case where a secret can be set to an empty string or a nil value.
 
