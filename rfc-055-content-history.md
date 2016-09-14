@@ -29,6 +29,11 @@ The existing apps support a mixture of these history types:
 
 - Public change history only: date, change note (currently being sent embedded in details, built up manually)
 
+**Service Manual Publisher**
+
+- Public change history: date, change summary, reason for change
+- State change events: new draft, assign author, add comment, request review, approve, publish
+
 **Content tagger**
 
 - No history
@@ -41,7 +46,7 @@ Publishing API should support the concept of **Actions**. An action will link to
 
 The list of action types will be a superset of all those supported by the publishing apps, and no extra validation will be carried out to ensure that the action makes sense given the current state; at this point we are only recording history, we are not providing workflow or a state machine.
 
-The `change_history`&nbsp;element will be removed from the publisher schemas; Specialist Publisher and Whitehall will stop building up this history themselves, and instead just send the current public change note. The downstream presenters will be modified to assemble the public content history from the list of major version publishing actions.
+&nbsp;element will be removed from the publisher schemas; Specialist Publisher and Whitehall will stop building up this history themselves, and instead just send the current public change note. The downstream presenters will be modified to assemble the public content history from the list of major version publishing actions.
 
 Whitehall (and Publisher once we start migrating it) will also need to start sending data specifically for those actions that do not result from existing commands - eg add note/remark, send for fact check, etc. This will probably need to be on a new&nbsp;`action` endpoint; we might later decide to split these out into separate endpoints when we start implementing the workflow itself, but it will be helpful to start storing the data now.
 
