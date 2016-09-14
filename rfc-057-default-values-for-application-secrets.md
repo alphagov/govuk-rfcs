@@ -6,7 +6,7 @@ If we had been using the public value of the secret key this would have been a s
 
 ## Proposal
 
-"Secrets" are defined as any values which would result in a security incident if disclosed. These can include, but are not limited to, value
+"Secrets" are defined as any values which would result in a security incident if disclosed. These can include, but are not limited to, cookie encryption seeds and password encryption seeds.
 
 ### Configuration
 
