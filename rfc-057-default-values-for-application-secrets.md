@@ -2,7 +2,7 @@
 
 We discovered that the EFG application had 2 Devise configuration files in production. This is because it uses alphagov-deployment to copy configuration files into place during deployment. Each of these Devise configuration files had a `secret_key` value (one was in the public repo and used for development, the other was from alphagov-deployment). By luck, we were using the value of the `secret_key` which was not public (this was due to the order that Rails loaded the initializers).
 
-If we had been using the public value of the secret key this would have been a security incident for GOV.UK which would probably have resulted in all 3000 EFG users having their passwords reset.
+If we had been using the public value of the secret key this would have been a security incident for GOV.UK which may have resulted in all 3000 EFG users having their passwords reset.
 
 ## Proposal
 
@@ -35,5 +35,9 @@ Secrets must be configured in the environment for development as well as in prod
 
 ### Default behaviour when secrets are not present
 
-Applications must fail to start if a piece of secret configuration is either not present in the environment or is set to an empty string.
+Applications must fail to start if a piece of secret configuration is either not present in the environment or is set to an empty string. For example:
+
+```
+if ENV['DEVISE_SECRET_KEY'].blank? or ENV['DEVISE_PEPPER'].blank? raise 'Required Devise secrets are not present in the environment'end
+```
 
