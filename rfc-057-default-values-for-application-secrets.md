@@ -41,7 +41,7 @@ This maintains close enough configuration between development and production wit
 
 ### Default behaviour when secrets are not present
 
-Applications must fail to start if a piece of secret configuration is either not present at boot or is set to an empty string. For example:
+If a piece of secret configuration being missing could result in a security incident, applications must fail to start if it is not present at boot or is set to an empty string. A good example of this is an empty cookie token, which in a bad framework could result in unencrypted cookies. For example:
 
 ```
 if Rails.application.secrets[:secret_key_base].blank? raise 'Required setting for secret_key_base is not set'end
