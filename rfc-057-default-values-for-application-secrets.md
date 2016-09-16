@@ -31,7 +31,13 @@ Good: GovernmentApp::Application.config.secret_token = ENV['SECRET_TOKEN']
 
 ### Maintaining dev-prod parity for secret configuration
 
-Secrets must be configured in the environment for development as well as in production.
+Secrets must be configured in the environment for development as well as in production. An acceptable alternative to using environment variables in development is to use the [`config/secrets.yml` functionality available in Rails 4.1 and later](http://edgeguides.rubyonrails.org/4_1_release_notes.html#config-secrets-yml):
+
+```
+development: secret_key_base: development_example_secret_keyproduction: secret_key_base: ENV['SECRET_KEY_BASE']
+```
+
+This maintains close enough configuration between development and production without needing environment variables in every environment.
 
 ### Default behaviour when secrets are not present
 
