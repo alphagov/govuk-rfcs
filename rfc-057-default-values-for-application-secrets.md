@@ -41,9 +41,9 @@ This maintains close enough configuration between development and production wit
 
 ### Default behaviour when secrets are not present
 
-Applications must fail to start if a piece of secret configuration is either not present in the environment or is set to an empty string. For example:
+Applications must fail to start if a piece of secret configuration is either not present at boot or is set to an empty string. For example:
 
 ```
-if ENV['DEVISE_SECRET_KEY'].blank? or ENV['DEVISE_PEPPER'].blank? raise 'Required Devise secrets are not present in the environment'end
+if Rails.application.secrets[:secret_key_base].blank? raise 'Required setting for secret_key_base is not set'end
 ```
 
