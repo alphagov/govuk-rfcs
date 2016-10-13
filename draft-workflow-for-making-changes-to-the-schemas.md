@@ -36,3 +36,5 @@ This RFC proposes:&nbsp;
 - Pull requests on govuk-content-schemas are to be tested against the **deployed** version of the downstream applications
 - The govuk-content-schemas repo is to be **automatically deployed** from master for all environments
 
+To illustrate how schema changes take place, [we've made some diagrams describing the process](https://gov-uk.atlassian.net/wiki/display/GOVUK/Illustration+of+schema+development+workflow).&nbsp;
+
