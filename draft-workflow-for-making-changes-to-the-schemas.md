@@ -24,9 +24,9 @@ Example:
 Example:
 
 - You want to remove an attribute from govuk-content-schemas. You remove it from the payload in the publisher application.&nbsp;
-- The PR is merged, but the application is not yet deployed to production
-- Raise a PR on content-schemas to remove the payload. Downstream pass because the publisher isn't sending the attribute (but it's testing against master)
-- When you deploy govuk-content-schemas the publisher app will be sending invalid content
+- The PR is merged, but the application is not yet deployed to production.
+- Raise a PR on content-schemas to remove the payload. Downstream apps pass because the publisher app master isn't sending the attribute anymore.
+- When you deploy govuk-content-schemas the publisher app will be sending invalid content.
 
 ## Proposal
 
