@@ -4,9 +4,9 @@ Recently the publishing-api&nbsp;has begun to validate incoming payloads against
 
 How it works now:
 
-- The schemas are manually deployed using a [deploy task](https://deploy.integration.publishing.service.gov.uk/job/Deploy_GOVUK_Content_Schemas/) in Jenkins for use by publishing-api
+- The schemas are manually "deployed" using a [task in Jenkins](https://deploy.integration.publishing.service.gov.uk/job/Deploy_GOVUK_Content_Schemas/) that [copies](https://github.com/alphagov/govuk-content-schemas/blob/master/deploy.sh) over the schemas to the publishing-api
 - Pull requests on&nbsp;publishing apps are tested against the master branch of govuk-content-schemas ([example](https://github.com/alphagov/calendars/blob/51a9583b4de80aeca53c9f3762f6412c24a3c951/jenkins.sh#L45))
-- Pull requests on&nbsp;govuk-content-schemas are tested against the master branch of the downstream applications ([example](https://ci.dev.publishing.service.gov.uk/job/govuk_business_support_finder_schema_tests/configure))&nbsp;
+- Pull requests on&nbsp;govuk-content-schemas are tested against the master branch of the downstream applications ([example](https://ci.dev.publishing.service.gov.uk/job/govuk_business_support_finder_schema_tests/configure))
 
 This opens up two issues that could cause the publishing-api to reject valid content, causing errors or delays for editors.
 
