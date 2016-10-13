@@ -34,7 +34,9 @@ This RFC proposes:&nbsp;
 
 - Application tests are to be run against the **deployed** &nbsp;version of govuk-content-schemas
 - Pull requests on govuk-content-schemas are to be tested against the **deployed** version of the downstream applications
-- The govuk-content-schemas repo is to be **automatically deployed** from master for all environments
+-  from master for all environments
+
+This will make sure that tests always run against the schema version the publishing-api validates with, and therefore that PRs that have passing tests won't error on production.
 
 To illustrate how schema changes take place, [we've made some diagrams describing the process](https://gov-uk.atlassian.net/wiki/display/GOVUK/Illustration+of+schema+development+workflow).&nbsp;
 
