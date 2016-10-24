@@ -34,9 +34,23 @@ This RFC proposes:&nbsp;
 
 - Application tests are to be run against the **deployed** &nbsp;version of govuk-content-schemas
 - Pull requests on govuk-content-schemas are to be tested against the **deployed** version of the downstream applications
--  from master for all environments
 
-This will make sure that tests always run against the schema version the publishing-api validates with, and therefore that PRs that have passing tests won't error on production.
+The scenarios above now can't happen:&nbsp;
+
+**1) Undeployed changes in schemas**
+
+Example:
+
+- You add a field to govuk-content-schemas, but don't deploy
+- You add the field to the content item payload in the publisher application. The PR will **not pass** &nbsp;because the new payload is invalid against the released-to-production branch of content-schemas
+
+**2) Making schema changes with undeployed apps**
+
+Example:
+
+- You want to remove an attribute from govuk-content-schemas. You remove it from the payload in the publisher application.&nbsp;
+- The PR is merged, but the application is not yet deployed to production.
+- Raise a PR on content-schemas to remove the payload. Downstream apps **do not pass** because the publisher app still has the attribute in released-to-production
 
 To illustrate how schema changes take place, [we've made some diagrams describing the process](https://gov-uk.atlassian.net/wiki/display/GOVUK/Illustration+of+schema+development+workflow).&nbsp;
 
