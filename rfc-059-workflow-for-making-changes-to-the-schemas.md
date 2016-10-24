@@ -52,5 +52,13 @@ Example:
 - The PR is merged, but the application is not yet deployed to production.
 - Raise a PR on content-schemas to remove the payload. Downstream apps **do not pass** because the publisher app still has the attribute in released-to-production
 
+Because we don't deploy automatically to production, there's a situation that will cause a PR to get merged that will fail on production:
+
+1. Add an attribute to govuk-content-schemas.&nbsp;Merge the PR & deploy to production.
+2. Raise PR to send this attribute from the publisher application. Your tests pass (because it's testing against released-to-production schemas)
+3. Merge the PR on the publisher application (but do not deploy)
+4. Now raise a PR to remove attribute from content schemas. Because the change hasn't been deployed the tests pass **will pass**. Merge it.
+5. If you deploy the PR on the publisher application now, the publisher app will start sending invalid data to the publishing-api and fail &nbsp;
+
 To illustrate how schema changes take place, [we've made some diagrams describing the process](https://gov-uk.atlassian.net/wiki/display/GOVUK/Illustration+of+schema+development+workflow).&nbsp;
 
