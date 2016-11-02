@@ -28,5 +28,7 @@ Publishing apps should stop using the PatchLinkSet command to manage their links
 - DiscardDraft will copy the published links wholesale&nbsp;from the current published version back to the draft version.
 - Dependency resolution needs to be aware of whether it's operating on draft or live content, and use the correct set of links for both dependency resolution itself and link expansion.
 
-This requires that the different types of links become the concern of a single application. This is especially important for formats where the publishing application keeps its own source of truth. For example, the "ministers" link type is content-related and owned by Whitehall whereas "taxons" are taxonomy-related and owned by Content Tagger. This currently appears to be the case for all content, so we need to discuss if formal rules and enforcement are required for this or not.
+This requires that the different types of links are split into two different categories, content links and tagging links. Content links will always be managed by the publishing app along with the publishing workflow and will be sent with PutContent. Tagging links can be managed outside the publishing workflow and are provided by PatchLinkSet. For example, the "ministers" link type is set by Whitehall and is a content link, whereas "taxons" are (currently) set by Content Tagger and are tagging links.&nbsp;
+
+The split of these into categories could be codified in the Content Schemas. Each format that has content links could gain an additional "content\_links.json" file which gets merged into the main "schema.json" at build-time, and tagging links stay in the existing "links.json".
 
