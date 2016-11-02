@@ -14,3 +14,5 @@ You can say:
 
 [https://github.com/alphagov/govuk-puppet/compare/build\_2016-10-10T2359...build\_2016-10-11T1145](https://github.com/alphagov/govuk-puppet/compare/build_17859...build_17861) (I'm deploying half a day's worth of changes)
 
+The timestamp of a build is assigned at the start of a build. This matches the current behaviour we have where the build number is assigned at the start of a build.
+
