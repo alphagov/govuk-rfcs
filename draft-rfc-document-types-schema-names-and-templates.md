@@ -4,7 +4,7 @@ We have different terms to describe what a thing is on GOV.UK.&nbsp;
 
 &nbsp;split up format into "document type" and "schema name".
 
-&nbsp;makes a distinction between "format" and "template".
+Template Consolidation's&nbsp;&nbsp;makes a distinction between "format" and "template".
 
 This RFC is an attempt to unify the language.
 
