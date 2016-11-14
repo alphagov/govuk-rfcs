@@ -34,7 +34,8 @@ The terms "format" and "content type" are discouraged.
 
 [https://www.gov.uk/bank-holidays](https://www.gov.uk/bank-holidays)
 
-- Is a "special page"  
+- Is a "special page"
+
 - Uses the "generic" schema  
 - Is rendered with the "bank holidays" template
 
