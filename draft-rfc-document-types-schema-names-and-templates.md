@@ -10,7 +10,7 @@ This RFC is an attempt to unify the language.
 
 ## Proposal
 
-A **document type** is what users call a thing. It's often a "real" concept, like a press release, a speech, a policy. "Is a"
+A **document type** is what users call a thing. It's often a "real" concept, like a press release, a speech, a policy. "Is a {name}"
 
 A **schema** defines what the data looks like.&nbsp;"Uses a {name} schema"
 
@@ -22,13 +22,13 @@ The terms "format" and "content type" are discouraged.
 
 [https://www.gov.uk/government/publications/acetic-acid-properties-uses-and-incident-management](https://www.gov.uk/government/publications/acetic-acid-properties-uses-and-incident-management)
 
-- Is a "detailed\_guide"  
+- Is a "detailed guide"  
 - Uses the "publication" schema  
 - Is rendered with the "short text" template
 
 [https://www.gov.uk/aaib-reports/aaib-investigation-to-rans-s6-coyote-ii-g-bsmu](https://www.gov.uk/aaib-reports/aaib-investigation-to-rans-s6-coyote-ii-g-bsmu)
 
-- Is a "aaib\_report"  
+- Is a "aaib report"  
 - Uses the "aaib\_report" schema  
 - Is rendered with the "short text" template
 
@@ -40,8 +40,15 @@ The terms "format" and "content type" are discouraged.
 
 [https://www.gov.uk/bank-holidays](https://www.gov.uk/bank-holidays)
 
-[- Is a "special page"](https://www.gov.uk/bank-holidays)
+- Is a "calendar"
 
 - Uses the "generic" schema  
 - Is rendered with the "bank holidays" template
+
+[https://www.gov.uk/](https://www.gov.uk/bank-holidays)
+
+- Is a "special page"
+
+- Uses the "generic" schema  
+- Is rendered with the "homepage" template
 
