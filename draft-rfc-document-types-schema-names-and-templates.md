@@ -12,7 +12,8 @@ This RFC is an attempt to unify the language.
 
 A **document type** is what users call a thing. It's often a "real" concept, like a press release, a speech, a policy. "Is a"
 
-A **schema** defines what the data looks like.&nbsp;"Uses a {name} schema"  
+A **schema** defines what the data looks like.&nbsp;"Uses a {name} schema"
+
 A **template** is what it looks like visually. "Rendered with a&nbsp;{name} template"
 
 The terms "format" and "content type" are discouraged.
