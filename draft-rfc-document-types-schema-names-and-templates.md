@@ -10,6 +10,8 @@ A **document type** is what users call a thing. It's often a "real" concept, lik
 A **schema** defines what the data looks like.&nbsp;"Has a {name} schema"  
 A **template** is what it looks like visually. "Rendered with a&nbsp;{name} template"
 
+The terms "format" and "content type" are discouraged.
+
 ## Examples
 
 [https://www.gov.uk/government/publications/acetic-acid-properties-uses-and-incident-management](https://www.gov.uk/government/publications/acetic-acid-properties-uses-and-incident-management)
