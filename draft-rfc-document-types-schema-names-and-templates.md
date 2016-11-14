@@ -1,12 +1,17 @@
 ## Problem
 
-We have different terms to describe what a thing is on GOV.UK.
+We have different terms to describe what a thing is on GOV.UK.&nbsp;
+
+&nbsp;split up format into "document type" and "schema name".
+
+&nbsp;makes a distinction between "format" and "template".
+
+This RFC is an attempt to unify the language.
 
 ## Proposal
 
-Following on from [https://gov-uk.atlassian.net/wiki/display/GOVUK/RFC+41%3A+Separate+document+type+from+format](https://gov-uk.atlassian.net/wiki/display/GOVUK/RFC+41%3A+Separate+document+type+from+format)
+A **document type** is what users call a thing. It's often a "real" concept, like a press release, a speech, a policy. "Is a"
 
-A **document type** is what users call a thing. It's often a "real" concept, like a press release, a speech, a policy. "Is a"  
 A **schema** defines what the data looks like.&nbsp;"Uses a {name} schema"  
 A **template** is what it looks like visually. "Rendered with a&nbsp;{name} template"
 
@@ -34,7 +39,7 @@ The terms "format" and "content type" are discouraged.
 
 [https://www.gov.uk/bank-holidays](https://www.gov.uk/bank-holidays)
 
-- Is a "special page"
+[- Is a "special page"](https://www.gov.uk/bank-holidays)
 
 - Uses the "generic" schema  
 - Is rendered with the "bank holidays" template
