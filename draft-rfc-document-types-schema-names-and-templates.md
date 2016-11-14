@@ -43,7 +43,7 @@ The terms "format" and "content type" are discouraged.
 - Is a "calendar"
 
 - Uses the "generic" schema  
-- Is rendered with the "bank holidays" template
+- Is rendered with the "calendar" template
 
 [https://www.gov.uk/](https://www.gov.uk/bank-holidays)
 
