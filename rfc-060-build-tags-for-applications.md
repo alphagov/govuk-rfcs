@@ -16,3 +16,7 @@ You can say:
 
 The timestamp of a build is assigned at the start of a build. This matches the current behaviour we have where the build number is assigned at the start of a build.
 
+The build tag can optionally include a build number after the timestamp, eg build\_2016-10-11T1145\_123
+
+The build tag can optionally include a 7 character SHA after the timestamp, eg build\_2016-10-11T1145\_141ab21 (7 is the git default for short SHAs)
+
