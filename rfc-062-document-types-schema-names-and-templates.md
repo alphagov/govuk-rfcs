@@ -20,10 +20,10 @@ The terms "format" and "content type" are discouraged.
 
 ## Examples
 
-[https://www.gov.uk/government/publications/acetic-acid-properties-uses-and-incident-management](https://www.gov.uk/government/publications/acetic-acid-properties-uses-and-incident-management)
+[https://www.gov.uk/guidance/data-verifying-services](https://www.gov.uk/guidance/data-verifying-services)
 
 - Is a "detailed guide"  
-- Uses the "publication" schema  
+- Uses the "detailed\_guide" schema  
 - Is rendered with the "short text" template
 
 [https://www.gov.uk/aaib-reports/aaib-investigation-to-rans-s6-coyote-ii-g-bsmu](https://www.gov.uk/aaib-reports/aaib-investigation-to-rans-s6-coyote-ii-g-bsmu)
