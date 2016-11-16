@@ -2,7 +2,7 @@
 
 Apps and gems on GOV.UK have history followed different naming schemes. Recently we've established a pattern we're quite happy with, but we've never written that down.
 
-This RFC is an attempt to write down the current conventions.
+This RFC is an attempt to write down the current conventions.&nbsp;
 
 ## Naming applications
 
@@ -12,7 +12,6 @@ The most important rules:
 
 - The name should be self-descriptive. No&nbsp;branding or puns (like Rummager, Needotron and Maslow)&nbsp;
 - Use&nbsp; **dashes** &nbsp;for the URL and GitHub repo
-- The name of the app should be the same on GitHub, Puppet and hostname
 
 **Publishing applications**
 
@@ -44,7 +43,7 @@ Not so good:
 
 **APIs**
 
-.&nbsp;
+Applications that just expose an API are named **x-api**.&nbsp;
 
 Good:
 
