@@ -2,7 +2,7 @@
 
 Apps and gems on GOV.UK have history followed different naming schemes. Recently we've established a pattern we're quite happy with, but we've never written that down.
 
-This RFC is an attempt to write down the current conventions.&nbsp;
+This RFC is an attempt to write down the current conventions.
 
 ## Naming applications
 
@@ -43,7 +43,7 @@ Not so good:
 
 **APIs**
 
-Applications that just expose an API are named **x-api**.&nbsp;
+.&nbsp;
 
 Good:
 
