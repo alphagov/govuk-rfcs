@@ -1,6 +1,6 @@
 ## Problem
 
-Currently the official way to add ad-hoc redirects is to add them into one of the CSV files in router-data and deploy that repo. However, this is unnecessarily complex; it is slow to run, and requires an explicit deployment every time; and it often fails because existing redirects have themselves moved, meaning developers have to do extra work to resolve things.
+Currently the official way to add ad-hoc redirects is to [add them into one of the CSV files in router-data](https://github.gds/gds/router-data) and deploy that repo. However, this is unnecessarily complex; it is slow to run, and requires an explicit deployment every time; and it often fails because existing redirects have themselves moved, meaning developers have to do extra work to resolve things.
 
 In addition, publishing-api has taken on the goal of containing the canonical list of content and routes on the site. But items added directly to via router-data are not recorded in publishing-api, making this harder to achieve. Also, since publishing-api now does record history, it can also fulfil the role of audit log which was one of the reasons behind creating router-data in the first place.
 
