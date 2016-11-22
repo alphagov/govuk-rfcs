@@ -12,6 +12,7 @@ The most important rules:
 
 - The name should be self-descriptive. No&nbsp;branding or puns (like Rummager, Needotron and Maslow)&nbsp;
 - Use&nbsp; **dashes** &nbsp;for the URL and GitHub repo
+- The name of the app should be the same on GitHub, Puppet and hostname
 
 **Publishing applications**
 
