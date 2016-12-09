@@ -4,7 +4,7 @@ There has been recent confusion about the processes under which we merge Pull Re
 
 ## Proposed Standard
 
-There are just three rules of reviewing PRs:
+There are just four rules of reviewing and merging PRs:
 
 1. 
 
@@ -12,6 +12,7 @@ There are just three rules of reviewing PRs:
 
 2. The change must have two reviews from people from GDS (preferably GOV.UK). This can (and normally will) include the author.
 3. Use the Github Review UI to mark a PR as approved or requiring changes.
+4. Use the Github UI to merge the PR. This ensures the PR number is added to the merge commit.
 
 These rules apply to all applications, including Whitehall. As long as these rules are followed, PRs can be reviewed and merged in a way best suited to the situation.
 
