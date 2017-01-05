@@ -23,12 +23,12 @@ Full link versioning and integration into the publishing workflow is still not a
 Publishing apps should stop using the PatchLinkSet command to manage their links. This should be used only for tagging operations, mostly by the Finding Things team. Instead, publishing apps should send content-related links using the PutContent command at the same time they send the actual content.
 
 - PatchLinkSet will work as currently. It will instantly update the links for both the current live and draft versions of a document (if they exist), and send the updated content items to the correct content store.
-- PutContent with links will update only the link types supplied for the draft item only, and not touch link types not supplied in the payload.
+- PutContent with links will update only the link types supplied for the draft item only, and not touch link types not supplied in the payload. They will not trigger dependency resolution.
 - Publish will copy the draft links wholesale&nbsp;from the current draft to the new published version.
 - DiscardDraft will copy the published links wholesale&nbsp;from the current published version back to the draft version.
-- Dependency resolution needs to be aware of whether it's operating on draft or live content, and use the correct set of links for both dependency resolution itself and link expansion.
+- Link expansion should only resolve links to published content.
 
-This requires that the different types of links are split into two different categories, content links and tagging links. Content links will always be managed by the publishing app along with the publishing workflow and will be sent with PutContent. Tagging links can be managed outside the publishing workflow and are provided by PatchLinkSet. For example, the "ministers" link type is set by Whitehall and is a content link, whereas "taxons" are (currently) set by Content Tagger and are tagging links.&nbsp;
+Publishing apps should determine whether it is correct for them to send links via PutContent or PatchLinkSet. They should be able to use both methods for the same piece of content. For example, Whitehall publisher versions the addition of documents to a Document Collection, so would send these links using PutContent. However, the links to the topic may not always be versioned so they can be sent via PatchLinkSet. This allows for Finding Things to later change the Whitehall UI to encourage individual tagging of documents without needing to go through the full workflow process.
 
-The split of these into categories could be codified in the Content Schemas. Each format that has content links could gain an additional "content\_links.json" file which gets merged into the main "schema.json" at build-time, and tagging links stay in the existing "links.json".
+While applications such as Whitehall have their own database and are the source of truth for certain types of link, other applications will not be able to modify them directly in the Publishing API without them being overwritten by the publishing application. Any applications (and teams) that need to make these changes will first need to change the publishing application to use the Publishing API as the source of truth for the link types in question.
 
