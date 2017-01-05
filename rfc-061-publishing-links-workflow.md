@@ -26,7 +26,7 @@ Publishing apps should stop using the PatchLinkSet command to manage their links
 - PutContent with links will update only the link types supplied for the draft item only, and not touch link types not supplied in the payload. They will not trigger dependency resolution.
 - Publish will copy the draft links wholesale&nbsp;from the current draft to the new published version.
 - DiscardDraft will copy the published links wholesale&nbsp;from the current published version back to the draft version.
-- Link expansion should only resolve links to published content.
+- Link expansion should only resolve links to published content. It should use the relevant set of links for the content store that content is being sent to.
 
 Publishing apps should determine whether it is correct for them to send links via PutContent or PatchLinkSet. They should be able to use both methods for the same piece of content. For example, Whitehall publisher versions the addition of documents to a Document Collection, so would send these links using PutContent. However, the links to the topic may not always be versioned so they can be sent via PatchLinkSet. This allows for Finding Things to later change the Whitehall UI to encourage individual tagging of documents without needing to go through the full workflow process.
 
