@@ -43,15 +43,9 @@ The database tables for these models include additional columns for every respon
 
 Here is an object diagram that shows this composition:
 
-&nbsp;
-
-&nbsp;
-
 - The **[single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle)** recommends that you give each class/object in your system a single responsibility.
 
 In this case, ContentItem has more than one responsibility because it is inheriting the responsibilities of its mixed-in concerns (effectively through multiple inheritance).
-
-&nbsp;
 
 - The **[open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle)** recommends that you build your objects such that they are closed for modification and open for extension.
 
@@ -65,10 +59,6 @@ It tends to arise because it is quick and easy to add new responsibilities in th
 
 I propose that we refactor to something that promotes extensibility:
 
-&nbsp;
-
-&nbsp;
-
 We effectively flip the direction of the arrows round.
 
 This means that an AccessLimited responsibility would know about ContentItems, but ContentItems wouldn't have anything to do with AccessLimited.
@@ -78,8 +68,6 @@ This allows you to introduce new concepts and features without interfering with 
 ## Examples
 
 Here's are some examples of the kind of things I'm proposing:
-
-&nbsp;
 
 **1) You could introduce the notion of a Workflow to relieve the ContentItem of this responsibility:**
 
@@ -99,8 +87,6 @@ You could simply introduce these as new states without having to add three extra
 
 This applies for other changes you might decide to make for workflow, e.g. rules for when a content item is allowed to transition from draft -\> live.
 
-&nbsp;
-
 **2) You could introduce the notion of a VersionArbiter (or some better name):**
 
 ```
@@ -113,8 +99,6 @@ For example, there is an invariant which states that the live version cannot be 
 
 You could pull this out into the VersionArbiter who is responsible for enforcing this. The ContentItem simply focuses on storing its content - not on versioning.
 
-&nbsp;
-
 **3) You could introduce the notion of an AccessLimitation or Restriction to relieve the ContentItem of this responsibility:**
 
 ```
@@ -126,8 +110,6 @@ If you did this, you could remove the access\_limited field from ContentItem and
 At present, only the DraftContentItem is eligible for AccessLimitation and so it appears as a field on that table.
 
 You could remove that field and move it into a separate table which references the content item.
-
-&nbsp;
 
 **In summary**
 
@@ -166,8 +148,4 @@ The current "Derived Representation" models were originally intended to be a pre
 We decided to try a spike to investigate what the application would look like if there was a separate domain layer.
 
 This domain layer would be where we place the business logic in a way that's decoupled from the representations for downstream systems.
-
-&nbsp;
-
-&nbsp;
 
