@@ -43,3 +43,15 @@ We add a rake task in publishing-api which calls the existing command actions to
 Pros: Simple to set up, relatively simple to use  
 Cons: No helpful interface
 
+## Summary of discussion
+
+An alternative proposal was made, namely to modify the existing short-url-publisher app to include this functionality. This will enable moving this task so it is no longer the responsibility of developers&nbsp;but can be done by content editors, for example.
+
+The requirements for this work are as follows:
+
+1. The purpose of this functionality is to manage ad-hoc redirects that are not owned by any other publishing app. This will be enforced by the existing path reservation feature in publishing-api.
+2. This functionality should be “fully migrated” from the start: ie it does not keep redirect data locally (except for users from gds-sso), and&nbsp;writes directly to publishing-api. This may involve migrating the existing Redirects functionality within this app; however it probably does not make sense to migrate the "request a short url" part of the app.
+3. Users can add redirect by specifying from\_path, to\_path, and type (exact/prefix).
+4. Additionally it would be useful to have an optional Comment or Reason&nbsp;field to store the reason the redirect was added, to take the place of the commit comment in router-data. This will require a schema change.
+5. Nice to have: a bulk add interface to allow multiple redirects to be created and published at once.
+
