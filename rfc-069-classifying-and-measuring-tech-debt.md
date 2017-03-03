@@ -112,7 +112,9 @@ Transition configures Errbit with a deployment secret instead of env var (too sm
 
 ### Classifying and measuring
 
-Classifying tech debt uses two factors: the impact of the consequence and the effort required to remove the cause. Both are subjectively measured as high (red), medium (amber) or low (green) with a justification and explanation of the cause and consequence. These are subjectively combined into an overall high/medium/low risk rating, with the reason for the relative weighting also recorded. This rating signifies the risk and associated cost with not dealing with the item right now. In some circumstances (such as an upcoming planned rewrite or retirement) we would accept a high risk as the item would go away naturally anyway. For this reason, the risks don't necessarily map directly to priorities.
+Classifying tech debt uses two factors: the impact of the consequence and the effort required to remove the cause. Both are subjectively measured as high (red), medium (amber) or low (green) with a justification and explanation of the cause and consequence. These are subjectively combined into an overall high/medium/low risk rating, with the reason for the relative weighting also recorded.
+
+A piece of tech debt with a high impact but very low removal effort may be low overall, because while the ongoing cost is high, the one off cost to fix it when needed is low. Likewise a piece of tech debt that has a low impact but high effort might also be rated low overall. The effort of addressing the issue may far outweigh the support burden incurred.
 
 This is similar to how risks are recorded in a Risk Register. High, medium and low ratings are given for impact and likelihood along with a combined overall rating based on a decision about the relative importance of the impact and likelihood. The higher the overall rating, the more the programme should be concerned about it.
 
@@ -123,8 +125,6 @@ Items of Technical Debt will be recorded on a [Trello board](https://trello.com/
 Technical leadership across GOV.UK (Technical Architects, Technical Leads and Lead Developers) should use these lists during conversations with Product and Delivery Managers when prioritising work. Technical debt existing on the register doesn’t necessarily mean it will be paid down at any point, only that GOV.UK is conscious of its existence and will take it into account in product decisions.
 
 Tracking debt as it gets created will follow the same process, with a link to a Trello card on a team’s backlog for the story that created it. The debt review process doesn’t make decisions on whether the creation of the debt is the correct thing to do, that decision stays with the product team.
-
-If something is too small in scope to be included on the board, it should be recorded in the relevant repository's Github issues. Tech leads should review these regularly as part of prioritisation.
 
 ### Examples
 
