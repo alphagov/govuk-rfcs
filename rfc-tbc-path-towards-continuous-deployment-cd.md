@@ -1,10 +1,10 @@
-## Problem
+# Problem
 
-I would like to propose moving away from manual deployments into a continuous deployment pipeline. I understand this is ambitious, but I would like to at least start the process. Here is some context for this RFC.
+I would like to propose moving away from manual deployments into a continuous deployment pipeline. Now I understand this probably sounds very ambitious, but I would like to think it is possible to at least start the process. Here is some context for this RFC.
 
 ### **Background**
 
-As you probably all know, in GOV.UK we roughly&nbsp;follow this process:
+As you probably all now, in GOV.UK we roughly&nbsp;follow this process:
 
 - A developer submits a pull request on GitHub with some code changes to a repository, linking to a Trello card which explains the feature;
 - CI then runs the tests amongst other things and either fails or accepts the build;
@@ -14,7 +14,7 @@ As you probably all know, in GOV.UK we roughly&nbsp;follow this process:
 
 At this stage everyone should be pretty happy that this change can go live. In the vast majority of cases, someone eventually deploys this change and we don’t really have to do anything else.
 
-This all sounds good, but was happens in between a feature being merged and it being live?
+This all sounds good, but was happens in between a feature being merged and being live?
 
 What normally happens is:
 
@@ -22,7 +22,6 @@ What normally happens is:
 - In the meantime, potentially&nbsp;a bunch of other pull requests have been reviewed/merged on top;
 - When the time to release comes, the developer goes over to the release app and realises there are commits form a number of developers;
 - We open up slack and check with all those developers if it’s ok to put those changes live;
-- We also need to remember again everything that we need to check, since we might have lost the context for it a few days later (extra effort);
 - When everybody is happy we push the code to staging, hopefully check icinga and errbit, do a bit of manual integration testing to see if everything is fine;
 - We then finally deploy the code to production, again checking icinga, errbit and that the feature is live.
 
@@ -34,7 +33,6 @@ As you can see from the steps above, I think there are a number of issues with t
 
 - We roughly waste the time of 1 developer per day deploying code (the deploy slots are usually fully booked between 9.30 and 5.30);
 - We waste other people’s time by interrupting their work day asking if their feature can go live;
-- We have to regain context of what we are deploying and testing, since the deployment doesn't happen straight away;
 - We increase the risk of each deploy because we are pushing a large number of commits in one go (if something goes wrong, which feature broke it?);
 - We rely on people to check that everything is ok (checking errbit/icinga/smokey);
 - We rely on people with production access to deploy code. In a team where very few developers have production access, we either need to ask 2nd line or the tech lead to deploy code for us, which means we are wasting the time of 2 developers and not just one.
@@ -74,7 +72,7 @@ I understand we can’t \*just\* do that for a number of reasons. For example:
 
 Which is why&nbsp;I would like to propose starting this process in the following areas.
 
-#### **Allow multiple deployments to happen at once (first manually)**
+#### **Allow multiple deployments to happen at once (manually)**
 
 Right now there are apps that can be&nbsp;deployed&nbsp;concurrently. Pretty much any publishing app can be deployed at the same time of a frontend app. CDN changes can also be deployed independently too, amongst other things.
 
@@ -107,13 +105,7 @@ I’m sure our infrastructure would need to be changed in order to support this.
 
 In parallel with the above, I suggest we:
 
-- get a small team together to spend some time designing how the CD pipeline would work. I described one possible scenario above, but it would be good to have a discussion on this and also understand what things could go wrong and how we expect the system to behave when it does. This team could then start prioritising the work needed to be done before we can enable CD in GOV.UK;
-- think about how we could temporary block the CD pipeline for a given app, in case dependencies are unavoidable for a reason;
-- think how we could do this progressively - maybe start adding a couple of low-impact apps to the new CD pipeline and slowly roll it out to every app.
-
-Open questions so far:
-
-- Are there any legal impacts to consider?
+- get a small team together to spend some time designing how the CD pipeline would work. I described one possible scenario above, but it would be good to have a discussion on this and also understand what things could go wrong and how we expect the system to behave when it does. This team could then start prioritising the work needed to be done before we can enable CD in GOV.UK.
 
 Apologies for the very long RFC. I understand this is a big effort, but I think we should start talking about it.
 
