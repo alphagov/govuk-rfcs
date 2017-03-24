@@ -14,7 +14,7 @@ As you probably all now, in GOV.UK we roughly&nbsp;follow this process:
 
 At this stage everyone should be pretty happy that this change can go live. In the vast majority of cases, someone eventually deploys this change and we don’t really have to do anything else.
 
-This all sounds good, but was happens in between a feature being merged and being live?
+This all sounds good, but was happens in between a feature being merged and it being live?
 
 What normally happens is:
 
