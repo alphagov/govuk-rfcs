@@ -34,6 +34,7 @@ As you can see from the steps above, I think there are a number of issues with t
 
 - We roughly waste the time of 1 developer per day deploying code (the deploy slots are usually fully booked between 9.30 and 5.30);
 - We waste other people’s time by interrupting their work day asking if their feature can go live;
+- We have to regain context of what we are deploying and testing, since the deployment doesn't happen straight away;
 - We increase the risk of each deploy because we are pushing a large number of commits in one go (if something goes wrong, which feature broke it?);
 - We rely on people to check that everything is ok (checking errbit/icinga/smokey);
 - We rely on people with production access to deploy code. In a team where very few developers have production access, we either need to ask 2nd line or the tech lead to deploy code for us, which means we are wasting the time of 2 developers and not just one.
