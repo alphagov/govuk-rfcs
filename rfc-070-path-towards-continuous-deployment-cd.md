@@ -74,7 +74,7 @@ I understand we can’t \*just\* do that for a number of reasons. For example:
 
 Which is why&nbsp;I would like to propose starting this process in the following areas.
 
-#### **Allow multiple deployments to happen at once (manually)**
+#### **Allow multiple deployments to happen at once (first manually)**
 
 Right now there are apps that can be&nbsp;deployed&nbsp;concurrently. Pretty much any publishing app can be deployed at the same time of a frontend app. CDN changes can also be deployed independently too, amongst other things.
 
