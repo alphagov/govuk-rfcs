@@ -22,6 +22,7 @@ What normally happens is:
 - In the meantime, potentially&nbsp;a bunch of other pull requests have been reviewed/merged on top;
 - When the time to release comes, the developer goes over to the release app and realises there are commits form a number of developers;
 - We open up slack and check with all those developers if it’s ok to put those changes live;
+- We also need to remember again everything that we need to check, since we might have lost the context for it a few days later (extra effort);
 - When everybody is happy we push the code to staging, hopefully check icinga and errbit, do a bit of manual integration testing to see if everything is fine;
 - We then finally deploy the code to production, again checking icinga, errbit and that the feature is live.
 
