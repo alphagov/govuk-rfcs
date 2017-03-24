@@ -1,4 +1,4 @@
-# Problem
+## Problem
 
 I would like to propose moving away from manual deployments into a continuous deployment pipeline. Now I understand this probably sounds very ambitious, but I would like to think it is possible to at least start the process. Here is some context for this RFC.
 
@@ -105,7 +105,13 @@ I’m sure our infrastructure would need to be changed in order to support this.
 
 In parallel with the above, I suggest we:
 
-- get a small team together to spend some time designing how the CD pipeline would work. I described one possible scenario above, but it would be good to have a discussion on this and also understand what things could go wrong and how we expect the system to behave when it does. This team could then start prioritising the work needed to be done before we can enable CD in GOV.UK.
+- get a small team together to spend some time designing how the CD pipeline would work. I described one possible scenario above, but it would be good to have a discussion on this and also understand what things could go wrong and how we expect the system to behave when it does. This team could then start prioritising the work needed to be done before we can enable CD in GOV.UK;
+- think about how we could temporary block the CD pipeline for a given app, in case dependencies are unavoidable for a reason;
+- think how we could do this progressively - maybe start adding a couple of low-impact apps to the new CD pipeline and slowly roll it out to every app.
+
+Open questions so far:
+
+- Are there any legal impacts to consider?
 
 Apologies for the very long RFC. I understand this is a big effort, but I think we should start talking about it.
 
