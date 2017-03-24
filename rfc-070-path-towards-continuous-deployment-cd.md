@@ -4,7 +4,7 @@ I would like to propose moving away from manual deployments into a continuous de
 
 ### **Background**
 
-As you probably all now, in GOV.UK we roughly&nbsp;follow this process:
+As you probably all know, in GOV.UK we roughly&nbsp;follow this process:
 
 - A developer submits a pull request on GitHub with some code changes to a repository, linking to a Trello card which explains the feature;
 - CI then runs the tests amongst other things and either fails or accepts the build;
