@@ -1,6 +1,6 @@
 ## Problem
 
-I would like to propose moving away from manual deployments into a continuous deployment pipeline. Now I understand this probably sounds very ambitious, but I would like to think it is possible to at least start the process. Here is some context for this RFC.
+I would like to propose moving away from manual deployments into a continuous deployment pipeline. I understand this probably is ambitious, but I would like to at least start the process. Here is some context for this RFC.
 
 ### **Background**
 
