@@ -30,13 +30,13 @@ I would like to propose that:&nbsp;
 
 I believe this is an improvement because:&nbsp;
 
-- allowing static to respond with fully rendered components allows us to actually test components in static. Currently, there is no way of reliably test that a component and its data render properly;
-- we can re-use those rendered components in other contexts, independent of any programming&nbsp;language being used (e.g. render a sidebar in a prototype);
+- allowing static to respond with fully rendered components allows us to actually test components in static (currently, there is no way of reliably testing that a component and its data render properly);
+- we can re-use those rendered components in other contexts, independent of any programming&nbsp;language (e.g. render a sidebar in a prototype);
 - we simplify the development workflow by&nbsp;only needing to update static for components changes.
 
 This new workflow would look like this:
 
-In this new diagram, we remove govuk\_navigation\_helpers and let static generate data for each of the components. In this workflow, we only query static once, with either a content item (a bit of data going through each request), or a content ID (and let static query the content store to get the metadata). Static also queries the Search API and builds up all the necessary components for a given content item. It then renders the HTML components and sends those in the response. The frontend application will then insert the necessary HTML components into the page.
+In this new diagram, we remove govuk\_navigation\_helpers and let static generate data for each of the components. In this workflow, we only query static once, with either a content item (bit of data going through each request), or a content ID (and let static query the content store to get the metadata). Static also queries the Search API and builds up all the necessary components for a given content item. It then renders the HTML components and sends those in the response. The frontend application will then insert the necessary HTML components into the page.
 
 The possible drawbacks of this approach are:&nbsp;
 
