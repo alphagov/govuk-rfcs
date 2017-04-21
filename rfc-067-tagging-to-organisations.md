@@ -1,6 +1,6 @@
 ## Problem
 
-Historically, we've had "organisation tagging" on GOV.UK, but it's a bit muddled. In particular, the value of "organisations" in the content store mean different things for different publishing apps.
+Historically, we've had "organisation tagging" on GOV.UK, but it's a bit muddled. In particular, the value of "organisations" in the content store means different things for different publishing apps.
 
 ## Model
 
