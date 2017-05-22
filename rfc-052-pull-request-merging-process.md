@@ -6,10 +6,7 @@ There has been recent confusion about the processes under which we merge Pull Re
 
 There are just four rules of reviewing and merging PRs:
 
-1. 
-
-`master` must be able to be released at any time
-
+1. `master` must be able to be released at any time.
 2. The change must have two reviews from people from GDS (preferably GOV.UK). This can (and normally will) include the author.
 3. Use the Github Review UI to mark a PR as approved or requiring changes.
 4. Use the Github UI to merge the PR. This ensures the PR number is added to the merge commit.
