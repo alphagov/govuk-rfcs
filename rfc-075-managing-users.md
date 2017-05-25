@@ -29,7 +29,7 @@ There are a number of potential extensions to this, like adding an expiry date t
 
 This is a proof of concept:
 
-<https://github.com/alphagov/govuk-user-reviewer>
+<https://github.com/alphagov/govuk-user-reviewer/tree/prototype>
 
 It defines a list of users like this:
 
