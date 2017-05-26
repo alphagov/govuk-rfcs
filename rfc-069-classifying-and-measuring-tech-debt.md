@@ -4,111 +4,40 @@ While planning for the the work we’re doing on GOV.UK in Q4 and 2017-18, we ne
 
 ### Example consequences of tech debt
 
-- 
-
-Harder to patch security vulnerabilities
-
-- 
-
-Harder to implement new features
-
-- 
-
-Harder to onboard new developers
-
-- 
-
-Consumes too many compute resources
-
-- 
-
-Too closely coupled to an architecture
-
-- 
-
-Causes too many support tickets
-
-- 
-
-Creates too much chore work
-
-- 
-
-Difficult to debug issues
-
-- 
-
-Inconsistent architecture
+- Harder to patch security vulnerabilities
+- Harder to implement new features
+- Harder to onboard new developers
+- Consumes too many compute resources
+- Too closely coupled to an architecture
+- Causes too many support tickets
+- Creates too much chore work
+- Difficult to debug issues
+- Inconsistent architecture
 
 ### Example causes of tech debt
 
-- 
-
-Out of date dependencies
-
-- 
-
-Hardcoded configuration
-
-- 
-
-Component has too many responsibilities
-
-- 
-
-Long running test suite
-
-- 
-
-Manual deployment task
-
-- 
-
-Missing documentation
-
-- 
-
-No admin interface
-
-- 
-
-Not using lessons learnt since build
+- Out of date dependencies
+- Hardcoded configuration
+- Component has too many responsibilities
+- Long running test suite
+- Manual deployment task
+- Missing documentation
+- No admin interface
+- Not using lessons learnt since build
 
 ### Examples of things that are tech debt
 
-- 
-
-Whitehall has its own upload management system (inconsistent)
-
-- 
-
-Organisations can’t be renamed without developer input (chore)
-
-- 
-
-Manuals Publisher uses complex patterns (harder to work on)
+- Whitehall has its own upload management system (inconsistent)
+- Organisations can’t be renamed without developer input (chore)
+- Manuals Publisher uses complex patterns (harder to work on)
 
 ### Examples of things that are not tech debt
 
-- 
-
-Whitehall (scope too large)
-
-- 
-
-Router written in Go (reasonable choice of tool for problem)
-
-- 
-
-Signon 2SV doesn’t support SMS (product decision)
-
-- 
-
-Router API functionality isn’t built into Content store (no significant ongoing cost)
-
-- 
-
-Transition configures Errbit with a deployment secret instead of env var (too small)
+- Whitehall (scope too large)
+- Router written in Go (reasonable choice of tool for problem)
+- Signon 2SV doesn’t support SMS (product decision)
+- Router API functionality isn’t built into Content store (no significant ongoing cost)
+- Transition configures Errbit with a deployment secret instead of env var (too small)
 
 ### Classifying and measuring
 
@@ -134,17 +63,9 @@ Cause: Whitehall’s system for handling uploads of PDFs, CSVs and images from p
 
 Consequences:
 
-- 
-
-Inconsistent architecture
-
-- 
-
-Too closely coupled to physical disk
-
-- 
-
-Causes support tickets due to delay in processing attachments
+- Inconsistent architecture
+- Too closely coupled to physical disk
+- Causes support tickets due to delay in processing attachments
 
 Impact of debt: **High** due to confusion, operational restrictions and support burden.
 
@@ -158,9 +79,7 @@ Cause: Reslugging an organisation is a multi step process across a number of app
 
 Consequences:
 
-- 
-
-Creates too much chore work
+- Creates too much chore work
 
 Impact of debt: **Low** due to volume of requests
 
@@ -174,21 +93,10 @@ Cause: Manuals Publisher is written in a style that is unfamiliar to many Rails 
 
 Consequences:
 
-- 
-
-Harder to patch security vulnerabilities
-
-- 
-
-Harder to implement new features
-
-- 
-
-Harder to onboard new developers
-
-- 
-
-Harder to fully migrate
+- Harder to patch security vulnerabilities
+- Harder to implement new features
+- Harder to onboard new developers
+- Harder to fully migrate
 
 Impact of debt: **Medium** due to the impact of these consequences. The application is not often worked on, so the ongoing cost to maintain it is low. Full migration would likely necessitate a rewrite or significant refactor.
 
