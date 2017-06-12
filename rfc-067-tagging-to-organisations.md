@@ -1,3 +1,9 @@
+# Tagging to organisations (not implemented)
+
+---
+**NOTE 2017/06/12**: This PR has not been implemented because of difficulty getting consensus about the semantics of the organisations tags. The only tag that has been added at the time of writing is the `primary_publishing_organisation`, which contains the first "lead organisation" for Whitehall documents.
+---
+
 ## Problem
 
 Historically, we've had "organisation tagging" on GOV.UK, but it's a bit
