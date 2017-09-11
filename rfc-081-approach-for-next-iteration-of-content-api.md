@@ -61,6 +61,7 @@
     - [Do we need a content store should we be just querying the Publishing API?](#do-we-need-a-content-store-should-we-be-just-querying-the-publishing-api)
     - [Why use the word "live" when it is already used in the context of live content store?](#why-use-the-word-live-when-it-is-already-used-in-the-context-of-live-content-store)
     - [I'm not too sure about the naming of "x"?](#im-not-too-sure-about-the-naming-of-x)
+    - [Is it preferred to lookup content via content_id than to use a path?](#is-it-preferred-to-lookup-content-via-content_id-than-to-use-a-path)
 
 ## Summary
 
@@ -598,6 +599,25 @@ Any ideas/thoughts on this or a more suitable name are welcome.
 Please tell us so we can consider it and any naming suggestions are definitely
 welcome, but we'll probably not want to get to involved in a naming debate at
 this stage to avoid bikeshedding.
+
+#### Is it preferred to lookup content via content_id than to use a path?
+
+In a nut shell the answer is no.
+
+In longer form though, content_ids and paths serve different purposes which due
+to the relations of data can eventually lead to the same result. eg a
+Location (path) is associated with an Edition, which is associated with a
+Document (content_id). A user can use a content_id to get a historic overview
+of every edition of a piece of content, whereas path is used to get a single
+edition of a piece of content. If you aren't concerned with past editions you
+need only consider path.
+
+The number of endpoints involving a content_id compared to path seems to have
+created an impression of content_id being the preferred method. This isn't
+intended to be so however it is a natural side effect of content_id being part
+of a solid data model. Whereas path and it's associated Location model is used
+to link to a number of different data models, so navigating through this is
+impractical due to their generic representation.
 
 [ogp-commitment]: https://www.gov.uk/government/publications/uk-open-government-national-action-plan-2016-18/uk-open-government-national-action-plan-2016-18#commitment-12-govuk
 [content-history-content-store]: https://docs.google.com/document/d/1yyRRlkwKrjC2_OZ0dlLP8wdzkORBhG3-T4qVoROk1u0
