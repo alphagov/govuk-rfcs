@@ -64,6 +64,8 @@
     - [Is it preferred to lookup content via content_id than to use a path?](#is-it-preferred-to-lookup-content-via-content_id-than-to-use-a-path)
     - [Is there a plan for how to document this?](#is-there-a-plan-for-how-to-document-this)
     - [Does this proposal include attachments to content, such as PDF or image files?](#does-this-proposal-include-attachments-to-content-such-as-pdf-or-image-files)
+  + [Amendments following feedback](#amendments-following-feedback)
+    - [Usage of Gone for Unavailable for Legal Reasons](#usage-of-gone-for-unavailable-for-legal-reasons)
 
 
 ## Summary
@@ -218,6 +220,9 @@ once on GOV.UK but reached the end of it's useful life.
 The concept of RevokedGone is intended for handling legally sensitive
 information. It would be used to replace either an Edition or Document that has
 needed to be removed for legal reasons and cannot continue to be in our history.
+
+**Note**: The ideas surrounding this approach have been
+[revised](#usage-of-gone-for-unavailable-for-legal-reasons).
 
 #### Different ways to navigate content
 
@@ -466,6 +471,9 @@ is being taken off GOV.UK.
 
 Entity returned: `List<Gone>`
 
+**Note**: The ideas surrounding this approach have been
+[revised](#usage-of-gone-for-unavailable-for-legal-reasons).
+
 #### `/gones/{id}`
 
 The canonical method to lookup a Gone.
@@ -519,6 +527,9 @@ with a redirect, such as destination, segment mode, etc.
 
 A gone is a generic type that represents a piece of content that is no longer
 available. This is available in two types RetiredGone and RevokedGone.
+
+**Note**: The ideas surrounding this approach have been
+[revised](#usage-of-gone-for-unavailable-for-legal-reasons).
 
 ##### RetiredGone
 
@@ -641,6 +652,31 @@ changes to this and considers how/whether attachments belong in
 Publishing API/Content API to be a distinct problem from what this RFC is
 addressing.
 
+### Amendments following feedback
+
+#### Usage of Gone for Unavailable for Legal Reasons
+
+As was pointed out by [@edent][edent-451] there is a HTTP Status Code provided
+for content that is "Unavailable for Legal Reasons". This was very helpful as
+it has given us an opportunity to reconsider having two types of Gone entity
+for different scenarios.
+
+Initially we had intended both types of Gone would return HTTP 410 Gone
+responses, which was a key factor in them sharing a common super type. However
+if we consider that we want to return a different 451 response then
+this questions the wisdom in a shared common approach.
+
+In light of this the following changes are proposed:
+
+- Only one type of [Gone](#gone) which will no longer be a generic subtype
+  but instead replace [RetiredGone](#retiredgone).
+- The type of [RevokedGone](#revokedgone) would be replaced by a
+  **UnavailableLegal** type.
+- An `/unavailable-legal` endpoint would be created to browse through content
+  unavailable for legal reasons.
+- Future investigation would be required for deciding a strategy for cases
+  where a URL itself is unavailable to be displayed due to legal reasons.
+
 [ogp-commitment]: https://www.gov.uk/government/publications/uk-open-government-national-action-plan-2016-18/uk-open-government-national-action-plan-2016-18#commitment-12-govuk
 [content-history-content-store]: https://docs.google.com/document/d/1yyRRlkwKrjC2_OZ0dlLP8wdzkORBhG3-T4qVoROk1u0
 [content-item-definition]: https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md
@@ -656,3 +692,4 @@ addressing.
 [content-api-docs-microsite]: https://content-api.publishing.service.gov.uk
 [content-store-openapi]: https://github.com/alphagov/content-store/blob/76a415e30d03cbb65ca76d2a9883f47b71be53f3/openapi.yaml
 [open-api-proposal]: https://github.com/alphagov/open-standards/issues/31
+[edent-451]: https://github.com/alphagov/govuk-rfcs/pull/81#issuecomment-329165126
