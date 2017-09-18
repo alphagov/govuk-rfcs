@@ -62,6 +62,7 @@
     - [Why use the word "live" when it is already used in the context of live content store?](#why-use-the-word-live-when-it-is-already-used-in-the-context-of-live-content-store)
     - [I'm not too sure about the naming of "x"?](#im-not-too-sure-about-the-naming-of-x)
     - [Is it preferred to lookup content via content_id than to use a path?](#is-it-preferred-to-lookup-content-via-content_id-than-to-use-a-path)
+    - [Is there a plan for how to document this?](#is-there-a-plan-for-how-to-document-this)
 
 ## Summary
 
@@ -619,6 +620,16 @@ of a solid data model. Whereas path and it's associated Location model is used
 to link to a number of different data models, so navigating through this is
 impractical due to their generic representation.
 
+#### Is there a plan for how to document this?
+
+The intention is to document this in a continuation of the approach established
+for the current iteration of the Content API which is done through a
+[microsite][content-api-docs-microsite] that is generated based on an [OpenAPI
+v3 specification][content-store-openapi].
+
+The choice to use OpenAPI is based on a [proposal][open-api-proposal] to
+standardise on the usage of OpenAPI v3.
+
 [ogp-commitment]: https://www.gov.uk/government/publications/uk-open-government-national-action-plan-2016-18/uk-open-government-national-action-plan-2016-18#commitment-12-govuk
 [content-history-content-store]: https://docs.google.com/document/d/1yyRRlkwKrjC2_OZ0dlLP8wdzkORBhG3-T4qVoROk1u0
 [content-item-definition]: https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md
@@ -631,3 +642,6 @@ impractical due to their generic representation.
 [govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
 [UUID]: https://en.wikipedia.org/wiki/Universally_unique_identifier
 [smart-answers]: https://github.com/alphagov/smart-answers
+[content-api-docs-microsite]: https://content-api.publishing.service.gov.uk
+[content-store-openapi]: https://github.com/alphagov/content-store/blob/76a415e30d03cbb65ca76d2a9883f47b71be53f3/openapi.yaml
+[open-api-proposal]: https://github.com/alphagov/open-standards/issues/31
