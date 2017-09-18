@@ -63,6 +63,8 @@
     - [I'm not too sure about the naming of "x"?](#im-not-too-sure-about-the-naming-of-x)
     - [Is it preferred to lookup content via content_id than to use a path?](#is-it-preferred-to-lookup-content-via-content_id-than-to-use-a-path)
     - [Is there a plan for how to document this?](#is-there-a-plan-for-how-to-document-this)
+    - [Does this proposal include attachments to content, such as PDF or image files?](#does-this-proposal-include-attachments-to-content-such-as-pdf-or-image-files)
+
 
 ## Summary
 
@@ -629,6 +631,15 @@ v3 specification][content-store-openapi].
 
 The choice to use OpenAPI is based on a [proposal][open-api-proposal] to
 standardise on the usage of OpenAPI v3.
+
+#### Does this proposal include attachments to content, such as PDF or image files?
+
+This proposal is based around the Content API being populated by data available
+from the [Publishing API][]. Currently the Publishing API only has explicit
+records for HTML Attachment and not other ones. This RFC does not propose any
+changes to this and considers how/whether attachments belong in
+Publishing API/Content API to be a distinct problem from what this RFC is
+addressing.
 
 [ogp-commitment]: https://www.gov.uk/government/publications/uk-open-government-national-action-plan-2016-18/uk-open-government-national-action-plan-2016-18#commitment-12-govuk
 [content-history-content-store]: https://docs.google.com/document/d/1yyRRlkwKrjC2_OZ0dlLP8wdzkORBhG3-T4qVoROk1u0
