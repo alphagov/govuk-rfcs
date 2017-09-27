@@ -57,11 +57,11 @@ If something is too small in scope to be included on the board, it should be rec
 
 ### Examples
 
-Whitehall has its own upload management system
+#### Whitehall has its own upload management system
 
-Cause: Whitehall’s system for handling uploads of PDFs, CSVs and images from publishing users is different to the Asset Manager application used by Specialist Publisher and others. This is due to it being developed in isolation from another system.
+**Cause**: Whitehall’s system for handling uploads of PDFs, CSVs and images from publishing users is different to the Asset Manager application used by Specialist Publisher and others. This is due to it being developed in isolation from another system.
 
-Consequences:
+**Consequences**:
 
 - Inconsistent architecture
 - Too closely coupled to physical disk
@@ -73,25 +73,29 @@ Effort to pay down: **High** due to the technical effort involved in changing Wh
 
 Overall rating: **High**
 
-Organisations can’t be renamed without developer input
+---
 
-Cause: Reslugging an organisation is a multi step process across a number of applications. Some steps are not required depending on how much content exists for an organisation.
+#### Organisations can’t be renamed without developer input
 
-Consequences:
+**Cause**: Reslugging an organisation is a multi step process across a number of applications. Some steps are not required depending on how much content exists for an organisation.
+
+**Consequences**:
 
 - Creates too much chore work
 
 Impact of debt: **Low** due to volume of requests
 
-Effort to pay down: **High** due to the work&nbsp;required across all apps to simplify this process.
+Effort to pay down: **High** due to the work required across all apps to simplify this process.
 
 Overall rating: **Low** due to relative support burden.
 
-Manuals Publisher uses complex design patterns
+---
 
-Cause: Manuals Publisher is written in a style that is unfamiliar to many Rails developers, and requires alterations in many areas of the code base to deliver a story.
+#### Manuals Publisher uses complex design patterns
 
-Consequences:
+**Cause**: Manuals Publisher is written in a style that is unfamiliar to many Rails developers, and requires alterations in many areas of the code base to deliver a story.
+
+**Consequences**:
 
 - Harder to patch security vulnerabilities
 - Harder to implement new features
