@@ -4,9 +4,12 @@ Summary: This RFC proposes replacing the current system of sharing frontend code
 
 ## Background
 
-The system GOV.UK uses to share frontend code works like this: frontend applications use a [gem called Slimmer](https://github.com/alphagov/slimmer). Slimmer provides templates (layouts) and [GOV.UK components][cmps] to the Rails application by fetching a raw ERB template from the [Static application](https://github.com/alphagov/static). The template links to JS and CSS files that are also hosted by Static. This means that frontend changes can be rolled out across GOV.UK by changing and deploying Static. A number of caching layers make this approach performant. Slimmer makes changes to the rendered HTML like [adding meta tags][tags].
+The system GOV.UK uses to share frontend code works like this: frontend applications use a [gem called Slimmer](https://github.com/alphagov/slimmer). Slimmer provides templates (layouts) and [GOV.UK components][cmps] to the Rails application by fetching a raw ERB template from the [Static application](https://github.com/alphagov/static). Slimmer also makes changes to the rendered HTML like [adding meta tags][tags]. The template links to JS and CSS files that are also hosted by Static.
+
+This means that frontend changes can be rolled out across GOV.UK by changing and deploying Static. A number of caching layers make this approach performant. Static connects to Redis to check if the [emergency banners][] need to be displayed.
 
 [cmps]: https://github.com/alphagov/static/blob/master/doc/static-components.md
+[emergency-banners]: https://docs.publishing.service.gov.uk/manual/emergency-publishing.html
 
 ## Problems with current approach
 
