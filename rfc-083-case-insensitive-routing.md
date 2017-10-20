@@ -2,7 +2,7 @@
 
 ## Summary
 
-Make lowercase base paths canonical and redirect any uppercase or mixed-case base paths to their lowercase equivalent, except the final part if it is a filename.
+Make base paths case insensitive for routing purposes, and only allow one case of a base path to be registered with the router and publishing-api.
 
 ## Problem
 
@@ -14,10 +14,12 @@ This has the potential to cause confusion for end users if they try to visit a p
 
 It can be argued that most end users do not understand and do not care about case sensitivity, and would be surprised to learn that there is the potential for www.gov.uk/education to lead to a navigation page whereas www.gov.uk/Education leads to a 404 error, or even worse, can be claimed by a completely different app displaying a different page.
 
-Case sensitivity as a general rule made sense when all requests were for files stored on a file system which was itself case sensitive. However, given that most of our base paths are virtual and routed to apps, this argument does not apply. It can, however, still apply to paths to attachments which are actual files stored on a file system. There should be a way to preserve the case of these filenames.
+Case sensitivity as a general rule made sense when all requests were for files stored on a file system which was itself case sensitive. However, given that most of our base paths are virtual and routed to apps, this argument does not apply.
 
 ## Proposal
 
-* The router should redirect all mixed-case and uppercase base paths to their lowercase equivalent (except for the filename portions of base paths) with a 301 redirect
-* publishing-api should be audited to find any existing content that differs only in the case of the base path, and these should be resolved
-* publishing-api should either not accept publishing to base paths that are not in lowercase or should lowercase the base path itself before publishing
+* The router should only allow one case (uppercase, lowercase or mixed case) of a base path to be registered as a route (so `/education` can be registered but `/Education` will be regarded to be a duplicate)
+* The router should match requested base paths to routes in a case insensitive manner (so a request for `/EDUCATION` will match `/education`)
+* The router should redirect requested base paths that match a route lexically but not in case with a 301 redirect to the route in the case is it registered with (so a request for `/EDUCAtion` will result in a 301 redirect to `/education`)
+* publishing-api should be audited to find any existing content that differs only in the case of the base path, and these issues should be resolved
+* publishing-api should only allow one case of a base path to be registered
