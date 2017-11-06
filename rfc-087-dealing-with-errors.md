@@ -77,3 +77,9 @@ Rails reports `ActionDispatch::RemoteIp::IpSpoofAttackError`.
 [Example](https://sentry.io/govuk/app-service-manual-frontend/issues/365951370)
 
 Desired behaviour: HTTP 400 is returned, error is not reported to Sentry.
+
+### Database entry not found
+
+Often a controller will do something like `Thing.find(params[:id])` and rely on Rails to show a 404 page for the `ActiveRecord::RecordNotFound` it raises ([context](https://stackoverflow.com/questions/27925282/activerecordrecordnotfound-raises-404-instead-of-500)).
+
+Desired behaviour: errors are not reported to Sentry
