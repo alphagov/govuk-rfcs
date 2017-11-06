@@ -28,21 +28,29 @@ A code change makes the application crash.
 
 Desired behaviour: error is sent to Sentry, developers are notified and fix the error.
 
-### Expected intermittent
+### Expected intermittent errors
 
 Frontend applications often see timeouts when talking to the content-store or rummager.
 
 Desired behaviour: error is not sent to Sentry. Instead, we rely on Smokey and Icinga checks to make sure we the site functions.
 
-### Expected environment-based
+### Expected environment-based errors
 
-MySQL errors on integration while data sync happens.
+MySQL errors on staging while data sync happens.
 
 Desired behaviour: our environment is set up such that these errors do not occur.
 
-### Incorrect treatment of input
+### Bad request errors
 
-Rummager crashing on incorrect dates, passed on directly from finder-frontend.
+User makes a request the application can't handle ([example][bad-request]).
+
+Desired behaviour: user gets feedback, error is not reported to Sentry
+
+[bad-request]: https://sentry.io/govuk/app-service-manual-frontend/issues/400074003
+
+### Incorrect bubbling up of errors
+
+Rummager crashes on date parsing, returns 500, which is passed on directly in finder-frontend.
 
 Desired behaviour: backing app returns a 4XX status code, response is fed back to user. Nothing is ever logged or sent to Sentry.
 
@@ -56,4 +64,4 @@ Desired behaviour: developers do not use Sentry for logging.
 
 Sidekiq worker sends something to the publishing-api, which times out. Sidekiq retries, the next time it works.
 
-Desired behaviour: errors are not reported to Sentry until retries are exhausted. See [this PR for an example](https://github.com/alphagov/content-performance-manager/pull/353).  
+Desired behaviour: errors are not reported to Sentry until retries are exhausted. See [this PR for an example](https://github.com/alphagov/content-performance-manager/pull/353).
