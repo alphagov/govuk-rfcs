@@ -50,4 +50,10 @@ Desired behaviour: backing app returns a 4XX status code, response is fed back t
 
 Something goes wrong and we need to let developers know.
 
-Desired behaviour: developers do not use Sentry for logging. 
+Desired behaviour: developers do not use Sentry for logging.
+
+### Intermittent retryable errors
+
+Sidekiq worker sends something to the publishing-api, which times out. Sidekiq retries, the next time it works.
+
+Desired behaviour: errors are not reported to Sentry until retries are exhausted. See [this PR for an example](https://github.com/alphagov/content-performance-manager/pull/353).  
