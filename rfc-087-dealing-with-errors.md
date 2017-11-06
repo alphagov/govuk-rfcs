@@ -65,3 +65,11 @@ Desired behaviour: developers do not use Sentry for logging.
 Sidekiq worker sends something to the publishing-api, which times out. Sidekiq retries, the next time it works.
 
 Desired behaviour: errors are not reported to Sentry until retries are exhausted. See [this PR for an example](https://github.com/alphagov/content-performance-manager/pull/353).
+
+### IP spoof errors
+
+Rails reports `ActionDispatch::RemoteIp::IpSpoofAttackError`.
+
+[Example](https://sentry.io/govuk/app-service-manual-frontend/issues/365951370)
+
+Desired behaviour: HTTP 400 is returned, error is not reported to Sentry. 
