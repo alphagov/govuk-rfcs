@@ -68,6 +68,8 @@ Sidekiq worker sends something to the publishing-api, which times out. Sidekiq r
 
 Desired behaviour: errors are not reported to Sentry until retries are exhausted. See [this PR for an example](https://github.com/alphagov/content-performance-manager/pull/353).
 
+Relevant: https://github.com/getsentry/raven-ruby/pull/784
+
 ### IP spoof errors
 
 Rails reports `ActionDispatch::RemoteIp::IpSpoofAttackError`.
