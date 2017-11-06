@@ -44,6 +44,8 @@ Desired behaviour: our environment is set up such that these errors do not occur
 
 User makes a request the application can't handle ([example][bad-request]).
 
+Often happens in [security checks](https://sentry.io/govuk/app-frontend/issues/400074979).
+
 Desired behaviour: user gets feedback, error is not reported to Sentry
 
 [bad-request]: https://sentry.io/govuk/app-service-manual-frontend/issues/400074003
@@ -72,4 +74,4 @@ Rails reports `ActionDispatch::RemoteIp::IpSpoofAttackError`.
 
 [Example](https://sentry.io/govuk/app-service-manual-frontend/issues/365951370)
 
-Desired behaviour: HTTP 400 is returned, error is not reported to Sentry. 
+Desired behaviour: HTTP 400 is returned, error is not reported to Sentry.
