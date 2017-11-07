@@ -32,11 +32,15 @@ Desired behaviour: error is sent to Sentry, developers are notified and fix the 
 
 Frontend applications often see timeouts when talking to the content-store or rummager.
 
+Example: <https://sentry.io/govuk/app-finder-frontend/issues/352985400>
+
 Desired behaviour: error is not sent to Sentry. Instead, we rely on Smokey and Icinga checks to make sure we the site functions.
 
 ### Expected environment-based errors
 
 MySQL errors on staging while data sync happens.
+
+Example: <https://sentry.io/govuk/app-whitehall/issues/343619055>
 
 Desired behaviour: our environment is set up such that these errors do not occur.
 
@@ -46,6 +50,8 @@ User makes a request the application can't handle ([example][bad-request]).
 
 Often happens in [security checks](https://sentry.io/govuk/app-frontend/issues/400074979).
 
+Example: <https://sentry.io/govuk/app-frontend/issues/400074979>
+
 Desired behaviour: user gets feedback, error is not reported to Sentry
 
 [bad-request]: https://sentry.io/govuk/app-service-manual-frontend/issues/400074003
@@ -53,6 +59,8 @@ Desired behaviour: user gets feedback, error is not reported to Sentry
 ### Incorrect bubbling up of errors
 
 Rummager crashes on date parsing, returns 500, which is passed on directly in finder-frontend.
+
+Example: <https://sentry.io/govuk/app-finder-frontend/issues/400074507>
 
 Desired behaviour: backing app returns a 4XX status code, response is fed back to user. Nothing is ever logged or sent to Sentry.
 
@@ -74,7 +82,7 @@ Relevant: https://github.com/getsentry/raven-ruby/pull/784
 
 Rails reports `ActionDispatch::RemoteIp::IpSpoofAttackError`.
 
-[Example](https://sentry.io/govuk/app-service-manual-frontend/issues/365951370)
+Example: <https://sentry.io/govuk/app-service-manual-frontend/issues/365951370>
 
 Desired behaviour: HTTP 400 is returned, error is not reported to Sentry.
 
