@@ -76,7 +76,9 @@ Desired behaviour: backing app returns a 4XX status code, response is fed back t
 
 Something goes wrong and we need to let developers know.
 
-Desired behaviour: developers do not use Sentry for logging.
+Example: [Slimmer's old behaviour](https://github.com/alphagov/slimmer/pull/203/files#diff-e5615a250f587cf4e2147f6163616a1a)
+
+Desired behaviour: developers do not use Sentry for logging. The app either raises the actual error (which causes the user to see the error) or logs the error to Kibana.
 
 ### Intermittent retryable errors
 
