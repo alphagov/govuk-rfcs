@@ -44,6 +44,14 @@ Example: <https://sentry.io/govuk/app-content-tagger/issues/367277928>
 
 Desired behaviour: TBD
 
+### Intermittent retryable errors
+
+Sidekiq worker sends something to the publishing-api, which times out. Sidekiq retries, the next time it works.
+
+Desired behaviour: errors are not reported to Sentry until retries are exhausted. See [this PR for an example](https://github.com/alphagov/content-performance-manager/pull/353).
+
+Relevant: https://github.com/getsentry/raven-ruby/pull/784
+
 ### Expected environment-based errors
 
 MySQL errors on staging while data sync happens.
@@ -79,14 +87,6 @@ Something goes wrong and we need to let developers know.
 Example: [Slimmer's old behaviour](https://github.com/alphagov/slimmer/pull/203/files#diff-e5615a250f587cf4e2147f6163616a1a)
 
 Desired behaviour: developers do not use Sentry for logging. The app either raises the actual error (which causes the user to see the error) or logs the error to Kibana.
-
-### Intermittent retryable errors
-
-Sidekiq worker sends something to the publishing-api, which times out. Sidekiq retries, the next time it works.
-
-Desired behaviour: errors are not reported to Sentry until retries are exhausted. See [this PR for an example](https://github.com/alphagov/content-performance-manager/pull/353).
-
-Relevant: https://github.com/getsentry/raven-ruby/pull/784
 
 ### IP spoof errors
 
