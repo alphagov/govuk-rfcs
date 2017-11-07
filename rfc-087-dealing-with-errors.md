@@ -28,13 +28,21 @@ A code change makes the application crash.
 
 Desired behaviour: error is sent to Sentry, developers are notified and fix the error.
 
-### Expected intermittent errors
+### Intermittent errors without user impact
 
 Frontend applications often see timeouts when talking to the content-store or rummager.
 
 Example: <https://sentry.io/govuk/app-finder-frontend/issues/352985400>
 
 Desired behaviour: error is not sent to Sentry. Instead, we rely on Smokey and Icinga checks to make sure we the site functions.
+
+### Intermittent errors with user impact
+
+Publishing applications sometimes see timeouts when talking to publishing-api. This results in the publisher seeing an error page and possibly losing data.
+
+Example: <https://sentry.io/govuk/app-content-tagger/issues/367277928>
+
+Desired behaviour: TBD
 
 ### Expected environment-based errors
 
