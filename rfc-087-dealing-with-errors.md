@@ -26,7 +26,7 @@ The goal of GOV.UK is that applications should not error. When something goes wr
 
 A code change makes the application crash.
 
-Desired behaviour: error is sent to Sentry, developers are notified and fix the error.
+Desired behaviour: error is sent to Sentry, developers are notified and fix the error. Developers mark the error in Sentry as `Resolved`. This means a recurrence of the error will alert developers again.
 
 ### Intermittent errors without user impact
 
