@@ -30,7 +30,9 @@ Desired behaviour: error is sent to Sentry, developers are notified and fix the 
 
 ### Intermittent errors without user impact
 
-Frontend applications often see timeouts when talking to the content-store or rummager.
+Frontend applications often see timeouts when talking to the content-store.
+
+There's no or little user impact because the request will be answered by the caching layer.
 
 Example: <https://sentry.io/govuk/app-finder-frontend/issues/352985400>
 
