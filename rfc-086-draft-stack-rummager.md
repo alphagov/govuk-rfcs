@@ -14,10 +14,14 @@ There is only one instance of this service, which is primarily used
 for the live stack, but is also currently used from some services on
 the draft stack (see [govuk-puppet][puppet-frontend-rummager-config]).
 
-Rummager may return some draft content, depending on the internal
-index which is used. However, the amount of draft content available
-through rummager is set to decrease, as more types of content are
-migrated to the `govuk` index (see [ADR 4][rummager-adr-4]).
+The current Rummager instance may expose some associations between
+live content and draft content (e.g. draft mainstream browse pages or
+taxons), depending on the internal index which is used for the live
+content. However, the current trend is that associations with draft
+content will be supported for less live content, as more types of
+content are migrated to the `govuk` index (see [ADR
+4][rummager-adr-4]), as the process of populating this index does not
+involve fetching draft content from the Publishing API.
 
 Missing draft content makes the draft stack less useful. Previewing
 pages that use rummager for some of the data won't give an accurate
