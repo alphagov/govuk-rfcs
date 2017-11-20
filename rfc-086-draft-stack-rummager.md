@@ -36,6 +36,25 @@ stack, is to setup a draft instance of rummager, populated with the
 appropriate content via the Publishing API, and then switch to using
 this from draft services.
 
+## Action Plan
+
+ 1. Deploy rummager to the draft stack
+    - Involves changing `govuk-puppet`
+    - Possibly requires some new machines
+ 2. Send draft content to a new `draft_documents` RabbitMQ Exchange
+    - From the Publishing API, for at least the PutContent, and
+      Unpublish commands
+    - Don't send any access limited content, to avoid Rummager
+      indexing it
+ 3. Subscribe the draft instance of Rummager to the `draft_documents`
+    exchange, as well as the existing `published_documents` exchange
+
+If the above work is done, at this point, there will be a draft
+Rummager service. To switch the draft frontend apps to use this
+instead, the next step is to make an assessment regarding whether it
+will work better than the live instance. This will probably depend on
+how much content has been migrated to the `govuk` index.
+
 [rummager]: https://github.com/alphagov/rummager
 [draft-stack-docs]: https://docs.publishing.service.gov.uk/manual/content-preview.html
 [puppet-frontend-rummager-config]: https://github.com/alphagov/govuk-puppet/blob/3a874ba1afec98c0aeb7f34c9fe34128340e7363/modules/govuk/manifests/node/s_draft_frontend.pp#L24
