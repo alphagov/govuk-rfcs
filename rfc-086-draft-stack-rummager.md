@@ -23,10 +23,11 @@ content are migrated to the `govuk` index (see [ADR
 4][rummager-adr-4]), as the process of populating this index does not
 involve fetching draft content from the Publishing API.
 
-Missing draft content makes the draft stack less useful. Previewing
-pages that use rummager for some of the data won't give an accurate
-representation of what the page would look like if the relevant
-content is published.
+Having some way of including draft content in the responses from
+Rummager on the draft stack would make the draft stack more
+useful. Previewing pages that use Rummager for some of the data won't
+give an accurate representation of what the page would look like if
+the relevant content is published.
 
 ## Proposal
 
