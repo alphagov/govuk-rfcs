@@ -48,7 +48,7 @@ Publishing applications sometimes see timeouts when talking to publishing-api. T
 
 Example: <https://sentry.io/govuk/app-content-tagger/issues/367277928>
 
-Desired behaviour: TBD
+Desired behaviour: apps handle these errors better, for example by offloading the work to a Sidekiq worker. Since these errors aren't actionable, they should not be reported to Sentry. They should be tracked in Graphite.
 
 ### Intermittent retryable errors
 
