@@ -16,7 +16,11 @@ There are 2 principles:
 
 Applications should report exceptions to Sentry. Applications must not swallow errors.
 
-### 2. Applications should not error
+### 2. Notifications should be actionable
+
+Sentry notifications should be something that requires a developer of the app to do something about it. Not just a piece of information.
+
+### 3. Applications should not error
 
 The goal of GOV.UK is that applications should not error. When something goes wrong it should be fixed.
 
