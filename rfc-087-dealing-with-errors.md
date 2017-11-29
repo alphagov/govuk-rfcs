@@ -80,11 +80,11 @@ Desired behaviour: user gets feedback, error is not reported to Sentry
 
 ### Incorrect bubbling up of errors
 
-Rummager crashes on date parsing, returns 500, which is passed on directly in finder-frontend.
+Rummager crashes on date parsing, returns `422`, which raises an error in finder-frontend.
 
 Example: <https://sentry.io/govuk/app-finder-frontend/issues/400074507>
 
-Desired behaviour: backing app returns a 4XX status code, response is fed back to user. Nothing is ever logged or sent to Sentry.
+Desired behaviour: a 4XX reponse is returned to the browser, including an error message. Nothing is ever sent to Sentry.
 
 ### Manually logged errors
 
