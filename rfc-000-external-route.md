@@ -1,8 +1,8 @@
-# External routes
+# External content
 
 ## Summary
 
-Create an `external_route` document type to represent pages that aren't part
+Create an `external_content` document type to represent pages that aren't part
 of GOV.UK but are relavent to our users.
 
 ## Problem
@@ -21,9 +21,9 @@ have never been part of the publishing API.
 
 ## Proposal
 
-Create an `external_route` document type so we can store these links in the publishing API.
+Create an `external_content` document type so we can store these links in the publishing API.
 
-Create an `external_route` schema.
+Create an `external_content` schema.
 
 The schema MUST store in the details hash:
 - `hidden_search_terms` - a set of search keywords/phrases that should route users to the page. [This field has already been added for smart answers](https://github.com/alphagov/govuk-content-schemas/pull/685/files).
@@ -33,12 +33,13 @@ The schema MUST store in the details hash:
 The schema MAY store information about change history.
 
 The standard fields `title` and `description` MUST be set.
-The `base_path` MUST NOT be set.
+
+In accordance with [RFC 43](https://github.com/alphagov/govuk-rfcs/blob/master/rfc-043-content-items-without-a-base-path.md) The `base_path`, `rendering_app`, `redirects` and `routes` MUST NOT be set.
 
 ## Consequences
 
-- External resources can be defined centrally and reused across the platform
-- The standard `links` hash can be used to refer to external resources. The platform does not make any distinction between internal and external resources.
+- External content can be defined centrally and reused across the platform
+- The standard `links` hash can be used to refer to external content. The platform does not make any distinction between internal and external content.
 
 This means that `external_related_links` in the details hash is technically redundant, and external links could be managed independently of the publishing workflow (for example, through content tagger).
 
