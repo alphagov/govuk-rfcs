@@ -28,7 +28,6 @@ Create an `external_content` schema.
 The schema MUST store in the details hash:
 - `hidden_search_terms` - a set of search keywords/phrases that should route users to the page. [This field has already been added for smart answers](https://github.com/alphagov/govuk-content-schemas/pull/685/files).
 -  `url` - a URL for the external resource
-- `comment` - an internal description of why the link is relevant to GOV.UK users
 
 The schema MAY store information about change history.
 
