@@ -10,7 +10,11 @@ In [RFC84 we proposed replacing Static with a gem](https://github.com/alphagov/g
 
 ## Proposal
 
-We upload the assets to a central location. For example, if both `collections` and `government-frontend` have a file named `foo.css`, they will upload the file to `assets.publishing.service.gov.uk/shared/foo.css`. Because [Rails fingerprints assets](http://guides.rubyonrails.org/asset_pipeline.html#what-is-fingerprinting-and-why-should-i-care-questionmark), the asset actually uploaded will be `assets.publishing.service.gov.uk/shared/foo-8d811b8c3badbc0b0e2f6e25d3660a96cc0cca7993e6f32e98785f205fc40907.css`, unless the files are different, in which case they'll have different fingerprints and won't overwrite.
+We upload the assets to a central location. For example, if both `collections` and `government-frontend` have a file named `foo.css`, they will upload the file to `assets.publishing.service.gov.uk/shared/foo.css`.
+
+Because [Rails fingerprints assets](http://guides.rubyonrails.org/asset_pipeline.html#what-is-fingerprinting-and-why-should-i-care-questionmark), the asset actually uploaded will be `assets.publishing.service.gov.uk/shared/foo-8d811b8c3badbc0b0e2f6e25d3660a96cc0cca7993e6f32e98785f205fc40907.css`, unless the files are different, in which case they'll have different fingerprints and won't overwrite.
+
+As part of this solution we'd need a way to ensure or encourage different frontend apps to use assets in a way that is shareable. For example, applications could include a separate stylesheet with all the component styles (`components.css`), which would be shared across apps.
 
 How to achieve this:
 
