@@ -77,22 +77,32 @@ is due to unnoticed misconfiguration.
 ## Proposal
 
 If we are to gain consensus through this RFC that it is beneficial to retire
-this application we will intend to remove it from GOV.UK architecture, archive
-application data associated with it and finally remove the server class and
-machines it runs on.
+this application we will intend to remove it from GOV.UK architecture and
+archive application data associated with it.
 
-These are the steps we propose to achieve this:
+An earlier draft of this RFC suggested that we could retire the machine that
+hosts this application, however it has been since learnt that the applications,
+[transition-stats][] and [pre-transition-stats][] are hosted on this machine.
+Thus the retiring of the machine is now considered outside the scope of this
+RFC.
+
+The earlier draft, based on the expectation of removing the machine, suggested
+moving the drafts fully to S3 however this has now been revised to storing
+them both on S3 and the Logs CDN machine. This is in the view that S3 should
+become the definitive source but to avoid the disruption of removing a service
+that may be needed. In light of this the suggestion is to reduce the storage
+on the Logs CDN machine from 30 days to 7 days.
+
+The revised steps of this proposal are now:
 
 - Stop running the application through a configuration change in govuk_puppet,
   then allow time to see if we are alerted to any services or monitoring systems
   that break due to the lack of data
-- Create an S3 bucket which can be used to store the 413GB of data we have
-  accumulated on logs-cdn-1
+- Create an S3 bucket which can be used to store the data that will be removed
+  from logs-cdn-1
 - Prune the data from Graphite
-- Switch Fastly to send the CDN logs to an S3 bucket rather than logs-cdn-1
-- Turn off the sending of logs from Fastly to logs-cdn-1
+- Apply Fastly to send the CDN logs to an S3 bucket in addition to logs-cdn-1
 - Remove the application and associated services from govuk_puppet
-- Remove the machines from govuk_puppet and vCloud
 - Archive the [GOV.UK CDN Logs Monitor][cdn-logs-repo] repository
 
 ## Future steps
@@ -104,3 +114,5 @@ queries that we we hoped GOV.UK CDN Logs Monitor would answer.
 [cdn-logs-repo]: https://github.com/alphagov/govuk-cdn-logs-monitor
 [repo-docs]: https://github.com/alphagov/govuk-cdn-logs-monitor/blob/master/docs/design.md
 [AWS Athena]: https://aws.amazon.com/athena/
+[transition-stats]: https://github.com/alphagov/transition-stats/
+[pre-transition-stats]: https://github.com/alphagov/pre-transition-stats/
