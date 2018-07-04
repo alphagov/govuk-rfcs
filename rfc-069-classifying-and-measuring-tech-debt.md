@@ -45,6 +45,12 @@ Classifying tech debt uses two factors: the impact of the consequence and the ef
 
 This is similar to how risks are recorded in a Risk Register. High, medium and low ratings are given for impact and likelihood along with a combined overall rating based on a decision about the relative importance of the impact and likelihood. The higher the overall rating, the more the programme should be concerned about it.
 
+The more specific you can be about the impact that is being felt, the easier it will be to make good decisions about the priority of fixing those. Examples of metrics that make it easy to talk about value:
+
+* we are spending two days per month working around this
+* our cycle time for every release is 30 minutes longer than it should be
+* it takes fifteen minutes longer to diagnose problems with this than it should
+
 ### Process
 
 Items of Technical Debt will be recorded on a [Trello board](https://trello.com/b/oPnw6v3r/gov-uk-tech-debt). Any member of GOV.UK can suggest an item by adding a card to the “Proposed” list. Members of GOV.UK senior tech leadership will triage these on a fortnightly basis, agree the assigned ratings and add them to the correct category. They should also review each item every 3 months.
