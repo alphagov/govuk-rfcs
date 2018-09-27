@@ -22,7 +22,7 @@ The purpose of doing this is to make clear:
 | ckanext-datagovuk | Extension for use with datagovuk_publish | Retire in favour of datagovuk_find/datagovuk_publish? |
 | collections-publisher | Publishes step by steps, /browse pages, and legacy /topic pages on GOV.UK | While topics and browse pages will be removed, this can still be the app for curating collections. We might move Whitehall's document collections into this app |
 | content-audit-tool | Deprecated application to audit content | Retire, as it's not used |
-| content-performance-manager | Data warehouse that stores content and content metrics to help content owners measure and improve content on GOV.UK | Rename to "data warehouse" |
+| content-performance-manager | Data warehouse that stores content and content metrics to help content owners measure and improve content on GOV.UK | Rename to "content-data" |
 | content-publisher | WIP - Future publisher of content on GOV.UK | Expand to publish most content |
 | email-alert-service | Message queue consumer that triggers email alerts for GOV.UK | Merge into email-alert-api, as it's only task is to take things from the message queue and forward it there |
 | finder-frontend | Serves search pages for GOV.UK | Rename to "search-frontend". |
