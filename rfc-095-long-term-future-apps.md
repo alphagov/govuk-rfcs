@@ -26,7 +26,7 @@ The purpose of doing this is to make clear:
 | datagovuk_find | Beta version of Find Data | Merge into finder-frontend? |
 | datagovuk_publish | Beta version of publish data | Retire in favour of content publisher? |
 | email-alert-service | Message queue consumer that triggers email alerts for GOV.UK | Merge into email-alert-api, as it's only task is to take things from the message queue and forward it there |
-| licence-finder | Serves licence pages on GOV.UK | Retire |
+| licence-finder | Serves licence pages on GOV.UK | Retire or [merge into other app](https://github.com/alphagov/govuk-rfcs/pull/95#discussion_r220937672) |
 | licensify | GOV.UK Licensing (formerly ELMS, Licence Application Tool, & Licensify) | Retire |
 | manuals-frontend | Serves manuals on GOV.UK | Merge into government-frontend |
 | manuals-publisher | Publishes manuals on GOV.UK | Retire in favour of content publisher |
