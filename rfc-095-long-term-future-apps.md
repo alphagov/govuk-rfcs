@@ -23,6 +23,8 @@ The purpose of doing this is to make clear:
 | collections-publisher | Publishes step by steps, /browse pages, and legacy /topic pages on GOV.UK | While topics and browse pages will be removed, this can still be the app for curating collections. We might move Whitehall's document collections into this app |
 | content-audit-tool | Deprecated application to audit content | Retire, as it's not used |
 | content-publisher | WIP - Future publisher of content on GOV.UK | Expand to publish most content |
+| datagovuk_find | Beta version of Find Data | Merge into finder-frontend? |
+| datagovuk_publish | Beta version of publish data | Retire in favour of content publisher? |
 | email-alert-service | Message queue consumer that triggers email alerts for GOV.UK | Merge into email-alert-api, as it's only task is to take things from the message queue and forward it there |
 | licence-finder | Serves licence pages on GOV.UK | Retire |
 | licensify | GOV.UK Licensing (formerly ELMS, Licence Application Tool, & Licensify) | Retire |
@@ -66,8 +68,6 @@ The purpose of doing this is to make clear:
 | content-data-admin | A front end for the data warehouse | No change expected |
 | content-store | API for content on GOV.UK | No change expected |
 | content-tagger | Tool to tag content and manage the taxonomy on GOV.UK | No change expected |
-| datagovuk_find | Beta version of Find Data | No change expected |
-| datagovuk_publish | Beta version of publish data | No change expected |
 | email-alert-api | Sends email alerts to the public for GOV.UK | No change expected |
 | email-alert-frontend | Serves email alert signup pages on GOV.UK | No change expected |
 | government-frontend | Serves government pages on GOV.UK | No change expected |
