@@ -45,14 +45,18 @@ The purpose of doing this is to make clear:
 
 | Name | Description | Rough action plan |
 | -- | -- | -- |
+| bouncer | Handles traffic for sites that have transitioned to GOV.UK | Rename to "transition-redirector" |
 | collections | Serves the new navigation pages, browse, topic and services and information pages on GOV.UK | Rename to "collections-frontend" |
 | content-performance-manager | Data warehouse that stores content and content metrics to help content owners measure and improve content on GOV.UK | Rename to "content-data" |
 | feedback | Serves contact pages on GOV.UK | Rename to "feedback-frontend" |
 | finder-frontend | Serves search pages for GOV.UK | Rename to "search-frontend". |
 | frontend | Serves the homepage, transactions and some index pages on GOV.UK | Rename to "custom frontend" |
+| government-frontend | Serves government pages on GOV.UK | Rename to "content-frontend" |
+| maslow | Create and manage needs on GOV.UK | Rename to "user-needs-publisher" |
 | rummager | Search API for GOV.UK | Rename to "search-api" |
 | smart-answers | Serves smart answers on GOV.UK | Rename to "smart-answers-frontend" |
 | support | Forms to raise Zendesk tickets to be used by Government personnel on GOV.UK | Rename to "support-admin" |
+| transition | Managing redirects for sites moving to GOV.UK. | Rename to "transition-admin" |
 
 [cg]: https://github.com/alphagov/govuk_publishing_components
 
@@ -62,7 +66,6 @@ The purpose of doing this is to make clear:
 | -- | -- | -- |
 | asset-manager | Manages uploaded assets (images, PDFs etc.) for applications on GOV.UK | No change expected |
 | authenticating-proxy | Allows authorised users to access the GOV.UK draft stack | No change expected |
-| bouncer | Handles traffic for sites that have transitioned to GOV.UK | No change expected |
 | cache-clearing-service | Clears various caches when new content is published. | No change expected |
 | contacts-admin | Publishes HMRC contact information on GOV.UK | No change expected |
 | content-data-admin | A front end for the data warehouse | No change expected |
@@ -70,12 +73,10 @@ The purpose of doing this is to make clear:
 | content-tagger | Tool to tag content and manage the taxonomy on GOV.UK | No change expected |
 | email-alert-api | Sends email alerts to the public for GOV.UK | No change expected |
 | email-alert-frontend | Serves email alert signup pages on GOV.UK | No change expected |
-| government-frontend | Serves government pages on GOV.UK | No change expected |
 | hmrc-manuals-api | API for HMRC to publish manuals to GOV.UK | No change expected |
 | imminence | Find My Nearest API and management tools on GOV.UK | No change expected |
 | link-checker-api | Checks links on GOV.UK | No change expected |
 | local-links-manager | Manages local links from local authorities on GOV.UK | No change expected |
-| maslow | Create and manage needs on GOV.UK | No change expected |
 | publishing-api | API to publish content on GOV.UK | No change expected |
 | release | Helps deploying to GOV.UK | No change expected |
 | router | Router in front on GOV.UK to proxy to backend servers on the single domain | No change expected |
@@ -83,7 +84,6 @@ The purpose of doing this is to make clear:
 | short-url-manager | Tool to request, approve and create short URL redirects on GOV.UK | No change expected |
 | signon | Single sign-on service for GOV.UK | No change expected |
 | support-api | API for processing GOV.UK named requests and anonymous feedback | No change expected |
-| transition | Managing redirects for sites moving to GOV.UK. | No change expected |
 | info-frontend | Serves /info pages to display user needs and performance data about a page on GOV.UK | No change expected |
 | mapit | GOV.UK fork of Mapit, a web service to map postcodes to administrative boundaries | No change expected |
 
