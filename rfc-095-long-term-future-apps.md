@@ -24,22 +24,22 @@ The purpose of doing this is to make clear:
 | content-audit-tool | Deprecated application to audit content | Retire, as it's not used |
 | content-publisher | WIP - Future publisher of content on GOV.UK | Expand to publish most content |
 | datagovuk_find | Beta version of Find Data | Merge into finder-frontend? |
-| datagovuk_publish | Beta version of publish data | Retire in favour of content publisher? |
+| datagovuk_publish | Beta version of publish data | Retire in favour of content-publisher? |
 | email-alert-service | Message queue consumer that triggers email alerts for GOV.UK | Merge into email-alert-api, as it's only task is to take things from the message queue and forward it there |
 | licence-finder | Serves licence pages on GOV.UK | Retire or [merge into other app](https://github.com/alphagov/govuk-rfcs/pull/95#discussion_r220937672) |
 | licensify | GOV.UK Licensing (formerly ELMS, Licence Application Tool, & Licensify) | Retire |
 | manuals-frontend | Serves manuals on GOV.UK | Merge into government-frontend |
-| manuals-publisher | Publishes manuals on GOV.UK | Retire in favour of content publisher |
+| manuals-publisher | Publishes manuals on GOV.UK | Retire in favour of content-publisher |
 | organisations-publisher | (Work in progress) Application for managing organisations, people and roles within GOV.UK | Will take on the organisation and "machinery of government" functionality of whitehall |
 | policy-publisher | Publishes policies on GOV.UK | Retire, as the policy format will be retired |
-| publisher | Publishes mainstream content on GOV.UK | Retire in favour of content publisher |
+| publisher | Publishes mainstream content on GOV.UK | Retire in favour of content-publisher |
 | router-api | API for updating the routes used by the router on GOV.UK | Merge into either content store or publishing-api |
 | service-manual-frontend | Serves the Service Manual and Service Toolkit on GOV.UK | Parts of the frontend could be merged into government-frontend, and other apps |
 | service-manual-publisher | Publishes the Service Manual on GOV.UK | Custom application that could long term be replaced by content-publisher  |
-| specialist-publisher | Publishes specialist documents on GOV.UK | Retire in favour of content publisher |
+| specialist-publisher | Publishes specialist documents on GOV.UK | Retire in favour of content-publisher |
 | static | GOV.UK static files and resources | Retire in favour of [the components gem][cg] |
-| travel-advice-publisher | Publishes foreign travel advice on GOV.UK | Retire in favour of content publisher |
-| whitehall | Publishes government content on GOV.UK | Retire in favour of content publisher, organisations publisher, and collections publisher, custom frontend (history pages) |
+| travel-advice-publisher | Publishes foreign travel advice on GOV.UK | Retire in favour of content-publisher |
+| whitehall | Publishes government content on GOV.UK | Retire in favour of content-publisher, organisations-publisher, and collections-publisher, custom-frontend (history pages) |
 
 ### Apps that need a Rename
 
@@ -50,7 +50,7 @@ The purpose of doing this is to make clear:
 | content-performance-manager | Data warehouse that stores content and content metrics to help content owners measure and improve content on GOV.UK | Rename to "content-data" |
 | feedback | Serves contact pages on GOV.UK | Rename to "feedback-frontend" |
 | finder-frontend | Serves search pages for GOV.UK | Rename to "search-frontend". |
-| frontend | Serves the homepage, transactions and some index pages on GOV.UK | Rename to "custom frontend" |
+| frontend | Serves the homepage, transactions and some index pages on GOV.UK | Rename to "custom-frontend" |
 | government-frontend | Serves government pages on GOV.UK | Rename to "content-frontend" |
 | imminence | Find My Nearest API and management tools on GOV.UK | Rename to? |
 | maslow | Create and manage needs on GOV.UK | Rename to "user-needs-publisher" |
