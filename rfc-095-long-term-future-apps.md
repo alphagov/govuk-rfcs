@@ -6,7 +6,7 @@ This RFC describes the direction of travel for the applications that make up GOV
 
 ## Problem
 
-We currently - September 2018 - have 58 separate applications running on GOV.UK. The [Platform architecture principles][princ] explain where we're going from an architectural standpoint. This RFC is an attempt to explain the long term vision of each of GOV.UK's apps.
+We currently have 58 separate applications running on GOV.UK. The [Platform architecture principles][princ] explain where we're going from an architectural standpoint. This RFC is an attempt to explain the long term vision of each of GOV.UK's apps.
 
 The purpose of doing this is to make clear:
 
@@ -22,11 +22,8 @@ The purpose of doing this is to make clear:
 | ckanext-datagovuk | Extension for use with datagovuk_publish | Retire in favour of datagovuk_find/datagovuk_publish? |
 | collections-publisher | Publishes step by steps, /browse pages, and legacy /topic pages on GOV.UK | While topics and browse pages will be removed, this can still be the app for curating collections. We might move Whitehall's document collections into this app |
 | content-audit-tool | Deprecated application to audit content | Retire, as it's not used |
-| content-performance-manager | Data warehouse that stores content and content metrics to help content owners measure and improve content on GOV.UK | Rename to "content-data" |
 | content-publisher | WIP - Future publisher of content on GOV.UK | Expand to publish most content |
 | email-alert-service | Message queue consumer that triggers email alerts for GOV.UK | Merge into email-alert-api, as it's only task is to take things from the message queue and forward it there |
-| finder-frontend | Serves search pages for GOV.UK | Rename to "search-frontend". |
-| frontend | Serves the homepage, transactions and some index pages on GOV.UK | Rename to "custom frontend" |
 | licence-finder | Serves licence pages on GOV.UK | Retire |
 | licensify | GOV.UK Licensing (formerly ELMS, Licence Application Tool, & Licensify) | Retire |
 | manuals-frontend | Serves manuals on GOV.UK | Merge into government-frontend |
@@ -35,13 +32,25 @@ The purpose of doing this is to make clear:
 | policy-publisher | Publishes policies on GOV.UK | Retire, as the policy format will be retired |
 | publisher | Publishes mainstream content on GOV.UK | Retire in favour of content publisher |
 | router-api | API for updating the routes used by the router on GOV.UK | Merge into either content store or publishing-api |
-| rummager | Search API for GOV.UK | Rename to "search-api" |
 | service-manual-frontend | Serves the Service Manual and Service Toolkit on GOV.UK | Parts of the frontend could be merged into government-frontend, and other apps |
 | service-manual-publisher | Publishes the Service Manual on GOV.UK | Custom application that could long term be replaced by content-publisher  |
 | specialist-publisher | Publishes specialist documents on GOV.UK | Retire in favour of content publisher |
 | static | GOV.UK static files and resources | Retire in favour of [the components gem][cg] |
 | travel-advice-publisher | Publishes foreign travel advice on GOV.UK | Retire in favour of content publisher |
 | whitehall | Publishes government content on GOV.UK | Retire in favour of content publisher, organisations publisher, and collections publisher, custom frontend (history pages) |
+
+### Apps that need a Rename
+
+| Name | Description | Rough action plan |
+| -- | -- | -- |
+| collections | Serves the new navigation pages, browse, topic and services and information pages on GOV.UK | Rename to "collections-frontend" |
+| content-performance-manager | Data warehouse that stores content and content metrics to help content owners measure and improve content on GOV.UK | Rename to "content-data" |
+| feedback | Serves contact pages on GOV.UK | Rename to "feedback-frontend" |
+| finder-frontend | Serves search pages for GOV.UK | Rename to "search-frontend". |
+| frontend | Serves the homepage, transactions and some index pages on GOV.UK | Rename to "custom frontend" |
+| rummager | Search API for GOV.UK | Rename to "search-api" |
+| smart-answers | Serves smart answers on GOV.UK | Rename to "smart-answers-frontend" |
+| support | Forms to raise Zendesk tickets to be used by Government personnel on GOV.UK | Rename to "support-admin" |
 
 [cg]: https://github.com/alphagov/govuk_publishing_components
 
@@ -53,7 +62,6 @@ The purpose of doing this is to make clear:
 | authenticating-proxy | Allows authorised users to access the GOV.UK draft stack | No change expected |
 | bouncer | Handles traffic for sites that have transitioned to GOV.UK | No change expected |
 | cache-clearing-service | Clears various caches when new content is published. | No change expected |
-| collections | Serves the new navigation pages, browse, topic and services and information pages on GOV.UK | No change expected |
 | contacts-admin | Publishes HMRC contact information on GOV.UK | No change expected |
 | content-data-admin | A front end for the data warehouse | No change expected |
 | content-store | API for content on GOV.UK | No change expected |
@@ -62,7 +70,6 @@ The purpose of doing this is to make clear:
 | datagovuk_publish | Beta version of publish data | No change expected |
 | email-alert-api | Sends email alerts to the public for GOV.UK | No change expected |
 | email-alert-frontend | Serves email alert signup pages on GOV.UK | No change expected |
-| feedback | Serves contact pages on GOV.UK | No change expected |
 | government-frontend | Serves government pages on GOV.UK | No change expected |
 | hmrc-manuals-api | API for HMRC to publish manuals to GOV.UK | No change expected |
 | imminence | Find My Nearest API and management tools on GOV.UK | No change expected |
@@ -75,8 +82,6 @@ The purpose of doing this is to make clear:
 | search-admin | Admin for GOV.UK search | No change expected |
 | short-url-manager | Tool to request, approve and create short URL redirects on GOV.UK | No change expected |
 | signon | Single sign-on service for GOV.UK | No change expected |
-| smart-answers | Serves smart answers on GOV.UK | No change expected |
-| support | Forms to raise Zendesk tickets to be used by Government personnel on GOV.UK | No change expected |
 | support-api | API for processing GOV.UK named requests and anonymous feedback | No change expected |
 | transition | Managing redirects for sites moving to GOV.UK. | No change expected |
 | info-frontend | Serves /info pages to display user needs and performance data about a page on GOV.UK | No change expected |
