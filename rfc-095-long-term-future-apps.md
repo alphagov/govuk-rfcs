@@ -52,6 +52,7 @@ The purpose of doing this is to make clear:
 | finder-frontend | Serves search pages for GOV.UK | Rename to "search-frontend". |
 | frontend | Serves the homepage, transactions and some index pages on GOV.UK | Rename to "custom frontend" |
 | government-frontend | Serves government pages on GOV.UK | Rename to "content-frontend" |
+| imminence | Find My Nearest API and management tools on GOV.UK | Rename to? |
 | maslow | Create and manage needs on GOV.UK | Rename to "user-needs-publisher" |
 | rummager | Search API for GOV.UK | Rename to "search-api" |
 | smart-answers | Serves smart answers on GOV.UK | Rename to "smart-answers-frontend" |
@@ -74,7 +75,6 @@ The purpose of doing this is to make clear:
 | email-alert-api | Sends email alerts to the public for GOV.UK | No change expected |
 | email-alert-frontend | Serves email alert signup pages on GOV.UK | No change expected |
 | hmrc-manuals-api | API for HMRC to publish manuals to GOV.UK | No change expected |
-| imminence | Find My Nearest API and management tools on GOV.UK | No change expected |
 | link-checker-api | Checks links on GOV.UK | No change expected |
 | local-links-manager | Manages local links from local authorities on GOV.UK | No change expected |
 | publishing-api | API to publish content on GOV.UK | No change expected |
