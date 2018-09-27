@@ -30,6 +30,7 @@ The purpose of doing this is to make clear:
 | licensify | GOV.UK Licensing (formerly ELMS, Licence Application Tool, & Licensify) | Retire |
 | manuals-frontend | Serves manuals on GOV.UK | Merge into government-frontend |
 | manuals-publisher | Publishes manuals on GOV.UK | Retire in favour of content-publisher |
+| mapit | GOV.UK fork of Mapit, a web service to map postcodes to administrative boundaries | Possible retire [in favour of a hosted version](https://github.com/alphagov/govuk-rfcs/pull/95#discussion_r220922280) |
 | organisations-publisher | (Work in progress) Application for managing organisations, people and roles within GOV.UK | Will take on the organisation and "machinery of government" functionality of whitehall |
 | policy-publisher | Publishes policies on GOV.UK | Retire, as the policy format will be retired |
 | publisher | Publishes mainstream content on GOV.UK | Retire in favour of content-publisher |
@@ -85,6 +86,5 @@ The purpose of doing this is to make clear:
 | signon | Single sign-on service for GOV.UK | No change expected |
 | support-api | API for processing GOV.UK named requests and anonymous feedback | No change expected |
 | info-frontend | Serves /info pages to display user needs and performance data about a page on GOV.UK | No change expected |
-| mapit | GOV.UK fork of Mapit, a web service to map postcodes to administrative boundaries | No change expected |
 
 [princ]: https://docs.google.com/document/d/1Oft4akc6dZfhhOjosNPbFpcLUOUjz7YG7QPcVZi8hww/edit#heading=h.goscl46jcc91
