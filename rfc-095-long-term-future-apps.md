@@ -39,9 +39,11 @@ The purpose of doing this is to make clear:
 | service-manual-frontend | Serves the Service Manual and Service Toolkit on GOV.UK | Parts of the frontend could be merged into government-frontend, and other apps |
 | service-manual-publisher | Publishes the Service Manual on GOV.UK | Custom application that could long term be replaced by content-publisher  |
 | specialist-publisher | Publishes specialist documents on GOV.UK | Retire in favour of content publisher |
-| static | GOV.UK static files and resources | Retire in favour of the components gem |
+| static | GOV.UK static files and resources | Retire in favour of [the components gem][cg] |
 | travel-advice-publisher | Publishes foreign travel advice on GOV.UK | Retire in favour of content publisher |
 | whitehall | Publishes government content on GOV.UK | Retire in favour of content publisher, organisations publisher, and collections publisher, custom frontend (history pages) |
+
+[cg]: https://github.com/alphagov/govuk_publishing_components
 
 ### No changes expected
 
