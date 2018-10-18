@@ -32,7 +32,6 @@ The purpose of doing this is to make clear:
 | manuals-publisher | Publishes manuals on GOV.UK | Retire in favour of content-publisher |
 | mapit | GOV.UK fork of Mapit, a web service to map postcodes to administrative boundaries | Possible retire [in favour of a hosted version](https://github.com/alphagov/govuk-rfcs/pull/95#discussion_r220922280) |
 | organisations-publisher | (Work in progress) Application for managing organisations, people and roles within GOV.UK | Will take on the organisation and "machinery of government" functionality of whitehall |
-| policy-publisher | Publishes policies on GOV.UK | Retire, as the policy format will be retired |
 | publisher | Publishes mainstream content on GOV.UK | Retire in favour of content-publisher |
 | router-api | API for updating the routes used by the router on GOV.UK | Merge into either content store or publishing-api |
 | service-manual-frontend | Serves the Service Manual and Service Toolkit on GOV.UK | Parts of the frontend could be merged into government-frontend, and other apps |
