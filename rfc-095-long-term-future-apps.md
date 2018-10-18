@@ -19,12 +19,12 @@ The purpose of doing this is to make clear:
 | -- | -- | -- |
 | calculators | Serves the Child benefit tax calculator on GOV.UK | Merge into smart-answers |
 | calendars | Serves /bank-holidays and /when-do-the-clocks-change on GOV.UK | Merge into custom frontend |
-| ckanext-datagovuk | Extension for use with datagovuk_publish | Retire in favour of datagovuk_find/datagovuk_publish? |
+| ckanext-datagovuk | Extension for use with datagovuk_publish | Unknown |
 | collections-publisher | Publishes step by steps, /browse pages, and legacy /topic pages on GOV.UK | While topics and browse pages will be removed, this can still be the app for curating collections. We might move Whitehall's document collections into this app |
 | content-audit-tool | Deprecated application to audit content | Retire, as it's not used |
 | content-publisher | WIP - Future publisher of content on GOV.UK | Expand to publish most content |
-| datagovuk_find | Beta version of Find Data | Merge into finder-frontend? |
-| datagovuk_publish | Beta version of publish data | Retire in favour of content-publisher? |
+| datagovuk_find | Beta version of Find Data | Unknown |
+| datagovuk_publish | Beta version of publish data | [Under discussion](https://github.com/alphagov/govuk-rfcs/pull/95#issuecomment-425097037) |
 | email-alert-service | Message queue consumer that triggers email alerts for GOV.UK | Merge into email-alert-api, as it's only task is to take things from the message queue and forward it there |
 | licence-finder | Serves licence pages on GOV.UK | Retire or [merge into other app](https://github.com/alphagov/govuk-rfcs/pull/95#discussion_r220937672) |
 | licensify | GOV.UK Licensing (formerly ELMS, Licence Application Tool, & Licensify) | Retire |
