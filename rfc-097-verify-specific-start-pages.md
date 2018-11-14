@@ -5,11 +5,16 @@
 This document describes an approach for providing alternative service start pages 
 that will be displayed to users on a GOV.UK Verify single IDP journey.
 
+## Terms
+
+* IDP - Identity Provider (also known as a Certified Company)
+* RP - Relying Party (also known as a transaction or service, e.g. view your driving license or check your state pension)
+
 ## Problem
 
-When following a single IDP journey, the user needs to be redirected via the RP (service) in order
-to pick up a valid SAML request. Initial thoughts were to direct the RP headless start page, 
-which generates the SAML request and results in an immediate redirect back to the hub.
+We have recently introduced a new type of journey to Verify. This journey type allows Identity Providers (IDPs) to target their existing customers in order to drive customers into using their identity service with GOV.UK services. Unlike traditional Verify journeys, the user will actually start on a page at, or an e-mail from, a specific IDP where they will choose which service to use. During this journey Verify restricts their ability to choose an alternative IDP. This is know as the Single IDP journey and is described in Verify [RFC-041](https://github.com/alphagov/verify-architecture/blob/master/rfcs/rfc-041-single-idp-journey.md).
+
+When following a single IDP journey, the user needs to be redirected via the RP (service) in order to pick up a valid SAML request. Initial thoughts were to direct the RP headless start page, which generates the SAML request and results in an immediate redirect back to the Verify hub.
 This approach, however, is not desirable as there is often important information given to the
 user on the service's normal start page. Similarly, showing the normal start page is not
 desirable as it may give service sign-in options that would direct the user away from Verify and the
