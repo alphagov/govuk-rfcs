@@ -28,114 +28,25 @@ Verify and, hence, their chosen IDP.
 
 #### Discoverability
 
-Any customised content is designed to be reachable solely via hyperlinks from IDPs, which will redirect via the Verify hub.
+Any customised content is designed to be solely reachable, indirectly via the hub, using hyperlinks IDPs publish to their users.
+
 Therefore the new content MUST not be indexed and reachable by performing, for example, a Google search or GOV.UK search. 
 
+#### Content Schema
 
-#### Content Schemas
-
-There are two GOV.UK content schemas used for service start pages. Most services use the `transaction` schema but some use the 
-`guide` schema. Any solution MUST work for, at least, both these content schemas.
-
+The GOV.UK content schema used for service start pages is the `transaction` schema, the changes proposed will require changes to this schema which will, potentially, require changes to be made to existing data that conforms to this schema.
 
 ## Proposal
+  
+The solution would be for GOV.UK to support 'variants' of content in the transaction content schema. This should allow a variant of the page to be requested in the URL, as shown, `http://www.gov.uk/<base_url>/<variant-name>`. For example, `http://www.gov.uk/my-rp-transaction-page/verify`.
 
-### Short term/interim solution - Alternate Content
+This would require multiple changes to GOV.UK including schemas, publisher and government frontend.
 
-In the short term, and in the interests of getting up and running quickly, we can simply take a copy of the existing content in
-GOV.UK's content publisher service, alter it, and publish it with a different URL slug (as specified in the `base_url` property 
-of the content item. A suggestion would be to append `-verify` to the the end of the existing slug.
-
-For example:
-```
-// Original Content Item
-{
-    "analytics_identifier": null,
-    "base_path": "/my-rp-transaction-page",
-    "content_id": "abcd1234-5678-90ab-cdef-0123456789ab",
-    ...
-}
-```
-
-```
-// Alternate Content Item
-{
-    "analytics_identifier": null,
-    "base_path": "/my-rp-transaction-page-verify",
-    "content_id": "abcd1234-5678-90ab-cdef-abcdef123456",
-    ...
-}
-```
-
-[**needs confirmation**] This solution works well for `transaction` content schema, and looks like it should work with `guide` although more care will 
-need to be taken the latter to ensure all slugs are updated and any explicit hyperlinks updated also.
-
-#### Searching
- 
-[**for discussion**] The GOV.UK team state there is an existing method for ensuring that these alternate content pages are not searchable
-within the GOV.UK website, a change will need to be implemented on GOV.UK to ensure the these pages are not indexable by 
-search engine web crawlers. Even though the new alternate content will not be linked from anywhere, so would not be discoverable by crawlers, 
-GOV.UK does publish a `sitemap.xml`. We need to ensure these alternate content pages are not published in `sitemap.xml` and/or include the
- `ROBOTS` meta tag with a `NOINDEX` value.
- 
-### Long term solution - Content Variations
-
-A long term solution would be for GOV.UK to support 'variants' of content in the content schemas. This should allow a variant of
-the page to be requested in the URL, for example, `http://www.gov.uk/<base_url>/<variant-name>`
-
-For example, `http://www.gov.uk/my-rp-transaction-page/verify`.
-
-An example of how the content schema for `transaction` could be updated is shown here:
-
-```
-{
-  // Existing
-  ...
-  "details": {
-    "introductory_paragraph": "<p>The services introduction</p>\n",
-    "start_button_text": "Start now",
-    "will_continue_on": "the RP start page",
-    "transaction_start_link": "https://www.my-service.gov.uk/start",
-    "more_information": "<p>Additional Info</p>\n",
-    "external_related_links": [],
-    "department_analytics_profile": ""
-  }
-  ...
-}
-```
-
-```
-{
-  // Including a variant
-  ...
-  "details": {
-    "introductory_paragraph": "<p>The services introduction</p>\n",
-    "start_button_text": "Start now",
-    "will_continue_on": "the interstitial sign-in page",
-    "transaction_start_link": "https://www.gov.uk/my-rp-transaction-page-verify/service-sign-in",
-    "more_information": "<p>Additional Info</p>\n",
-    "external_related_links": [],
-    "department_analytics_profile": ""
-  },
-  "variants": {
-    "verify": {
-      "details": {
-        "introductory_paragraph": "<p>The services alternative introduction</p>\n",
-        "start_button_text": "Start now",
-        "will_continue_on": "the RP's verify start page",
-        "transaction_start_link": "https://www.my-service.gov.uk/start",
-        "more_information": "<p>Additional Info</p>\n",
-        "external_related_links": [],
-        "department_analytics_profile": ""
-      }    
-    }
-  }
-  ...
-}
-```
-[**for discussion**] This would require multiple changes to GOV.UK including schemas, publisher, content service and front end.
+Publisher already supports the concept of a 'parted' content item, so the publisher app should be modified to add the 'parted' functionality to the transaction editor. Corresponding changes would also need to be made to the `transaction` content schema to ensure that the publishing API accepts multiple parts. Government frontend would also have to be modified to render the pages correctly.
 
 #### Searching
 
-This solution SHOULD not add the variants to any search indexes or to `sitemap.xml`. This will mean that the variants are not searchable unless
-someone were to add an explicit link to a variant into a searchable page.
+Even though the new alternate parts will not be linked from anywhere, it should not be discoverable by crawlers, GOV.UK does publish a `sitemap.xml`. We need to ensure the variant pages include the `ROBOTS` meta tag with a `NOINDEX` value.
+
+This will be achieved by allowing a variant/part to be flagged with a "Exclude from Index" option. If present on a variant, when Government frontend renders the page it should include the NOINDEX value in the ROBOTS meta tag.
+
