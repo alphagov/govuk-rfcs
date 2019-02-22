@@ -1,8 +1,8 @@
-# RFC 98: Implement Content Security Policy on the CDN
+# RFC 98: Implement Content Security Policy
 
 ## Summary
 
-This RFC proposes to use our CDN to configure a Content Security Policy for GOV.UK.
+This RFC proposes to configure a Content Security Policy for GOV.UK.
 
 ## Background
 
@@ -33,7 +33,7 @@ It's implemented [in the verify-frontend Rails app](https://github.com/alphagov/
 
 We've got 2 things in mind that CSP will help with:
 
-- It an extra defense against cross-site scripting vulnerabilities, such as the one [we saw earlier this year on finder-frontend](https://github.com/alphagov/govuk_publishing_components/pull/283).
+- It an extra defence against cross-site scripting vulnerabilities, such as the one [we saw earlier this year on finder-frontend](https://github.com/alphagov/govuk_publishing_components/pull/283).
 - Publishers use [Govspeak](https://github.com/alphagov/govspeak) in publishing applications to mark up their content. When the content is published, it's converted into HTML. The resulting HTML is persisted in the content-store for the frontends to use (which [we have to trust](https://github.com/alphagov/government-frontend/search?q=html_safe)). This means that if the the content-store is compromised we could be serving malicious HTML from the frontends. CSP mitigates against that by limiting the type of things the browser will run.
 
 ## Problem
@@ -48,12 +48,12 @@ We have 3 options for adding the header to the HTTP response: on the CDN, in the
 
 | | Configure in CDN | Configure in app | Configure in Nginx |
 | --- | --- | --- | --- |
-| Deployment | The CDN is easily and fast to deploy | Slow to roll out and iterate. We'd probably add it to `govuk_app_config`, which requires a version bump in ~15 applications | Slow deployments via Puppet |
+| Deployment | The CDN is easily and fast to deploy | Slow to roll out and iterate. We'd probably add it to `govuk_app_config`, which requires a version bump in ~15 applications. Allows staged rollout. | Slow deployments via Puppet |
 | Policies | The CSP header is set consistently for all of the requests, even ones that aren't served from a Rails app like [Licensing](https://github.com/alphagov/licensify) | Allows per-app custom policies - for example, whitelisting [webchat domains only for contact pages](https://github.com/alphagov/govuk-cdn-config/pull/96/commits/913202a1de8f4993b1ff4605553d7328b9e8e640) | Allows sharing of CSP between the frontend apps and publisher apps |
 | Development | It doesn't work locally - your app will work in development and on Heroku, but might not work on integration, staging, and production | Works locally just like in production. We'll have to update the CSP in development to allow `localhost` and `dev.gov.uk` domains | Works locally if using the VM (doesn't work on Heroku or non-VM) |
 
 ## Proposal
 
-We'll add the CSP header in the CDN.
+We'll configure the CSP header each application.
 
-We're optimising for speed of deployment, consistency across GOV.UK, and completeness, at the cost of potential confusion in development. We mitigate this by making sure that the [smoke tests](https://github.com/alphagov/smokey) pick up any problems with the CSP policy on integration.
+We're optimising for safety and incremental rollout, at the cost of consistency across GOV.UK, and completeness.
