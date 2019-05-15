@@ -2,8 +2,8 @@
 
 ## Summary
 
-Update the way we manage local development data, promote using the
-`govuk data` tool, and setup the automation to make this possible.
+Setup the automation to make managing local development data easier,
+and feasible for large databases.
 
 ## Problem
 
