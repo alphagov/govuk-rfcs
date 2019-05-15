@@ -30,10 +30,8 @@ getting local development data.
 
 ## Proposal
 
-1. Automate the process of populating a S3 bucket with the data used
-   by the `govuk data` tool.
-2. Promote using the `govuk data` tool by default, instead of the
-   scripts in the govuk-puppet repository.
+Automate the process of populating a S3 bucket with the data used by
+the `govuk data` tool.
 
 ### Action Plan
 
@@ -46,6 +44,5 @@ environment.
 
 [govuk-update-development-data]: https://github.com/alphagov/govuk-guix/blob/master/bin/govuk-update-development-data
 
-Once this is working successfully, the GOV.UK development
-documentation would be amended to help developers make use of this new
-approach.
+Additionally, the S3 bucket, and associated policies would be managed
+through Terraform in govuk-aws/govuk-aws-data.
