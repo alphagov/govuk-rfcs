@@ -9,98 +9,16 @@ I've structured the document as first a list of APIs we need to support, followe
 (Methods and URIs here are "illustrative"; probably not exactly the ones we'd use - I'm just trying to illustrate the information and effects that are needed)
 
 | Name | Illustrative URIs | Description | Needed by |
-| --- | --- | --- | --- |
-| **publisher-put-content-only** | 
-
-`PUT http://publishing-api/content-only/<content-id>`
-
-with a JSON body containing a content item.
-
- | Send a content item to the publishing platform, but without sending the "links" for the content item. &nbsp;Link information for the content item would not be affected. This is essentially the current&nbsp;`PUT /content/<content-item>`&nbsp;endpoint, without the links. | 
-- Publishers
-- Collections-publisher
- |
-| **publisher-patch-links** | 
-
-`PATCH http://publishing-api/links/<content-id>`
-
-with a JSON body containing the items in the links hash which are to be updated
-
- | Send updates for some of the "links" for a content-item, without overwriting others, and without needing to resend the rest of the content item. | 
-- Publishers
-- Tagging editor
- |
-| **publisher-bulk-get** | `GET http://publishing-api/bulk?format=<format>&fields=<fields>` | 
-
-Example:&nbsp;`GET http://publishing-api/bulk?format=topic&fields=title,content_id,base_path,draft,links.parent.title`  
-Get information about all content items of a particular format, **including draft items**.  
-Only a limited set of fields need to be returned, but these may include:
-
-- fields from the top-level of the content item
-- whether the item is in draft state or not
-- fields from within the details hash
-- fields from within the expanded links hash
-
-The endpoint may also need to support pagination / filtering for efficiency.
-
- | 
-- Publishers
-- Tagging editor
- |
-| **publisher-get-links** | `GET http://publishing-api/links/<content-id>` | 
-
-Get the current value of the "links" hash for a content item, as the list of content-ids, including any content-ids for draft or unknown items
-
- | 
-- Publishers
-- Tagging editor
- |
-| **publisher-get-linked** | `GET http://publishing-api/linked/<type>/<content-id>?fields=<fields>` | 
-
-Get a list of the content which has a link of the given type to the given content-id. This is the reverse lookup from the "get-links" lookup - find the things which link to a piece of content.
-
-\<fields\> would be interpreted the same way as for the bulk get endpoint. (These might even be implemented as the same endpoint)
-
- | 
-- Collections-publisher
- |
-| **frontend-get** | `GET http://frontend-api/content/<base_path>` | 
-
-Get a content item, with details of many of the fields in linked items expanded. Ideally, we want this call to take no options, allowing us to pre-calculate all these responses. Only returns information on pages which are live (eg, links to draft content wouldn't be included in responses).
-
-It would be useful for the content-id to be included in the response (and for the content-id of items in expanded links fields to be included, too).
-
- | 
-- Frontend applications
- |
-| **frontend-draft-get** | `GET http://draft-frontend-api/content/<base_path>` | 
-
-Same as **frontend-get** , but would return information on pages in draft state.
-
- | 
-- Frontend applications in content-preview
- |
-| **frontend-feed** | 
-
-probably not pure HTTP - but could be websocket based, or raw AMQP / kafka, etc.
-
- | 
-
-Get a push notification when the frontend representation of any piece of content changes.
-
-The feed would contain sufficient information that the **frontend-get** API could be implemented using a key-value store which is populated directly from this feed.
-
-Note that the frontend representation includes expanded linked items, so if, say, the title of a **page**  **A** changes, all other content-items **B** which include a reference to **A** anywhere in their links hash also need to be updated. The frontend feed should indicate the type of the update, including whether the original update was a "major" update to content, or a change in the tagging, or a change to one of the fields in a tagged document.
-
- | 
-- Search indexing
-- Email alerting
- |
-| **frontend-draft-feed** | see frontend-feed | Same as frontend-feed, but would include information on pages and linked pages in draft state. | 
-- Search indexing in content preview
- |
-
-&nbsp;
+| ---- | ----------------- | ----------- | --------- |
+| **publisher-put-content-only** | `PUT http://publishing-api/content-only/<content-id>` with a JSON body containing a content item. | Send a content item to the publishing platform, but without sending the "links" for the content item. &nbsp;Link information for the content item would not be affected. This is essentially the current `PUT /content/<content-item>` endpoint, without the links. | - Publishers - Collections-publisher |
+| **publisher-patch-links** | `PATCH http://publishing-api/links/<content-id>` with a JSON body containing the items in the links hash which are to be updated | Send updates for some of the "links" for a content-item, without overwriting others, and without needing to resend the rest of the content item. | - Publishers - Tagging editor |
+| **publisher-bulk-get** | `GET http://publishing-api/bulk?format=<format>&fields=<fields>` | Example: `GET http://publishing-api/bulk?format=topic&fields=title,content_id,base_path,draft,links.parent.title` Get information about all content items of a particular format, **including draft items**. Only a limited set of fields need to be returned, but these may include: - fields from the top-level of the content item - whether the item is in draft state or not - fields from within the details hash - fields from within the expanded links hash. The endpoint may also need to support pagination / filtering for efficiency. | - Publishers - Tagging editor |
+| **publisher-get-links** | `GET http://publishing-api/links/<content-id>` | Get the current value of the "links" hash for a content item, as the list of content-ids, including any content-ids for draft or unknown items | - Publishers - Tagging editor |
+| **publisher-get-linked** | `GET http://publishing-api/linked/<type>/<content-id>?fields=<fields>` | Get a list of the content which has a link of the given type to the given content-id. This is the reverse lookup from the "get-links" lookup - find the things which link to a piece of content. \<fields\> would be interpreted the same way as for the bulk get endpoint. (These might even be implemented as the same endpoint) | - Collections-publisher |
+| **frontend-get** | `GET http://frontend-api/content/<base_path>` | Get a content item, with details of many of the fields in linked items expanded. Ideally, we want this call to take no options, allowing us to pre-calculate all these responses. Only returns information on pages which are live (eg, links to draft content wouldn't be included in responses). It would be useful for the content-id to be included in the response (and for the content-id of items in expanded links fields to be included, too). | - Frontend applications |
+| **frontend-draft-get** | `GET http://draft-frontend-api/content/<base_path>` | Same as **frontend-get**, but would return information on pages in draft state. | - Frontend applications in content-preview |
+| **frontend-feed** | probably not pure HTTP - but could be websocket based, or raw AMQP / kafka, etc. | Get a push notification when the frontend representation of any piece of content changes. The feed would contain sufficient information that the **frontend-get** API could be implemented using a key-value store which is populated directly from this feed. Note that the frontend representation includes expanded linked items, so if, say, the title of a **page A** changes, all other content-items **B** which include a reference to **A** anywhere in their links hash also need to be updated. The frontend feed should indicate the type of the update, including whether the original update was a "major" update to content, or a change in the tagging, or a change to one of the fields in a tagged document. | - Search indexing - Email alerting |
+| **frontend-draft-feed** | see frontend-feed | Same as frontend-feed, but would include information on pages and linked pages in draft state. | - Search indexing in content preview |
 
 # Application types
 
