@@ -26,8 +26,8 @@ We currently rely on the Vagrant development VM for the day to day dev cycle.
 Approach | Pro | Cons
 -- | -- | --
 Vagrant VM | Can look like production | Resource intensive, brittle
-Docker | Aligns with future hosting. Highly reproducible. | Slow because on a Mac it needs a VM. Development won’t match production/CI exactly until we migrate onto a container-based platform.
-Guix | Huge amount of work put in | Technology unknown in GOV.UK
+Docker | Aligns with future hosting. Reproducible (with caveats). | Slow because on a Mac it needs a VM. Development won’t match production/CI exactly until we migrate onto a container-based platform.
+Guix | Is almost feature complete (runs Signon, TLS) | Technology unknown in GOV.UK
 Against production | Low setup, fast | Only works for frontend applications. Still needs local install. Limits you to testing one application at a time.
 Remote dependencies | Low setup. Can match Production exactly in terms of technologies used | Expensive, no offline development
 Manual install | Fast in development | Lots of setup, brittle
