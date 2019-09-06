@@ -47,79 +47,6 @@ doing and how easily installable they are.
 
 ## Proposal
 
-There has been prior discussion in
-[gds-cli repo issues](https://github.com/alphagov/gds-cli/pull/140)
-about converging the _n_ CLI tools into the gds-cli, but this was
-decided against at the time. There have also been previous thoughts in
-[govuk-guix issue 36](https://github.com/alphagov/govuk-guix/issues/36).
-
-This RFC is an attempt to center that discussion in one place and come
-out with an agreement to standardize or not on one tool.
-
-From the summaries above of what each of these CLI tools do, `govuk`
-and `govukcli` seem very similar. The naming has caused confusion
-recently too, with some people knowing about `govuk` but not
-remembering how they installed it, and some people knowing about
-`govukcli`.
-
-Is the effort of maintaining both tools worth it?
-
-### Potential solution 1
-
-We converge on `govuk` via `alphagov/govuk-cli`, installable via
-Homebrew or symlinks from `alphagov/govuk-connect`, distinct from
-`alphagov/govuk-guix`.
-
-Pros:
-
-- Supports all the existing environments as well as legacy ones, with `govuk connect` and subcommands.
-- Supports connecting to `sidekiq-monitoring` instances, for which there are [long instructions in the developer docs](https://docs.publishing.service.gov.uk/manual/sidekiq.html#sidekiq-web) otherwise.
-- It's [already in some documentation](https://docs.publishing.service.gov.uk/manual/nagstamon.html).
-- Written in Ruby, which is GOV.UK's core programming language.
-- Standalone, once it's split out of `govuk-guix`.
-
-Cons:
-
-- Needs work to get all the constituent parts out of `govuk-guix`.
-- Needs versioning to be easily installable (at the moment it's symlinks from the cloned repo or `brew reinstall govuk-cli` due to Homebrew reading from `master`).
-
-### Potential solution 2
-
-We converge on `govukcli`, which is the oldest solution but written in
-a less accessible language.
-
-Pros:
-
-- It's already in [lots of documentation](https://github.com/alphagov/govuk-developer-docs/search?q=govukcli&unscoped_q=govukcli) as it's the longest serving tool.
-- Supports all the environments, even existing legacy ones.
-- Standalone.
-
-Cons:
-
-- Built originally by people who have since left GDS and [doesn't receive many updates](https://github.com/alphagov/govuk-aws/commits/master/tools/govukcli).
-- Requires separate AWS credential management for which we have [many](https://docs.publishing.service.gov.uk/manual/aws-cli-access.html) [pages](https://docs.publishing.service.gov.uk/manual/aws-console-access.html) of [documentation](https://docs.publishing.service.gov.uk/manual/set-up-aws-account.html).
-
-### Potential solution 3 (Issy's preference)
-
-We converge on the centrally maintained (but open to everyone to
-contribute) GDS CLI and move everything GOV.UK-specific in there as
-either subcommands or extensions (as `gds govuk connect` exists
-currently).
-
-Pros:
-
-- Users can run `gds govuk connect` to access the `connect` functionality from `govuk-cli`, so it's two tools in one.
-- In developing it to add GOV.UK stuff, developers get more Go experience which is valuable for working on Go-based apps in GOV.UK (eg Router).
-- An existing versioned release pipeline, and a predictable and easy install method via [the GDS Homebrew tap](https://github.com/alphagov/homebrew-gds).
-
-Cons:
-
-- A new language to learn if developers want to add features.
-- It's already quite large and maybe "one tool to rule them all" for every team isn't great?
-
-
-### Potential solution 4 (thanks, Kevin!)
-
 Embrace `gds-cli` as a tool and deprecate any other command-line tools
 that duplicate or have significant convergeance with the functionality
 `gds-cli` supports (ie, assuming roles in AWS).
@@ -143,5 +70,79 @@ Pros:
 - We can still write our own scripts in Ruby?
 - We're more explicit about what the scripts do, if they're named for the thing they do and not generic `govuk`.
 
-### Other solutions are welcome to be explored in the comments. :-)
+### Context
+
+There has been prior discussion in
+[gds-cli repo issues](https://github.com/alphagov/gds-cli/pull/140)
+about converging the _n_ CLI tools into the gds-cli, but this was
+decided against at the time. There have also been previous thoughts in
+[govuk-guix issue 36](https://github.com/alphagov/govuk-guix/issues/36).
+
+This RFC is an attempt to center that discussion in one place and come
+out with an agreement to standardize or not on one tool.
+
+From the summaries above of what each of these CLI tools do, `govuk`
+and `govukcli` seem very similar. The naming has caused confusion
+recently too, with some people knowing about `govuk` but not
+remembering how they installed it, and some people knowing about
+`govukcli`.
+
+Is the effort of maintaining both tools worth it?
+
+### Other considered solutions
+
+#### Potential solution 1
+
+We converge on `govuk` via `alphagov/govuk-cli`, installable via
+Homebrew or symlinks from `alphagov/govuk-connect`, distinct from
+`alphagov/govuk-guix`.
+
+Pros:
+
+- Supports all the existing environments as well as legacy ones, with `govuk connect` and subcommands.
+- Supports connecting to `sidekiq-monitoring` instances, for which there are [long instructions in the developer docs](https://docs.publishing.service.gov.uk/manual/sidekiq.html#sidekiq-web) otherwise.
+- It's [already in some documentation](https://docs.publishing.service.gov.uk/manual/nagstamon.html).
+- Written in Ruby, which is GOV.UK's core programming language.
+- Standalone, once it's split out of `govuk-guix`.
+
+Cons:
+
+- Needs work to get all the constituent parts out of `govuk-guix`.
+- Needs versioning to be easily installable (at the moment it's symlinks from the cloned repo or `brew reinstall govuk-cli` due to Homebrew reading from `master`).
+
+#### Potential solution 2
+
+We converge on `govukcli`, which is the oldest solution but written in
+a less accessible language.
+
+Pros:
+
+- It's already in [lots of documentation](https://github.com/alphagov/govuk-developer-docs/search?q=govukcli&unscoped_q=govukcli) as it's the longest serving tool.
+- Supports all the environments, even existing legacy ones.
+- Standalone.
+
+Cons:
+
+- Built originally by people who have since left GDS and [doesn't receive many updates](https://github.com/alphagov/govuk-aws/commits/master/tools/govukcli).
+- Requires separate AWS credential management for which we have [many](https://docs.publishing.service.gov.uk/manual/aws-cli-access.html) [pages](https://docs.publishing.service.gov.uk/manual/aws-console-access.html) of [documentation](https://docs.publishing.service.gov.uk/manual/set-up-aws-account.html).
+
+#### Potential solution 3 (Issy's preference)
+
+We converge on the centrally maintained (but open to everyone to
+contribute) GDS CLI and move everything GOV.UK-specific in there as
+either subcommands or extensions (as `gds govuk connect` exists
+currently).
+
+Pros:
+
+- Users can run `gds govuk connect` to access the `connect` functionality from `govuk-cli`, so it's two tools in one.
+- In developing it to add GOV.UK stuff, developers get more Go experience which is valuable for working on Go-based apps in GOV.UK (eg Router).
+- An existing versioned release pipeline, and a predictable and easy install method via [the GDS Homebrew tap](https://github.com/alphagov/homebrew-gds).
+
+Cons:
+
+- A new language to learn if developers want to add features.
+- It's already quite large and maybe "one tool to rule them all" for every team isn't great?
+
+#### Other solutions are welcome to be explored in the comments. :-)
 
