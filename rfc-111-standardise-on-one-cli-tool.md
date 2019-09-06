@@ -99,10 +99,12 @@ Cons:
 - Built originally by people who have since left GDS and [doesn't receive many updates](https://github.com/alphagov/govuk-aws/commits/master/tools/govukcli).
 - Requires separate AWS credential management for which we have [many](https://docs.publishing.service.gov.uk/manual/aws-cli-access.html) [pages](https://docs.publishing.service.gov.uk/manual/aws-console-access.html) of [documentation](https://docs.publishing.service.gov.uk/manual/set-up-aws-account.html).
 
-### Potential solution 3
+### Potential solution 3 (Issy's preference)
 
 We converge on the centrally maintained (but open to everyone to
-contribute) GDS CLI and move everything GOV.UK-specific in there.
+contribute) GDS CLI and move everything GOV.UK-specific in there as
+either subcommands or extensions (as `gds govuk connect` exists
+currently).
 
 Pros:
 
@@ -115,6 +117,31 @@ Cons:
 - A new language to learn if developers want to add features.
 - It's already quite large and maybe "one tool to rule them all" for every team isn't great?
 
+
+### Potential solution 4 (thanks, Kevin!)
+
+Embrace `gds-cli` as a tool and deprecate any other command-line tools
+that duplicate or have significant convergeance with the functionality
+`gds-cli` supports (ie, assuming roles in AWS).
+
+Don't attempt to have a single unified govuk cli, these are a point of
+confusion and should only be considered if there is a programme level
+commitment to maintain such a thing, broad agreement amongst gov.uk
+developers what the scope of the unified CLI would be and agreements
+on interfaces/practices.
+
+For govuk CLI scripts: continue the existing convention of having
+scripts that define their purpose in their name e.g no govuk or
+govukcli, instead specific ones like `govuk-docker`, `govuk-connect`
+which don't need to be considered as part of a consistent collective.
+If these need to do similar functionality to gds-cli have them wrap
+around that rather than re-write it.
+
+Pros:
+
+- We standardise on the GDS-wide CLI tool, `gds-cli`, while maintaining GOV.UK specific things elsewhere that depend on `gds-cli` for core functionality, thus avoiding bloating the `gds-cli`.
+- We can still write our own scripts in Ruby?
+- We're more explicit about what the scripts do, if they're named for the thing they do and not generic `govuk`.
 
 ### Other solutions are welcome to be explored in the comments. :-)
 
