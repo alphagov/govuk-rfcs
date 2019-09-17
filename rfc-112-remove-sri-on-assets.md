@@ -9,14 +9,14 @@ Running [Web Page Test](https://www.webpagetest.org/) (WPT) against a number of 
 ### Homepage
 In this example 11 TCP connections are being opened when the browser default for [HTTP/1.1 in many browsers is 6](https://docs.pushtechnology.com/cloud/latest/manual/html/designguide/solution/support/connection_limitations.html). Since opening TCP [connections is expensive](https://hpbn.co/building-blocks-of-tcp/#three-way-handshake), this will be having a negative effect on performance.
 
-![homepage-connection-view.png](/rfc-000/homepage-connection-view.png)
+![homepage-connection-view.png](/rfc-112/homepage-connection-view.png)
 
 Full test can be [seen here](https://www.webpagetest.org/result/190507_AG_6f6760e331bba9bb6ff6e9fcad9b7743/1/details/#waterfall_view_step1). 
 
 ### Past Prime Ministers page
 The same issue can be seen on the Past Prime ministers page, where 13 TCP connections are opened instead of the default 6 a browser usually does. As can be seen in the bandwidth graph the connection isn't being fully utilised, this is probably due to the TCP slow start is an algorithm that each TCP connection uses.
 
-![past-pm-connection-view.png](/rfc-000/past-pm-connection-view.png)
+![past-pm-connection-view.png](/rfc-112/past-pm-connection-view.png)
 
 Full test can be [seen here](https://www.webpagetest.org/result/190916_1B_9a4a73442aedc3f89de4ae77cce6e656/1/details/#waterfall_view_step1)
 
