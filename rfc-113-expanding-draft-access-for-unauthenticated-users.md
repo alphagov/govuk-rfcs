@@ -6,24 +6,28 @@ To view content on the [GOV.UK draft stack][govuk-draft] users have to either
 be authenticated with [GOV.UK signon][signon] or have a token that grants
 them access to that piece of content. Sensitive content is flagged as
 access limited, this limits drafts to authenticated users that meet a criteria
-(user id or organisation id) or users with the token.
+(user id or organisation id) or users that have a valid token.
 
 The reason for granting unauthenticated access is to make it easier for
 non-GOV.UK editors to fact check content, avoiding the overhead of needing a
-GOV.UK signon account creation and access to all of draft GOV.UK. Evidence
-suggests that without a simple process to fact check, editors will instead
-turn to a poorer fact check experience (for example, screenshots or pasting
-content into an email).
+GOV.UK signon account and avoiding them having access to all of draft GOV.UK.
+Evidence suggests that without a simple process to fact check, editors will
+instead turn to a poorer fact check experience (for example, screenshots or
+pasting content into an email).
 
 This RFC makes a proposal to expand the unauthenticated access from a single
 piece of content to scenarios where content can span multiple pages from
 differing publishing applications. This is needed to support the fact checking
-of a step-by-step and involves using a session cookie to store an auth-bypass
+of a step-by-step where a step-by-step is both a page and embedded content
+that appears on other pages. To review a step by step thoroughly the fact
+checker should have access to all these pages and their associated assets.
+
+This proposal suggests the use of a session cookie to store an auth-bypass
 token so multiple pages and their assets can be accessed. Access to content
 will be granted by using Publishing API [link expansion][] to share an
-auth-bypass id, whereas asset access will be provided via a flag within token
-that grants access to any draft assets. These means will not allow bypassing
-access limiting protections.
+auth-bypass id, whereas asset access will be provided via a flag within a token
+that grants access to any draft assets. This token will not allow bypassing
+any access limits set up on the related content or assets.
 
 Key terminology that is used in this RFC:
 
@@ -52,27 +56,34 @@ Key terminology that is used in this RFC:
 ## Problem
 
 GOV.UK editors produce step-by-steps that need fact checking by people who
-may not have a GOV.UK signon account. As step-by-steps can span multiple
-pages on GOV.UK the process to fact check them involves not only
-reviewing the step-by-step navigation page but also reviewing the pages that
-are part of the step-by-step.
+may not have a GOV.UK signon account. A step-by-step is represented on
+GOV.UK as a [step-by-step navigation page](https://www.gov.uk/learn-to-drive-a-car)
+with pages that [represent guidance for individual steps][part-of-sbs] and
+show the progress within the step-by step. These guidance pages may be
+published by any GOV.UK application and may be drafts at the time of
+the step-by-step being fact checked. The process of fact checking a
+step-by-step involves accessing all of these pages.
 
 The current process to provide unauthenticated access to a GOV.UK draft is to
-use an auth-bypass token which allows access to a single content item. This is
-not sufficient to allow the preview of all the pages that are part of a
-step-by-step.
+use an auth-bypass token which allows access to a single content item. In
+the context of a step-by-step this can be used to allow access to the
+step-by-step navigation page but none of the related pages. This
+is not considered adequate by existing editors so is not used for the
+fact checking process.
 
-Preparing a step-by-step for fact check is currently done by someone manually
-saving each draft page to a HTML files and then wiring them up into
-a small Heroku application. This application is then shared with the
-fact checker. This is a cumbersome and time consuming process, that we believe
-can be improved.
+Instead, step-by-steps are fact checked by the use of creating and sharing a
+dedicated Heroku application for each step-by-step that needs fact checking.
+This is done by someone manually saving each draft page to a HTML file and
+then wiring all of these up into an application. This is a cumbersome and time
+consuming process, that we believe can be improved.
+
+[part-of-sbs]: https://www.gov.uk/legal-obligations-drivers-riders?step-by-step-nav=e01e924b-9c7c-4c71-8241-66a575c2f61f
 
 ## Proposal
 
 In considering how this problem can be resolved questions were raised about
 ownership of resources (content and assets) and the rights editors have to
-grant, or restrict, access on the draft stack of GOV.UK. Three publication
+grant - or restrict - access on the draft stack of GOV.UK. Three publication
 states were considered - live, draft and access limited -  and their privacy
 expectations were defined:
 
@@ -81,9 +92,9 @@ expectations were defined:
 - **Draft**: This resource is available to users with GOV.UK signon accounts,
   access is restricted from the wider internet however it is not considered
   private.
-- **Access limited**: this resource is available to users as the result
-  of implicit permissions granted at the editors discretion (for example,
-  limiting to an organisation in Whitehall) and a limited number of GOV.UK
+- **Access limited**: this resource is available to a limited set of users
+  by an option in the publishing application (for example, Whitehall allows
+  limiting content to a users organisation) and a limited number of GOV.UK
   admins. There is an expectation that this resource will be kept private
   from users who do not meet the criteria.
 
@@ -98,24 +109,28 @@ for it.
 Content that is linked as part of a step-by-step-navigation (and assets that
 are associated with that content) may be published by any publishing application
 and by any organisation. A step-by-step editor can grant a fact checker access
-to live and draft resources, however this cannot be used to provide access to
-access limited content and assets as this would break the expectations of
-privacy.
+to view live and draft resources on the draft stack, however this cannot be
+used to provide access to access limited content and assets as this would
+break the expectations of privacy.
 
 To provide access across a selection of pages an auth-bypass token would be
 stored in a session cookie this would allow maintaining this token across
 multiple requests without appending a query string (this cookie
 technique is already used for providing an [auth-bypass token to Asset
 Manager][asset-manager-auth-bypass]). To provide the auth-bypass id to
-supporting pages the Publishing API's link expansion system would be used
-for particular document and link types. As there isn't a linking system between
-assets and content it is impossible to maintain accurate links, thus an
-auth-bypass token can grant access to all draft assets for the duration of a
-session. Access limited assets must not be accessible in this circumstance
+supporting pages the Publishing API link expansion system would be used
+for particular document and link types.
+
+With access granted to pages users may experience problems viewing them
+due to lacking permission to access assets owned by those pages - this would
+be seen most visually with broken images. As there isn't a linking system
+between assets and content it is impossible to maintain accurate links, thus
+an auth-bypass token can grant access to all draft assets for the duration of
+a session. Access limited assets must not be accessible in this circumstance
 unless the asset contains an auth-bypass id that matches the token.
 
 If there is a need to preview access limited content as part of a fact check
-then individual links will have to be provided for that content.
+then individual links will have to be provided for those pages.
 
 ### Consequences
 
@@ -138,20 +153,21 @@ support similar functionality for future GOV.UK content.
   authentication and auth-bypass token when considering access to resources.
 - Content Store will be updated to allow an auth-bypass id to be present in the
   links of a content item, this will be checked against a user provided
-  auth-bypass_id for content items that are not access limited.
-- Publishing API will be changed to support the sharing of auth-bypass ids for an
-  edition through link expansion rules.
+  auth-bypass id for content items that are not access limited.
+- Publishing API will be changed to support the sharing of auth-bypass ids for
+  an edition through link expansion rules.
 - Publishing API and Content Store will have their access limit code decoupled
   from auth-bypass ids. This will be done to remove a frequent source of
   confusion that conflates the separate processes of access limiting and
   auth-bypass.
 - Collections Publisher will be changed to include a flag in auth-bypass tokens
-  that provide draft asset access. To reflect the increased access of a token
-  they will be given an expiry time (anticipated to be 1 month). Collections
-  Publisher will also be updated to include origin information in the token
-  (such as creator id and content id) to allow a token to be audited. The
-  [auth-bypass token documentation][auth-bypass-token-docs] will be updated to
-  reflect this as the best practice for future auth-bypass tokens
+  that provide access to all draft assets that are not access limited. To
+  reflect the increased access of a token they will be given an expiry time
+  (anticipated to be 1 month). Collections Publisher will also be updated to
+  include origin information in the token (such as creator id and content id)
+  to allow a token to be audited. The [auth-bypass token
+  documentation][auth-bypass-token-docs] will be updated to
+  reflect this as the best practice for future auth-bypass tokens.
 
 ### Rejected alternative approaches
 
@@ -189,7 +205,7 @@ whenever it occurs.
 
 #### Providing a fact checker access to all resources on the draft stack that are not access limited
 
-An approach that was considered was to allow the fact checker to have access
+An approach that was considered was to allow a fact checker to have access
 to all pages on the draft stack that are not access limited. This would grant
 them similar access to an authenticated user. This offered the advantage that
 it allows simplifying the logic involved in checking tokens and is consistent
@@ -199,7 +215,26 @@ This was rejected since it was a significant departure from the existing access
 allowed to a fact checker through an auth-bypass token and may require
 considerable communication and consultation time. It remains a viable option
 but should be considered as part of a consideration of whether there should be
-more accountability in draft access.
+more accountability and/or simplicity in draft access.
+
+#### Determining which assets a page has to set auth-bypass ids on them
+
+An ideal scenario for asset access would be for it to mirror the system used
+for content access as discrepancies between them are a source of complication
+and future confusion. To achieve this it was pondered whether there were ways
+to share auth-bypass ids with assets in a similar way to how link expansion can
+share them between linked content.
+
+An approach to achieve this would be to have Publishing API check content
+for asset presence at the point of sending it to the draft content store and
+then updating the assets with the relevant auth-bypass ids. Doing this would
+require Publishing API to have a dependency on Asset Manager and to have the
+means to identify and manage assets.
+
+This approach was rejected due to it risking adding substantial complexity
+to Publishing API in order for it to have the means to identify and manage
+assets. It was also considered undesirable to couple Asset Manager and
+Publishing API since they are currently able to operate distinctly.
 
 #### Automating the generation of a Heroku preview with a GOV.UK signon account
 
