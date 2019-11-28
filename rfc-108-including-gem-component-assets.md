@@ -9,7 +9,7 @@ The [current method for including the components](https://github.com/alphagov/go
 
 This also has some detriments:
 
-- all components are included regardless of whether they are used, so unused CSS/JS may be included
+- all components are included regardless of whether they are used, so unused CSS/JS will be included
 - only publically facing components can be added to the gem, or unused CSS/JS would be included (we now have components that need to be shared across only private applications that use the gem)
 
 ## Proposed solution (Sass)
@@ -33,11 +33,13 @@ The component_support sass file would include any needed `govuk-frontend` import
 
 This solution would allow us to add any components we like to the gem without worrying that they are needlessly adding page weight to the publically facing GOV.UK.
 
+It should be possible to configure the gem so that both this new approach to consuming Sass and the old approach co-exist, so we don't have to upgrade all the apps at once.
+
 ## Proposed solution (Javascript)
 
 We can do something similar with Javascript, however the initialisation of specific modules may be more complicated and require more thought. Additionally knowing whether or not to include jQuery could be difficult.
 
-As a MVP Javascript could be left as it is for now.
+It should be possible to configure the gem so that both this new approach to consuming JS and the old approach co-exist, so we don't have to upgrade all the apps at once.
 
 ## Finding which components are in use
 
