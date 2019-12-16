@@ -32,11 +32,11 @@ And for Lighthouse these metrics were examined:
 
 For each set of tests a graph like the one seen below was created. The graph shows the time difference between each metric for HTTP/1.1 vs HTTP/2. Positive values show HTTP/2 took that much more time to complete the same metric:
 
-![Example graph produced to compare HTTP/1.1 vs HTTP/2](rfc-000/nexus-5-results.png)
+![Example graph produced to compare HTTP/1.1 vs HTTP/2](rfc-114/nexus-5-results.png)
 
 I've summarised the results from the tests below:
 
-![Summary of results under cold cache conditions](rfc-000/cold-cache-summary.png)
+![Summary of results under cold cache conditions](rfc-114/cold-cache-summary.png)
 
 As you can see the results show that for our setup, HTTP/1.1 wins in terms of performance. At the time I believed this was because of the "asset" domain we are using to server all other assets. But I've now revised that opinion.
 
@@ -44,15 +44,15 @@ As you can see the results show that for our setup, HTTP/1.1 wins in terms of pe
 On GOV.UK we are using Subresource Integrity for all our CSS and JavaScript assets. And at the moment we are also setting the `crossorigin` attribute to `anonymous`. This is forcing the browser to open a second TCP connection in "anonymous mode" so it can download the CSS/JS from the assets domain. In doing so this is adding 100's on milliseconds of delay to the page rendering. This occurs even with the use of the `preconnect` hint.
 
 Below you can see the delay in the waterfall while the 2nd TCP connection is established.
-![The delay seen in the waterfall](rfc-000/h2-dns-annotated.png)
+![The delay seen in the waterfall](rfc-114/h2-dns-annotated.png)
 
 And this is what it could look like if we tweak our setup:
 
-![](rfc-000/the-impact-annotated.png)
+![](rfc-114/the-impact-annotated.png)
 
 In the example test on a Nexus 5 device under 3G connection speeds we can bring the request of the CSS / JS file forwards by 750 ms. In turn this should speed up the whole waterfall and turn the summary list from red to green. This is achieved by the use of HTTP/2 connection coalescing, which can be seen taking place in the connection graph below:
 
-![](rfc-000/connection-view.png)
+![](rfc-114/connection-view.png)
 
 This coalescing is under-utilised if "anonymous mode" is used on static assets.
 
