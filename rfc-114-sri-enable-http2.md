@@ -50,7 +50,7 @@ And this is what it could look like if we tweak our setup:
 
 ![](rfc-114/the-impact-annotated.png)
 
-In the example test on a Nexus 5 device under 3G connection speeds we can bring the request of the CSS / JS file forwards by 750 ms. In turn this should speed up the whole waterfall and turn the summary list from red to green. This is achieved by the use of HTTP/2 connection coalescing, which can be seen taking place in the connection graph below:
+In the example test on a Nexus 5 device under 3G connection speeds we can bring the request of the CSS / JS file forwards by 750 ms. In turn this should speed up the whole waterfall and turn the summary list from red to green. This is achieved by the use of [HTTP/2 connection coalescing](https://daniel.haxx.se/blog/2016/08/18/http2-connection-coalescing/), which can be seen taking place in the connection graph below:
 
 ![](rfc-114/connection-view.png)
 
@@ -71,7 +71,7 @@ Here's a quick run through of the order of events the browser is seeing under th
 ## Proposal
 There are a few options to allow us to fix this issue:
 
-1. For CSS / JS assets change the `crossorigin` value from `anonymous` to `use-credentials`. This will allow us to still use SRI, but it will leverage the existing connection.
+1. For CSS / JS assets change the `crossorigin` value from `anonymous` to `use-credentials`. This will allow us to still use SRI, but it will leverage the existing coalesced connection.
 2. For CSS only, remove the SRI requirement completely. An attack on a domain under our control is minimal, and they are limited in what they can actually achieve by changing CSS, so it seems unnecessary.
 3. Remove SRI for all assets being served, again due to the fact the domain is first party and under our control.
 
