@@ -85,7 +85,7 @@ NOTE: As mentioned by @david-ncsc in [his comment](https://github.com/alphagov/g
 
 ## Proposal
 ### MUST
-* Change the NGINX config to only serve font files (WOFF2, WOFF, EOT) with `Access-Control-Allow-Origin: *`.
+* Change the NGINX config to only serve font files (WOFF2, WOFF, EOT) with `Access-Control-Allow-Origin: *`. Code found for this [here](https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/templates/asset_pipeline_extra_nginx_conf.erb) and [here](https://github.com/alphagov/govuk-puppet/blob/962ea899e9c6778fe91e80074346912bd4314b10/modules/router/templates/assets_origin.conf.erb#L36-L38).
 * Change `crossorigin='anonymous'` to `crossorigin='use-credentials'` for all CSS and JavaScript.
 
 ### SHOULD
