@@ -4,7 +4,7 @@
 
 The govuk_publishing_components gem provides shared components to frontend applications on GOV.UK - chunks of consistent and reusable frontend such as buttons and form elements.
 
-The gem only allows all components to be included in an application, even if they're not used by that application. This RFC proposes changing the gem to allow only required components to be included, to reduce unnecessary page weight.
+The gem adds the CSS and JS for all components into an application, even if they're not used. This RFC proposes changing the gem to allow only required components to be included, to reduce unnecessary page weight.
 
 ## Problem
 
@@ -37,23 +37,25 @@ Instead of including all of the component Sass, each application should be confi
 
 The component_support sass file would include any needed `govuk-frontend` imports plus any mixins or variables from sass in the gem. A similar solution could be applied to print styles for components.
 
-This solution would allow us to add any components we like to the gem without worrying that they are needlessly adding page weight to the publically facing GOV.UK.
+This solution would allow us to add any components we like to the gem without worrying that they are needlessly adding page weight to the publicly facing GOV.UK.
 
-We will configure the gem so that both this new approach to consuming Sass and the old approach co-exist, so we don't have to upgrade all the apps at once. The component guide itself will import all of the component scss to ensure everything appears correctly.
+The component guide will not change as it imports the sass for components itself. However it cannot give full confidence that a component will appear correctly in an application, see the isolation section below.
+
+We will configure the gem so that both this new approach to consuming Sass and the old approach co-exist, so we don't have to upgrade all the apps at once. The old approach will then be deprecated as we migrate apps.
 
 ### Javascript
 
-We should also be able to include only the required Javascript in each application. Specific JS modules must be initialised (unlike with Sass) and the specifics of how this will work have yet to be determined. However, if a change to this proves impractical, we could continue to use the current approach - this will not block the rollout of changes to the Sass model.
+We should also be able to include only the required Javascript in each application, using a similar mechanism to the above. JS modules will be initialised using the existing code for initialisation.
 
-Currently some component JS relies upon jQuery and some does not. We will therefore need to include jQuery if component JS is required. Eventually we plan to remove this dependency, at which point this can be looked at again.
+Currently some component JS relies upon jQuery and some does not. We will therefore need to include jQuery if component JS is required (eventually we plan to remove this dependency).
 
-Testing should remain broadly the same. Tests will exist for each component and when the tests are run in the gem all tests should be run. We might need to rewrite the initialisation for some of the Javascript tests depending on decisions made regarding JS inclusion.
+JS tests should remain the same. Tests will exist for each component and when the tests are run in the gem all tests should be run.
 
-We will configure the gem so that both this new approach to consuming JS and the old approach co-exist, so we don't have to upgrade all the apps at once.
+We will configure the gem so that both this new approach to consuming JS and the old approach co-exist, so we don't have to upgrade all the apps at once. The old approach will then be deprecated as we migrate apps. If a change to the JS proves problematic, we could continue to use the current approach - this should not block the rollout of changes to the Sass model.
 
 ### Finding which components are in use
 
-Adding a not-in-use component into an application with this new model would be a relatively safe procedure, as the developer would notice immediately if the styles and Javascript for that component had not been included in the application. For the future we will need a tool avoids leaving components unstyled or non-functional.
+Adding a not-in-use component into an application with this new model would be a relatively safe procedure, as the developer would notice immediately if the styles and Javascript for that component had not been included in the application. For the future we will need a tool that avoids leaving components unstyled or non-functional.
 
 We can modify the component guide to tell us which components are in use by the current application.
 
@@ -61,24 +63,21 @@ We could also write a test for that application to ensure the right assets are b
 
 ### Certainty that a component renders correctly in isolation
 
-If the gem is changed as proposed we would need certainty that components will render correctly in isolation. At the moment the CSS for all components is included as a single file, so it all works.
+If the gem is changed as proposed it would be helpful to test that all components will render correctly in isolation, but we don't know how to solve this problem now. We will rely on manual testing and vigilance until a better solution is found.
 
-Separating out these styles is problematic due to each component's dependence on external mixins and variables (from govuk-frontend and the gem itself). An application can `@import button` only so long as it also imports other stuff beforehand.
-
-If we wanted to test a component truly in isolation (in the component guide page for that component) we'd need a CSS file that only included the styles for that component. The output for this would be inappropriate for use in applications (because each component will need some common Sass, which would introduce duplication).
-
-(The Design System site shows each component inside an iframe, but this includes all component styles in the iframe, not just the styles for that specific component. Iframes also pose problems with regard to setting an appropriate height)
+One option could be to build a page in the component guide with each component rendered in isolation using iframes, and apply visual regression testing to it. It's worth noting that components have in the past rendered correctly in the guide but not in applications due to conflicts with an application's styles, so testing in isolation cannot provide 100% certainty that a component will work outside of the guide.
 
 ## Benefits and drawbacks
 
 Benefits:
 
-- the size of the CSS file for each application is reduced (assuming the application uses some but not all of the components. If it uses all of the current components then there's no change)
+- the size of the CSS and JS included in each application is reduced (assuming the application uses some but not all of the components. If it uses all of the components then there's no change)
 - possible compilation performance benefits
 - will be backwards compatible, so we can roll it out in our own time
-- component guide remains essentially the same
+- component guide remains the same
+- we will be able to add components into the gem that are not used by the publicly facing GOV.UK, without any negative impacts
 
 Drawbacks:
 
-- inconsistent approaches to JS and SCSS
+- inconsistent approaches to JS and Sass
 - no means to test a component is styled correctly in isolation
