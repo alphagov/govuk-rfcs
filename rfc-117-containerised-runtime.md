@@ -55,7 +55,7 @@ Focusing on containerisation will detract from work to improve other parts of th
 GOV.UK has a significant amount of infrastructure outside of the applications themselves. In moving to a container based hosting platform, it’s possible that some existing behaviour may be missed, resulting in bugs.
 ### Risks of not doing this
 
-GOV.UK reduces it’s options of how to mitigate Trusty reaching the end of support so the only option left is upgrading Ubuntu. This is potentially wasted work as once the upgrade is done GOV.UK will want to consider if running VMs is best for GOV.UK.
+GOV.UK reduces its options of how to mitigate Trusty reaching the end of support so the only option left is upgrading Ubuntu. This is potentially wasted work as once the upgrade is done GOV.UK will want to consider if running VMs is best for GOV.UK.
 
 GOV.UK will also have to tackle a number of difficult tooling upgrades (Puppet, in particular) if GOV.UK wants to return to a situation where GOV.UK does not use unsupported dependencies.
 
@@ -66,4 +66,3 @@ GOV.UK will commit to doing these things:
 
 - Investigate the practicalities involved in using different containerised runtimes to host GOV.UK (for example, how difficult will it be to run a hybrid containerised / non-containerised environment in [GOV.UK PaaS](https://www.cloud.service.gov.uk) vs. say [AWS ECS](https://aws.amazon.com/ecs/))
 - Understand how containerising will affect our CI/CD, metrics & alerting, and support models.
-
