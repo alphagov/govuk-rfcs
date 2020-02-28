@@ -23,7 +23,7 @@ Upgrading Ubuntu in the existing infrastructure is difficult for a number of rea
 
 GOV.UK will adopt a container based hosting environment, such as [GOV.UK PaaS](https://www.cloud.service.gov.uk). The choice of hosting environment is out of scope for this RFC.
 
-GOV.UK applications will be built into container images, which will include the operating system. This may be done using buildpacks or other means - this decision is also out of scope for this RFC.
+GOV.UK applications and their dependencies will be built into container images. This may be done using buildpacks or other means - this decision is also out of scope for this RFC.
 
 A containerised runtime aligns with the [GOV.UK Infrastructure Architecture Goals for 2021](
 https://docs.google.com/document/d/1ooN7wkYhEGvceGe9Qz_HNZa-GPtrjzK_vA4vfWYVn4c/edit#heading=h.cdrr7rv9t98f) to isolate applications through containers. This will give us better control of how resources are matched to applications.
