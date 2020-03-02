@@ -21,7 +21,7 @@ Upgrading Ubuntu in the existing infrastructure is difficult for a number of rea
 
 ## Proposal
 
-GOV.UK will adopt a container based hosting environment, such as [GOV.UK PaaS](https://www.cloud.service.gov.uk). The choice of hosting environment is out of scope for this RFC.
+GOV.UK will use a managed, container based hosting environment, such as [GOV.UK PaaS](https://www.cloud.service.gov.uk). The choice of hosting environment is out of scope for this RFC.
 
 GOV.UK applications and their dependencies will be built into container images. This may be done using buildpacks or other means - this decision is also out of scope for this RFC.
 
