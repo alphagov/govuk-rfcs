@@ -48,7 +48,7 @@ Other improvements to GOV.UK’s development lifecycle (such as moving to contin
 
 GOV.UK has not yet estimated the length of time this work will take, our current assumption is that it will take much less than 2 years to complete. There is a risk that the “unknown unknowns” GOV.UK discovers will prevent GOV.UK from finishing the containerisation work before support ends for Trusty. If this happens, GOV.UK may need to refocus our efforts to upgrade from Trusty in the existing infrastructure.
 
-GOV.UK infrastructure has been in a transitory state for several years and containerisation will prolong this state. In addition in the short term GOV.UK will be adding complexity making supporting the platform hard for RE-GOV.UK and 2ndline.
+GOV.UK infrastructure has been in a transitory state for several years and containerisation will prolong this state. In addition in the short term GOV.UK will be adding complexity making supporting the platform hard for RE-GOV.UK and 2nd line.
 
 Focusing on containerisation will detract from work to improve other parts of the platform.
 
