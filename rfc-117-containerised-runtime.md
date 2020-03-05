@@ -52,7 +52,7 @@ GOV.UK infrastructure has been in a transitory state for several years and conta
 
 The current migration (lift-and-shift to AWS) has been a complex and challenging piece of work. This has led to several engineers reporting feelings of burnout and exhaustion. If we fail to learn the lessons that GDS' past migration experiences have to offer there is a risk that doing this work could have significant negative consequences for the team, and for individuals' well-being. We should carefully consider how we structure teams, and how we can ensure that the teams have the time to do the work properly, get the training they need to learn new technologies, and have the agency they need to feel that they fully own their platform.
 
-Focusing on containerisation will detract from work to improve other parts of the platform.
+Focusing on containerisation will mean fewer people will be available to work on improving other parts of the platform.
 
 GOV.UK has a significant amount of infrastructure outside of the applications themselves. In moving to a container based hosting platform, it’s possible that some existing behaviour may be missed, resulting in bugs.
 ### Risks of not doing this
