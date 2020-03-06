@@ -169,24 +169,35 @@ I propose we do this:
     4. Make the field mandatory.
 
 1. Add a *mandatory* `details.featured_attachments` list to
-   publication formats, which is an ordered list of govspeak or HTML
-   strings (using the `#/definitions/multiple_content_types` schema)
-   rendering attachments from `details.attachments`.
+   publication formats, which is an ordered list of strings that each reference
+   an id of an entry in the `details.attachments` collection.
+
+   The reasons for preferring an id over the previous embedded HTML approach
+   are:
+
+   - less scope for inconsistency in content items - there isn't a risk
+     the HTML doesn't match the attachment data;
+   - removes a risk of unexpected content, since the HTML is a string
+     it can contain any content and may not necessarily reflect a single
+     attachment;
+   - easier to updating featured attachment rendering - for a change
+     in attachment rendering there is not a need to republish every document
+     that uses featured attachments
+   - reduction in superfluous data stored in the content item.
 
    **Migration concerns:** this would need to be done in four steps:
    1. Add the field as optional.
    2. Update publishing apps (just Whitehall and Content Publisher) to write to it.
-   3. Republish all affected documents.
+   3. Update frontend apps to render attachments by injecting attachment data
+      into an attachment component.
    4. Make the field mandatory.
 
 1. Remove the `details.documents` field.
 
-   **Migration concerns:** this would need to be done in four steps:
-   1. Update frontend apps to render from
-      `details.featured_attachments`.
-   2. Update publishing apps to not set `details.documents`.
-   3. Republish all affected documents.
-   4. Remove the field.
+   **Migration concerns:** this would need to be done in three steps:
+   1. Update publishing apps to not set `details.documents`.
+   2. Republish all affected documents.
+   3. Remove the field.
 
 The final schemas will be:
 
