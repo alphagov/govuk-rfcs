@@ -2,7 +2,7 @@
 
 ## Summary
 
-Use a containerised runtime for hosting GOV.UK applications. This will provide a number of benefits, including:
+Use a container runtime for hosting GOV.UK applications. This will provide a number of benefits, including:
 * Removing our dependency on a version of Ubuntu (Trusty) which is in extended support (which ends in April 2022)
 * Removing legacy infrastructure code which is difficult to maintain and extend
 * Providing better value for money by using cloud resources more effectively
@@ -30,18 +30,18 @@ GOV.UK will use a managed, container based hosting environment, such as [GOV.UK 
 
 GOV.UK applications and their dependencies will be built into container images. This may be done using buildpacks or other means - this decision is also out of scope for this RFC.
 
-A containerised runtime aligns with the [GOV.UK Infrastructure Architecture Goals for 2021](
+A container runtime aligns with the [GOV.UK Infrastructure Architecture Goals for 2021](
 https://docs.google.com/document/d/1ooN7wkYhEGvceGe9Qz_HNZa-GPtrjzK_vA4vfWYVn4c/edit#heading=h.cdrr7rv9t98f) to isolate applications through containers. This will give us better control of how resources are matched to applications.
 
-The TechOps strategy is to use common components where available. GOV.UK has been following the strategy by using hosted versions of software ([ElasticSearch](https://aws.amazon.com/elasticsearch-service/) and [Postgres](https://aws.amazon.com/rds/)) and services ([Notify](https://www.notifications.service.gov.uk)) where available. Using a containerised runtime is a continuation of this policy.
+The TechOps strategy is to use common components where available. GOV.UK has been following the strategy by using hosted versions of software ([ElasticSearch](https://aws.amazon.com/elasticsearch-service/) and [Postgres](https://aws.amazon.com/rds/)) and services ([Notify](https://www.notifications.service.gov.uk)) where available. Using a container runtime is a continuation of this policy.
 
-GOV.UK has already containerised its development environment ([rfc-106](https://www.github.com/alphagov/govuk-rfcs/106)), a containerised runtime will narrow the gap between development and production.
+GOV.UK has already containerised its development environment ([rfc-106](https://www.github.com/alphagov/govuk-rfcs/106)), a container runtime will narrow the gap between development and production.
 
 ### Benefits of this approach
 
 The most immediate benefit of this approach is that it will allow us to incrementally upgrade the operating system version. By moving the applications into containers, GOV.UK can enable a much lower risk upgrade path.
 
-Moving to a container based hosting environment will allow us to remove much of our legacy Puppet and Fabric code. This code is hard to maintain, and hard to hire people with the experience required to improve and upgrade. With industry and government overwhelmingly moving towards containerised platforms, it should be much easier to hire people with these skills.
+Moving to a container based hosting environment will allow us to remove much of our legacy Puppet and Fabric code. This code is hard to maintain, and hard to hire people with the experience required to improve and upgrade. With industry and government overwhelmingly moving towards container based platforms, it should be much easier to hire people with these skills.
 
 Containerised hosting environments can generally provide much better value for money in terms of resource usage, both because many small applications can be “bin-packed” onto the same infrastructure, and because it is much easier to autoscale applications.
 
@@ -71,5 +71,5 @@ GOV.UK will be harder for the rest of GDS to support, because its infrastructure
 
 GOV.UK will commit to doing these things:
 
-- Investigate the practicalities involved in using different containerised runtimes to host GOV.UK (for example, how difficult will it be to run a hybrid containerised / non-containerised environment in [GOV.UK PaaS](https://www.cloud.service.gov.uk) vs. say [AWS ECS](https://aws.amazon.com/ecs/))
+- Investigate the practicalities involved in using different container runtimes to host GOV.UK (for example, how difficult will it be to run a hybrid containerised / non-containerised environment in [GOV.UK PaaS](https://www.cloud.service.gov.uk) vs. say [AWS ECS](https://aws.amazon.com/ecs/))
 - Understand how containerising will affect our CI/CD, metrics & alerting, and support models.
