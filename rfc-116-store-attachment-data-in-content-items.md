@@ -32,7 +32,7 @@ attachment metadata in their content items.  Whitehall only sends
 rendered HTML to the Publishing API.  Other publishing apps send a
 combination of rendered HTML and metadata.
 
-This inconistency restricts what we can do with attachments,
+This inconsistency restricts what we can do with attachments,
 particularly for Whitehall content.  For example, we cannot generate
 comprehensive [schema.org][] metadata for attachments: [see this
 comment][].
@@ -385,7 +385,7 @@ item.
 
 Manuals Publisher and Travel Advice Publisher have their own
 databases, rather than using Publishing API directly as a backing
-store, so they dont have this same problem.
+store, so they don't have this same problem.
 
 [schema.org]: http://schema.org/
 [see this comment]: https://github.com/alphagov/govuk_publishing_components/pull/1247#pullrequestreview-338008254
