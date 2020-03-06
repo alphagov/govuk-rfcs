@@ -2,7 +2,12 @@
 
 ## Summary
 
-Use a containerised runtime for hosting GOV.UK applications. GOV.UK applications currently run on virtual machines running Ubuntu Trusty Tahr. There is currently an extended support contract for Ubuntu Trusty which will end in April 2022. Rather than upgrading Ubuntu on the virtual machines GOV.UK should change the application runtime to a containerised platform.
+Use a containerised runtime for hosting GOV.UK applications. This will provide a number of benefits, including:
+* Removing our dependency on a version of Ubuntu (Trusty) which is in extended support (which ends in April 2022)
+* Removing legacy infrastructure code which is difficult to maintain and extend
+* Providing better value for money by using cloud resources more effectively
+* Improving development velocity by reducing the difference between production and development environments
+* Making it easier to adopt higher velocity deployment approaches (such as continuous deployment)
 
 ## Problem
 
