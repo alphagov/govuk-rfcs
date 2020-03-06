@@ -1,4 +1,4 @@
-# RFC 117: Use a containerised runtime
+# RFC 117: Use a container runtime
 
 ## Summary
 
