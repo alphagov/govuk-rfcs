@@ -71,5 +71,5 @@ GOV.UK will be harder for the rest of GDS to support, because its infrastructure
 
 GOV.UK will commit to doing these things:
 
-- Investigate the practicalities involved in using different container runtimes to host GOV.UK (for example, how difficult will it be to run a hybrid containerised / non-containerised environment in [GOV.UK PaaS](https://www.cloud.service.gov.uk) vs. say [AWS ECS](https://aws.amazon.com/ecs/))
+- Investigate the practicalities involved in using different managed, container based hosting environments for GOV.UK (for example, how difficult will it be to run a hybrid containerised / non-containerised environment in [GOV.UK PaaS](https://www.cloud.service.gov.uk) vs. say [AWS ECS](https://aws.amazon.com/ecs/))
 - Understand how containerising will affect GOV.UK's build and deployment process, metrics & alerting, and support models.
