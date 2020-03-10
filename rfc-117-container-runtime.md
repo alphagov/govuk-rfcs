@@ -45,7 +45,7 @@ Moving to a container based hosting environment will allow us to remove much of 
 
 Containerised hosting environments can generally provide much better value for money in terms of resource usage, both because many small applications can be “bin-packed” onto the same infrastructure, and because it is much easier to autoscale applications.
 
-Running containers in production allows for a reduction in the difference between development environments and production. This can lead to bugs being found more quickly, and faster development cycles.
+Running containers in production allows for a reduction in the difference between development environments and production. For example, it can allow developers to test some configuration changes locally, without having to deploy to an environment. This can lead to bugs being found more quickly, and faster development cycles.
 
 Other improvements to GOV.UK’s development lifecycle (such as moving to continuous deployment) will be easier to implement on a container based infrastructure than they would in the current virtual machine based infrastructure.
 
