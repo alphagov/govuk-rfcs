@@ -30,6 +30,8 @@ GOV.UK will use a managed, container based hosting environment, such as [GOV.UK 
 
 GOV.UK applications and their dependencies will be built into container images. This may be done using buildpacks or other means - this decision is also out of scope for this RFC.
 
+Non-application concerns (such as deployments, cross application scheduled tasks, monitoring, metrics, traffic replay etc.) currently handled by the Trusty virtual machines will be moved to managed platforms wherever possible. If it is not possible to use a mangaed platform in some cases, GOV.UK will provision hosting for these cases using up-to-date operating systems and tools.
+
 ### Benefits of this approach
 
 The most immediate benefit of this approach is that it will allow us to offload upgrades of the host operating system to whomever manages the container runtime, and only have to manage updates to the applications' dependencies within the containers. By using containers to manage application dependencies more tightly, GOV.UK can enable a much lower risk upgrade path.
