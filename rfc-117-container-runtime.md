@@ -69,6 +69,9 @@ Choosing not to move to a container runtime will mean that GOV.UK will have to u
 GOV.UK will also have to tackle a number of difficult tooling upgrades (Puppet, in particular) if GOV.UK wants to return to a situation where GOV.UK does not use unsupported dependencies.
 
 GOV.UK will be harder for the rest of GDS to support, because its infrastructure will be significantly different. Almost all other service teams in GDS are using a container based hosting environment of some kind (mostly [CloudFoundry](https://www.cloudfoundry.org) or AWS ECS).
+
+This work may cause a high degree of disruption for developers (e.g. it may include new processes for deployments, CI, interacting with apps, etc). This could reduce the pace of delivery, or cause confusion which could potentially lead to user-affecting mistakes.
+
 ### Follow up work
 
 GOV.UK will commit to doing these things:
