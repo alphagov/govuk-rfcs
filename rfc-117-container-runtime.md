@@ -35,7 +35,7 @@ https://docs.google.com/document/d/1ooN7wkYhEGvceGe9Qz_HNZa-GPtrjzK_vA4vfWYVn4c/
 
 The TechOps strategy is to use common components where available. GOV.UK has been following the strategy by using hosted versions of software ([ElasticSearch](https://aws.amazon.com/elasticsearch-service/) and [Postgres](https://aws.amazon.com/rds/)) and services ([Notify](https://www.notifications.service.gov.uk)) where available. Using a container runtime is a continuation of this policy.
 
-GOV.UK has already containerised its development environment ([rfc-106](https://www.github.com/alphagov/govuk-rfcs/106)), a container runtime will narrow the gap between development and production.
+GOV.UK has already containerised its development environment ([rfc-106](https://www.github.com/alphagov/govuk-rfcs/106)) and uses production-like containers in the [publishing-e2e-tests](https://github.com/alphagov/publishing-e2e-tests). A container runtime will narrow the gap between development, test and production.
 
 ### Benefits of this approach
 
