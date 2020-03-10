@@ -72,6 +72,8 @@ GOV.UK will be harder for the rest of GDS to support, because its infrastructure
 
 This work may cause a high degree of disruption for developers (e.g. it may include new processes for deployments, CI, interacting with apps, etc). This could reduce the pace of delivery, or cause confusion which could potentially lead to user-affecting mistakes.
 
+Having applications manage their own dependencies may lead to a wider range of versions of software in use. This may increase the work involved in keeping software up-to-date and auditing which software versions are in use.
+
 ### Follow up work
 
 GOV.UK will commit to doing these things:
