@@ -39,7 +39,7 @@ GOV.UK has already containerised its development environment ([rfc-106](https://
 
 ### Benefits of this approach
 
-The most immediate benefit of this approach is that it will allow us to incrementally upgrade the operating system version. By moving the applications into containers, GOV.UK can enable a much lower risk upgrade path.
+The most immediate benefit of this approach is that it will allow us to offload upgrades of the host operating system to whomever manages the container runtime, and only have to manage updates to the applications' dependencies within the containers. By using containers to manage application dependencies more tightly, GOV.UK can enable a much lower risk upgrade path.
 
 Moving to a container based hosting environment will allow us to remove much of our legacy Puppet and Fabric code. This code is hard to maintain, and hard to hire people with the experience required to improve and upgrade. With industry and government overwhelmingly moving towards container based platforms, it should be much easier to hire people with these skills.
 
