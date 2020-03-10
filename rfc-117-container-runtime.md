@@ -30,13 +30,6 @@ GOV.UK will use a managed, container based hosting environment, such as [GOV.UK 
 
 GOV.UK applications and their dependencies will be built into container images. This may be done using buildpacks or other means - this decision is also out of scope for this RFC.
 
-A container runtime aligns with the [GOV.UK Infrastructure Architecture Goals for 2021](
-https://docs.google.com/document/d/1ooN7wkYhEGvceGe9Qz_HNZa-GPtrjzK_vA4vfWYVn4c/edit#heading=h.cdrr7rv9t98f) to isolate applications through containers. This will give us better control of how resources are matched to applications.
-
-The TechOps strategy is to use common components where available. GOV.UK has been following the strategy by using hosted versions of software ([ElasticSearch](https://aws.amazon.com/elasticsearch-service/) and [Postgres](https://aws.amazon.com/rds/)) and services ([Notify](https://www.notifications.service.gov.uk)) where available. Using a container runtime is a continuation of this policy.
-
-GOV.UK has already containerised its development environment ([rfc-106](https://www.github.com/alphagov/govuk-rfcs/106)) and uses production-like containers in the [publishing-e2e-tests](https://github.com/alphagov/publishing-e2e-tests). A container runtime will narrow the gap between development, test and production.
-
 ### Benefits of this approach
 
 The most immediate benefit of this approach is that it will allow us to offload upgrades of the host operating system to whomever manages the container runtime, and only have to manage updates to the applications' dependencies within the containers. By using containers to manage application dependencies more tightly, GOV.UK can enable a much lower risk upgrade path.
@@ -48,6 +41,13 @@ Containerised hosting environments can generally provide much better value for m
 Running containers in production allows for a reduction in the difference between development environments and production. For example, it can allow developers to test some configuration changes locally, without having to deploy to an environment. This can lead to bugs being found more quickly, and faster development cycles.
 
 Other improvements to GOV.UK’s development lifecycle (such as moving to continuous deployment) will be easier to implement on a container based infrastructure than they would in the current virtual machine based infrastructure.
+
+A container runtime aligns with the [GOV.UK Infrastructure Architecture Goals for 2021](
+https://docs.google.com/document/d/1ooN7wkYhEGvceGe9Qz_HNZa-GPtrjzK_vA4vfWYVn4c/edit#heading=h.cdrr7rv9t98f) to isolate applications through containers. This will give us better control of how resources are matched to applications.
+
+The TechOps strategy is to use common components where available. GOV.UK has been following the strategy by using hosted versions of software ([ElasticSearch](https://aws.amazon.com/elasticsearch-service/) and [Postgres](https://aws.amazon.com/rds/)) and services ([Notify](https://www.notifications.service.gov.uk)) where available. Using a container runtime is a continuation of this policy.
+
+GOV.UK has already containerised its development environment ([rfc-106](https://www.github.com/alphagov/govuk-rfcs/106)) and uses production-like containers in the [publishing-e2e-tests](https://github.com/alphagov/publishing-e2e-tests). A container runtime will narrow the gap between development, test and production.
 
 ### Risks of this approach
 
