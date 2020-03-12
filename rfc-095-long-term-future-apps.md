@@ -21,10 +21,7 @@ The purpose of doing this is to make clear:
 | calendars | Serves /bank-holidays and /when-do-the-clocks-change on GOV.UK | Merge into custom frontend |
 | ckanext-datagovuk | Extension for use with datagovuk_publish | Unknown |
 | collections-publisher | Publishes step by steps, /browse pages, and legacy /topic pages on GOV.UK | While topics and browse pages will be removed, this can still be the app for curating collections. We might move Whitehall's document collections into this app |
-<<<<<<< Updated upstream
-=======
 | content-audit-tool | Deprecated application to audit content | Retire, as it's not used. (Update 12 March 2020: Content Audit Tool was retired in January 2020) |
->>>>>>> Stashed changes
 | content-publisher | WIP - Future publisher of content on GOV.UK | Expand to publish most content |
 | datagovuk_find | Beta version of Find Data | Unknown |
 | datagovuk_publish | Beta version of publish data | [Under discussion](https://github.com/alphagov/govuk-rfcs/pull/95#issuecomment-425097037) |
