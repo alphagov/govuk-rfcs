@@ -34,7 +34,7 @@ Non-application concerns (such as deployments, cross application scheduled tasks
 
 ### Benefits of this approach
 
-The most immediate benefit of this approach is that it will allow us to offload upgrades of the host operating system to whomever manages the container runtime, and only have to manage updates to the applications' dependencies within the containers. By using containers to manage application dependencies more tightly, GOV.UK can enable a much lower risk upgrade path.
+The most immediate benefit of this approach is that it will allow us to offload upgrades of the host operating system to whomever manages the container runtime, and only have to manage updates to the applications' dependencies within the containers. By using containers to manage application dependencies more tightly, GOV.UK can enable a much lower risk upgrade path. Future upgrades should be easier to prioritise, because they will be smaller, lower risk pieces of work.
 
 Moving to a container based hosting environment will allow us to remove much of our legacy Puppet and Fabric code. This code is hard to maintain, and hard to hire people with the experience required to improve and upgrade. With industry and government overwhelmingly moving towards container based platforms, it should be much easier to hire people with these skills.
 
@@ -62,6 +62,9 @@ The current migration (lift-and-shift to AWS) has been a complex and challenging
 Focusing on containerisation will mean fewer people will be available to work on improving other parts of the platform.
 
 GOV.UK has a significant amount of infrastructure outside of the applications themselves. In moving to a container based hosting platform, it’s possible that some existing behaviour may be missed, resulting in bugs.
+
+GOV.UK will still need to continuously upgrade some infrastructure dependencies. There is a risk that this work will not be prioritised, leaving GOV.UK with a different set of out-of-date infrastructure in the future. Moving to managed platforms wherever possible helps mitigate this, but there will always be some maintenance work that needs to be prioritised.
+
 ### Risks of not doing this
 
 Choosing not to move to a container runtime will mean that GOV.UK will have to upgrade from Ubuntu Trusty "in place" (i.e. by making significant changes to govuk-puppet). This will require significant effort for limited benefit, and is potentially wasted work as once the upgrade is done GOV.UK will still want to consider if running VMs is the right approach.
