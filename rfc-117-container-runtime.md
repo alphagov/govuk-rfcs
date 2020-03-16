@@ -20,7 +20,7 @@ Running an old operating system is preventing GOV.UK from upgrading key componen
 Upgrading Ubuntu in the existing infrastructure is difficult for a number of reasons, including but not limited to:
 
 - Multiple applications share the operating system of the same virtual machine. This means it’s not easy to upgrade a single application at a time. Furthermore, the way our [Puppet code](http://github.com/alphagov/govuk-puppet/) is written makes supporting virtual machines on different operating systems at the same time hard to support.
-- GOV.UK currently uses upstart as our init system, but newer versions of Ubuntu switch to systemd. This means GOV.UK will need to do a significant rewrite of our init scripts as part of an upgrade.
+- Ubuntu Trusty uses upstart as its init system, but newer versions switch to systemd - this could make some aspects of an upgrade more tricky.
 - Our current version of Puppet is 3.8, which is no longer supported (the current version is 6.13). Support for newer operating system versions is likely to be lacking in unsupported versions of Puppet.
 - Other infrastructure as code tools in use (e.g. [Fabric](https://github.com/alphagov/fabric-scripts)) are also currently using very old versions which are very likely to have problems with newer operating systems.
 
