@@ -83,4 +83,5 @@ GOV.UK will commit to doing these things:
 
 - Completing the current migration to AWS before making any further changes to production as part of this work
 - Investigate the practicalities involved in using different managed, container based hosting environments for GOV.UK (including how difficult will it be to run a hybrid containerised / non-containerised environment)
-- Understand how containerising will affect GOV.UK's build and deployment process, metrics & alerting, and support models.
+- Understand how containerising will affect GOV.UK's build and deployment process, metrics & alerting, and support models
+- Speak to the GOV.UK Pay and GOV.UK Verify teams to learn from their experiences migrating to a container runtime
