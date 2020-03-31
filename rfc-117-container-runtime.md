@@ -36,7 +36,7 @@ Non-application concerns (such as deployments, cross application scheduled tasks
 
 The most immediate benefit of this approach is that it will allow us to offload upgrades of the host operating system to whomever manages the container runtime, and only have to manage updates to the applications' dependencies within the containers. By using containers to manage application dependencies more tightly, GOV.UK can enable a much lower risk upgrade path. Future upgrades should be easier to prioritise, because they will be smaller, lower risk pieces of work.
 
-Moving to a container based hosting environment will allow us to remove much of our legacy Puppet and Fabric code. This code is hard to maintain, and hard to hire people with the experience required to improve and upgrade. With industry and government overwhelmingly moving towards container based platforms, it should be much easier to hire people with these skills.
+Moving to a container based hosting environment will allow us to remove much of our legacy Puppet and Fabric code. This code is hard to maintain, and hard to hire people with the experience required to improve and upgrade. With industry and government overwhelmingly moving towards container based platforms, it should be much easier to hire people with these skills. In addition, removing this legacy code and moving to automated deployments will free up engineers time for improving the platform. We will also have the opportunity to revisit our home grown secrets system.
 
 Containerised hosting environments can generally provide much better value for money in terms of resource usage, both because many small applications can be “bin-packed” onto the same infrastructure, and because it is much easier to autoscale applications.
 
@@ -61,9 +61,13 @@ The current migration (lift-and-shift to AWS) has been a complex and challenging
 
 Focusing on containerisation will mean fewer people will be available to work on improving other parts of the platform.
 
-GOV.UK has a significant amount of infrastructure outside of the applications themselves. In moving to a container based hosting platform, it’s possible that some existing behaviour may be missed, resulting in bugs.
+GOV.UK has a significant amount of infrastructure configured outside of the applications themselves. In moving to a container based hosting platform these externalities will need to be moved to managed services or defined inside applications. It’s possible that some existing behaviour may be missed, resulting in bugs.
 
 GOV.UK will still need to continuously upgrade some infrastructure dependencies. There is a risk that this work will not be prioritised, leaving GOV.UK with a different set of out-of-date infrastructure in the future. Moving to managed platforms wherever possible helps mitigate this, but there will always be some maintenance work that needs to be prioritised.
+
+GOV.UK will need to ensure that all developers are familiar with any new tools we adopt. Knowledge sharing and training will be important to ensure everybody understands the new runtime and is confident to support GOV.UK on 2nd line and when on call.
+
+There is a risk that GOV.UK spends too long analysing our options and producing the perfect plan leaving not enough time to complete the work before April 2022.
 
 ### Risks of not doing this
 
