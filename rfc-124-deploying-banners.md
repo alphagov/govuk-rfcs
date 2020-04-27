@@ -40,27 +40,27 @@ In practice, the emergency banner on GOV.UK, for example, will require the follo
   <esi:include src="/emergency-banner" />
 ```
 1. add an ESI remove tag and ESI comment to provide a fallback on environments where ESI is not available
-```
-  <esi:remove>
-    <%= render "/components/emergency_banner" %>
-  </esi:remove>
-  <!--esi
-  <esi:include src="/emergency-banner" />
-  -->
+```diff
++  <esi:remove>
++    <%= render "/components/emergency_banner" %>
++  </esi:remove>
++  <!--esi
+   <esi:include src="/emergency-banner" />
++  -->
 ```
 1. enable ESI in Fastly via Varnish Configuration Language (VCL)
 1. optional: add extra logic in VCL. Fastly gives us the ability to create custom responses at the edge – called "synthetics" in Varnish terminology – which can be used to include personalised, dynamic information that will be served from the edge instead of origin
 
 ### Pros
-- performance gains (a higher cache-hit ratio, quicker page loads, less traffic spikes)
-- the include fragment will have its own URL and thus independent VCL logic and caching TTLs
-- due to the above, fragments can be purged independently of the main HTML content – this allows banners to roll-out instantly without having to drop the cache of all public-facing applications in GOV.UK
+- improved server-side performance (higher cache-hit ratio, less traffic spikes as the banners cache can be managed in isolation while the main pages don't require to be re-cache)
+- improved client-side performance (quicker page loads as browsers can still use cached page assets after a banner is enabled)
+- the include fragment will have its own URL and thus independent VCL logic and caching TTLs; fragments can be purged independently of the main HTML content – this allows banners to roll-out instantly without having to drop the cache of all public-facing applications in GOV.UK
 - ESI remove can be used to store fallback HTML content (which could be the rendered banner component) and therefore make local development easier and more consistent with production
 
 ### Cons
 - origin must serve top-level page HTML as an uncompressed response (or support content-encoding negotiation) in order for Varnish to be able to do streaming ESI replacement
 - it is also not possible for Varnish to compress the response after ESI processing. Fortunately Fastly has a workaround for this which forces H2O (Fastly’s HTTP terminator and HTTP/2-3 server) to do the streaming compression (which supports both `gzip` and `brotli`). This can easily be enabled via a HTTP response header which is subsequently stripped by H2O. However, as Fastly bills from bytes out of Varnish this would result in you getting billed for the uncompressed bytes instead of the compressed version. We are on a flat fee plan and thus this should not be an issue
-- if ESI is not implemented correctly can make us vulnerable to different attacks (SSRF and XSS)
+- if ESI is not implemented correctly, it could make us vulnerable to different attacks (SSRF and XSS)
 
 What a consistent mechanism to update banners would look like:
 - content changes and enabling/disabling banners should be done in `banners`. This can be initially done through code changes, YAML configuration or rake tasks (similar to the current process for the emergency banner) then potentially improved to be powered by an admin interface.
