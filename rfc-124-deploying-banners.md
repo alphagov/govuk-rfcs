@@ -16,6 +16,9 @@ The information for the non-emergency banner is [hardcoded in a view in `static`
 ### Cookies banner
 The information for the [cookie banner is in the shared components library](https://components.publishing.service.gov.uk/component-guide/cookie_banner). To update the information consistently across the public-facing applications in GOV.UK, a new pull request in the components library must be created with the changes, merged to master then publish a new release of the components library. All the public-facing applications need to be updated to use the latest version of the components library. This update must be deployed across all environments for each application.
 
+### Survey banner
+The information for the survey banner is [hardcoded in a script in static](https://github.com/alphagov/static/blob/master/app/assets/javascripts/surveys.js). To update the information consistently across the public-facing applications in GOV.UK a new pull request must be created with the changes, merged to master, then deployed across all environments. Surveys are currently only available to users with JavaScript enabled and the markup is rendered using [an in-house templating mechanism](https://github.com/alphagov/static/blob/master/app/assets/javascripts/surveys.js#L101-L109). Although it is possible to run multiple surveys simultaneously, we currently only have the main user satisfaction survey enabled, which is visible to 1 in 6 visitors.
+
 ![The current mechanism for deploying banners on GOV.UK](https://docs.google.com/drawings/d/e/2PACX-1vS-vz5bPpGAOhATHYH6hqY5BSR_T-JPSJkuGeneuZKe6Ae8Z4vShcPw-5Im9_OESK1zapFUZX4gNoX4/pub?w=1504&amp;h=909)
 
 The current mechanism for deploying banners on GOV.UK – [view source](https://docs.google.com/drawings/d/1XgSskX5Ufb6BU_PiaIvAHsj7bTARMMgmWlkfOf3f_uA/edit)
