@@ -35,11 +35,13 @@ By having so many open PRs, it becomes difficult to be able to prioritise import
 
 I pulled together [some statistics on our Dependabot usage][dependabot-stats]:
 
+A total of 17,526 PRs have been opened since we started using Dependabot. Of which, 7,378 would be considered external libraries (not security fixes, not our own libraries and not core requirements, for example Rails).
+
 The majority of PRs are merged within a few days (on average 2.5 days). However, the PRs that require manual intervention (for example, failing tests) tend to take a significant amount of time to be merged (on order of months). Because of this talking in terms of averages tends to be less representative of the actual situation, but it can be useful to make comparisons.
 
 The libraries that take the longest time to merge are `acts-as-taggable-on`, `paper_trail`, `rails-controller-testing`, `mini_magick` and `gds-sso`. Our own libraries are merged in on average after 1.5 days, whereas third party libraries are merged in after 4 days.
 
-The most problematic libraries (ones where there is a higher proportion of PRs taking a long time to be merged in) tend to those that are not owned by us and not a core requirement of the app (for example `acts-as-taggable-on`, `paper_trail`, `rails-controller-testing`, `mini_magick` and `excon`.
+The most problematic libraries (ones where there is a higher proportion of PRs taking a long time to be merged in) tend to be those that are not owned by us and not a core requirement of the app (for example `acts-as-taggable-on`, `paper_trail`, `rails-controller-testing`, `mini_magick` and `excon`.
 
 [dependabot-stats]: https://github.com/thomasleese/dependabot-stats
 
@@ -49,6 +51,7 @@ The most problematic libraries (ones where there is a higher proportion of PRs t
 ```
 All PRs
 =======
+Total PRs: 17526
 Mean time to merge: 2 days, 15:35:42.556088
 Max time to merge: 189 days, 5:50:39
 Top 5 longest libraries to merge: acts-as-taggable-on (146 days, 3:40:01), paper_trail (85 days, 7:45:33), rails-controller-testing (84 days, 3:29:26), mini_magick (41 days, 4:15:20), gds-sso (38 days, 17:12:39)
@@ -56,6 +59,7 @@ Top 5 quickest libraries to merge: actionview (0:05:42), miller-columns-element 
 
 Security PRs
 ============
+Total PRs: 675
 Mean time to merge: 1 day, 22:01:29.564444
 Max time to merge: 40 days, 18:54:18
 Top 5 longest libraries to merge: secure_headers (28 days, 4:50:14), doorkeeper (19 days, 7:14:41), excon (15 days, 7:26:22), jquery-rails (13 days, 9:40:30), rack (11 days, 14:55:34)
@@ -63,6 +67,7 @@ Top 5 quickest libraries to merge: json (0:52:52), sprockets (0:38:34), rack-pro
 
 Non-security PRs
 ================
+Total PRs: 16851
 Mean time to merge: 2 days, 16:17:56.279271
 Max time to merge: 189 days, 5:50:39
 Top 5 longest libraries to merge: acts-as-taggable-on (146 days, 3:40:01), paper_trail (85 days, 7:45:33), rails-controller-testing (84 days, 3:29:26), mini_magick (41 days, 4:15:20), excon (41 days, 0:57:48)
@@ -70,6 +75,7 @@ Top 5 quickest libraries to merge: docker-compose (0:12:51), vcr (0:10:44), mill
 
 Security Libraries
 ==================
+Total PRs: 675
 Mean time to merge: 1 day, 22:01:29.564444
 Max time to merge: 40 days, 18:54:18
 Top 5 longest libraries to merge: secure_headers (28 days, 4:50:14), doorkeeper (19 days, 7:14:41), excon (15 days, 7:26:22), jquery-rails (13 days, 9:40:30), rack (11 days, 14:55:34)
@@ -77,6 +83,7 @@ Top 5 quickest libraries to merge: json (0:52:52), sprockets (0:38:34), rack-pro
 
 Internal Libraries
 ==================
+Total PRs: 8528
 Mean time to merge: 1 day, 12:06:12.839822
 Max time to merge: 154 days, 6:12:55
 Top 5 longest libraries to merge: gds-sso (38 days, 17:12:39), govuk_app_config (13 days, 17:41:26), govuk_test (5 days, 0:17:42), plek (2 days, 8:29:52), govspeak (1 day, 9:19:06)
@@ -84,6 +91,7 @@ Top 5 quickest libraries to merge: gds-api-adapters (1 day, 9:03:58), govuk_sche
 
 Framework Libraries
 ===================
+Total PRs: 1013
 Mean time to merge: 5 days, 13:10:44.532083
 Max time to merge: 189 days, 5:50:39
 Top 5 longest libraries to merge: factory_bot_rails (23 days, 4:31:45), sass-rails (13 days, 20:36:55), rails (8 days, 1:23:13.750000), jasmine (4 days, 13:56:06.500000), rspec-rails (1 day, 2:18:37)
