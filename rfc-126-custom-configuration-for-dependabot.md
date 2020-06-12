@@ -205,7 +205,7 @@ The idea is that by auto-merging our PRs, we wouldn't have to spend so much time
 
 #### Limit updates to lockfile
 
-Another option might be to limit Dependabot to only raise PRs against the `Gemfile.lock` file. The lockfile is used to pin a specific version, whereas the `Gemfile` can contain a wider version range (for example `~> 1.0` means `1.0 all the way up to but not including 2.0`).
+Another option might be to limit Dependabot to only raise PRs against the `Gemfile.lock` file. The lockfile is used to pin a specific version, whereas the `Gemfile` can contain a wider version range (for example `~> 1.0` means `1.0 all the way up to but not including 2.0`). The way this would be set up is that Gems we would want to update would have little to no restriction, whereas Gems we'd prefer to be left would have a more precise version specification.
 
 Unfortunately applying this would mean [we lose the security updates that do require an update to the `Gemfile`][dependabot-security-lockfile].
 
