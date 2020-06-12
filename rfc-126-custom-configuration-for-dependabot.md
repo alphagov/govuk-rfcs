@@ -15,11 +15,13 @@ A few solutions have been implemented in the past to make this better:
 - We [allowed merging Dependabot PRs without requiring two approvals][rfc-103].
 - [Sharing the responsibility for Dependabot PRs across multiple times][dependencies-team].
 - We've configured Dependabot to [only update top-level dependencies in some repos][top-level-dependencies].
+- [bulk-merger] was developed to make it easier to review and merge Dependabot PRs in bulk.
 
 [govuk-dependencies]: http://govuk-dependencies.herokuapp.com/
 [rfc-103]: https://github.com/alphagov/govuk-rfcs/blob/master/rfc-103-merge-dependabot-pull-requests-with-a-single-review.md
 [dependencies-team]: https://github.com/alphagov/govuk-developer-docs/pull/2168
 [top-level-dependencies]: https://github.com/alphagov/govuk-rfcs/pull/126#discussion_r439333182
+[bulk-merger]: https://github.com/alphagov/bulk-merger
 
 Although these have made improvements to the process, the number of open PRs remains unmanageable. At the time of writing, there are 135 open PRs, of which there are [8 labelled as security fixes][security-prs], the oldest being 21 days old. Dependabot is currently configured to have at most 5 open PRs per repo, which means this number is not the true number and often new PRs will open the moment existing ones are closed down.
 
@@ -187,7 +189,7 @@ update_configs:
 
 Most of our applications use the same internal and framework libraries, so we'll want a single global configuration across all our apps. At the same time, there might be some libraries used by particular apps which fit within one of the three categories.
 
-Maintaining this file across each of our apps has the potential for it to become out of date with our global configuration. To solve this problem, this RFC proposes that we add functionality to [govuk-saas-config] which ensures the configuration file in each repo is up to date with a single global configuration file. Keeping up to date means ensuring that the individual repo configuration file contains at least the global configuration options plus any extra custom configuration for the app itself.
+Maintaining this file across each of our apps has the potential for it to become out of date with our global configuration. To solve this problem, this RFC proposes that we add functionality to [govuk-saas-config] which ensures the configuration file in each repo is up to date with a single global configuration file. Keeping up to date means ensuring that the individual repo configuration file contains at least the global configuration options plus any extra custom configuration for the app itself. This should allow some apps to include framework libraries that are used by specific apps (for example `sinatra`) but not used wider across all our apps.
 
 Due to the fact that the configuration file is stored in the Git repo, [govuk-saas-config] will need to raise a PR to keep the configuration in sync rather than writing to the repo directly. This is similar to a script we have for [upgrading Ruby].
 
@@ -233,7 +235,7 @@ This would allow us to remove the hardest PRs from updates, but it would require
 
 [dependabot-ignored-updates]: https://dependabot.com/docs/config-file/#ignored_updates
 
-## Consequences and measuring success
+## Consequences, risks and measuring success
 
 Using [the statistics from above](#Statistics), we can make some estimates on what affect this would have had if it had been enabled from the beginning:
 
@@ -241,7 +243,7 @@ Using [the statistics from above](#Statistics), we can make some estimates on wh
 - The mean time to merge would have decreased from almost 3 days to just under 2 days.
 - The ignored libraries alone would have taken on average 3.5 days to merge.
 
-In theory, by limiting the number of libraries that get updated by Dependabot, our applications would end up less up to date. However, by prioritising certain libraries over others, we should end up in a situation where our applications are actually _more_ up to date in the areas we care about (security, frameworks, internal libraries).
+In theory, by limiting the number of libraries that get updated by Dependabot, our applications would end up less up to date. However, by prioritising certain libraries over others, we should end up in a situation where our applications are actually _more_ up to date in the areas we care about (security, frameworks, internal libraries). There is a risk involved in not being able to access new features or fixes from ignored libraries, however the reason the library has been ignored is because we're making little use of it in the app (otherwise it should be a framework library). We can always manually upgrade these libraries when we want to, and that should still be encouraged when doing a major update (for example a Rails upgrade).
 
 We should expect to see the average time for PRs to be merged in (and in particular security PRs) to reduce. We should also expect to see a reduction in the number of open PRs, and also a reduction in the number of deployments.
 
