@@ -152,11 +152,7 @@ update_configs:
       - match: { dependency_name: gds-api-adapters }
       - match: { dependency_name: gds-sso }
       - match: { dependency_name: govspeak }
-      - match: { dependency_name: govuk_app_config }
-      - match: { dependency_name: govuk_publishing_components }
-      - match: { dependency_name: govuk_schemas }
-      - match: { dependency_name: govuk_sidekiq }
-      - match: { dependency_name: govuk_test }
+      - match: { dependency_name: govuk* }
       - match: { dependency_name: rubocop-govuk }
       - match: { dependency_name: plek }
       - match: { dependency_name: scss_lint-govuk }
