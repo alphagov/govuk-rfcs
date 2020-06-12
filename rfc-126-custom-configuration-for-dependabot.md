@@ -241,7 +241,7 @@ Using [the statistics from above](#Statistics), we can make some estimates on wh
 
 - 7378 PRs wouldn't have been raised (10216 rather than the 17526 we've had so far).
 - The mean time to merge would have decreased from almost 3 days to just under 2 days.
-- The ignored libraries take on average 3.5 days to merge.
+- The ignored libraries alone would have taken on average 3.5 days to merge.
 
 In theory, by limiting the number of libraries that get updated by Dependabot, our applications would end up less up to date. However, by prioritising certain libraries over others, we should end up in a situation where our applications are actually _more_ up to date in the areas we care about (security, frameworks, internal libraries).
 
@@ -250,3 +250,5 @@ We should expect to see the average time for PRs to be merged in (and in particu
 A less measurable metric is that we would expect developers to be spending less time fixing issues in Dependabot PRs.
 
 If we see a situation where most days we don't have any new Dependabot PRs, we could think about losening these restrictions and opening up the number of libraries we want to received updates on.
+
+This RFC proposes that we review the situation six months after the deployment of the global Dependabot configuration to ensure that this has made a difference to the workload. This will be achieved by talking to developers and using some updated statistics. This review will be owned by the Platform Health team.
