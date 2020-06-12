@@ -14,10 +14,12 @@ A few solutions have been implemented in the past to make this better:
 - [govuk-dependencies] has a Slack bot which automatically messages in each team's channel with a list of open PRs.
 - We [allowed merging Dependabot PRs without requiring two approvals][rfc-103].
 - [Sharing the responsibility for Dependabot PRs across multiple times][dependencies-team].
+- We've configured Dependabot to [only update top-level dependencies in some repos][top-level-dependencies].
 
 [govuk-dependencies]: http://govuk-dependencies.herokuapp.com/
 [rfc-103]: https://github.com/alphagov/govuk-rfcs/blob/master/rfc-103-merge-dependabot-pull-requests-with-a-single-review.md
 [dependencies-team]: https://github.com/alphagov/govuk-developer-docs/pull/2168
+[top-level-dependencies]: https://github.com/alphagov/govuk-rfcs/pull/126#discussion_r439333182
 
 Although these have made improvements to the process, the number of open PRs remains unmanageable. At the time of writing, there are 135 open PRs, of which there are [8 labelled as security fixes][security-prs], the oldest being 21 days old. Dependabot is currently configured to have at most 5 open PRs per repo, which means this number is not the true number and often new PRs will open the moment existing ones are closed down.
 
@@ -27,7 +29,7 @@ This high number of open PRs is felt particularly hard by the Platform Health te
 
 [application-owners]: https://docs.publishing.service.gov.uk/apps/by-team.html
 
-By having so many open PRs, it becomes difficult to be able to prioritise important updates (bug fixes, security fixes) over new versions which simply adds new features (which our apps don't necessarily use anyway). This leads to important updates being left for long periods of time and our desire to close down all the PRs means developers spend time investigating and fixing complex problems without any benefit.
+By having so many open PRs, it becomes difficult to be able to prioritise important updates (bug fixes, security fixes, internal updates) over new versions which simply adds new features (which our apps don't necessarily use anyway). This leads to important updates being left for long periods of time and our desire to close down all the PRs means developers spend time investigating and fixing complex problems without any benefit.
 
 ### Statistics
 
