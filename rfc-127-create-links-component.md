@@ -14,6 +14,8 @@ There are also certain styles that have been introduced in GOVUK that does not e
 
 <img src="https://raw.githubusercontent.com/alphagov/govuk-rfcs/add-components-link/rfc-127/Screenshot%202020-06-15%20at%2016.37.10.png" />
 
+GOVUK Design system docs on links: https://design-system.service.gov.uk/styles/typography/#links
+
 ## Proposal
 
 Add new hyperlink component into the GOVUK Publishing components.
