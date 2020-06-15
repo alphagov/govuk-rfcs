@@ -41,8 +41,6 @@ A total of 17,526 PRs have been opened since we started using Dependabot. Of whi
 
 The majority of PRs are merged within a few days (on average 2.5 days). However, the PRs that require manual intervention (for example, failing tests) tend to take a significant amount of time to be merged (on order of months). Because of this talking in terms of averages tends to be less representative of the actual situation, but it can be useful to make comparisons.
 
-The libraries that take the longest time to merge are `acts-as-taggable-on`, `paper_trail`, `rails-controller-testing`, `mini_magick` and `gds-sso`. Our own libraries are merged in on average after 1.5 days, whereas third party libraries are merged in after 4 days. The most problematic libraries (ones where there is a higher proportion of PRs taking a long time to be merged in) tend to be those that are not owned by us and not a core requirement of the app (for example `acts-as-taggable-on`, `paper_trail`, `rails-controller-testing`, `mini_magick` and `excon`). There are two potential reasons for this: either we're prioritising our own libraries over others or we're having to spend more time fixing issues in third party libraries compared to our own libraries.
-
 [dependabot-stats]: https://github.com/thomasleese/dependabot-stats
 
 <details>
