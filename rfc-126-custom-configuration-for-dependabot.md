@@ -37,11 +37,15 @@ By having so many open PRs, it becomes difficult to be able to prioritise import
 
 I pulled together [some statistics on our Dependabot usage][dependabot-stats]:
 
-A total of 17,526 PRs have been opened since we started using Dependabot. Of which, 7,378 would be considered external libraries (not security fixes, not our own libraries and not core requirements, for example Rails).
-
-The majority of PRs are merged within a few days (on average 2.5 days). However, the PRs that require manual intervention (for example, failing tests) tend to take a significant amount of time to be merged (on order of months). Because of this talking in terms of averages tends to be less representative of the actual situation, but it can be useful to make comparisons.
+- A total of 17,526 PRs have been opened since we started using Dependabot.
+- 8,528 are from [our own internal libraries][dependabot-stats-internal] (for example `govuk_publishing_components`).
+- 1013 are [core requirements for our apps][dependabot-stats-framework] (for example `rails`).
+- 675 are security fixes.
+- 7,378 are other libraries.
 
 [dependabot-stats]: https://github.com/thomasleese/dependabot-stats
+[dependabot-stats-internal]: https://github.com/thomasleese/dependabot-stats/blob/bf2d5848f99516962c1b3742fd16883f34541c86/dependabot_stats/analyse.py#L125
+[dependabot-stats-framework]: https://github.com/thomasleese/dependabot-stats/blob/bf2d5848f99516962c1b3742fd16883f34541c86/dependabot_stats/analyse.py#L126
 
 <details>
     <summary>Full results</summary>
@@ -236,17 +240,13 @@ This would allow us to remove the hardest PRs from updates, but it would require
 
 ## Consequences, risks and measuring success
 
-Using [the statistics from above](#Statistics), we can make some estimates on what affect this would have had if it had been enabled from the beginning:
-
-- 7378 PRs wouldn't have been raised (10216 rather than the 17526 we've had so far).
-- The mean time to merge would have decreased from almost 3 days to just under 2 days.
-- The ignored libraries alone would have taken on average 3.5 days to merge.
+Using [the statistics from above](#Statistics), we can make some estimates on what affect this would have had if it had been enabled from the beginning: 7378 PRs wouldn't have been raised (10216 rather than the 17526 we've had so far).
 
 In theory, by limiting the number of libraries that get updated by Dependabot, our applications would end up less up to date. However, by prioritising certain libraries over others, we should end up in a situation where our applications are actually _more_ up to date in the areas we care about (security, frameworks, internal libraries). There is a risk involved in not being able to access new features or fixes from ignored libraries, however the reason the library has been ignored is because we're making little use of it in the app (otherwise it should be a framework library). We can always manually upgrade these libraries when we want to, and that should still be encouraged when doing a major update (for example a Rails upgrade).
 
 Another potential risk is that people find the global configuration confusing if it contains libraries not relevant to the app. This may lead to people editing the config and then it being reset the next day. One way to mitigate this would be to add an explanatory comment to the file.
 
-We should expect to see the average time for PRs to be merged in (and in particular security PRs) to reduce. We should also expect to see a reduction in the number of open PRs, and also a reduction in the number of deployments.
+We should also expect to see a reduction in the number of open PRs, and also a reduction in the number of deployments.
 
 A less measurable metric is that we would expect developers to be spending less time fixing issues in Dependabot PRs.
 
