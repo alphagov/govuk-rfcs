@@ -167,7 +167,7 @@ update_configs:
       - match: { dependency_name: plek }
       - match: { dependency_name: scss_lint-govuk }
       # Framework gems
-      - match: { dependency_name: factory_bot_rails }
+      - match: { dependency_name: factory_bot }
       - match: { dependency_name: jasmine }
       - match: { dependency_name: rails }
       - match: { dependency_name: rspec }
