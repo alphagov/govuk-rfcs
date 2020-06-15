@@ -10,7 +10,7 @@ Links styles across GOVUK are not consistent and often security factors are not 
 
 There are also certain styles that have been introduced in GOVUK that does not exist in the GOVUK Frontend Design system.
 
-[Image of destructive link on Content publisher]
+<img src="https://raw.githubusercontent.com/alphagov/govuk-rfcs/add-components-link/rfc-127/Screenshot%202020-06-15%20at%2016.37.10.png" />
 
 ## Proposal
 
