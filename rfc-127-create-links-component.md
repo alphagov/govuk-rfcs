@@ -20,3 +20,10 @@ The component should include:
 - GOVUK Design system styles
 - Security attributes for using different types of links
 - Different types of link such as: Destructive, Inverse etc.
+
+### Implementation plan
+
+1. Create component
+2. Start using new component going forward for all links
+3. Decline any new PRs which do not use the component
+4. Migrate all links within applications to use component
