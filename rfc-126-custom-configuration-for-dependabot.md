@@ -170,6 +170,7 @@ update_configs:
       - match: { dependency_name: factory_bot_rails }
       - match: { dependency_name: jasmine }
       - match: { dependency_name: rails }
+      - match: { dependency_name: rspec }
       - match: { dependency_name: rspec-rails }
       - match: { dependency_name: sass-rails }
   - package_manager: javascript
@@ -189,7 +190,7 @@ update_configs:
 
 Most of our applications use the same internal and framework libraries, so we'll want a single global configuration across all our apps. At the same time, there might be some libraries used by particular apps which fit within one of the three categories.
 
-Maintaining this file across each of our apps has the potential for it to become out of date with our global configuration. To solve this problem, this RFC proposes that we add functionality to [govuk-saas-config] which ensures the configuration file in each repo is up to date with a single global configuration file. Keeping up to date means ensuring that the individual repo configuration file contains at least the global configuration options plus any extra custom configuration for the app itself. This should allow some apps to include framework libraries that are used by specific apps (for example `sinatra`) but not used wider across all our apps.
+Maintaining this file across each of our apps has the potential for it to become out of date with our global configuration. To solve this problem, this RFC proposes that we add functionality to [govuk-saas-config] which ensures the configuration file in each repo is up to date with a single global configuration file. Keeping up to date means ensuring that the individual repo configuration file contains at least the global configuration options plus any extra framework libraries that are used by specific apps (for example `sinatra`) but not used wider across all our apps.
 
 Due to the fact that the configuration file is stored in the Git repo, [govuk-saas-config] will need to raise a PR to keep the configuration in sync rather than writing to the repo directly. This is similar to a script we have for [upgrading Ruby].
 
@@ -244,6 +245,8 @@ Using [the statistics from above](#Statistics), we can make some estimates on wh
 - The ignored libraries alone would have taken on average 3.5 days to merge.
 
 In theory, by limiting the number of libraries that get updated by Dependabot, our applications would end up less up to date. However, by prioritising certain libraries over others, we should end up in a situation where our applications are actually _more_ up to date in the areas we care about (security, frameworks, internal libraries). There is a risk involved in not being able to access new features or fixes from ignored libraries, however the reason the library has been ignored is because we're making little use of it in the app (otherwise it should be a framework library). We can always manually upgrade these libraries when we want to, and that should still be encouraged when doing a major update (for example a Rails upgrade).
+
+Another potential risk is that people find the global configuration confusing if it contains libraries not relevant to the app. This may lead to people editing the config and then it being reset the next day. One way to mitigate this would be to add an explanatory comment to the file.
 
 We should expect to see the average time for PRs to be merged in (and in particular security PRs) to reduce. We should also expect to see a reduction in the number of open PRs, and also a reduction in the number of deployments.
 
