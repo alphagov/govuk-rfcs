@@ -8,7 +8,7 @@ Create a HTML hyperlink component to standardise the use of links within GOVUK.
 
 Links styles across GOVUK are not consistent and often security factors are not considered when using links within GOVUK. This is often due to the lack of frontend developers available in teams. 
 
-Sometimes security issues are not known by Developers and fixing them across multiple applications can add a lot of techincal debt - one recent example is the `target="_blank"` vulnerbility (https://www.manjuladube.dev/target-blank-security-vulnerability). Use of `target="_blank"` can be seen here: https://github.com/search?q=org%3Aalphagov+%27target%3D%22_blank%22%27&type=Code
+Sometimes security issues are not known by Developers and fixing them across multiple applications can add a lot of techincal debt - one recent example is the `target="_blank"` vulnerability (https://www.manjuladube.dev/target-blank-security-vulnerability). Use of `target="_blank"` can be seen here: https://github.com/search?q=org%3Aalphagov+%27target%3D%22_blank%22%27&type=Code
 
 There are also certain styles that have been introduced in GOVUK that does not exist in the GOVUK Frontend Design system.
 
