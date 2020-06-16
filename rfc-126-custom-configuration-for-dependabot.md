@@ -13,7 +13,7 @@ A few solutions have been implemented in the past to make this better:
 - [govuk-dependencies] shows the list of open PRs grouped by application, team or gem.
 - [govuk-dependencies] has a Slack bot which automatically messages in each team's channel with a list of open PRs.
 - We [allowed merging Dependabot PRs without requiring two approvals][rfc-103].
-- [Sharing the responsibility for Dependabot PRs across multiple times][dependencies-team].
+- [Sharing the responsibility for Dependabot PRs across multiple teams][dependencies-team].
 - We've configured Dependabot to [only update top-level dependencies in some repos][top-level-dependencies].
 - [bulk-merger] was developed to make it easier to review and merge Dependabot PRs in bulk.
 
