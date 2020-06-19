@@ -188,16 +188,11 @@ update_configs:
       - match: { dependency_name: paste-html-to-govspeak }
 ```
 
-### Keeping the configuration up to date
+### Customisation
 
-Most of our applications use the same internal and framework libraries, so we'll want a single global configuration across all our apps. At the same time, there might be some libraries used by particular apps which fit within one of the three categories.
+The majority of our applications have similar dependencies, but there are a few which use different libraries that we would want to be included in the list of allowed updates (for example `sinatra`). To support this, the example configuration above is a good starting point, but it can be tailored for the application. This also helps to support applications we've written in a different language to Ruby (for example Python).
 
-Maintaining this file across each of our apps has the potential for it to become out of date with our global configuration. To solve this problem, this RFC proposes that we add functionality to [govuk-saas-config] which ensures the configuration file in each repo is up to date with a single global configuration file. Keeping up to date means ensuring that the individual repo configuration file contains at least the global configuration options plus any extra framework libraries that are used by specific apps (for example `sinatra`) but not used wider across all our apps.
-
-Due to the fact that the configuration file is stored in the Git repo, [govuk-saas-config] will need to raise a PR to keep the configuration in sync rather than writing to the repo directly. This is similar to a script we have for [upgrading Ruby].
-
-[govuk-saas-config]: https://github.com/alphagov/govuk-saas-config
-[upgrading Ruby]: https://github.com/thomasleese/upgrade-ruby-version/blob/7d43077a10c732fc285e0bd6daad2d2c5740e352/main.py#L203-L207
+Although we allow customisation of the configuration, the rules around the three categories of dependencies should be followed to ensure the configuration is consistent and understandable across all our repos. It also makes it easier to audit the configuration in the future, as each allowed update comes with a specific clear reason why it should be there.
 
 ### Possible alternatives
 
@@ -240,16 +235,35 @@ This would allow us to remove the hardest PRs from updates, but it would require
 
 ## Consequences, risks and measuring success
 
+### Workload
+
 Using [the statistics from above](#Statistics), we can make some estimates on what affect this would have had if it had been enabled from the beginning: 7378 PRs wouldn't have been raised (10216 rather than the 17526 we've had so far).
-
-In theory, by limiting the number of libraries that get updated by Dependabot, our applications would end up less up to date. However, by prioritising certain libraries over others, we should end up in a situation where our applications are actually _more_ up to date in the areas we care about (security, frameworks, internal libraries). There is a risk involved in not being able to access new features or fixes from ignored libraries, however the reason the library has been ignored is because we're making little use of it in the app (otherwise it should be a framework library). We can always manually upgrade these libraries when we want to, and that should still be encouraged when doing a major update (for example a Rails upgrade).
-
-Another potential risk is that people find the global configuration confusing if it contains libraries not relevant to the app. This may lead to people editing the config and then it being reset the next day. One way to mitigate this would be to add an explanatory comment to the file.
 
 We should also expect to see a reduction in the number of open PRs, and also a reduction in the number of deployments.
 
 A less measurable metric is that we would expect developers to be spending less time fixing issues in Dependabot PRs.
 
-If we see a situation where most days we don't have any new Dependabot PRs, we could think about losening these restrictions and opening up the number of libraries we want to received updates on.
+### Out of date libraries
 
-This RFC proposes that we review the situation six months after the deployment of the global Dependabot configuration to ensure that this has made a difference to the workload. This will be achieved by talking to developers and using some updated statistics. This review will be owned by the Platform Health team.
+In theory, by limiting the number of libraries that get updated by Dependabot, our applications would end up less up to date. However, by prioritising certain libraries over others, we should end up in a situation where our applications are actually _more_ up to date in the areas we care about (security, frameworks, internal libraries). There is a risk involved in not being able to access new features or fixes from ignored libraries, however the reason the library has been ignored is because we're making little use of it in the app (otherwise it should be a framework library). We can always manually upgrade these libraries when we want to, and that should still be encouraged when doing a major update (for example a Rails upgrade).
+
+### Inconsistent configuration
+
+This RFC allows repos to fully customise the configuration, ensuring that it's tailored towards the needs of the application. This works for our apps which are more bespoke, however the majority of our applications use a similar set of libraries (most notably Rails and Rspec). There is potential for the configuration between different apps to become inconsistent, however we anticipate that dependency changes don't happen often enough for this to be a problem.
+
+The original version of this RFC mandated a system that would keep the individual configuration files with a global configuration file up to date automatically. This is included below should we decide to go down this route in the future if we discover that updating the configuration files manually takes too much work:
+
+> Maintaining this file across each of our apps has the potential for it to become out of date with our global configuration. To solve this problem, this RFC proposes that we add functionality to [govuk-saas-config] which ensures the configuration file in each repo is up to date with a single global configuration file. Keeping up to date means ensuring that the individual repo configuration file contains at least the global configuration options plus any extra framework libraries that are used by specific apps (for example `sinatra`) but not used wider across all our apps.
+
+> Due to the fact that the configuration file is stored in the Git repo, [govuk-saas-config] will need to raise a PR to keep the configuration in sync rather than writing to the repo directly. This is similar to a script we have for [upgrading Ruby].
+
+[govuk-saas-config]: https://github.com/alphagov/govuk-saas-config
+[upgrading Ruby]: https://github.com/thomasleese/upgrade-ruby-version/blob/7d43077a10c732fc285e0bd6daad2d2c5740e352/main.py#L203-L207
+
+### Review period
+
+To ensure that we're confident this RFC has had a positive impact on our dependency management propose, we propose a six month review once the configuration file has been deployed to all our apps.
+
+The review will look to understand whether we've had a reduction in workflow as anticipated and whether the process of manually maintaining the configuration files is workable. This will be achieved by talking to developers and using some updated statistics. This review will be owned by the Platform Health team.
+
+If we see a situation where most days we don't have any new Dependabot PRs, we could think about losening these restrictions and opening up the number of libraries we want to received updates on.
