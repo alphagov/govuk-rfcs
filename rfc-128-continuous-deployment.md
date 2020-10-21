@@ -2,9 +2,11 @@
 
 ## Summary
 
-Merging a PR for an application repo will trigger an automatic deployment of the change to the GOV.UK Production environment, after it passes pre-production safety checks.
+In [RFC 70](https://github.com/alphagov/govuk-rfcs/blob/master/rfc-070-path-towards-continuous-deployment-cd.md#proposal) we committed to fully automatic deployments. The following provides a framework for how we will actually achieve this for all of our existing apps.
 
-An audit of compatibility for each of our apps can be found in [Appendix A: Compatibility](rfc-128/compatibility.md).
+Decision: in order to safely enable automatic deployments for each app, we will specify minimum criteria that must first be met. See the criteria described [below](#safety-concerns).
+
+An audit of our apps against these criteria can be found in [Appendix A: Compatibility](rfc-128/compatibility.md).
 
 ## Problem
 
@@ -130,13 +132,12 @@ With this in mind, an app has "enough" of these tests when:
 - It has a test that checks for connectivity to any read/write dependencies:
 
   - Databases e.g. MongoDB, Postgres, MySQL, Redis
-  - Queueing systems e.g. RabbitMQ
   - File systems e.g. AWS S3
   - Caching systems e.g. Memcached
 
 > Example: [Travel Advice Publisher](https://github.com/alphagov/travel-advice-publisher) has enough of these tests because it has one to check login with Signon [[1](https://github.com/alphagov/smokey/blob/a60df2cde5c886fa6d54e8cd820d90facca89e8e/features/publishing_tools.feature#L106)] and another to check its `/healthcheck` endpoint for connectivity to Redis and MongoDB [[1](https://github.com/alphagov/smokey/blob/a60df2cde5c886fa6d54e8cd820d90facca89e8e/features/travel_advice_publisher.feature)] [[2](https://github.com/alphagov/travel-advice-publisher/pull/979)].
 
-> **Services are special.** We cannot make a request to a service, as it has no web interface. Instead, we will need infer the service is running indirectly, using metrics sent to Graphite in response to [a regular heartbeat](https://github.com/alphagov/publishing-api/blob/a4a054b768b7c98fcd1448f74fe6e975ab69bb2f/config/schedule.rb#L10).
+> **Services are special.** We cannot make a request to a service, as it has no web interface. Instead, we will update [the deployment script for each service app](https://github.com/alphagov/govuk-app-deployment/blob/efc730f0f101b2e457abc48cbab67982728a8c93/email-alert-service/config/deploy.rb) to check the process is running after the app is restarted.
 
 ### Security concerns
 
@@ -219,3 +220,9 @@ So that we cover the entire deployment pipeline, we will also update [the `Deplo
 ### Delete [publishing-e2e-tests](https://github.com/alphagov/publishing-e2e-tests)
 
 These sandboxed E2E tests are only run for the apps affected by this RFC, but do not form part of the new safety criteria for automatically deploying them. In other words, they become superfluous, yet their maintenance cost is very high. They can be safely deleted once automatic deployments are enabled for [all of the supported apps](https://github.com/alphagov/publishing-e2e-tests/blob/8412c23c5907a41a3d8b2c9dcd52d4905b139e32/docker-compose.yml).
+
+### Healthy deployments
+
+The original implementation of the CD pipeline resulted in [a new set of `/healthcheck` tests in Smokey](https://github.com/alphagov/smokey/pull/731), in addition to checking them with [an Icinga alert on each machine](https://github.com/alphagov/govuk-puppet/blob/5652ffd21b4dc1bad0baa5254f1baa810a1685a8/modules/govuk/manifests/app/config.pp#L308). It's still impractical to use Icinga as part of the CD pipeline: the alerts are checked asynchronously and the names are unstable. Some duplication is therefore inevitable.
+
+An alternative to individual Smokey tests is to make calling the `/healthcheck` endpoint part of the ["Deploy_App" job](https://github.com/alphagov/govuk-puppet/blob/5652ffd21b4dc1bad0baa5254f1baa810a1685a8/modules/govuk_jenkins/templates/jobs/deploy_app.yaml.erb), such that it would fail if the healthcheck fails. We will investigate this approach as a way to DRY up the Smokey tests, in parallel with enabling automatic deployments for our apps.

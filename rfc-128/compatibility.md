@@ -23,8 +23,7 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - Code coverage is 98% [[1](https://github.com/alphagov/bouncer/pull/264)].
 
 - ❌ [cache-clearing-service](https://github.com/alphagov/cache-clearing-service)
-  - ⚠ Missing Smoke test for healthcheck:
-    - Missing check for connectivity to RabbitMQ [[1](https://github.com/alphagov/cache-clearing-service/blob/b138044b4e3e28351060864afe4009d69daacc74/lib/tasks/message_queue.rake#L4)].
+  - ⚠ Missing Smoke test for the app running
   - Code coverage is 99% [[1](https://github.com/alphagov/cache-clearing-service/pull/321)].
 
 - ❌ ckan ([ckanext-datagovuk](https://github.com/alphagov/ckanext-datagovuk))
@@ -61,7 +60,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/content-data-api/blob/53c43dff1850ba95ca85bdef3ee67c0a72b391a5/config/routes.rb#L16)]:
     - Check for connectivity to Postgres.
     - Check for connectivity to Redis.
-    - Missing check for connectivity to RabbitMQ [[1](https://github.com/alphagov/content-data-api/blob/53c43dff1850ba95ca85bdef3ee67c0a72b391a5/lib/tasks/publishing_api_consumer.rake#L4)].
   - APIs only have a single live consumer: Content Data Admin [[1](e2e-interactions.md)].
   - Code coverage is 96% [[1](https://github.com/alphagov/content-data-api/pull/1534)].
 
@@ -102,7 +100,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
 
 - ❌ [email-alert-service](https://github.com/alphagov/email-alert-service)
   - ⚠ Missing Smoke test for healthcheck:
-    - Missing check for connectivity to RabbitMQ [[1](https://github.com/alphagov/email-alert-service/blob/0198b29b914bafabc3baf25e1ae1f2e42ec5f3eb/lib/tasks/message_queues.rake#L12)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/email-alert-service/blob/bb686bc7ac86435164946a9751a7c893ff6ff3e1/email_alert_service/models/lock_handler.rb#L96)].
   - Code coverage is 98% [[1](https://github.com/alphagov/email-alert-service/pull/398)].
 
@@ -131,7 +128,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
 
 - ❌ [govuk_crawler_worker](https://github.com/alphagov/govuk_crawler_worker)
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/govuk_crawler_worker/blob/a5a0ded96e899caec285eda412544cb279817b64/main.go#L148)]:
-    - Check for connectivity to RabbitMQ.
     - Check for connectivity to Redis.
   - ⚠ Code coverage unknown [[1](https://github.com/alphagov/router/pull/161#discussion_r503235260)].
 
@@ -213,7 +209,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/smokey/blob/a79d996ef2756313855f1dcbacc85cb5b93a51ef/features/publishing_api.feature)]:
     - Check for connectivity to Postgres.
     - Check for connectivity to Redis.
-    - Missing check for connectivity to RabbitMQ [[1](https://github.com/alphagov/publishing-api/blob/b514ee3ce3934a8bdf3c377235de24205be2a5ec/config/initializers/services.rb#L37)].
   - ⚠ Missing contract tests for e.g. expanded links [[1](https://github.com/alphagov/publisher/blob/ebbaee15f760087ce2b735f75d7c15ca58b73742/app/lib/tagging/link_set.rb#L6)] [[2](https://github.com/alphagov/whitehall/blob/fe3b0e3a76959ca1326748bf116104828f790b67/app/models/document/needs.rb#L35)].
   - ⚠ Code coverage is 90% [[1](https://github.com/alphagov/publishing-api/pull/1848)].
 
@@ -240,7 +235,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
     - Check for connectivity to Elasticsearch.
     - Check for connectivity to Redis.
     - Check for connectivity to Tensorflow.
-    - Missing check for connectivity to RabbitMQ [[1](https://github.com/alphagov/search-api/blob/1e7205c40eca1e57403ff4820f565740a75e112b/lib/tasks/message_queue.rake)].
     - Missing check for connectivity to AWS S3 [[1](https://github.com/alphagov/search-api/blob/1e7205c40eca1e57403ff4820f565740a75e112b/lib/rummager/app.rb#L331)].
   - ⚠ Missing contract tests for search [[1](https://github.com/alphagov/finder-frontend/blob/80e265c3b6be25e42a4108480d698bdd60f19642/app/lib/registries/people_registry.rb#L46)] [[2](https://github.com/alphagov/collections/blob/7bc125e5670ecba7b85a3918c8b02d339b0368d9/lib/services.rb#L20)].
   - ⚠ Code coverage is 92% [[1](https://github.com/alphagov/search-api/pull/2182)].
