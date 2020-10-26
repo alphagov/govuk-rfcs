@@ -93,8 +93,6 @@ For the purpose of automating deployments:
 
 - We should always have tests for the majority of the functionality of an app. Since this is not easy to determine across languages [[1](https://github.com/simplecov-ruby/simplecov/issues/38)], we will use Ruby code coverage as the main indicator of thorough testing.
 
-- We will require a minimum level of coverage that is realistic for all of our apps. We will not pursue this once CD is enabled, as doing so could encourage [a lack of rigour in the way we write our tests](https://jeroenmols.com/blog/2017/11/28/coveragproblem/).
-
 - We will not check coverage of periphery code e.g. CSS, JavaScript. This is because it has a low footprint in our codebases, and it's hard to measure coverage for: the frameworks we use don't support it.
 
 An app has "enough" of these tests when:
@@ -235,3 +233,9 @@ We will add documentation to [Smokey](https://github.com/alphagov/smokey) to exp
 
 - As a way to test for problems due to changes in infrastructure.
 - As a "backup" layer of testing for changes to individual apps.
+
+### Better longterm testing
+
+In order to meet the safety criteria in this RFC, we will need to improve the tests we have around many of our apps. Once we have enabled automatic deployments, there is a risk the tests will degrade over time.
+
+To help prevent this, we will write new a new manual in [GOV.UK Developer Docs](https://github.com/alphagov/govuk-developer-docs), which will specify the safety criteria in this RFC as the new minimum level of testing for GOV.UK apps. This means that, in addition to meeting these criteria for the purpose of enabling automatic deployments, we will commit to upholding them on an ongoing basis. It is out-of-scope for this RFC to resolve how we will uphold this commitment once we have made it.
