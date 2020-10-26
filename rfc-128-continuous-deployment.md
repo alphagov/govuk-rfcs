@@ -115,7 +115,7 @@ With this in mind, an API app has "enough" of these tests when:
 
 > Example: [Asset Manager](https://github.com/alphagov/asset-manager) is missing contract tests because multiple apps use it to create [[1](https://github.com/alphagov/content-publisher/blob/0c757447ca2aad3621f11c99fe8307a718ade186/app/services/preview_asset_service.rb#L29)] [[2](https://github.com/alphagov/specialist-publisher/blob/8debeb2f0147142c87f22308d57fe4f6dd0c1297/app/models/attachment.rb#L49)] assets, among other APIs. Conversely, no [Support API](https://github.com/alphagov/support-api) endpoints are used by more than one GOV.UK app [[1](https://github.com/alphagov/support-api/tree/75540575ae11095bb8d4736490abdc9927049aaf#technical-documentation)].
 
-#### Check: Smoke tests pass (i.e. the app runs in a production environment)
+#### Check: App is healthy (i.e. it can run in a production environment)
 
 For the purpose of automating deployments:
 
@@ -138,6 +138,12 @@ With this in mind, an app has "enough" of these tests when:
 > Example: [Travel Advice Publisher](https://github.com/alphagov/travel-advice-publisher) has enough of these tests because it has one to check login with Signon [[1](https://github.com/alphagov/smokey/blob/a60df2cde5c886fa6d54e8cd820d90facca89e8e/features/publishing_tools.feature#L106)] and another to check its `/healthcheck` endpoint for connectivity to Redis and MongoDB [[1](https://github.com/alphagov/smokey/blob/a60df2cde5c886fa6d54e8cd820d90facca89e8e/features/travel_advice_publisher.feature)] [[2](https://github.com/alphagov/travel-advice-publisher/pull/979)].
 
 > **Services are special.** We cannot make a request to a service, as it has no web interface. Instead, we will update [the deployment script for each service app](https://github.com/alphagov/govuk-app-deployment/blob/efc730f0f101b2e457abc48cbab67982728a8c93/email-alert-service/config/deploy.rb) to check the process is running after the app is restarted.
+
+#### Check: Smoke test pass (i.e. double check critical features work)
+
+For the purpose of automating deployments, we do not strictly _need_ Smoke tests for arbitrary features of an app: in theory, they are replaced by the other checks described here. However, this assumes perfect testing.
+
+We can think of our Smoke tests as a "backup" or "secondary" layer of testing for features we have previously deemed to be critical. We will therefore check all existing Smoke tests pass, where they are relevant to an app.
 
 ### Security concerns
 
@@ -222,3 +228,10 @@ We will add a deprecation notice to the repo.
 The original implementation of the CD pipeline resulted in [a new set of `/healthcheck` tests in Smokey](https://github.com/alphagov/smokey/pull/731), in addition to checking them with [an Icinga alert on each machine](https://github.com/alphagov/govuk-puppet/blob/5652ffd21b4dc1bad0baa5254f1baa810a1685a8/modules/govuk/manifests/app/config.pp#L308). It's still impractical to use Icinga as part of the CD pipeline: the alerts are checked asynchronously and the names are unstable. Some duplication is therefore inevitable.
 
 An alternative to individual Smokey tests is to make calling the `/healthcheck` endpoint part of the ["Deploy_App" job](https://github.com/alphagov/govuk-puppet/blob/5652ffd21b4dc1bad0baa5254f1baa810a1685a8/modules/govuk_jenkins/templates/jobs/deploy_app.yaml.erb), such that it would fail if the healthcheck fails. We will investigate this approach as a way to DRY up the Smokey tests, in parallel with enabling automatic deployments for our apps.
+
+### Explainable Smoke tests
+
+We will add documentation to [Smokey](https://github.com/alphagov/smokey) to explain that the tests it contains should be limited to features we have deemed to be critical to the users of GOV.UK, and therefore exist:
+
+- As a way to test for problems due to changes in infrastructure.
+- As a "backup" layer of testing for changes to individual apps.
