@@ -211,12 +211,6 @@ The following steps must be taken as part of enabling automatic deployments:
 
 > **We can be flexible with coverage**. We can defer adding internal repo tests if the code has no impact on the running app e.g. rake tasks [[1](https://github.com/alphagov/email-alert-api/blob/59fc71a58317ef2998f2c0ef102020da3ca9df96/lib/tasks/support.rake)]. But we should not defer removing any unused code.
 
-### Slack notifications
-
-We need to ensure we are notified about a failure in the automation, so that the automation is no worse than the current, manual process. This has already been done for the `Deploy_App_Downstream` job [[1](https://github.com/alphagov/govuk-puppet/pull/10532)] [[2](https://github.com/alphagov/govuk-puppet/pull/10601)].
-
-So that we cover the entire deployment pipeline, we will also update [the `Deploy_App` job](https://github.com/alphagov/govuk-puppet/blob/f57335f6027487b5b2d2205a35ceb411776f09ce/modules/govuk_jenkins/templates/jobs/deploy_app.yaml.erb) to post a Slack message in the #govuk-developers Slack channel, whenever it fails due to an unexpected error.
-
 ### Delete [publishing-e2e-tests](https://github.com/alphagov/publishing-e2e-tests)
 
 These sandboxed E2E tests are only run for the apps affected by this RFC, but do not form part of the new safety criteria for automatically deploying them. In other words, they become superfluous, yet their maintenance cost is very high. They can be safely deleted once automatic deployments are enabled for [all of the supported apps](https://github.com/alphagov/publishing-e2e-tests/blob/8412c23c5907a41a3d8b2c9dcd52d4905b139e32/docker-compose.yml).
