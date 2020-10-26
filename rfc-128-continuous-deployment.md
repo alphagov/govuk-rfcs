@@ -213,7 +213,9 @@ The following steps must be taken as part of enabling automatic deployments:
 
 ### Delete [publishing-e2e-tests](https://github.com/alphagov/publishing-e2e-tests)
 
-These sandboxed E2E tests are only run for the apps affected by this RFC, but do not form part of the new safety criteria for automatically deploying them. In other words, they become superfluous, yet their maintenance cost is very high. They can be safely deleted once automatic deployments are enabled for [all of the supported apps](https://github.com/alphagov/publishing-e2e-tests/blob/8412c23c5907a41a3d8b2c9dcd52d4905b139e32/docker-compose.yml).
+These sandboxed E2E tests are only run for the apps affected by this RFC, but do not form part of the new safety criteria for automatically deploying them. In other words, they become superfluous, yet their maintenance cost is very high. They, along with all of their associated infrastructure [[1](https://github.com/alphagov/email-alert-api/blob/0b87e62288ddb1653451f84e1f36e17ce4e8e9dc/Dockerfile)] [[2](https://github.com/alphagov/govuk-app-deployment/blob/58fcfab4262da0ba06a568dd5e9bbd76be2f4f62/lib/docker_tag_pusher.rb)], can be safely deleted once automatic deployments are enabled for [all of the supported apps](https://github.com/alphagov/publishing-e2e-tests/blob/8412c23c5907a41a3d8b2c9dcd52d4905b139e32/docker-compose.yml). For now, they should be seen as deprecated.
+
+We will add a deprecation notice to the repo.
 
 ### Healthy deployments
 
