@@ -91,7 +91,7 @@ However, we also want to ensure that a faulty PR merged in haste can be caught b
 
 For the purpose of automating deployments:
 
-- We will use code coverage as our indicator of previous, thorough testing. While an app may have a [rigorous testing strategy](https://github.com/alphagov/content-publisher/blob/69bed3535de1e65bda9d5909a3bc56a319e46576/docs/testing-strategy.md), it's hard to know if this has been applied consistently as the app has evolved.
+- We should always have tests for the majority of the functionality of an app. Since this is not easy to determine across languages [[1](https://github.com/simplecov-ruby/simplecov/issues/38)], we will use Ruby code coverage as the main indicator of thorough testing.
 
 - We will require a minimum level of coverage that is realistic for all of our apps. We will not pursue this once CD is enabled, as doing so could encourage [a lack of rigour in the way we write our tests](https://jeroenmols.com/blog/2017/11/28/coveragproblem/).
 
