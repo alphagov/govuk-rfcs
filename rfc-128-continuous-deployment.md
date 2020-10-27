@@ -121,19 +121,18 @@ For the purpose of automating deployments:
 
 - We need to test that an app can connect to any systems it uses for data storage and retrieval, such as a database. This usually has production-specific config [[1](https://github.com/alphagov/email-alert-api/blob/1b5f59f3927637afb0c790702f8f0050788edc9d/config/database.yml#L22)] [[2](https://github.com/alphagov/content-store/blob/f4b61d4f2756341b6418085d878ec83b09d70e9c/config/mongoid.yml#L23)] [[3](https://github.com/alphagov/content-publisher/blob/944fe51b4cb8205348e155b965b8bad57adcf4fe/config/storage.yml#L5)], which could be faulty.
 
-- We do not need to test connectivity to other GOV.UK apps, since this should be handled by [our internal API adapters](https://github.com/alphagov/gds-api-adapters/blob/1ceba690edb37295257328d953874224833fcd5e/lib/gds_api.rb) with no configuration inside the repo. An exception to this is [authentication with Signon](https://github.com/alphagov/email-alert-api/blob/1b5f59f3927637afb0c790702f8f0050788edc9d/config/initializers/gds_sso.rb).
+- We do not need to test connectivity to other GOV.UK apps, since this should be handled by [our internal API adapters](https://github.com/alphagov/gds-api-adapters/blob/1ceba690edb37295257328d953874224833fcd5e/lib/gds_api.rb) and [our SSO library](https://github.com/alphagov/gds-sso/pull/241), with little or no configuration inside the repo.
 
 With this in mind, an app has "enough" of these tests when:
 
 - It has a test that checks for a successful response to an arbitrary request.
-- It has a test that checks for a successful login with Signon (if applicable).
 - It has a test that checks for connectivity to any read/write dependencies:
 
   - Databases e.g. MongoDB, Postgres, MySQL, Redis
   - File systems e.g. AWS S3
   - Caching systems e.g. Memcached
 
-> Example: [Travel Advice Publisher](https://github.com/alphagov/travel-advice-publisher) has enough of these tests because it has one to check login with Signon [[1](https://github.com/alphagov/smokey/blob/a60df2cde5c886fa6d54e8cd820d90facca89e8e/features/publishing_tools.feature#L106)] and another to check its `/healthcheck` endpoint for connectivity to Redis and MongoDB [[1](https://github.com/alphagov/smokey/blob/a60df2cde5c886fa6d54e8cd820d90facca89e8e/features/travel_advice_publisher.feature)] [[2](https://github.com/alphagov/travel-advice-publisher/pull/979)].
+> Example: [Travel Advice Publisher](https://github.com/alphagov/travel-advice-publisher) has enough of these tests because there is one to check for a "200 OK" response for its `/healthcheck` endpoint, which tests for connectivity to Redis and MongoDB [[1](https://github.com/alphagov/smokey/blob/a60df2cde5c886fa6d54e8cd820d90facca89e8e/features/travel_advice_publisher.feature)] [[2](https://github.com/alphagov/travel-advice-publisher/pull/979)].
 
 > **Services are special.** We cannot make a request to a service, as it has no web interface. Instead, we will update [the deployment script for each service app](https://github.com/alphagov/govuk-app-deployment/blob/efc730f0f101b2e457abc48cbab67982728a8c93/email-alert-service/config/deploy.rb) to check the process is running after the app is restarted.
 

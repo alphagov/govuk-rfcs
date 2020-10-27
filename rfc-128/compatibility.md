@@ -3,7 +3,6 @@
 The following is a rough audit of compatibility for most GOV.UK apps with respect to the safety criteria identified in the RFC. The code references used in this audit are all anchored to specific commits, so that they are robust in the face of future changes. **Warning: this means the links could be out-of-date.**
 
 - ❌ [asset-manager](https://github.com/alphagov/asset-manager)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/asset-manager/blob/1457fb1e609395d8ce0bde53ce3907cc6708d424/config/initializers/gds_sso.rb)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint (draft and live) [[1](https://github.com/alphagov/asset-manager/blob/65cf7e7965ca5f9b5c4980c73ac9fcb7b862483a/app/models/healthcheck.rb)]:
     - Check for connectivity to MongoDB.
     - Check for connectivity to Redis.
@@ -12,7 +11,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - Code coverage is 97% [[1](https://github.com/alphagov/asset-manager/pull/802)].
 
 - ❌ [authenticating-proxy](https://github.com/alphagov/authenticating-proxy)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/e0c62f0dbc6742ba04fd9c3b231ccc7b32e20424/features/draft_environment.feature#L8)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/authenticating-proxy/blob/1f9078827a27879ca305d77e75d0b327074801c0/config/routes.rb#L2)]:
     - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/authenticating-proxy/blob/1f9078827a27879ca305d77e75d0b327074801c0/config/mongoid.yml)].
   - Code coverage is 97% [[1](https://github.com/alphagov/authenticating-proxy/pull/218)].
@@ -36,27 +34,23 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - Code coverage is 98%.
 
 - ❌ [collections-publisher](https://github.com/alphagov/collections-publisher)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/e0c62f0dbc6742ba04fd9c3b231ccc7b32e20424/features/publishing_tools.feature#L3)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint:
     - Missing check for connectivity to MySQL [[1](https://github.com/alphagov/collections-publisher/blob/c4a1e8eaf79ed37c50324b3d76c5f67b68f019dc/config/database.yml)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/collections-publisher/blob/c4a1e8eaf79ed37c50324b3d76c5f67b68f019dc/config/sidekiq.yml)].
   - ⚠ Code coverage is 93% [[1](https://github.com/alphagov/collections-publisher/pull/1134)].
 
 - ❌ [contacts-admin](https://github.com/alphagov/contacts-admin)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/e0c62f0dbc6742ba04fd9c3b231ccc7b32e20424/features/publishing_tools.feature#L12)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/contacts-admin/blob/f85a699aaad2be685e2f8faebdf3a42e70960eae/config/routes.rb#L4)].
      - Check for connectivity to MySQL.
   - ⚠ Code coverage is 91% [[1](https://github.com/alphagov/contacts-admin/pull/790)].
 
 - ❌ [content-data-admin](https://github.com/alphagov/content-data-admin)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/924f49d762dd618e7d8d15ef8a8eef38003e678e/features/content_data_admin.feature#L6)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/content-data-admin/blob/b0e4c926c83dbb4c42add4aa23e91b73314331e5/config/routes.rb#L4)]:
     - Missing check for connectivity to Postgres [[1](https://github.com/alphagov/content-data-admin/blob/b0e4c926c83dbb4c42add4aa23e91b73314331e5/config/database.yml)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/content-data-admin/blob/b0e4c926c83dbb4c42add4aa23e91b73314331e5/config/sidekiq.yml)].
   - Code coverage is 98% [[1](https://github.com/alphagov/content-data-admin/pull/839)].
 
 - ❌ [content-data-api](https://github.com/alphagov/content-data-admin)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/content-data-api/blob/774fb5ad0be2e93eb6206e04ceb2d1d6fc8dec3e/config/initializers/gds_sso.rb)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/content-data-api/blob/53c43dff1850ba95ca85bdef3ee67c0a72b391a5/config/routes.rb#L16)]:
     - Check for connectivity to Postgres.
     - Check for connectivity to Redis.
@@ -64,7 +58,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - Code coverage is 96% [[1](https://github.com/alphagov/content-data-api/pull/1534)].
 
 - ❌ [content-publisher](https://github.com/alphagov/content-publisher)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/e0c62f0dbc6742ba04fd9c3b231ccc7b32e20424/features/publishing_tools.feature#L29)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/content-publisher/blob/d7e5c1cb001cc70fadd6c04d24ab3bd1c7589f46/app/controllers/healthcheck_controller.rb)]:
     - Check for connectivity to Postgres.
     - Check for connectivity to Redis.
@@ -72,21 +65,18 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - Code coverage is 98% [[1](https://github.com/alphagov/content-publisher/pull/2156)].
 
 - ❌ [content-store](https://github.com/alphagov/content-store)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/content-store/blob/37d1de267f81afdc0877cf9b8683f8df971a0040/config/initializers/gds_sso.rb)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint (draft and live) [[1](https://github.com/alphagov/content-store/blob/4108942c99abf086b1ea2ce00bc9ec3757f3ad44/config/routes.rb#L15)]:
      - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/content-store/blob/4108942c99abf086b1ea2ce00bc9ec3757f3ad44/config/mongoid.yml)].
   - ⚠ Missing contract test for content API [[1](https://github.com/alphagov/email-alert-frontend/blob/dd3005dae1e99790d29460bc863ee57bc2394bbf/app/controllers/content_item_signups_controller.rb#L66)] [[2](https://github.com/alphagov/finder-frontend/blob/97b1da432811104a20076e9e81d7e8ee4598ff08/app/controllers/finders_controller.rb#L86)].
   - ⚠ Code coverage is 68% [[1](https://github.com/alphagov/content-store/pull/762)].
 
 - ❌ [content-tagger](https://github.com/alphagov/content-tagger)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/e0c62f0dbc6742ba04fd9c3b231ccc7b32e20424/features/publishing_tools.feature#L21)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/content-tagger/blob/69a0d60ee2cc616bacf437c99e00b66e315632f5/config/routes.rb#L70)]:
     - Missing check for connectivity to Postgres [[1](https://github.com/alphagov/content-tagger/blob/69a0d60ee2cc616bacf437c99e00b66e315632f5/config/database.yml)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/content-tagger/blob/69a0d60ee2cc616bacf437c99e00b66e315632f5/config/sidekiq.yml)].
   - ⚠ Code coverage is 92% [[1](https://github.com/alphagov/content-tagger/pull/1129)].
 
 - ❌ [email-alert-api](https://github.com/alphagov/email-alert-api)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/email-alert-api/blob/889b7d661797d93f39921d0afcdd8ed747df69c8/config/initializers/gds_sso.rb)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/email-alert-api/blob/d6b26bdd4848f5c0c122bf7f06b2615603e4afae/app/controllers/healthcheck_controller.rb)]:
     - Check for connectivity to Postgres.
     - Check for connectivity to Redis.
@@ -132,12 +122,11 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Code coverage unknown [[1](https://github.com/alphagov/router/pull/161#discussion_r503235260)].
 
 - ❌ [hmrc-manuals-api](https://github.com/alphagov/hmrc-manuals-api)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/hmrc-manuals-api/blob/5121e24ec4d5ab3529844328d9304a1f6c5e0e15/config/initializers/gds_sso.rb)].
+  - ⚠ Missing Smoke test for the app running.
   - APIs are not consumed by any GOV.UK apps [[1](e2e-interactions.md)].
   - Code coverage is 95% [[1](https://github.com/alphagov/hmrc-manuals-api/pull/521)].
 
 - ❌ [imminence](https://github.com/alphagov/imminence)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/91a5ce94b7b96d09f5db87e63fbc3e400788de00/features/publishing_tools.feature#L37)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint:
     - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/imminence/blob/8669e7aa2aecf2bba306ea9430299ec7b4788959/config/mongoid.yml)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/imminence/blob/8669e7aa2aecf2bba306ea9430299ec7b4788959/config/redis.yml)].
@@ -158,7 +147,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - Special case: not a GOV.UK app ([maintained externally](https://docs.publishing.service.gov.uk/apps/licensify.html#ownership)).
 
 - ❌ [link-checker-api](https://github.com/alphagov/link-checker-api)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/link-checker-api/blob/master/config/initializers/gds_sso.rb)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/link-checker-api/blob/444bf6ad63ad1c3028cfcd2519c2bfddb8dd9ed2/config/routes.rb#L2)]:
     - Missing check for connectivity to Postgres [[1](https://github.com/alphagov/link-checker-api/blob/444bf6ad63ad1c3028cfcd2519c2bfddb8dd9ed2/config/database.yml)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/link-checker-api/blob/master/config/sidekiq.yml)].
@@ -166,7 +154,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Code coverage is 94% [[1](https://github.com/alphagov/link-checker-api/pull/411)].
 
 - ❌ [local-links-manager](https://github.com/alphagov/local-links-manager)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/24a889a4346e3a9ff74d6ad0f389b90919944452/features/publishing_tools.feature#L45)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/local-links-manager/blob/29855548a76dd41f4163bb6b7b217466872269b3/config/routes.rb#L4)]:
     - Missing check for connectivity to Postgres [[1](https://github.com/alphagov/local-links-manager/blob/29855548a76dd41f4163bb6b7b217466872269b3/config/database.yml)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/local-links-manager/blob/29855548a76dd41f4163bb6b7b217466872269b3/app/lib/services.rb#L6)].
@@ -177,7 +164,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - Code coverage is 97% [[1](https://github.com/alphagov/manuals-frontend/pull/971)].
 
 - ❌ [manuals-publisher](https://github.com/alphagov/manuals-publisher)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/924f49d762dd618e7d8d15ef8a8eef38003e678e/features/publishing_tools.feature#L53)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/manuals-publisher/blob/12b4d94d429509d32bccc01554ae1b5fba5ceec6/config/routes.rb#L45)]:
     - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/manuals-publisher/blob/12b4d94d429509d32bccc01554ae1b5fba5ceec6/config/mongoid.yml)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/manuals-publisher/blob/12b4d94d429509d32bccc01554ae1b5fba5ceec6/config/sidekiq.yml)].
@@ -190,7 +176,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Code coverage unknown.
 
 - ❌ [maslow](https://github.com/alphagov/maslow)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/924f49d762dd618e7d8d15ef8a8eef38003e678e/features/publishing_tools.feature#L62)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/maslow/blob/80c12a2c15bace7609c06eac1ee5e991f2c792ce/config/routes.rb#L4)]:
     - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/maslow/blob/80c12a2c15bace7609c06eac1ee5e991f2c792ce/config/mongoid.yml#L14)].
     - Missing check for connectivity to Memcached [[1](https://github.com/alphagov/maslow/blob/80c12a2c15bace7609c06eac1ee5e991f2c792ce/config/environments/production.rb#L54)].
@@ -198,14 +183,12 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Code coverage is 87% [[1](https://github.com/alphagov/maslow/pull/627)].
 
 - ✅ [publisher](https://github.com/alphagov/publisher) ([already enabled])
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/e0c62f0dbc6742ba04fd9c3b231ccc7b32e20424/features/publishing_tools.feature#L71)].
   - Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/smokey/blob/a79d996ef2756313855f1dcbacc85cb5b93a51ef/features/publisher.feature)]:
     - Check for connectivity to Redis.
     - Check for connectivity to MongoDB.
   - Code coverage is 97% [[1](https://github.com/alphagov/publisher/pull/1336)].
 
 - ❌ [publishing-api](https://github.com/alphagov/publishing-api) ([already enabled])
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/publishing-api/blob/b514ee3ce3934a8bdf3c377235de24205be2a5ec/config/initializers/gds_sso.rb)].
   - ⚠ Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/smokey/blob/a79d996ef2756313855f1dcbacc85cb5b93a51ef/features/publishing_api.feature)]:
     - Check for connectivity to Postgres.
     - Check for connectivity to Redis.
@@ -213,7 +196,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Code coverage is 90% [[1](https://github.com/alphagov/publishing-api/pull/1848)].
 
 - ❌ [release](https://github.com/alphagov/release)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/release/blob/bd623a9905305695a9f8de35fcd6b0ae50bcf903/config/initializers/gds_sso.rb)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/release/blob/bd623a9905305695a9f8de35fcd6b0ae50bcf903/app/controllers/application_controller.rb#L18)]:
     - Missing check for connectivity to MySQL [[1](https://github.com/alphagov/release/blob/bd623a9905305695a9f8de35fcd6b0ae50bcf903/config/database.yml#L19)].
   - ⚠ Code coverage is 92% [[1](https://github.com/alphagov/release/pull/699)].
@@ -223,14 +205,12 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Code coverage unknown [[1](https://github.com/alphagov/router/pull/161#discussion_r503235260)].
 
 - ❌ [router-api](https://github.com/alphagov/router-api)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/router-api/blob/0121ebe49ae59d2f58367b0f1e26914ca08ec050/config/initializers/gds_sso.rb)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/router-api/blob/0121ebe49ae59d2f58367b0f1e26914ca08ec050/config/routes.rb#L10)]:
     - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/router-api/blob/0121ebe49ae59d2f58367b0f1e26914ca08ec050/config/mongoid.yml)].
   - APIs only have a single live consumer: Content Store [[1](e2e-interactions.md)].
   - ⚠ Code coverage is 90% [[1](https://github.com/alphagov/router-api/pull/347)].
 
 - ❌ [search-api](https://github.com/alphagov/search-api)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/search-api/blob/1e7205c40eca1e57403ff4820f565740a75e112b/lib/rummager/app.rb#L35)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/search-api/blob/1e7205c40eca1e57403ff4820f565740a75e112b/lib/rummager/app.rb#L310)]:
     - Check for connectivity to Elasticsearch.
     - Check for connectivity to Redis.
@@ -240,7 +220,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Code coverage is 92% [[1](https://github.com/alphagov/search-api/pull/2182)].
 
 - ❌ [search-admin](https://github.com/alphagov/search-admin)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/search-admin/blob/a2dd7a3f8882fa7b658632bb346beefcab69ae45/config/initializers/gds_sso.rb)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint:
     - Missing check for connectivity to MySQL [[1](https://github.com/alphagov/search-admin/blob/a2dd7a3f8882fa7b658632bb346beefcab69ae45/config/database.yml#L22)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/search-admin/blob/a2dd7a3f8882fa7b658632bb346beefcab69ae45/config/sidekiq.yml)].
@@ -251,13 +230,11 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Code coverage is 92% [[1](https://github.com/alphagov/service-manual-frontend/pull/777)].
 
 - ❌ [service-manual-publisher](https://github.com/alphagov/service-manual-publisher)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/924f49d762dd618e7d8d15ef8a8eef38003e678e/features/publishing_tools.feature#L79)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/service-manual-publisher/blob/29f9f932f3e87df17c7a8d54a4a60e3a9605f174/config/routes.rb#L2)]:
     - Missing check for connectivity to Postgres [[1](https://github.com/alphagov/service-manual-publisher/blob/29f9f932f3e87df17c7a8d54a4a60e3a9605f174/config/database.yml#L21)].
   - Code coverage is 97%.
 
 - ❌ [short-url-manager](https://github.com/alphagov/short-url-manager)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/924f49d762dd618e7d8d15ef8a8eef38003e678e/features/publishing_tools.feature#L87)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/short-url-manager/blob/c00ee5ac4ec56d442b3ceefa6c104fcf4d95dcc4/config/routes.rb#L13)]:
     - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/short-url-manager/blob/c00ee5ac4ec56d442b3ceefa6c104fcf4d95dcc4/config/mongoid.yml#L9)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/short-url-manager/blob/c00ee5ac4ec56d442b3ceefa6c104fcf4d95dcc4/config/redis.yml#L9)].
@@ -269,7 +246,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - Special case: app has very little code and no tests [[1](https://github.com/alphagov/sidekiq-monitoring/blob/master/config.ru)].
 
 - ❌ [signon](https://github.com/alphagov/signon)
-  - ⚠ Missing Smoke tests for connectivity to some apps (search "Signon").
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/signon/blob/034b65579d60f03732595ccfd714f7ac265562c4/config/routes.rb#L2)]:
     - Check for connectivity to Postgres / MySQL.
     - Check for connectivity to Redis.
@@ -280,7 +256,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - Code coverage is 97% (needs fix to cope with parallelisation [[1](https://github.com/simplecov-ruby/simplecov/issues/718)]).
 
 - ❌ [specialist-publisher](https://github.com/alphagov/specialist-publisher)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/924f49d762dd618e7d8d15ef8a8eef38003e678e/features/publishing_tools.feature#L96)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/specialist-publisher/blob/496503762f9b19847ff3c1e391226b03ac63e012/config/routes.rb#L2)]:
     - Check for connectivity to Redis.
     - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/specialist-publisher/blob/496503762f9b19847ff3c1e391226b03ac63e012/config/mongoid.yml#L17)].
@@ -294,7 +269,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Code coverage is 65% [[1](https://github.com/alphagov/static/pull/2298)].
 
 - ❌ [support](https://github.com/alphagov/support)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/support/blob/7b0ef907f143decabd64a1d073cd5461b7616d7e/config/initializers/gds_sso.rb)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint:
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/support/blob/7b0ef907f143decabd64a1d073cd5461b7616d7e/app/models/support/requests/anonymous/paths.rb#L31)].
     - Missing check for connectivity to AWS S3 [[1](https://github.com/alphagov/support/blob/7b0ef907f143decabd64a1d073cd5461b7616d7e/app/controllers/anonymous_feedback/export_requests_controller.rb#L81)] [[2](https://github.com/alphagov/support-api/blob/8d1b5dc375a4618f91b0221d71a3f9ab35217d7c/lib/s3_file_uploader.rb#L2)].
@@ -303,7 +277,6 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - Code coverage is 97% [[1](https://github.com/alphagov/support/pull/822)].
 
 - ❌ [support-api](https://github.com/alphagov/support-api)
-  - ⚠ Missing Smoke test for login with Signon [[1](https://github.com/alphagov/support-api/blob/9c8583e70a621899429ea053f5f8719c00b793c2/config/initializers/gds_sso.rb)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/support-api/blob/9c8583e70a621899429ea053f5f8719c00b793c2/config/routes.rb#L70)]:
     - Missing check for connectivity to Postgres [[1](https://github.com/alphagov/support-api/blob/9c8583e70a621899429ea053f5f8719c00b793c2/config/database.yml#L21)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/support-api/blob/9c8583e70a621899429ea053f5f8719c00b793c2/config/sidekiq.yml)].
@@ -312,21 +285,18 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Code coverage is 90% [[1](https://github.com/alphagov/support-api/pull/499)].
 
 - ❌ [transition](https://github.com/alphagov/transition)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/924f49d762dd618e7d8d15ef8a8eef38003e678e/features/transition.feature#L4)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint:
     - Missing check for connectivity to Postgres [[1](https://github.com/alphagov/transition/blob/d7caaf29f30dccc0008a2251dca07bf060c2f8da/config/database.yml#L27)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/transition/blob/d7caaf29f30dccc0008a2251dca07bf060c2f8da/config/sidekiq.yml)].
   - ⚠ Code coverage is 89% [[1](https://github.com/alphagov/transition/pull/1000)].
 
 - ✅ [travel-advice-publisher](https://github.com/alphagov/travel-advice-publisher) ([already enabled])
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/e0c62f0dbc6742ba04fd9c3b231ccc7b32e20424/features/publishing_tools.feature#L106)].
   - Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/smokey/blob/924f49d762dd618e7d8d15ef8a8eef38003e678e/features/travel_advice_publisher.feature)]:
     - Check for connectivity to MongoDB.
     - Check for connectivity to Redis.
   - Code coverage is 97% [[1](https://github.com/alphagov/travel-advice-publisher/pull/981)].
 
 - ❌ [whitehall](https://github.com/alphagov/whitehall)
-  - Smoke test for login with Signon [[1](https://github.com/alphagov/smokey/blob/924f49d762dd618e7d8d15ef8a8eef38003e678e/features/publishing_tools.feature#L114)].
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/whitehall/blob/4d1de9a6818041994f555ae40164b08cd85f043e/config/routes.rb#L418)]:
     - Check for connectivity to Redis.
     - Check for connectivity to MySQL.
