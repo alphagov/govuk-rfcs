@@ -182,11 +182,17 @@ This approach was rejected because:
 
 ## Consequences
 
-### Being more cautious
+### No deployment delay
 
-We will no longer have the safety blanket of our changes languishing in Integration or Staging. It may take some time for us to get used to this new way of working e.g. by gradually doing more [branch deployments](https://docs.publishing.service.gov.uk/manual/development-pipeline.html#review-your-own-changes).
+We will no longer have the safety blanket of our changes languishing in Integration or Staging. If we merge buggy code, then that code could reach production faster. We must accept that. On the positive side, we can also ship new features and fixes more quickly. While some bugs may make it to production, having a shorter delay between merge and deploy means it's more likely that the person who introduced the bug will be present to help fix it.
 
-> **Quote from the trial of CD**: "We'll have to up our game to check things before deploying them. There are always corner cases you don't expect. We're perfectly capable of checking all our changes."
+The safety checks we run for each app should always be seen as a last resort to halt a deployment. We are ultimately responsible for our changes, and will need to adapt to this new "CD" way of working by e.g.
+
+- Gradually doing more [branch deployments](https://docs.publishing.service.gov.uk/manual/development-pipeline.html#review-your-own-changes).
+
+- Only merging changes during [deployment hours](https://github.com/alphagov/govuk-developer-docs/blob/b836a6a33467d2eb6bd82d63a1b86dbe98166b44/source/manual/development-pipeline.html.md#manually-deploy-to-staging-then-production).
+
+- Having pre-release test versions of our libraries.
 
 ### Automatic deployments
 
