@@ -1,8 +1,10 @@
 # Appendix B: E2E Interactions
 
-The following is an audit of the live API requests to other GOV.UK apps, which can be used to check where contract testing may be necessary. Search for an app to see which other apps use its APIs.
+The following is an audit of "live" API requests to other GOV.UK apps, which can be used to check where contract testing may be necessary. "live" means the code making the request is not a manual or scheduled task.
 
 > Originally this RFC had criteria for testing all live API interactions, using Smoke tests or sandboxed E2E tests. This list is an edited version of the compatibility audit that was done using those criteria.
+
+Search for an app to see which other apps use its APIs.
 
 - [asset-manager](https://github.com/alphagov/asset-manager)
   - No live API requests to GOV.UK apps.

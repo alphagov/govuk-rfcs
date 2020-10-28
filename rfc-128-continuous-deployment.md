@@ -85,7 +85,7 @@ However, we also want to ensure that a faulty PR merged in haste can be caught b
 
 > **We won't check alerts.** At the time of writing, we have no evidence that checking Icinga alerts has any advantage over the checks discussed below. We can investigate such a check if we find evidence [[1](https://github.com/alphagov/govuk-puppet/pull/10597)].
 
-> **We will only consider _live_ code.** Interactions due to manual and scheduled tasks can be checked manually, using a branch deployment. In the worst case, we should have ample time to fix any faults that develop.
+> **We will not consider manual and scheduled tasks.** We do not expect enabling automatic deployments to lead to any increase in defects that impact production, for these parts of a codebase.
 
 #### Check: Internal repo tests pass (i.e. features are tested in detail)
 
