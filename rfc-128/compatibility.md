@@ -74,6 +74,7 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Missing Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/content-tagger/blob/69a0d60ee2cc616bacf437c99e00b66e315632f5/config/routes.rb#L70)]:
     - Missing check for connectivity to Postgres [[1](https://github.com/alphagov/content-tagger/blob/69a0d60ee2cc616bacf437c99e00b66e315632f5/config/database.yml)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/content-tagger/blob/69a0d60ee2cc616bacf437c99e00b66e315632f5/config/sidekiq.yml)].
+  - ⚠ Missing tests for JavaScript [[1](https://github.com/alphagov/content-tagger/tree/e9cb37423b7b7cf4b88bd0f5a63c04dc957f6be3/app/assets/javascripts)].
   - ⚠ Code coverage is 92% [[1](https://github.com/alphagov/content-tagger/pull/1129)].
 
 - ❌ [email-alert-api](https://github.com/alphagov/email-alert-api)
@@ -93,8 +94,9 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/email-alert-service/blob/bb686bc7ac86435164946a9751a7c893ff6ff3e1/email_alert_service/models/lock_handler.rb#L96)].
   - Code coverage is 98% [[1](https://github.com/alphagov/email-alert-service/pull/398)].
 
-- ✅ [feedback](https://github.com/alphagov/feedback)
+- ❌ [feedback](https://github.com/alphagov/feedback)
   - Smoke test for the app running [[1](https://github.com/alphagov/smokey/blob/924f49d762dd618e7d8d15ef8a8eef38003e678e/features/feedback.feature#L7)].
+  - ⚠ Missing tests for JavaScript [[1](https://github.com/alphagov/feedback/tree/5363c98e6c6e55871b01279d50349ea3682b6d32/app/assets/javascripts)].
   - Code coverage is 97% [[1](https://github.com/alphagov/feedback/pull/1083)].
 
 - ✅ [finder-frontend](https://github.com/alphagov/finder-frontend) ([already enabled])
@@ -141,6 +143,7 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Missing Smoke test for `/healthcheck` endpoint:
     - Missing check for connectivity to Elasticsearch [[1](https://github.com/alphagov/licence-finder/blob/b76c4c1df8071fb04f26b3fb27fc9db03046fbd7/config/elasticsearch.yml)].
     - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/licence-finder/blob/b76c4c1df8071fb04f26b3fb27fc9db03046fbd7/config/mongoid.yml)].
+  - ⚠ Missing tests for JavaScript [[1](https://github.com/alphagov/licence-finder/tree/1cfc1a4b6125be6a2c9683998fd15260aeac2ce7/app/assets/javascripts)].
   - ⚠ Code coverage is 89% [[1](https://github.com/alphagov/licence-finder/pull/841)].
 
 - ❌ [licensify](https://github.com/alphagov/licensify)
@@ -223,6 +226,7 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Missing Smoke test for `/healthcheck` endpoint:
     - Missing check for connectivity to MySQL [[1](https://github.com/alphagov/search-admin/blob/a2dd7a3f8882fa7b658632bb346beefcab69ae45/config/database.yml#L22)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/search-admin/blob/a2dd7a3f8882fa7b658632bb346beefcab69ae45/config/sidekiq.yml)].
+  - ⚠ Missing tests for JavaScript [[1](https://github.com/alphagov/search-admin/tree/e0b3195f67039f1035361d730e7fd2db4a789a6d/app/assets/javascripts)].
   - ⚠ Code coverage is 85% [[1](https://github.com/alphagov/search-admin/pull/481)].
 
 - ❌ [service-manual-frontend](https://github.com/alphagov/service-manual-frontend)
@@ -260,13 +264,15 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
     - Check for connectivity to Redis.
     - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/specialist-publisher/blob/496503762f9b19847ff3c1e391226b03ac63e012/config/mongoid.yml#L17)].
     - Missing check for connectivity to AWS S3 [[1](https://github.com/alphagov/specialist-publisher/blob/496503762f9b19847ff3c1e391226b03ac63e012/app/lib/s3_file_uploader.rb)].
+  - ⚠ Missing tests for JavaScript [[1](https://github.com/alphagov/specialist-publisher/tree/8391549c8564e50cb0af3973742b5fed59ede278/app/assets/javascript)].
   - Code coverage is 96%.
 
 - ❌ [static](https://github.com/alphagov/static)
   - ⚠ Missing Smoke test for `/healthcheck` endpoint:
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/static/blob/cd0b6d2ac14db8ec9bec21c49cdcbac8fb015b6b/lib/emergency_banner/display.rb#L5)].
   - ⚠ Missing contract tests for templates [[1](https://github.com/alphagov/slimmer/blob/64482b28572a7d038827de214832317e75f0c1ae/lib/slimmer/skin.rb#L34)] [[2](https://github.com/alphagov/email-alert-frontend/blob/5dce6ef63ae97259b47dd2dc3869a3f83825589b/app/controllers/application_controller.rb#L2)] [[3](https://github.com/alphagov/frontend/blob/9fdfefcb11b9c1ef1653c7330d263ed042564d81/app/controllers/application_controller.rb#L3)].
-  - ⚠ Code coverage is 65% [[1](https://github.com/alphagov/static/pull/2298)].
+  - ⚠ Code coverage for JavaScript unknown [[1](https://github.com/alphagov/govuk-rfcs/pull/128#discussion_r511936377)].
+  - ⚠ Code coverage for Ruby is 65% [[1](https://github.com/alphagov/static/pull/2298)].
 
 - ❌ [support](https://github.com/alphagov/support)
   - ⚠ Missing Smoke test for `/healthcheck` endpoint:

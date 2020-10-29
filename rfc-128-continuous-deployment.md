@@ -93,10 +93,11 @@ For the purpose of automating deployments:
 
 - We should always have tests for the majority of the functionality of an app. Since this is not easy to determine across languages [[1](https://github.com/simplecov-ruby/simplecov/issues/38)], we will use Ruby code coverage as the main indicator of thorough testing.
 
-- We will not check coverage of periphery code e.g. CSS, JavaScript. This is because it has a low footprint in our codebases, and it's hard to measure coverage for: the frameworks we use don't support it.
+- We will require some evidence of JavaScript testing, but we will not go so far as to check the coverage. This is because of its relatively low footprint in our codebases, the difficulty of measuring coverage for it [[1](https://github.com/alphagov/finder-frontend/pull/2264)], and the fact that we often cover it implicitly with Ruby tests, as part of our UI approach of [progressive enhancement](https://www.gov.uk/service-manual/technology/using-progressive-enhancement). An exception to the need for coverage is [Static](https://github.com/alphagov/static), for which JavaScript constitutes 70% of the codebase.
 
 An app has "enough" of these tests when:
 
+- It has at least one JavaScript test, if it makes use of the language.
 - Its code coverage exceeds 95% at the point when CD is enabled.
 
 #### Check: API [contract tests](https://docs.publishing.service.gov.uk/manual/pact-broker.html) pass (i.e. adapters work with their APIs)
