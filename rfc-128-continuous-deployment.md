@@ -69,13 +69,16 @@ In order to proceed, we need to agree a clear and actionable set of criteria for
 
 We need to ensure that only people with [production access](https://docs.publishing.service.gov.uk/manual/rules-for-getting-production-access.html) are able to deploy code to the live site. This is equivalent to being a member of the "GOV.UK Production" GitHub team. As part of the trial of CD, we restricted merge access on the affected repos to people in this team [[1](https://github.com/alphagov/govuk-saas-config/pull/49)] [[2](https://github.com/alphagov/govuk-saas-config/pull/51)] [[3](https://github.com/alphagov/govuk-saas-config/pull/55)]. We will [continue to use this approach](https://github.com/alphagov/govuk-saas-config/pull/52#issuecomment-651903746).
 
-As well as restricting who can merge, we also had to address a vulnerability with Integration Jenkins: someone without production access could manually trigger the CD pipeline by running the [`Deploy_App_Downstream` Jenkins job](https://github.com/alphagov/govuk-puppet/blob/c24ff191ce7fc8a38ceb464f0139faba04b9734b/modules/govuk_jenkins/templates/jobs/deploy_app_downstream.yaml.erb). In order to prevent this kind of unauthorised deployment, the job has additional checks:
+As well as restricting who can merge, we also have restrictions around which version of the code can be deployed automatically: only the latest release. This protects against someone with access to the Integration environment triggering a potentially malicious deployment of historical code, or code that has not been reviewed. The following checks in the [`Deploy_App_Downstream` Jenkins job](https://github.com/alphagov/govuk-puppet/blob/c24ff191ce7fc8a38ceb464f0139faba04b9734b/modules/govuk_jenkins/templates/jobs/deploy_app_downstream.yaml.erb) enforce this restriction:
 
 - The tag to deploy must be the highest `release_123`-type tag.
 - The tagged commit must match the latest commit on the master branch.
 
-Note that someone without production access could still subvert this protection, by manually altering the job definition. In this scenario, we would permit an unauthorised deployment to the Staging environment, but no further: only people with production access can access Staging Jenkins [[1](https://github.com/alphagov/govuk-developer-docs/blame/736a167bf93b7338347c73cacbddfbdc68e72733/source/manual/rules-for-getting-production-access.html.md#L18-L19)], which also does the above checks.
+However, the pipeline could still be abused by:
 
+- By manually altering the job definition. In this scenario, a someone with Integration access (but not Production access) could deploy any version of the code to the Staging environment. (But no further: only people with production access can trigger the job in Staging Jenkins [[1](https://github.com/alphagov/govuk-developer-docs/blame/736a167bf93b7338347c73cacbddfbdc68e72733/source/manual/rules-for-getting-production-access.html.md#L18-L19)], which also does the above checks.)
+
+- By repeatedly invoking the Deploy_App_Downstream job with the latest release, flooding the Production environment with deployments. We must accept risks like this are inevitable, given the current state of our infrastructure: allowing general SSH access to our Integration environment means we're exposing part of the CD chain.
 
 ### Safety checks
 
