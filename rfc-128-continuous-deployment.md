@@ -109,11 +109,13 @@ For the purpose of automating deployments:
 
 - We only need to add contract tests when it's hard to be confident about an API change. If an API endpoint only has a single "consumer" app, then it's easy to gain confidence by manually testing the pair still work together.
 
+- We should still consider adding contracts tests for APIs that are likely to be reused internally, as we may not notice this has happened. Collections [[1](https://github.com/alphagov/collections/blob/e32fe49ccd415e3ac831fb3b46b3bcf68ae3c26b/docs/api.md)] and Imminence [[1](https://github.com/alphagov/imminence/blob/dd9ca02e9cad6884c2c58838c483aef4e335856e/README.md)] should both have contract tests for their APIs.
+
 - We only need to add contract tests for the APIs we consume internally. Some of our APIs may be public, but this is a separate, product-level commitment. Our strategy for testing public APIs is out-of-scope for this RFC.
 
 With this in mind, an API app has "enough" of these tests when:
 
-- Each endpoint with multiple consumers has at least one contract test.
+- Each endpoint with multiple, internal consumer apps has at least one contract test.
 
 > Example: [Asset Manager](https://github.com/alphagov/asset-manager) is missing contract tests because multiple apps use it to create [[1](https://github.com/alphagov/content-publisher/blob/0c757447ca2aad3621f11c99fe8307a718ade186/app/services/preview_asset_service.rb#L29)] [[2](https://github.com/alphagov/specialist-publisher/blob/8debeb2f0147142c87f22308d57fe4f6dd0c1297/app/models/attachment.rb#L49)] assets, among other APIs. Conversely, no [Support API](https://github.com/alphagov/support-api) endpoints are used by more than one GOV.UK app [[1](https://github.com/alphagov/support-api/tree/75540575ae11095bb8d4736490abdc9927049aaf#technical-documentation)].
 
@@ -193,7 +195,7 @@ We will enable automatic deployments for the apps listed [here](https://github.c
 - We can immediately enable automatic deployments for apps marked with a ✅.
 - We will undertake work to address all the issues (⚠) for apps marked with a ❌.
 
-> **We will disable CD for Publishing API**. This was only enabled on a trial basis, and requires non-trivial work to bring it up to the new standard. We should avoid setting a false precedent by leaving CD enabled.
+> **We will disable CD for Publishing API and Collections**. These were only enabled on a trial basis, and require non-trivial work to meet the new standard. We should avoid setting a false precedent by leaving CD enabled.
 
 The following steps must be taken as part of enabling automatic deployments:
 
