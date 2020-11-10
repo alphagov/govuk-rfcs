@@ -57,11 +57,11 @@ We often defer to automated tests to tell us when something is broken, but it's 
 
 ## Proposal
 
-The obvious solution to the backlog of deployments is to make them automatic. This has already begun, as part of [a trial of Continuous Deployment](https://docs.google.com/document/d/18y2fLzqbHyTliThxuiyxKznDw4TZmPiQZAk-3rkgpBg/edit) and [a subsequent extension to include 5 more apps](https://docs.google.com/document/d/1YhgjJjDRB57-IlgPNAAZzFTI3jIUucGJKokti_lQiRQ/edit).
+The first issue (we have a constant backlog of deployments) has an obvious solution: make deployments automatic. This has already begun, as part of [a trial of Continuous Deployment](https://docs.google.com/document/d/18y2fLzqbHyTliThxuiyxKznDw4TZmPiQZAk-3rkgpBg/edit) and [a subsequent extension to include 5 more apps](https://docs.google.com/document/d/1YhgjJjDRB57-IlgPNAAZzFTI3jIUucGJKokti_lQiRQ/edit).
 
 > **It is still possible to deploy an app manually.** The new pipeline is just an automation of the manual deployment steps. Rollback is unchanged, and freezing deployments is supported [[1](https://github.com/alphagov/govuk-puppet/blob/c24ff191ce7fc8a38ceb464f0139faba04b9734b/modules/govuk_jenkins/templates/jobs/deploy_app_downstream.yaml.erb#L22)].
 
-However, we have been unable to make further progress due to the other two issues: we are concerned that enabling automatic deployments en masse would lead to an increase in defects reaching production.
+However, we have been unable to make further progress due to the other two issues above. We are concerned that enabling automatic deployments en masse would lead to an increase in defects reaching production.
 
 In order to proceed, we need to agree a clear and actionable set of criteria for enabling automatic deployments, so that we will only do so when we can show this is safe, as well as secure.
 
