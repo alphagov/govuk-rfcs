@@ -141,7 +141,14 @@ Dropped from specialist topics:
 }
 ```
 
-We would probably approach this work in two stages by merging mainstream browse *and then* specialist topics. After both are merged we'd look at deprecating mainstream browse and specialist topics content items in the Publishing API and Content Store.
+We would probably approach this work in two stages by merging mainstream browse *and then* specialist topics.
+
+- Make changes in `taxon.jsonnet` in govuk-content-schemas
+
+After both are merged we'd look at deprecating mainstream browse and specialist topics content items in the Publishing API and Content Store, and also in the defining Content Schemas (govuk-content-schemas).
+
+- Make changes in `mainstream_browse_page.jsonnet`
+- Make changes in `topic.jsonnet`
 
 To do this we'd change application dependencies to read from taxons. Application dependencies we'd have to consider:
 
