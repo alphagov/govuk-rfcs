@@ -4,9 +4,26 @@
 
 Mainstream browse, specialist topic and taxon content items are functionally equivalent, in that they represent a category that groups content items. We would like to maintain future consistency between our taxonomy, mainstream browse and specialist topic titles. We propose merging the attributes of mainstream browse and topic content items into taxons and deprecating use of mainstream browse and specialist topics in the Publishing API and Content Store.
 
+## Background
+
+There are currently three different and independent ways to categorise content items - [mainstream browse pages][mainstream-browse-page-docs], [specialist topics][specialist-topic-docs] and [taxons][taxon-docs]. A content item can be associated with one or more mainstream browse pages, specialist topics or taxons. Each of which represents a grouping of content items that are related in subject matter. For example content items representing a "Income Tax" guidance page and a "Inheritance Tax" guidance page are assigned to the "Tax" mainstream browse page.
+
+Mainstream browse pages, specialist topics and taxons themselves are represented as content items. Each type can contain links to other items of the same type and usually do so building a hierarchical tree structure. For example, the "Child benefit" and "Universal Credit" specialist topics are linked and represented as children of the "Benefits" specialist topic. For each type there is one "root" item that represents the start of the hierarchy. There is an exception for taxons, where there are two hierarchies with two distinct roots and sets of items - [topic taxonomy][topic-taxonomy-docs] and [world taxonomy][world-taxonomy-docs]. For purposes of this RFC ignore the world taxonomy.
+
+
 ## Problem
 
-We currently maintain three seperate ways to categorise content items - mainstream browse pages, specialist topics and taxons. There is currently ongoing work to make sure mainstream browse and specialist topics have equivalents in the taxonomy i.e. mainstream browse and specialist topics become a subset of taxons. This is being done by Content Designers who are liaising with departments to come to agreement.
+We have to maintain three separate types of categorisation for content items - mainstream browse pages, specialist topics and taxons. This means the categories themselves and the content assigned to them may be different between each type. For example, the "Education and learning" mainstream browse page is the logical equivalent of the "Education, training and skills" taxon and should be the same, however they differ in name and in the set of content items they represent. There are also categories that only exist in some types and not others, for example the "Setting up a business" mainstream browse page has no equivalent taxon.
+
+Examples of equivalent content items:
+
+Mainstream browse page: https://www.gov.uk/api/content/browse/benefits/universal-credit
+
+Specialist topic: https://www.gov.uk/api/content/topic/benefits-credits/universal-credit
+
+Taxon: https://www.gov.uk/api/content/welfare/universal-credit
+
+There is currently ongoing work to ensure mainstream browse and specialist topics have equivalents in the taxonomy, i.e. mainstream browse and specialist topics become a subset of taxons. This is being done by Content Designers who are liaising with departments to come to agreement.
 
 Once this work is complete we want to maintain alignment and prevent divergence from taxons. We would have to put constraints in collections publisher and content tagger (or any future apps) to ensure that mainstream browse and specialist topics continue to be subsets of taxons. This would involve adding complex logic to the publishing system to deal with addition, changing or removal of these content items.
 
@@ -152,18 +169,15 @@ To do this we'd change application dependencies to read from taxons. Application
 
 Once we are confident we are solely using the taxons, we can unpublish the existing mainstream browse and specialist topic content items.
 
+This work should not introduce any user facing changes.
+
 ## Benefits
 This would allow us to ensure ongoing consistency of our "Information Architecture" and grouping of content, without the complexity of maintaining three document types or seperate sets of content items.
 
-## Appendix
-Examples of equivalent content items:
 
-Mainstream browse
-URL: https://www.gov.uk/api/content/browse/benefits/universal-credit
-
-Specialist topic 
-URL: https://www.gov.uk/api/content/topic/benefits-credits/universal-credit
-
-Taxon
-URL: https://www.gov.uk/api/content/welfare/universal-credit
+[mainstream-browse-page-docs]: https://docs.publishing.service.gov.uk/document-types/mainstream_browse_page.html
+[specialist-topic-docs]: https://docs.publishing.service.gov.uk/document-types/topic.html
+[taxon-docs]: https://docs.publishing.service.gov.uk/document-types/taxon.html
+[topic-taxonomy-docs]: https://docs.publishing.service.gov.uk/manual/taxonomy.html
+[world-taxonomy-docs]: https://docs.publishing.service.gov.uk/manual/world-taxonomy.html
 
