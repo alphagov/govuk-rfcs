@@ -33,7 +33,7 @@ We propose merging the attributes of mainstream browse and specialist topic cont
 
 Generally there are two main type of information we want to tranfer from mainstream browse and specialist topic to the equivalent taxon. The first is the links to content items. Currently content items (guidance pages, manuals etc..) do not contain links to mainstream browse or specialist topics. It's the reverse, mainstream browse pages and specialist topics have a list of content that's associated to them. This list we can migrate over to the taxon.
 
-Secondly, we'd carry across the relationships (links) between mainstream browse pages/specialist topics. This manifests as multiple hierarchies within the same taxons. This is because different relationships are useful for different things ie. the currently hierarchy for taxonomy is good for emails subscriptions and organising taxons, but not so great at modelling navigation. So we'd bring over the mainstream browse hierarchy to serve that purpose.
+Secondly, we'd carry across the relationships (links) between mainstream browse pages/specialist topics. This manifests as multiple hierarchies within the same taxons. This is because different relationships are useful for different things i.e. the current hierarchy for taxonomy is used for modelling emails subscriptions, but cannot be used for modelling navigation. So we'd bring over the mainstream browse hierarchy to serve that purpose.
 
 #### Top level attributes
 
