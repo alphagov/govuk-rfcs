@@ -181,3 +181,26 @@ This would allow us to ensure ongoing consistency of our "Information Architectu
 [topic-taxonomy-docs]: https://docs.publishing.service.gov.uk/manual/taxonomy.html
 [world-taxonomy-docs]: https://docs.publishing.service.gov.uk/manual/world-taxonomy.html
 
+# Appendix
+
+## Definitions of existing topic systems
+
+### Mainstream browse
+- Currently the `primary` browse navigation of GOV.UK
+- 2 level hierarchy containing ~ 150 browseable topoics on GOV.UK homepage
+- sub-topics users see as curated lists of Mainstream guides
+- users cannot subscribe to email updates
+
+### Specialist topics
+- Currently the `secondary` browse navigation on GOV.UK
+- 2 level hierarchy containing ~ 410 browseable from department and organisation pages
+- sub-topics users see as curated lists of Specialist guids
+- users can subscribe to email updates
+
+### Taxonomy topics
+- Very few users utilize this to navigate the site
+- multi-level hierarchy of variable depth (1-5 levels) comprising ~ 1300 topics
+- reachable from breadcrumbs and related links
+- content of all types is tagged to every level of the hierarchy
+- uncurated
+- users can subscribe to email updates
