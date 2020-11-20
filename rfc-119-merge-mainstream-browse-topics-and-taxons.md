@@ -181,3 +181,51 @@ This would allow us to ensure ongoing consistency of our "Information Architectu
 [topic-taxonomy-docs]: https://docs.publishing.service.gov.uk/manual/taxonomy.html
 [world-taxonomy-docs]: https://docs.publishing.service.gov.uk/manual/world-taxonomy.html
 
+
+# Appendix A
+
+## Product perspective
+
+This section provides insight into the current product strategy and how it impacts/drives/adds to the present RFC
+
+### Strategy
+
+We want to align our terminology across all 3 existing systems and consolidate them into a single pool of topics, to be known as GOV.UK Topics (suggested naming).
+
+To meet a range of user needs we’ll need the flexibility present these topics in a few different ways:
+
+- Showing subsets of the topic pool in different arrangements (hierarchies) 
+- Presenting different views of the content tagged to a topic
+
+
+### Hierarchies
+
+#### Simple hierarchy
+A small subset of topics arranged into a two level hierarchy.
+
+**Use case**: Simple browsing experiences like homepage browsing.
+
+
+#### Detailed hierarchy 
+A larger subset of topics arranged in a similar two or three level hierarchy. 
+
+**Use case**: This enables users to browse to more niche professional topics as well the more common ones. Linked from department and agency pages, and potentially other routes to this in future. e.g. an ‘All topics’ page.
+
+#### Full topic hierarchy 
+All GOV.UK topics arranged in a multi-level hierarchy.
+
+**Use case**: For content tagging and other non-user facing use cases 
+e.g taxonomy management and data science
+
+### Views
+
+#### Simple view
+Shows a relatively short list of curated content for a given topic. 
+
+**Use case**: This is useful for providing users with a manageable list of guidance about a topic and creating experiences similar to mainstream browse. This serves the needs of ‘Do a thing’ users.
+
+#### All content view
+
+Shows everything tagged to the topic. 
+
+**Use case**: This is useful for users who need to ‘Advise on a thing’ or ‘Change/Challenge a thing’, as the information to do this is often held within the longtail of government publishing. To be navigable this large output will likely need to be subdivided into content types (supergroups) e.g. ‘Research and statistics’, and displayed in a filterable pattern like a finder.
