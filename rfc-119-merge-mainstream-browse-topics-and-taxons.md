@@ -181,3 +181,23 @@ This would allow us to ensure ongoing consistency of our "Information Architectu
 [topic-taxonomy-docs]: https://docs.publishing.service.gov.uk/manual/taxonomy.html
 [world-taxonomy-docs]: https://docs.publishing.service.gov.uk/manual/world-taxonomy.html
 
+## Draft delivery plan
+
+### Phase 1 - Mainstream Browse
+
+1. Align mainstream topic and taxonomy topic naming
+2. Expand taxonomy functionality to support two views and two hierarchies
+3a. Migrate mainstream data into taxonomy (rename GOV.UK topics?)
+3b. Switch mainstream curation tool to use new topic system
+4. Switch mainstream browse pattern to use new topic system 
+5. Ship updated homepage browse topic templates
+6. Retire the Mainstream topic structure
+
+### Phase 2 - Specialist topics
+
+1. Align specialist topic and GOV.UK topic naming
+2. Expand taxonomy functionality to support additional hierarchies
+3. Migrate specialist data into taxonomy (and de-dupe)
+4. Switch specialist topic frontend pattern to use new topic system
+5. Ship updated specialist frontend templates
+6. Retire the Specialist topic structure
