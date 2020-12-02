@@ -30,7 +30,7 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
 - ❌ [collections](https://github.com/alphagov/collections) ([already enabled])
   - Smoke test for `/healthcheck` endpoint [[1](https://github.com/alphagov/smokey/pull/731)].
     - Check for connectivity to Memcached.
-  - Missing contract tests for organisations API [[1](https://github.com/alphagov/govuk-rfcs/pull/128#discussion_r515248179)].
+  - ⚠ Missing contract tests for organisations API [[1](https://github.com/alphagov/govuk-rfcs/pull/128#discussion_r515248179)].
   - Code coverage is 98%.
 
 - ❌ [collections-publisher](https://github.com/alphagov/collections-publisher)
@@ -132,7 +132,7 @@ The following is a rough audit of compatibility for most GOV.UK apps with respec
   - ⚠ Missing Smoke test for `/healthcheck` endpoint:
     - Missing check for connectivity to MongoDB [[1](https://github.com/alphagov/imminence/blob/8669e7aa2aecf2bba306ea9430299ec7b4788959/config/mongoid.yml)].
     - Missing check for connectivity to Redis [[1](https://github.com/alphagov/imminence/blob/8669e7aa2aecf2bba306ea9430299ec7b4788959/config/redis.yml)].
-  - Missing contract tests for e.g. places API [[1](https://github.com/alphagov/govuk-rfcs/pull/128#discussion_r515248179)].
+  - ⚠ Missing contract tests for e.g. places API [[1](https://github.com/alphagov/govuk-rfcs/pull/128#discussion_r515248179)].
   - ⚠ Code coverage is 94% [[1](https://github.com/alphagov/imminence/pull/581)].
 
 - ✅ [info-frontend](https://github.com/alphagov/info-frontend)
