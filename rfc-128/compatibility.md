@@ -1,5 +1,7 @@
 # Appendix A: Compatibility
 
+> **Update:** we're currently tracking the rollout of Continuous Deployment [here](https://trello.com/c/cwsh79vA/200-rollout-of-continuous-deployment). We're continuing to use this audit as a record of the issues we need to fix for each app.
+
 The following is a rough audit of compatibility for most GOV.UK apps with respect to the safety criteria identified in the RFC. The code references used in this audit are all anchored to specific commits, so that they are robust in the face of future changes. **Warning: this means the links could be out-of-date.**
 
 - ❌ [asset-manager](https://github.com/alphagov/asset-manager)
