@@ -205,7 +205,7 @@ The following steps must be taken as part of enabling automatic deployments:
 
 - Add a note in the [Release](https://github.com/alphagov/release) app to warn about the change.
 
-- Add a PR template to warn about the change [[example](https://github.com/alphagov/smart-answers/blob/3509ba3e68c62a206874c96111628dd65adae689/.github/pull_request_template.md)].
+- Add a PR template to warn about the change [[example](https://github.com/alphagov/smart-answers/blob/8646dd360f169b0fee01e8708d532212452932db/.github/pull_request_template.md)].
 
   - Backfill the PR template as a comment on existing PRs.
 
