@@ -17,7 +17,7 @@ The purpose of doing this is to make clear:
 
 | Name | Description | Rough action plan |
 | -- | -- | -- |
-| calculators | Serves the Child benefit tax calculator on GOV.UK | Merge into smart-answers |
+| calculators | Serves the Child benefit tax calculator on GOV.UK | Merge into smart-answers (Update 9 March 2021: calculators service is now in Smart Answers and retired in March 2021) |
 | calendars | Serves /bank-holidays and /when-do-the-clocks-change on GOV.UK | Merge into custom frontend. (Update 5 May 2020: calendars was merged into frontend and retired in May 2020) |
 | ckanext-datagovuk | Extension for use with datagovuk_publish | Unknown |
 | collections-publisher | Publishes step by steps, /browse pages, and legacy /topic pages on GOV.UK | While topics and browse pages will be removed, this can still be the app for curating collections. We might move Whitehall's document collections into this app |
