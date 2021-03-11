@@ -8,8 +8,9 @@ The first is AWS CloudFront, the second is Google Cloud CDN.
 A simultaneous outage of both Fastly and AWS CloudFront is very unlikely. So
 the Google Cloud CDN backup provides very little extra reliability.
 
-At the same time, the cost of maintaining the Google Cloud CDN backup is
-non-trivial.
+The infrastructure cost of the Google Cloud CDN backup is negligible, but the
+cost of maintaining it is significant (it's broken right now, and it would take
+several weeks of engineering time to fix it).
 
 The maintenance cost outweighs the expected reliability benefit, so we should
 remove the Google Cloud CDN backup.
@@ -40,7 +41,7 @@ mirrors, including the Google Cloud Storage mirror.
 The AWS CloudFront CDN is reasonably easy to maintain and test, however the
 Google Cloud CDN backup is significantly more difficult.
 
-### Our Google Cloud CDN setup currently broken
+### Our Google Cloud CDN setup currently broken, and fixing it would be a lot of work
 
 The certificate in use on the CDN expired in May 2020.
 
@@ -50,6 +51,11 @@ denied error.
 
 These issues could be fixed as part of the failover process, but we don't
 have any documentation explaining how to do that.
+
+Fixing the issues up front would require several weeks of engineering time. The
+replatforming team have already spent a couple of weeks investigating. At the
+moment the opportunity cost of prioritising fixing these issues over other
+infrastructure work is unacceptable.
 
 ### It is difficult to issue a certificate for Google Cloud CDN
 
