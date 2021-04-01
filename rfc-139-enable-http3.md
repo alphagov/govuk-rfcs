@@ -45,7 +45,7 @@ Unfortunately this didn't solve all the HOL blocking issues. HTTP/2 is built upo
 This is where we are currently at with GOV.UK. The vast majority of users on strong, stable connections will have seen improved performance from enabling HTTP/2. Unfortunately, some users may have seen performance drop if they use a connection with high packet loss. This is due to the HOL blocking that now exists at the network layer. This is a primary issue HTTP/3 sets out to solve.
 
 ### HTTP/3
-To solve the HOL blocking issue at the network layer, HTTP/3 uses a completely new transport layer protocol called QUIC. QUIC initially stood for "Quick UDP Internet Connections", but the IETF now don't use it as an acronym. It is simply the name of the protocol. QUIC is built upon User Datagram Protocol (UDP). Since QUIC uses UDP, it isn't bound by the restrictions that TCP imposes. So it has now been designed so that the network layer now understands the the concept of independent streams, which was restricted to the application layer under HTTP/2:
+To solve the HOL blocking issue at the network layer, HTTP/3 uses a completely new transport layer protocol called QUIC. QUIC initially stood for "Quick UDP Internet Connections", but the IETF now don't use it as an acronym. It is simply the name of the protocol. QUIC is built upon the User Datagram Protocol (UDP), so isn't bound by the restrictions of TCP. It has been designed so that the network layer now understands the the concept of independent streams, which was restricted to the application layer under HTTP/2:
 
 ![Difference between TCP and QUIC when downloading assets.](rfc-139/QUIC-illustration-final.jpg)
 
