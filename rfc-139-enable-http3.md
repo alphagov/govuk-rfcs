@@ -40,7 +40,7 @@ Each TCP packet now includes a set of "frames" that contains additional meta inf
 
 Source: ["Head-of-Line Blocking in QUIC and HTTP/3: The Details"](https://calendar.perfplanet.com/2020/head-of-line-blocking-in-quic-and-http-3-the-details/) by [Robin Marx](https://twitter.com/programmingart).
 
-Unfortunately this didn't solve all the HOL blocking issues. Since HTTP/2 is built upon TCP, and TCP is a protocol that offers the reliable transmission of packets. TCPs job is to make sure that the packets leaving one device arrive at another device in the exact same order and without any missing packets. When packet loss occurs, this is when we again see HOL blocking. When a packet of data is lost over the network, this then holds up the whole (single) TCP connection. Packets behind the missing packet can't be processed until retransmission occurs.
+Unfortunately this didn't solve all the HOL blocking issues. HTTP/2 is built upon TCP: a protocol that offers the reliable transmission of packets. TCP's job is to make sure that the packets leaving one device arrive on the other device in exactly the same order, and with no missing packets. If packet loss occurs, TCP re-transmits the packets. Packets behind the missing packet cannot be processed until retransmission occurs, so all assets being transferred on that single TCP connection are held up.
 
 This is where we are currently at with GOV.UK. The vast majority of users on strong, stable connection will have seen improved performance from enabling HTTP/2. Unfortunately, some users may have seen performance drop if they use a connection with high packet loss. This is due to the HOL blocking that now exists at the network layer. This is a primary issue HTTP/3 sets out to solve.
 
