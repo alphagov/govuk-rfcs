@@ -88,7 +88,7 @@ The aim of this transition to HTTP/3 is to allow an ever more diverse level of u
 ### Browser support
 The support for HTTP/3 + QUIC in browsers currently isn't accurate on [Caniuse](https://caniuse.com/?search=http3). A PR to rectify this can be [seen here](https://github.com/Fyrd/caniuse/pull/5836). The browsers support for HTTP/3 at the time of writing is:
 
-- Chrome - Enabled 
+- Chrome - Enabled (see [Chromium blog](https://blog.chromium.org/2020/10/chrome-is-deploying-http3-and-ietf-quic.html))
 - Edge (chromium version) - Enabled
 - Firefox - Enabled in the next version (88)
 - Safari 14 - Disabled (currently behind a feature flag)
