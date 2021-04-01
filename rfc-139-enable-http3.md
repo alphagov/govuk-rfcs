@@ -93,7 +93,7 @@ The support for HTTP/3 + QUIC in browsers currently isn't accurate on [Caniuse](
 - Firefox - Enabled in the next version (88)
 - Safari 14 - Disabled (currently behind a feature flag)
 
-Looking at the March 2021 analytics, approximately 55% of GOV.UK users are using a browser that can now take advantage of HTTP/3 + QUIC. Information about HTTP/3 and QUIC usage in Chrome can be [found here](https://blog.chromium.org/2020/10/chrome-is-deploying-http3-and-ietf-quic.html).
+Looking at the March 2021 analytics, approximately 55% of GOV.UK users are using a browser that can now take advantage of HTTP/3 + QUIC.
 
 ## Usage on the web
 
