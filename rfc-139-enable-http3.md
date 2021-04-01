@@ -27,7 +27,7 @@ Unfortunately a number of issues still exist with this method:
 
 1. Most sites have many more than 6 assets per page, so HOL blocking is still occurring in almost every page load under HTTP/1.1.
 2. Each TCP connection is independent and have no knowledge of each other. All 6 are fighting for limited bandwidth which in turn can saturate the network.
-3. Many websites resorted to domain 'sharding', so as to allow a browser to open up more that 6 TCP connections, in turn exacerbating the problem mentioned in point 2.
+3. Many websites resorted to "domain sharding" (hosting assets across multiple domains), to allow a browser to open up more that 6 TCP connections. This in turn exacerbated the problem mentioned in point 2.
 
 Another solution needed to be found.
 
