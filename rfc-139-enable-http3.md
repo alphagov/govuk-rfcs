@@ -16,7 +16,7 @@ Users in these areas still have a need to access government services and the inf
 Each iteration of the HTTP protocol has set out to improve the web performance of the previous version of the protocol.
 
 ### HTTP/1.0
-One of the first versions of the HTTP protocol came with a number of web performance issues. A primary issue being that only a single asset could be download on a Transmission Control Protocol (TCP) connection before the connection was then closed. There was no way for these connections to persist for multiple asset downloads. This resulted in a lot of waisted negotiation time to establish separate TCP connections for each asset.
+The first version of the HTTP protocol came with a number of web performance issues, a primary issue being that only a single asset could be downloaded on a Transmission Control Protocol (TCP) connection before the connection was then closed. There was no way for these connections to persist for multiple asset downloads. This resulted in a lot of wasted negotiation time to establish separate TCP connections for each asset.
 
 ### HTTP/1.1
 HTTP/1.1 fixed the persistent connections issue, allowing multiple assets to be downloaded over a single connection once established. Unfortunately this didn't fully solve the web performance issues seen with the HTTP protocol (stemming from the TCP layer). 
