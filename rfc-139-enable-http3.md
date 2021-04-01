@@ -6,7 +6,7 @@ HTTP/3 is the latest version of the HTTP protocol that is currently in use in pr
 
 ## Problem
 
-According to [MLab](https://www.measurementlab.net/)'s latest data the UK has a median download speed of 20 MBit/s and 7.2 MBit/s upload speed, as seen in their [dashboard data from October 2020](https://datastudio.google.com/u/0/reporting/12XddYj7__cZOaBF2RwplImw_ZdQQ5Nuw/page/9GTNB?s=tA4mKm65BqY&params=%7B%22df5%22:%22include%25EE%2580%25800%25EE%2580%2580IN%25EE%2580%2580United%2520Kingdom%22%7D). Exporting this dashboard data to a spreadsheet paints a [very different picture](https://docs.google.com/spreadsheets/d/1UTRucwLY2VC4944-cKunL9yUPJkjDKXDdIPk6GY3610/edit#gid=0). 
+According to the [latest data (October 2020)](https://datastudio.google.com/u/0/reporting/12XddYj7__cZOaBF2RwplImw_ZdQQ5Nuw/page/9GTNB?s=tA4mKm65BqY&params=%7B%22df5%22:%22include%25EE%2580%25800%25EE%2580%2580IN%25EE%2580%2580United%2520Kingdom%22%7D) by [MLab](https://www.measurementlab.net/), the UK has a median download speed of 20 MBit/s and 7.2 MBit/s upload speed. However, exporting this dashboard data to a [spreadsheet](https://docs.google.com/spreadsheets/d/1UTRucwLY2VC4944-cKunL9yUPJkjDKXDdIPk6GY3610/edit#gid=0) paints a very different picture. 
 
 The data shows that there are parts of the UK that have connection speeds less than 0.3 MBit/s for both download, and upload. This is roughly equivalent to a 2G connection. It's worth noting that as these are median values, many users in these areas will be seeing much lower connection speeds than this in reality. These areas have a connection speed that is 98.5% slower than the median for the whole country. 
 
