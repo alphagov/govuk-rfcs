@@ -86,14 +86,18 @@ Since COVID-19 many people have had to work from home. Many will be in rural are
 The aim of this transition to HTTP/3 is to allow an ever more diverse level of user connection quality to access GOV.UK, essentially maximising access for all users, no matter what connection they use. By focusing on the long-tail of our users with poor connections, we can effectively shorten it and in doing so make the internet "good enough" to use in more situations. This is all without effecting performance for users already on a good internet connection.
 
 ### Browser support
-The support for HTTP/3 + QUIC in browsers currently isn't accurate on [Caniuse](https://caniuse.com/?search=http3). A PR to rectify this can be [seen here](https://github.com/Fyrd/caniuse/pull/5836). The browsers support for HTTP/3 at the time of writing is:
+The support for HTTP/3 + QUIC in browsers is visible on [Caniuse](https://caniuse.com/?search=http3). 
+
+![HTTP/3 and QUIC browser usage screenshot from CanIUse.com.](rfc-139/http3-browser-usage.png)
+
+The browsers support for HTTP/3 at the time of writing is:
 
 - Chrome - Enabled (see [Chromium blog](https://blog.chromium.org/2020/10/chrome-is-deploying-http3-and-ietf-quic.html))
 - Edge (chromium version) - Enabled
 - Firefox - Enabled in the next version (88)
 - Safari 14 - Disabled (currently behind a feature flag)
 
-Looking at the March 2021 analytics, approximately 55% of GOV.UK users are using a browser that can now take advantage of HTTP/3 + QUIC.
+Looking at the March 2021 analytics, approximately 55% of GOV.UK users are using a browser that can now take advantage of HTTP/3 + QUIC. This is close to the 66% that the CanIUse data estimates for HTTP/3 usage globally.
 
 ## Usage on the web
 
@@ -120,7 +124,13 @@ I've only covered a single advantage related to packet loss with web performance
 - Better security via end-to-end encryption at the transport layer
 - Establish an ecosystem that is easier to evolve from our current TCP usage
 
-Eventually our users will also be able to take advantage of [Connection Migration](https://tools.ietf.org/id/draft-tan-quic-connection-migration-00.html), where QUIC end-points will be able to migrate connections to different IP addresses and network paths at will. Although realistically, this is likely a number of years away.
+Eventually our users will also be able to take advantage of [Connection Migration](https://tools.ietf.org/html/draft-paulo-quic-migration-00), where QUIC end-points will be able to migrate connections to different IP addresses and network paths at will. 
+
+Connection migration is an optional part of the specification that isn't currently implemented anywhere. Once enabled it will allow a users device to seamlessly transition between multiple QUIC connections (e.g. Cellular to known Wi-fi). This is achieved by introducing the concept of a connection ID that is carried by QUIC packets, which can be used to identify a connection. 
+
+A user is likely to find this useful if they are live streaming data (web conferencing, large file upload / download, real-time navigation etc). A live demo of this technology in cation can be [found here](https://www.youtube.com/watch?v=In1aALwdahY).
+
+Since this is optional in the QUIC specifications, realistically its practical adoption may be a number of years away.
 
 ## Summary
 
