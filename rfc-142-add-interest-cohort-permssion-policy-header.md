@@ -18,7 +18,7 @@ The FLoC specification specifically mentions that it “will never be able to pr
 - Disability
 - Crime, justice and the law
 
-The FLoC specification does suggest that for sensitive cagerogies:
+The FLoC specification does suggest that for sensitive categories:
 
 > As a first mitigation, the browser should remove sensitive categories from its data collection. But this does not mean sensitive information can’t be leaked.
 
