@@ -50,3 +50,5 @@ We'll configure the following header in NGINX to ensure we cover frontend apps a
 ```
 Permissions-Policy: interest-cohort=()
 ```
+
+For applications on the PaaS, we'll set the header at the application level.
