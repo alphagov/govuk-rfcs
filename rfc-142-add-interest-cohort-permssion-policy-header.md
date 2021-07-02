@@ -4,7 +4,7 @@
 
 Federated Learning of Cohorts is a new technology that exists in versions of Chrome 89+. Its purpose is to replace third party cookies used for tracking and targeting advertising by assigning Chrome users to groups (or cohorts) depending on their browser history. These cohorts can be used for targeted advertising by Google and other advertising networks.
 
-Once enabled, FLoC calculates a hash based on a user's browser history. This hash is synced with the Google servers and is used alongside other Chrome metrics and a FLoC ID is created. Chrome downloads a global FLoC data set to examine if the FLoC ID should be used for exposing ads to a specific user.
+Once enabled, FLoC [calculates a hash based on a user's browser history](https://raw.githubusercontent.com/google/ads-privacy/master/proposals/FLoC/FLOC-Whitepaper-Google.pdf). This hash is synced with the Google servers for the [FLEDGE phase](https://adtechexplained.com/fledge-explained/) of the experiment and is used alongside other Chrome metrics when a FLoC ID is created. Chrome downloads a global FLoC data set to examine if the FLoC ID should be used for exposing ads to a specific user. The FLEDGE phase involves collecting data from [users who meet the following criteria](https://github.com/WICG/floc#qualifying-users-for-whom-a-cohort-will-be-logged-with-their-sync-data) to help train the algorithms they have written for assigning users to interest cohorts. During final implementation the FLoC ID will be generated on a user's device with no server exchanges taking place (for the hash phase).
 
 ## Problem
 
