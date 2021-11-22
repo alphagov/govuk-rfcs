@@ -4,9 +4,8 @@
 
 We currently use a one-instance-many-databases approach to hosting MySQL, Postgres, Mongo and Redis. These mega-databases make it difficult to perform major version upgrades – they need to be coordinated across all applications at the same time, increase the blast-radius of problems in a single database, and make it harder to appropriately size and monitor resources for an application.
 
-This RFC proposes that we split the single RDS instances for MySQL and Postgres, moving to a single RDS instance per database. It also proposes we apply the same principle to our self-hosted Mongo and Redis installations.
+This RFC proposes that we split the single RDS instances for MySQL and Postgres, moving to a single RDS instance per database. It also proposes we apply the same principle to our self-hosted Mongo and Redis installations, and more generally to all supporting services for an application which aren't shared with other applications.
 
-This principle _could_ be applied to RabbitMQ, S3, etc., but it's out of scope for this RFC.
 
 ## Naming
 
@@ -30,7 +29,13 @@ This is coming up now because our versions of MySQL and Postgres are approaching
 
 ## Proposal
 
-We propose that:
+We propose a new principle to be applied across GOV.UK:
+
+1. Supporting services for an application should not be shared with any other applications at the infrastructure/provisioning level.
+
+> Note: this principle doesn't cover services used for application communication, e.g. where SNS/SQS/RabbitMQ broadcasts events for other applications. The use of the service carries most weight here – e.g. a fictional RabbitMQ queue used solely to manage Sidekiq jobs would be considered a "supporting service", whereas a RabbitMQ queue to broadcast publishing domain events would be accessed by many apps. Both these queues would live in distinct RabbitMQ instances/servers.
+
+Applying this initially to our databases, we propose that:
 
 1. All new long-lived databases are created in their own individual RDS instances.
 2. Existing MySQL and Postgres databases are migrated out of the central instance to individual managed-service instances as part of the upcoming major upgrade cycle.
