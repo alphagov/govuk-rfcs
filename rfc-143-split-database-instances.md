@@ -22,8 +22,6 @@ Having a single instance hosting multiple databases has a number of drawbacks:
 
 4. There is no clear owner of the instances. Each app is owned by a single team, and each database should be accessed by exactly one app. However, many apps with different owners reside on the single instance. Sizing and managing databases is an app-level responsibility, so it doesn't fit with the remit of Platform Reliability/Replatforming/Platform Health (i.e. for a single, central resource).
 
-5. We still host some database features ourselves (such as Mongo 2.6) which has a maintenance burden and allows us to run very out of date versions of these services. 
-
 This is coming up now because our versions of MySQL and Postgres are approaching End of Life (notice for [MySQL](https://forums.aws.amazon.com/ann.jspa?annID=8790) and [Postgres](https://forums.aws.amazon.com/ann.jspa?annID=8499)), forcing us to plan major upgrades for both over the next few months.
 
 ## Proposal
