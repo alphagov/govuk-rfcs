@@ -6,7 +6,6 @@ We currently use a one-instance-many-databases approach to hosting MySQL, Postgr
 
 This RFC proposes that we split the single RDS instances for MySQL and Postgres, moving to a single RDS instance per database. It also proposes we apply the same principle to our self-hosted Mongo and Redis installations, and more generally to all supporting services for an application which aren't shared with other applications.
 
-
 ## Naming
 
 The word "database" is often interchangeably used to describe a collection of tables, and an instance of (e.g.) Postgres server running somewhere. For the purposes of this RFC, "database" refers to the collection of tables, schema, etc.. We'll use "instance" to refer to the runtime that hosts one or more databases.
@@ -41,7 +40,6 @@ Applying this initially to our databases, we propose that:
 2. Existing MySQL and Postgres databases are migrated out of the central instance to individual managed-service instances as part of the upcoming major upgrade cycle.
 3. Existing Redis and Mongo databases are migrated out of their central instances in-line with team priorities, and prior to any major upgrade.
 4. Any future supporting services for applications should be distinct to the application and, where applicable, run on a managed service
-
 
 ### Consequences
 
