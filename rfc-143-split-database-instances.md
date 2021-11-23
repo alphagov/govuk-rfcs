@@ -17,7 +17,7 @@ Having a single instance hosting multiple databases has a number of drawbacks:
 
 1. Major upgrades must be applied to all databases in one go, as it's the instance we're upgrading, not the database. Major upgrades are considered risky because they contain potentially breaking, and backward-incompatible changes. This means major upgrades are scarier, so we're less likely to do them until we're forced. They also require coordination across disparate teams so everyone's confident their apps will survive the upgrade.
 
-2. Problems in one database are likely to impact other unrelated services. For example an app with unexpectedly high load on its database could max-out the instance, causing performance degradation in other databases and their apps.
+2. Problems in one database are likely to impact other unrelated services. For example an app with a poorly performing database has caused performance degradation in other databases and their apps[^1].
 
 3. Related to [2], it's significantly harder to size instance resources. Disk is fairly straightforward, but it's harder to understand CPU/RAM/IOPS patterns. We're also likely to over-size resources to reduce the likelihood large-scale problems in [2].
 
@@ -64,3 +64,5 @@ Applying this initially to our databases, we propose that:
 ## Questions
 
 1. Can we be specific about databases. If we increase scope to all supporting services, does this RFC become less actionable now?
+
+[^1]: [Incident report for Imminence slowness](https://docs.google.com/document/d/10aOHyjO8JjzbIhj5HpowAuDlXvnbkAnDgYpTuCpBv-0/edit#heading=h.gzidrot4nw3r)
