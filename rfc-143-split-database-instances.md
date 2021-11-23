@@ -28,9 +28,9 @@ This is coming up now because our versions of MySQL and Postgres are approaching
 
 We propose a new principle to be applied across GOV.UK:
 
-1. Supporting services for an application should not be shared with any other applications at the infrastructure/provisioning level.
+> Supporting services for an application should not be shared with any other applications at the infrastructure/provisioning level.
 
-> Note: this principle doesn't cover services used for application communication, e.g. where SNS/SQS/RabbitMQ broadcasts events for other applications. The use of the service carries most weight here – e.g. a fictional RabbitMQ queue used solely to manage Sidekiq jobs would be considered a "supporting service", whereas a RabbitMQ queue to broadcast publishing domain events would be accessed by many apps. Both these queues would live in distinct RabbitMQ instances/servers.
+For example, a RabbitMQ queue used solely to manage Sidekiq jobs for an application should never be accessed by another app. An exception to the rule would be when services are designed for application communication, such as a RabbitMQ queue that broadcasts publishing events to be consumed by other apps. Both types of queues should live in distinct RabbitMQ instances/servers.
 
 Applying this initially to our databases, we propose that:
 
