@@ -57,8 +57,4 @@ Applying this initially to our databases, we propose that:
 
 - CI will need to support a wider range of database versions than it currently supports to cope with teams using different versions. Ideally, teams will be able to create and manage databases to meet their needs independently, but as a first step we'll need to introduce a pool of "supported" database types and versions. We have experience of doing this with Mongo and tagged agents.
 
-## Questions
-
-1. Can we be specific about databases. If we increase scope to all supporting services, does this RFC become less actionable now?
-
 [^1]: [Incident report for Imminence slowness](https://docs.google.com/document/d/10aOHyjO8JjzbIhj5HpowAuDlXvnbkAnDgYpTuCpBv-0/edit#heading=h.gzidrot4nw3r)
