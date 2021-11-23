@@ -53,7 +53,7 @@ Applying this initially to our databases, we propose that:
 
 - Migrating to new instances with minimal (or no) downtime takes planning and effort. AWS' forced upgrades of Postgres and MySQL in early 2022 will force this effort regardless.
 
-- This change affects our production, integration, staging and CI environments. Our setup for CI requires a slightly different user setup so we can create and destroy databases within the instance (where we create databases per test run).
+- This change affects our production, integration, staging and CI environments. Our setup for CI requires a slightly different user setup so we can create and destroy databases within the instance (where we create databases per test run). There's likely a strong argument for using local disposable databases in non-production-like environments like integration or CI, to skip the long RDS provisioning times - the move to kubernetes should in principle make this pretty straightforward, but we'll cover that in a separate RFC when it's feasible.
 
 - CI will need to support a wider range of database versions than it currently supports to cope with teams using different versions. Ideally, teams will be able to create and manage databases to meet their needs independently, but as a first step we'll need to introduce a pool of "supported" database types and versions. We have experience of doing this with Mongo and tagged agents.
 
