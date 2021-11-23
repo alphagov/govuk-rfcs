@@ -9,7 +9,7 @@ This RFC proposes that we split the single RDS instances for MySQL and Postgres,
 
 ## Naming
 
-The word "database" is often interchangeably used to describe a collection of tables, and an instance of (e.g.) Postgres server running somewhere. For the purposes of this RFC, "database" refers to the collection of tables, schema, etc.. We'll use "instance" to refer to the runtime that hosts the database.
+The word "database" is often interchangeably used to describe a collection of tables, and an instance of (e.g.) Postgres server running somewhere. For the purposes of this RFC, "database" refers to the collection of tables, schema, etc.. We'll use "instance" to refer to the runtime that hosts one or more databases.
 
 ## Problem
 
