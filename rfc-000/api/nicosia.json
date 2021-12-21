@@ -1,0 +1,10 @@
+{
+  "title": "Nicosia",
+  "id": "https://www.gov.uk/api/world-locations/nicosia",
+  "format": "Region",
+  "web_url": "https://www.gov.uk/world/nicosia",
+  "details": {
+    "slug": "nicosia"
+  },
+  "england_coronavirus_travel": {}
+}

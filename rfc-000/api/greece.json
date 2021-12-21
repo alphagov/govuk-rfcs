@@ -1,0 +1,10 @@
+{
+  "title": "Greece",
+  "id": "https://www.gov.uk/api/world-locations/greece",
+  "format": "World location",
+  "web_url": "https://www.gov.uk/world/greece",
+  "details": {
+    "slug": "greece"
+  },
+  "england_coronavirus_travel": {}
+}

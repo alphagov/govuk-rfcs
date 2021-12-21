@@ -1,0 +1,10 @@
+{
+  "title": "Cyprus",
+  "id": "https://www.gov.uk/api/world-locations/cyprus",
+  "format": "World location",
+  "web_url": "https://www.gov.uk/world/cyprus",
+  "details": {
+    "slug": "cyprus"
+  },
+  "england_coronavirus_travel": {}
+}

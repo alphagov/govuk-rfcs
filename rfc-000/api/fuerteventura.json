@@ -1,0 +1,10 @@
+{
+  "title": "Fuerteventura",
+  "id": "https://www.gov.uk/api/world-locations/fuerteventura",
+  "format": "Island",
+  "web_url": "https://www.gov.uk/world/fuerteventura",
+  "details": {
+    "slug": "fuerteventura"
+  },
+  "england_coronavirus_travel": {}
+}

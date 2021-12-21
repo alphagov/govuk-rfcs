@@ -1,0 +1,10 @@
+{
+  "title": "Tenerife",
+  "id": "https://www.gov.uk/api/world-locations/tenerife",
+  "format": "Island",
+  "web_url": "https://www.gov.uk/world/tenerife",
+  "details": {
+    "slug": "tenerife"
+  },
+  "england_coronavirus_travel": {}
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Israel",
+  "id": "https://www.gov.uk/api/world-locations/israel",
+  "format": "World location",
+  "web_url": "https://www.gov.uk/world/israel",
+  "details": {
+    "slug": "israel"
+  },
+  "england_coronavirus_travel": {}
+}

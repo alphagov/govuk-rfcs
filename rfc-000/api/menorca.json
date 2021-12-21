@@ -1,0 +1,10 @@
+{
+  "title": "Menorca",
+  "id": "https://www.gov.uk/api/world-locations/menorca",
+  "format": "Island",
+  "web_url": "https://www.gov.uk/world/menorca",
+  "details": {
+    "slug": "menorca"
+  },
+  "england_coronavirus_travel": {}
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Jerusalem",
+  "id": "https://www.gov.uk/api/world-locations/jerusalem",
+  "format": "City",
+  "web_url": "https://www.gov.uk/world/jerusalem",
+  "details": {
+    "slug": "jerusalem"
+  },
+  "england_coronavirus_travel": {}
+}
