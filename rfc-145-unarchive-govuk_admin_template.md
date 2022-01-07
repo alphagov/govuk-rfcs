@@ -1,9 +1,9 @@
-# Unarchive govuk_admin_template Bootstrap project
-
+---
 Author: Ryan Brooks
 Date: January 2022
-Deadline for decision 14th January 2022
-
+Deadline for decision: 14th January 2022
+---
+# Unarchive govuk_admin_template Bootstrap project
 ## Summary
 
 The [govuk-admin-template](https://github.com/alphagov/govuk_admin_template) gem has been deprecated for a while, and new GOV.UK admin applications should be built using the [layout component in govuk_publishing_components](https://govuk-publishing-components.herokuapp.com/component-guide/layout_for_admin). Ideally, we would have migrated all our applications to use the new Design System and publishing components, however there are still several in active use which still rely on govuk-admin-template. The GitHub project is archived, and is therefore read-only.
