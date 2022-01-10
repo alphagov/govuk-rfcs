@@ -1,7 +1,7 @@
 ---
 Author: Ryan Brooks
 Date: January 2022
-Deadline for decision: 14th January 2022
+Deadline for decision: 21st January 2022 # Placeholder, we'll give a week once the PR is ready for review
 ---
 # Unarchive govuk_admin_template Bootstrap project
 ## Summary
