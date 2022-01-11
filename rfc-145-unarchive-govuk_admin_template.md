@@ -26,7 +26,7 @@ With the intention of enabling quick wins for some perennial accessibility issue
 
 1. We will un-archive [govuk-admin-template](https://github.com/alphagov/govuk_admin_template) on GitHub, making it possible to release new versions of the gem with accessibility fixes.
 
-2. GOV.UK developers may release new versions of the gem to address **critical** accessibility and usability issues.
+2. GOV.UK developers may release new versions of the gem to address **critical** accessibility, usability, and security issues.
 
 3. Teams **MUST** endeavour to migrate pages and applications to the GOV.UK Design System where practical.
 
