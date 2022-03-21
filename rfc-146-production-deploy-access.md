@@ -72,9 +72,6 @@ We will set up the staging and production deploy Jenkins instances to allow peop
 
 The bottleneck of needing people with production access to merge and deploy code will be substantially widened, since it will be much easier to give people deploy access.
 
-Teams may be less willing to have new engineers doing 2ndline shifts, since the carrot of production access will be a bit less appetising if people can get deploy access without the shifts. We'll need to keep an eye on this, since our current position is that 2ndline shifts are independently valuable things for engineers to do.  
-We may need to model this level of access in kubernetes / argo as well as Jenkins as replatforming progresses (unless things have changed further by that time).
-
 ## Appendices
 
 ### Access Levels
