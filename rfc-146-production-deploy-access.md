@@ -58,7 +58,7 @@ Access should be granted at the discretion of the engineer's tech lead, once the
 - knows how to roll back to an older release if there are any issues
 - knows how to get help from someone with more access if they need it
 
-These rules should be the same for contractors and civil servants at all levels. Junior and apprentice developers should be given production deploy access once their tech lead feels it's appropriate.
+These rules should be the same for contractors and civil servants at all levels, including juniors and apprentices.
 
 The rules for gaining Production Admin Access should remain the same - engineers will still be required to complete two 2ndline shifts.
 
