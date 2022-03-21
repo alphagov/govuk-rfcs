@@ -51,7 +51,7 @@ This level of access should not include:
 - admin access to other systems (e.g. Fastly etc.)
 - superadmin access to GOV.UK Signon (create and edit all user types and edit applications)
 
-Engineers should be granted this level of access once they've got the required level of security clearance and have been working on GOV.UK for at least one full month. Access should be granted at the discretion of the engineer's tech lead. Before approving access, tech leads should ensure that the engineer:
+Access should be granted at the discretion of the engineer's tech lead, once the engineer has the required level of security clearance. Before approving access, tech leads should ensure that the engineer:
 
 - is aware of our processes and standards around code review
 - understands the responsibilities that releasing code brings with it
