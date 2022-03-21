@@ -41,7 +41,7 @@ We should implement a new level of access - "Production Deploy Access". This lev
 - Permission to deploy apps in Jenkins (ideally without Jenkins admin permission)
 - Permission to merge continuously deployed applications
 - Readonly access to AWS, Fastly, logging systems, etc.
-- admin access to GOV.UK Signon (create and edit normal users)
+- normal access to GOV.UK Signon in production (with app permissions granted as needed)
 
 This level of access should not include:
 
