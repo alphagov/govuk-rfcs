@@ -16,7 +16,7 @@ Describe your proposal, with a focus on clarity of meaning. You MAY use [RFC2119
 
 I'd like to include a small piece of JavaScript in the current SpeedCurve RUM implimentation that will only fire when a user accepts the cookie banner. This JavaScript will look at the current HTTP protocol the user is using and push this anonymous data into SpeedCurve using their API. 
 
-This will then give us an additional dimention in the SpeedCurve GUI with which to compare before / after the change is made.
+This will then give us an additional dimension in the SpeedCurve GUI with which to compare before / after the change is made.
 
 The actual JavaScript is small and will have 0 effect of page performance as it is simply reading a string value from an object in a supporting browsers [Navigation Timing Level 2 API](https://www.w3.org/TR/navigation-timing-2/).
 
