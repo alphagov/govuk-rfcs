@@ -18,7 +18,7 @@ I'd like to include a small piece of JavaScript in the current SpeedCurve RUM im
 
 This will then give us an additional dimension in the SpeedCurve GUI with which to compare before / after the change is made.
 
-The actual JavaScript is small and will have 0 effect of page performance as it is simply reading a string value from an object in a supporting browsers [Navigation Timing Level 2 API](https://www.w3.org/TR/navigation-timing-2/).
+The actual JavaScript is small and will have a negligible effect of page performance as it is simply reading a string value from an object in a supporting browsers [Navigation Timing Level 2 API](https://www.w3.org/TR/navigation-timing-2/).
 
 The actual code to include looks like this:
 
