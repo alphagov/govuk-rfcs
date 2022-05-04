@@ -140,6 +140,8 @@ It has never been more important to fix issues for our long-tail users, since ma
 
 Any browsers that don't support HTTP/3 + QUIC will fallback to HTTP/2 + TCP. Therefore HTTP/3 can be enabled using the progressive enhancement methodology.
 
+## Proposal
+
 Fastly have now announced HTTP/3 + QUIC is available to all customers as it is out of [Limited Availability (LA) and the beta phases](https://www.fastly.com/blog/http-3-and-quic-are-now-available-for-our-entire-customer-base-at-no-additional-charge). Enabling HTTP/3 + QUIC for us involves switching it on via the Fasty UI. No modifications are needed to our application code, or servers. And since we have already invested work in optimising for HTTP/2, we are already well prepared for a migration to HTTP/3. So no modifications are needed to our frontend applications. 
 
 There is a CNAME config change required if we don't use a dedicated Fastly IP address once enabled in the UI. From the [documentation](https://docs.fastly.com/en/guides/enabling-http3-for-fastly-services#sending-your-http3-traffic-to-fastly):
