@@ -155,6 +155,8 @@ There is a CNAME config change required if we don't use a dedicated Fastly IP ad
 
 I know GOV.UK currently has IPv6 enabled, so if a CNAME change is required I propose we use 0-RTT = No (`dualstack.m.sni.global.fastly.net`), since I belive Firefox is still the only browser that supports it. We can always enable this at a later date quite easlily once it becomes more promenant in browsers.
 
+Note: According to Richard Towers, we currently don't use dedicated Fastly IP's so the CNAME change will be required, this shouldn't be a major issue because we have a couple of levels of CNAME in place (we don't need to talk to JISC). It's also worth noting that TTL on prod is 300 seconds (5 mins), which should be short enough for the change when made.
+
 ## Date to be enabled
 
 I've opened an additional [RFC-147](https://github.com/alphagov/govuk-rfcs/blob/103acd22a74b32d4ea9dd321bc0ab05ac664aa82/rfc-147-enable-speedcurve-http-protocol-capture.md), that will allow us to distinguish users using HTTP/2 and HTTP/3 in SpeedCurve RUM. I believe we should impliment this RFC first then allow it to capture user data for 1-2 months, before we enable HTTP/3. This will allow us to quantify the before / after change in our RUM metrics, which would make for an interesting PR piece from a web performance and user focus point of view. So I'd propose to enable HTTP/3 some time in July / August 2022.
