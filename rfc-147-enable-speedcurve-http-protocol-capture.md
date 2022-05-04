@@ -12,8 +12,6 @@ Data capture to quantify the change from HTTP/2 + TCP to HTTP/3 + QUIC.
 
 ## Proposal
 
-Describe your proposal, with a focus on clarity of meaning. You MAY use [RFC2119-style](https://www.ietf.org/rfc/rfc2119.txt) MUST, SHOULD and MAY language to help clarify your intentions.
-
 I'd like to include a small piece of JavaScript in the current SpeedCurve RUM implimentation that will only fire when a user accepts the cookie banner. This JavaScript will look at the current HTTP protocol the user is using and push this anonymous data into SpeedCurve using their API. 
 
 This will then give us an additional dimension in the SpeedCurve GUI with which to compare before / after the change is made.
@@ -23,13 +21,12 @@ The actual JavaScript is small and will have a negligible effect of page perform
 The actual code to include looks like this:
 
 ```js
-// check see if browser supports navigation timing API and has the HTTP protocol information.
-if(typeof window.performance.timing === "object" && performance.getEntriesByType('navigation')[0].nextHopProtocol === "String"){
-	// returns "h1", "h2", "h3"
-	var http-protocol = performance.getEntriesByType('navigation')[0].nextHopProtocol;
-	// push the users protocol data into SpeedCurve RUM
-	LUX.addData("http-protocol", http-protocol)
-}
+// use the LUX.addData method to capture HTTP protocol information.
+LUX.addData("http-protocol", performance.getEntriesByType('navigation')[0].nextHopProtocol);
 ```
 
+We should report the contents of `performance.getEntriesByType('navigation')[0].nextHopProtocol` using the `LUX.addData()` function - SpeedCurve have some good example of this [in their recipes][1].
+
 Once this code is added, we should then have information about what protocol the user used and the difference it made to the performance, allowing us to compare aggregate data for HTTP/2 and HTTP/3 users over a set period of time (likely 1-2 months).
+
+[1]: https://support.speedcurve.com/recipes/track-size-for-a-single-resource
