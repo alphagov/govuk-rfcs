@@ -140,6 +140,19 @@ It has never been more important to fix issues for our long-tail users, since ma
 
 Any browsers that don't support HTTP/3 + QUIC will fallback to HTTP/2 + TCP. Therefore HTTP/3 can be enabled using the progressive enhancement methodology.
 
-## Proposal
+Fastly have now announced HTTP/3 + QUIC is available to all customers as it is out of [Limited Availability (LA) and the beta phases](https://www.fastly.com/blog/http-3-and-quic-are-now-available-for-our-entire-customer-base-at-no-additional-charge). Enabling HTTP/3 + QUIC for us involves switching it on via the Fasty UI. No modifications are needed to our application code, or servers. And since we have already invested work in optimising for HTTP/2, we are already well prepared for a migration to HTTP/3. So no modifications are needed to our frontend applications. 
 
-Fastly currently have a Limited Availability (LA) programme open which is available to us. Enabling HTTP/3 + QUIC for us involves switching it on via the Fasty UI. No modifications are needed to our application code, or servers. And since we have already invested work in optimising for HTTP/2, we are already well prepared for a migration to HTTP/3. So no modifications are needed to our frontend applications.
+There is a CNAME config change required if we don't use a dedicated Fastly IP address once enabled in the UI. From the [documentation](https://docs.fastly.com/en/guides/enabling-http3-for-fastly-services#sending-your-http3-traffic-to-fastly):
+
+> Unless you use Fastly's dedicated IP addresses, then as a final step to enabling HTTP/3, you must ensure the DNS records of your domains are routing users to the correct HTTP/3 enabled Fastly addresses by using one of the following CNAMEs:
+
+| 0RTT enabled? | IPv4 and IPv6 dual stack routing    | IPv4-only routing         |
+|---------------|-------------------------------------|---------------------------|
+| Yes           | `dualstack.n.sni.global.fastly.net` | `n.sni.global.fastly.net` |
+| No            | `dualstack.m.sni.global.fastly.net` | `m.sni.global.fastly.net` |
+
+I know GOV.UK currently has IPv6 enabled, so if a CNAME change is required I propose we use 0-RTT = No (`dualstack.m.sni.global.fastly.net`), since I belive Firefox is still the only browser that supports it. We can always enable this at a later date quite easlily once it becomes more promenant in browsers.
+
+## Date to be enabled
+
+I've opened an additional [RFC-147](https://github.com/alphagov/govuk-rfcs/blob/103acd22a74b32d4ea9dd321bc0ab05ac664aa82/rfc-147-enable-speedcurve-http-protocol-capture.md), that will allow us to distinguish users using HTTP/2 and HTTP/3 in SpeedCurve RUM. I believe we should impliment this RFC first then allow it to capture user data for 1-2 months, before we enable HTTP/3. This will allow us to quantify the before / after change in our RUM metrics, which would make for an interesting PR piece from a web performance and user focus point of view. So I'd propose to enable HTTP/3 some time in July / August 2022.
