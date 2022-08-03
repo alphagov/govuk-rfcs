@@ -129,7 +129,7 @@ Whilst this proposed change will make things slower for users whose browser does
 
 ### Non-rendering applications that use the components gem
 
-There are applications that use the components gem, but don't render public pages on GOV.UK - for example, publishing applications and the Govspeak gem. These may have a different set up with different ways of rendering pages.
+There are applications that use the components gem but don't use Static and Slimmer - for example, publishing applications and the Govspeak gem.
 
 These changes should be optional - even if this is the default behaviour, it should be able to be turned off at a component by component level and at an application level. This could be done with a helper method that checks both if the component has already been used, and if adding the component assets are allowed:
 
