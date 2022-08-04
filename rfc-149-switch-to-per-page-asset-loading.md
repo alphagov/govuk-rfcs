@@ -39,7 +39,7 @@ For example, a three step journey can visit three different rendering applicatio
 1. Search for "micro pig", rendered by [finder-frontend]
 1. Micro-pig guidance page, rendered by [government-frontend]
 
-Whilst there is shared code coming from static, CSS and JavaScript can still come from each individual application - which means there is overlap between the three application's assets. In the previous three step journey example, there are 43 component's assets served; of which:
+Whilst there is shared code coming from [Static][static], CSS and JavaScript can still come from each individual application - which means there is overlap between the three applications' assets. In the previous three step journey example, there are 43 component's assets served; of which:
 * 6 components are used in all 3 applications
 * 16 components are used in 2 applications
 * 19 components are only used in 1 application
@@ -190,6 +190,7 @@ With more confidence in the cachability of the individual component assets, ther
 [enable_brotli]: https://github.com/alphagov/govuk-rfcs/blob/6c16f831530be76a34954f30670035fcf7ae8ac1/rfc-138-enable-brotli-compression.md#L5-L6
 [finder-frontend]: https://docs.publishing.service.gov.uk/repos/finder-frontend.html
 [frontend]: https://docs.publishing.service.gov.uk/repos/frontend.html
+[static]: https://docs.publishing.service.gov.uk/repos/static.html
 [government-frontend]: https://docs.publishing.service.gov.uk/repos/government-frontend.html
 [govuk_publishing_components]: https://docs.publishing.service.gov.uk/repos/govuk_publishing_components.html
 [guessjs]: https://github.com/guess-js/guess
