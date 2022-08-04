@@ -111,9 +111,9 @@ The largest change in component CSS size is -12.2kB, the smallest is -1kB, and t
 ![](rfc-149/css-size-for-top-100-most-visited-pages-on-govuk.svg)
 
 
-This means that all visitors will see a smaller page size, regardless of whether they visit one page or multiple pages. Six out of ten tracked visitors to GOVUK only view a single page.
+This means that all visitors will see a smaller page size, regardless of whether they visit one page or multiple pages. Six out of ten tracked visitors to GOV.UK only view a single page.
 
-Concatenating the assets can provide a benefit for those that visit multiple pages - but this doesn't work on GOVUK due to the number of rendering apps used and the current lack of a shared space to put assets.
+Concatenating the assets can provide a benefit for those that visit multiple pages - but this doesn't work on GOV.UK due to the number of rendering apps used and the current lack of a shared space to put assets.
 
 ### HTTP requests
 
@@ -205,4 +205,4 @@ With more confidence in the cachability of the individual component assets, ther
 [specific_assets]: https://github.com/alphagov/govuk-rfcs/blob/95b4f967a43b24141c4cd0c7feb37f3c309e21c8/rfc-108-including-gem-component-assets.md
 [what_slimmer_does]: https://github.com/alphagov/slimmer/blob/0968d5b715f949cc3ef5ac3fa1dcbababd7c2fd7/docs/what-slimmer-does.md#tagmover
 
-[^1]: Method - look at the markup present on the page. Search for all instances of `.gem-c-*` to get a list of all components being used and dedupe. Compile the Sass from the GOV.UK Publishing Components gem into individual CSS files for each component. Get the Brotli-compressed file size for each component, and add it to the application-specifc CSS. Compare this to the current CSS filesize for the application and static.
+[^1]: Method - look at the markup present on the page. Search for all instances of `.gem-c-*` to get a list of all components being used and dedupe. Compile the Sass from the GOV.UK Publishing Components gem into individual CSS files for each component. Get the Brotli-compressed file size for each component, and add it to the application-specific CSS. Compare this to the current CSS file size for the application and Static.
