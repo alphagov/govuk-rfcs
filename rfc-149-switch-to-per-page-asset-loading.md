@@ -198,6 +198,7 @@ With more confidence in the cachability of the individual component assets, ther
 [link_stylesheet_is_body_okay]: https://html.spec.whatwg.org/multipage/links.html#link-type-stylesheet
 [prerelease]: https://guides.rubygems.org/patterns/#prerelease-gems
 [rails_direction]: https://world.hey.com/dhh/modern-web-apps-without-javascript-bundling-or-transpiling-a20f2755
+[shared_location_diagram]: https://docs.google.com/drawings/d/1UjW5El9AnrqzgdXjAXKfYBNFR0xNth54hT1PvnMsPxc/edit
 [sharing_assets]: https://github.com/alphagov/govuk-rfcs/blob/95b4f967a43b24141c4cd0c7feb37f3c309e21c8/rfc-091-sharing-assets.md
 [slimmer]: https://github.com/alphagov/slimmer/
 [slimmer_moves_scripts]: https://github.com/alphagov/slimmer/blob/0968d5b715f949cc3ef5ac3fa1dcbababd7c2fd7/lib/slimmer/processors/tag_mover.rb#L8
