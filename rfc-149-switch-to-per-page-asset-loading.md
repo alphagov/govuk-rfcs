@@ -163,7 +163,7 @@ Serving assets individually doesn't rely on the shared asset folder proposed in 
 
 Splitting this into two stages makes it more manageable and will allow improvements to be in stages.
 
-The stages themselves can be split into app-by-app upgrades - once an app is upgraded the pages it renders will see performance improvements without relying on any other app also being upgraded. This is a similar approach to the work that was done to use the public layout component, so we know it can work - even if it takes time.
+The stages themselves can be split into app-by-app upgrades - once an app is upgraded the pages it renders will see performance improvements without relying on any other app also being upgraded. This is a similar approach to the work that was done to use the public layout component - for example, [in collections][gem_layout_in_collections] and [in whitehall][gem_layout_in_whitehall] - so we know this strategy can work even if it takes time.
 
 This shouldn't be done on a component by component basis - changing only one component on a page will likely cause an increase in page size as the individual component assets can't take advantage of compression.
 
@@ -188,7 +188,8 @@ With more confidence in the cachability of the individual component assets, ther
 [enable_brotli]: https://github.com/alphagov/govuk-rfcs/blob/6c16f831530be76a34954f30670035fcf7ae8ac1/rfc-138-enable-brotli-compression.md#L5-L6
 [finder-frontend]: https://docs.publishing.service.gov.uk/repos/finder-frontend.html
 [frontend]: https://docs.publishing.service.gov.uk/repos/frontend.html
-[static]: https://docs.publishing.service.gov.uk/repos/static.html
+[gem_layout_in_collections]: https://github.com/alphagov/collections/pull/2272
+[gem_layout_in_whitehall]: https://github.com/alphagov/whitehall/pull/6240
 [government-frontend]: https://docs.publishing.service.gov.uk/repos/government-frontend.html
 [govuk_publishing_components]: https://docs.publishing.service.gov.uk/repos/govuk_publishing_components.html
 [guessjs]: https://github.com/guess-js/guess
@@ -200,9 +201,10 @@ With more confidence in the cachability of the individual component assets, ther
 [rails_direction]: https://world.hey.com/dhh/modern-web-apps-without-javascript-bundling-or-transpiling-a20f2755
 [shared_location_diagram]: https://docs.google.com/drawings/d/1UjW5El9AnrqzgdXjAXKfYBNFR0xNth54hT1PvnMsPxc/edit
 [sharing_assets]: https://github.com/alphagov/govuk-rfcs/blob/95b4f967a43b24141c4cd0c7feb37f3c309e21c8/rfc-091-sharing-assets.md
-[slimmer]: https://github.com/alphagov/slimmer/
 [slimmer_moves_scripts]: https://github.com/alphagov/slimmer/blob/0968d5b715f949cc3ef5ac3fa1dcbababd7c2fd7/lib/slimmer/processors/tag_mover.rb#L8
+[slimmer]: https://github.com/alphagov/slimmer/
 [specific_assets]: https://github.com/alphagov/govuk-rfcs/blob/95b4f967a43b24141c4cd0c7feb37f3c309e21c8/rfc-108-including-gem-component-assets.md
+[static]: https://docs.publishing.service.gov.uk/repos/static.html
 [what_slimmer_does]: https://github.com/alphagov/slimmer/blob/0968d5b715f949cc3ef5ac3fa1dcbababd7c2fd7/docs/what-slimmer-does.md#tagmover
 
 [^1]: Method - look at the markup present on the page. Search for all instances of `.gem-c-*` to get a list of all components being used and dedupe. Compile the Sass from the GOV.UK Publishing Components gem into individual CSS files for each component. Get the Brotli-compressed file size for each component, and add it to the application-specific CSS. Compare this to the current CSS file size for the application and Static.
