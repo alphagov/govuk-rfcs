@@ -94,9 +94,7 @@ The assets should be placed in a folder that allows each application to referenc
 
 A version identifier should be added to the component asset filename to help identify which version of the components gem is being used - for example `gem-v29-2-1-accordion.css`. Similarly, the bespoke app assets should be renamed to their application - so collections would have `collections.css` and `collections.js` - to make it easier to see which stylesheet comes from which application.
 
-The assets would ideally be placed in a shared folder as per [RFC #91][sharing_assets], so would be able to be used across GOV.UK irrespective of the rendering application. Since this hasn't been implemented yet, there would need to be some work for this to happen - and likely this would be delayed to coincide with the replatforming work.
-
-This work should not block the serving of individual assets as there are advantages that don't rely on having a shared folder.
+The assets would be placed in a shared folder so will be able to be used across GOV.UK irrespective of the rendering application. This feature is due as part of the replatforming work - but that should not block the serving of individual assets as there are performance advantages that don't rely on having a shared folder.
 
 ## Considerations
 
@@ -175,9 +173,9 @@ It's worth noting that ES6 modules and import maps are the [direction of travel 
 
 ### Make assets load from a shared folder
 
-Parallel to this, we need to see how RFC 91 could be implemented. This is complicated by the replatforming project nearing completion.
+A shared folder will be implemented as part of the current replatforming work - so each application will be able to [upload any assets to a shared location][shared_location_diagram].
 
-When the shared folder is available, each app would need to load all their assets from a shared folder.
+Once the shared folder is available, each application would need to load all their assets from a shared folder to allow the browser to cache assets regardless of rendering application.
 
 ## Future plans
 
