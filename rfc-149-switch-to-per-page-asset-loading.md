@@ -62,7 +62,7 @@ GOV.UK doesn't take advantage of the fact that it serves CSS and JavaScript file
 
 For example, any change to the breadcrumb component would cause a change in the CSS file for six rendering apps. Any return visitors would need to download the entire stylesheet again - serving the files individually would mean that only the updated breadcrumb component stylesheet would need to be downloaded.
 
-The component gem is released regularly - over the past year it's been released on average once every four days, but most releases were between one and seven days apart. Two thirds of repeat visitors to GOV.UK return within seven days and one quarter of repeat visitors return between 8 to 30 days. This means it is highly likely that returning visitors need to download the asset files again, regardless of how large or small any changes are.
+The component gem is released regularly - over the past year it's been released on average once every four days, with most releases being between one and seven days apart. Two thirds of repeat visitors to GOV.UK return within seven days and one quarter of repeat visitors return between 8 to 30 days. This means it is highly likely that returning visitors need to download the asset files again, regardless of how large or small any changes are.
 
 ### Auditing component use in applications is a manual process.
 
