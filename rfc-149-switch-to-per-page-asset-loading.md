@@ -49,6 +49,8 @@ The applications have bespoke CSS - this varies between half a kilobyte to 15kB.
 
 The apps also have CSS that comes from the components that they use - this varies from half a kilobyte to 16kB. This is served in the rendering applications stylesheet - so a visitor who goes from app to app can't cache and then use these assets, despite the code being the same.
 
+The current setup has each application place their assets in a different folder - `/assets/collections`, `/assets/finder-frontend` etc. This prevents the browser cache from being used effectively as `/assets/collection/accordion-09288...adb36.css` will be fetched even if `/assets/finder-frontend/accordion-09288...adb36.css` has already been downloaded.
+
 ### A tiny change in one component can prevent the browser using the whole of a cached JavaScript and CSS file
 
 GOV.UK doesn't take advantage of the fact that it serves CSS and JavaScript files with a long expiry header. Because the JavaScript and CSS is concatenated and fingerprinted, a change to one component will mean the filename will change.
@@ -83,11 +85,13 @@ Whilst putting a `link rel="stylesheet"` into the body is [okay][link_stylesheet
 
 ### Shared assets
 
-The assets should be placed in a folder that allows each application to reference them. The current behaviour has each application place their assets in a different folder - `/assets/collections`, `/assets/finder-frontend` etc. This prevents the browser cache from being used effectively as `/assets/collection/accordion.css` will be downloaded even if `/assets/finder-frontend/accordion.css` has already been downloaded.
+The assets should be placed in a folder that allows each application to reference them. This feature is due as part of the replatforming work - but that should not block the serving of individual assets as there are performance advantages that don't rely on having a shared folder.
 
-A version identifier should be added to the component asset filename to help identify which version of the components gem is being used - for example `gem-v29-2-1-accordion.css`. Similarly, the bespoke app assets should be renamed to their application - so collections would have `collections.css` and `collections.js` - to make it easier to see which stylesheet comes from which application.
+A version identifier should be added to the component asset filename to help identify which version of the components gem is being used - for example `gem-v29-2-1-accordion-09288...adb36.css`. The fingerprint should remain to show that the contents of the file are the same.
 
-The assets would be placed in a shared folder so will be able to be used across GOV.UK irrespective of the rendering application. This feature is due as part of the replatforming work - but that should not block the serving of individual assets as there are performance advantages that don't rely on having a shared folder.
+The bespoke app assets should be renamed to their application name - so collections would have `collections-5f801d...179b0.css` and `collections-828a8...abb6c.js`. This will make it easier to see which stylesheet comes from which application.
+
+Because each application is using the components gem as the source for the assets for each component, the compiled assets will be the same - whether the resulting CSS or JavaScript file is produced by whitehall, frontend, or collections. When writing to the shared folder the component assets may be overwritten, but - thanks to the fingerprint - they'll be overwritten with files containing the same content.
 
 ## Considerations
 
