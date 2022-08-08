@@ -10,14 +10,6 @@ Deadline for decision: 16 August 2022
 
 Component stylesheets and JavaScript should only be included for components present on a page on GOV.UK. This will lead to a reduction in page size, improve the ability of the browser to cache assets - which in turn improves performance for user journeys and return visits - and help reduce our reliance on manual asset auditing.
 
-The eleven applications that render GOV.UK use the [GOV.UK Publishing Components][govuk_publishing_components] gem. This gem is the single source of truth for shared components used across GOV.UK.
-
-Users that visit more than one page are likely to see pages rendered by different applications. Applications have unique but overlapping combinations of component use - this means that a user could download the same code in each application's concatenated stylesheets and JavaScript files when visiting pages rendered by different applications, despite the components being the same.
-
-Because each application concatenates and appends a fingerprint string to an asset's filename, even a small change to a component will cause the filename to change - meaning that return visitors will no longer have the advantage of caching.
-
-Currently asset auditing is a manual process that needs to be run locally. This means it's easy to miss when a component is no longer used, which leads to larger than needed stylesheets and JavaScript files being served to users.
-
 This RFC builds upon ideas and implementations from:
 * [RFC #91: Sharing assets][sharing_assets] (not implemented)
 * [RFC #108: Include specific component assets in applications][specific_assets] (implemented)
@@ -40,6 +32,7 @@ For example, a three step journey can visit three different rendering applicatio
 1. Micro-pig guidance page, rendered by [government-frontend]
 
 Whilst there is shared code coming from [Static][static], CSS and JavaScript can still come from each individual application - which means there is overlap between the three applications' assets. In the previous three step journey example, there are 43 component's assets served; of which:
+
 * 6 components are used in all 3 applications
 * 16 components are used in 2 applications
 * 19 components are only used in 1 application
@@ -179,7 +172,7 @@ Once the shared folder is available, each application would need to load all the
 
 ## Future plans
 
-With more confidence in the cachability of the individual component assets, there are further improvements to the performance of GOV.UK that could be made, for example:
+With more confidence in the cachability of the individual component assets, there are further improvements to the performance of GOV.UK that could be made - for example:
 
 * preload assets based on most common next pages - similar to [guess.js][guessjs]
 * lazy loading of component assets that aren't visible - for example, the footer and feedback components are always at the bottom of a page
