@@ -1,4 +1,4 @@
-# Revert RFC 126
+# Remove allowlists from Dependabot configs
 
 ## Summary
 
@@ -6,11 +6,17 @@
 
 That review has now been completed, concluding that RFC-126 inadvertently stopped Dependabot from raising security updates. It succeeded in reducing the number of PRs raised, but made little difference to the velocity at which teams merge PRs. It also made no noticable difference to the effort required, which has been far more directly influenced by the new team structure and the roll-out of Continuous Deployment.
 
-This RFC proposes reverting most of the configuration introduced in RFC-126, recognising that it will lead to a moderate increase in PRs raised, but with the benefits of receiving all security updates, keeping more dependencies up to date, and simplifying our configs.
+This RFC proposes removing allowlists from the configuration introduced in RFC-126, recognising that it will lead to a moderate increase in PRs raised, but with the benefits of receiving all security updates, keeping more dependencies up to date, and simplifying our configs.
 
 ## Problem
 
-Platform Reliability's [report][] found that RFC-126:
+Until [as recently as March 2022][example-security-pr], Dependabot used to raise security-related PRs for all dependencies, regardless of whether or not they appeared in the 'allow' list in the `dependabot.yml` file of a given repository.
+
+At some point between March and July, that behaviour changed. We're no longer receiving security updates for any dependency unless it is explicitly on the allow list.
+
+A [spike to change the Dependabot config to allow security updates][dependabot-config-spike] showed that Dependabot is not flexible or powerful enough to allow us to retain our existing allow-lists and also enable security updates globally. The spike concluded that the configs arrived at in RFC-126 were preventing us from receiving security updates.
+
+Given that these configs came in via an RFC, it is important that any major change or removal of config should also be subject to an RFC. We also recently spotted the intent to 'review the RFC after 6 months', so decided to perform a full review. Platform Reliability's [report][] found that RFC-126:
 
 - Succeeded in reducing the number of PRs
 - Did not lead to dependencies being merged any faster
@@ -183,6 +189,14 @@ Whilst this proposal will lead to a moderate increase in the number of PRs raise
 
 Platform Reliability plans to investigate other ways of reducing the effort associated with dependency upgrades, e.g. automatically merging certain PRs, but those ideas for future optimisations are out of scope for this RFC.
 
+### Consequences
+
+Platform Reliability will do the work to raise, review and merge the PRs to remove allow-lists from all GOV.UK repositories.
+
+We expect a moderate increase in the number of PRs Dependabot raises for teams. There will be no formal process for tracking any increases. Whilst Platform Reliability will explore ways to reduce the burden of dependency management in general, teams also have agency to work towards retiring repositories, removing dependencies, or, if they so wish, telling Dependabot to ignore major versions (which would not block security PRs), via 'ignore' lists or GitHub comments.
+
+In future, teams SHOULD NOT use allow lists in their Dependabot configs.
+
 ## Alternatives considered
 
 ### Do nothing
@@ -197,8 +211,7 @@ Removing the dependabot.yml files would disable version updates for all dependen
 
 ### Enable security updates through Dependabot configuration
 
-A [spike to change the Dependabot config to allow security updates][dependabot-config-spike] showed that Dependabot is not flexible or powerful enough to allow us to retain our existing allow-lists and also enable security updates globally.
-
+As already mentioned, Dependabot configuration is not flexible enough to support both an allow list and global security updates.
 Instead, we would need to remove the `allow` list and introduce an `ignore` list, which treats security PRs differently.
 
 Given the number of dependencies and subdependencies for each app, we would need to automate this. The approach would involve going into every repository and writing a script that:
@@ -225,6 +238,7 @@ This route is a lot of work, with a lot of moving parts that could go wrong. The
 [dependabot-docs-delete]: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates#disabling-dependabot-version-updates
 [dependabot-docs-security]: https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/configuring-dependabot-security-updates
 [dependabot-package-ecosystem]: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#package-ecosystem
+[example-security-pr]: https://github.com/alphagov/whitehall/pull/6451
 [github-search]: https://github.com/search?l=&p=1&q=org%3Aalphagov+%22updates%22+path%3A.github+filename%3Adependabot.yml&ref=advsearch&type=Code
 [report]: https://docs.google.com/document/d/1FHwg_V-JT_CVICkrtz-ESeQJ2Dz8ECdG42uIzSsNP4c/edit
 [RFC-126]: https://github.com/alphagov/govuk-rfcs/pull/126
