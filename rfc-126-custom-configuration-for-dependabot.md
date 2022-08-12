@@ -1,5 +1,7 @@
 # Custom configuration for Dependabot
 
+UPDATE AUGUST 2022: this is now superseded. We've agreed to remove 'allow lists' to preserve security updates. See [RFC-153](https://github.com/alphagov/govuk-rfcs/pull/153).
+
 ## Summary
 
 Introduce stricter configuration for Dependabot to reduced number of open PRs, number of deployments and effort required to ensure apps always use the latest version of libraries that we care about.
