@@ -73,16 +73,6 @@ Assets should be included individually on a per-component basis and included in 
 
 This would mean that a page loads `component.css` and `component.js` only when a component is present on the page - rather than the current behaviour, which sees component assets loaded if used anywhere within an application. If multiple uses of the same component occur on the page, there should only be one instance of the assets included on the page.
 
-### Keep the stylesheets in the head
-
-Placing stylesheets in the `head` will ensure that all of the required CSS is downloaded and parsed before rendering begins. This is the current behaviour, so shouldn't be changed.
-
-Whilst putting a `link rel="stylesheet"` into the body is [okay][link_stylesheet_is_body_okay], this would lead to too many changes at once, too many unknowns, and isn't considered best practice. If this proposal is implemented, further investigation could be carried to find out which is the better way of loading assets to improve painting performance.
-
-### Keep JavaScript files just before the closing body tag
-
-[Slimmer][slimmer] currently takes all `script` elements that don't have `defer` or `async` attributes and [moves them to the end of the markup][slimmer_moves_scripts]. This ensures that they are parsed and executed in a known order when the DOM is ready to be read. This behaviour shouldn't be changed.
-
 ### Shared assets
 
 The assets should be placed in a folder that allows each application to reference them. This feature is due as part of the replatforming work - but that should not block the serving of individual assets as there are performance advantages that don't rely on having a shared folder.
@@ -146,6 +136,7 @@ end
 * Serve one stylesheet and one JavaScript file for all of GOV.UK - this increases page weight and doesn't solve cache invalidation
 * Serve one stylesheet and one JavaScript file per template - this doesn't solve cache invalidation when one component changes
 * Serve all component assets used in an application in individual files - this increases page weight for single page visitors, though often decreased it for people who visited more than one page
+* Placing the stylesheet and JavaScript in the `body` directly before the component markup - whilst this is [okay][link_stylesheet_is_body_okay] for both stylesheets and `script`s, it leads to too many unknowns in what is already a reasonable large change
 
 ## Implementation process
 
