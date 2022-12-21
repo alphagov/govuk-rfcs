@@ -82,19 +82,19 @@ Where metricstream or OneAgent is used to push data to the Dynatrace SaaS, Dynat
 
 No ActiveGates 
 
-<pic>
+![Option 1](<rfc-155/Option 1.png>)
 
 **Option 2**
 
 Each AWS account hosts their own ActiveGate container (e.g. in Fargate) 
 
-<pic>
+![Option 2](<rfc-155/Option 2.png>)
 
 **Option 3**
 
 The platform team provide a small cluster of ActiveGates
 
-<pic>
+![Option 3](<rfc-155/Option 3.png>)
 
 **Comparison**
 
