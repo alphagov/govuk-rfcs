@@ -139,13 +139,43 @@ For the spike, we passed a personal access token to the `hmarr/auto-approve-acti
 [step-2]: https://github.com/alphagov/govuk-developer-docs/blob/68146cbddadb6adbf96fe3caaf15a3210ca66a37/.github/workflows/dependabot-auto-merge.yml#L48-L51
 [step-3]: https://github.com/alphagov/govuk-developer-docs/blob/68146cbddadb6adbf96fe3caaf15a3210ca66a37/.github/workflows/dependabot-auto-merge.yml#L52-L56
 
+### Packaging as a GitHub Action
+
+The [spike][] is a reasonably large and complex GitHub Action workflow file, which we would ideally not duplicate in every GOV.UK repository that wishes to utilise the auto-merging. If this RFC is approved, it is worth spending some time consolidating the spike code into its own [GitHub Action repository][creating-actions].
+
+We should be able to reduce the required configuration down to something as readable as:
+
+```yaml
+name: Dependabot auto-merge
+on: pull_request_target
+
+permissions:
+  contents: write
+  pull-requests: write
+
+auto_approve_and_merge:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: alphagov/auto-merge-dependabot@v1.0.0
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        merge-dependencies:
+          - govuk_publishing_components
+          - rubocop-govuk
+        merge-versions:
+          - patch
+          - minor
+```
+
+[creating-actions]: https://docs.github.com/en/actions/creating-actions/about-custom-actions
+
 ### Raise initial config PRs
 
 - What: Raise PRs for all applicable GOV.UK repos, to enable auto-merging of certain dependencies using GitHub Actions 
 - Who: Platform Reliability
 - When: After enabling the org-wide setting
 
-Platform Reliability intend to raise an initial config PR (replicating the [dependabot-auto-merge.yml file from the govuk-developer-docs spike][spike]) across all GOV.UK repos representing continuously deployed apps. Whilst Platform Reliability would create the initial PRs, it would be up to the owning teams to decide whether or not to merge, and to what extent they'd want to reconfigure the repo and version scopes.
+Platform Reliability intend to reference the homemade GitHub Action from [Packaging as a GitHub Action](#packaging-a-github-action), raising an initial config PR across all GOV.UK repos that represent continuously deployed apps. Whilst Platform Reliability would create the initial PRs, it would be up to the owning teams to decide whether or not to merge, and to what extent they'd want to reconfigure the repo and version scopes.
 
 Platform Reliability also intend to raise the necessary PRs to restrict Dependabot 'schedule times' as per [5. During office hours](#5-during-office-hours). As above, it will be up to the owning teams to decide whether or not to merge, though we will stipulate that they must not enable auto-merging without also restricting the Dependabot schedule times.
 
