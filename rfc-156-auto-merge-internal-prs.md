@@ -36,6 +36,7 @@ We propose a strict rule that Dependabot PRs must only be auto-merged if:
 2. App is continuously deployed
 3. CI build passes
 4. Version increase is patch or minor
+5. During office hours
 
 #### 1. Dependency is internal
 
@@ -84,6 +85,31 @@ Note that this does put extra onus on getting our [semantic versioning][semver] 
 [rails-major-upgrade]: https://docs.publishing.service.gov.uk/manual/keeping-software-current.html#rails
 [semver]: https://semver.org/
 
+#### 5. During office hours
+
+We want to limit the times at which auto-merging can take place, to typical office hours only. If a gem with a bug were to be released at 5pm on a Friday, this wouldn't be deployed into the apps until after most people have stopped working for the week, potentially creating work for those on-call if there is a user-facing impact.
+
+We propose a broad auto-merge window of between 9am and 4pm, Monday to Friday. Auto-merging must not happen outside of those times. In practice, the auto-merging will actually happen in a much narrower time period, around 9:30am, for reasons outlined below.
+
+We considered a [number of different ways][different-ways-to-defer-merging] of limiting the window during which auto-merging should happen. After [investigating][schedule-merge-investigation], there doesn't seem to be a reliable way auto-approving a Dependabot PR and then scheduling the merging of that PR to happen during office hours.
+
+Comparatively, it's trivial to [configure Dependabot to run at certain times][dependabot-configure-timing]. Currently, we set no such preference, so Dependabot often [raises PRs outside of office hours][example-dependabot-pr-out-of-hours]. We therefore propose configuring Dependabot to check for new versions at 9:30am every weekday. The proposed auto-merge implementation relies on running a number of GitHub Actions whenever a Dependabot PR is opened, so this should comfortably restrict auto-merging to happen only in office hours.
+
+There is one last consideration: Bank Holidays. We want to avoid auto-merging on Bank Holidays as these would be outside of office hours.
+
+Bank Holidays are typically Mondays or Fridays, so we could restrict Dependabot's configuration further, to only raise Dependabot PRs between Tuesday and Thursday. However, this would introduce unnecessary delays for sometimes very important (security) fixes, and also glosses over the fact that some Bank Holidays around Christmas might fall on a different weekday.
+
+Therefore, we propose building a [feature flag][] (for simplicity, a file with contents of either `0` or `1`) to make it easy to turn off auto-merging. The intention is that a developer would disable auto-merging on the last working day before a bank holiday, and then re-enable auto-merging upon their return. The feature has been successfully [spiked][spike-feature-flag] on a temporary repo, but for GOV.UK, the [flag file][] should live in [govuk-saas-config][].
+
+[dependabot-configure-timing]: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#scheduletime
+[different-ways-to-defer-merging]: https://github.com/alphagov/govuk-rfcs/pull/156#issuecomment-1427552572
+[example-dependabot-pr-out-of-hours]: https://github.com/alphagov/content-data-admin/pull/1176
+[feature flag]: https://martinfowler.com/articles/feature-toggles.html
+[flag file]: https://github.com/ChrisBAshton/test-auto-merge/blob/9d6ed1518c39ef8b0e004c0e389a11898fffea02/feature-flags/auto-merge-dependabot
+[govuk-saas-config]: https://github.com/alphagov/govuk-saas-config
+[schedule-merge-investigation]: https://github.com/alphagov/govuk-rfcs/pull/156#issuecomment-1431282282
+[spike-feature-flag]: https://github.com/ChrisBAshton/test-auto-merge/blob/9d6ed1518c39ef8b0e004c0e389a11898fffea02/.github/workflows/dependabot-auto-merge.yml#L32-L44
+
 ## Actions
 
 This RFC proposes the following actions.
@@ -120,6 +146,8 @@ For the spike, we passed a personal access token to the `hmarr/auto-approve-acti
 - When: After enabling the org-wide setting
 
 Platform Reliability intend to raise an initial config PR (replicating the [dependabot-auto-merge.yml file from the govuk-developer-docs spike][spike]) across all GOV.UK repos representing continuously deployed apps. Whilst Platform Reliability would create the initial PRs, it would be up to the owning teams to decide whether or not to merge, and to what extent they'd want to reconfigure the repo and version scopes.
+
+Platform Reliability also intend to raise the necessary PRs to restrict Dependabot 'schedule times' as per [5. During office hours](#5-during-office-hours). As above, it will be up to the owning teams to decide whether or not to merge, though we will stipulate that they must not enable auto-merging without also restricting the Dependabot schedule times.
 
 The PR will be expanded from the initial spike, to include both patch and minor version bumps, of the following internal dependencies (but only where those dependencies are present in the repo):
 
