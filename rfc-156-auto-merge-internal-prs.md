@@ -95,6 +95,8 @@ We considered a [number of different ways][different-ways-to-defer-merging] of l
 
 Comparatively, it's trivial to [configure Dependabot to run at certain times][dependabot-configure-timing]. Currently, we set no such preference, so Dependabot often [raises PRs outside of office hours][example-dependabot-pr-out-of-hours]. We therefore propose configuring Dependabot to check for new versions at 9:30am, Monday to Friday. The proposed auto-merge implementation relies on running a number of GitHub Actions whenever a Dependabot PR is opened, so this should comfortably restrict auto-merging to happen only in office hours.
 
+As an aside: setting the `schedule.day` and/or `schedule.time` configs [does not prevent security PRs from being raised][schedule-security] outside of those times. This is a good thing, and regardless, an external dependency update would not be auto-merged, even if it were a security one (that's perhaps a discussion for another RFC!).
+
 There is one last consideration: Bank Holidays. We want to avoid auto-merging on Bank Holidays as these would be outside of office hours.
 
 Bank Holidays are typically Mondays or Fridays, so we could restrict Dependabot's configuration further, to only raise Dependabot PRs between Tuesday and Thursday. However, this would introduce unnecessary delays for sometimes very important (security) fixes, and also glosses over the fact that some Bank Holidays around Christmas might fall on a different weekday.
@@ -106,6 +108,7 @@ Therefore, we propose writing an additional `validate_not_a_bank_holiday` step i
 [different-ways-to-defer-merging]: https://github.com/alphagov/govuk-rfcs/pull/156#issuecomment-1427552572
 [example-dependabot-pr-out-of-hours]: https://github.com/alphagov/content-data-admin/pull/1176
 [schedule-merge-investigation]: https://github.com/alphagov/govuk-rfcs/pull/156#issuecomment-1431282282
+[schedule-security]: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#configuration-options-for-the-dependabotyml-file
 
 ## Actions
 
