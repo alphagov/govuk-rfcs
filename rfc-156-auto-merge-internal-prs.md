@@ -89,26 +89,23 @@ Note that this does put extra onus on getting our [semantic versioning][semver] 
 
 We want to limit the times at which auto-merging can take place, to typical office hours only. If a gem with a bug were to be released at 5pm on a Friday, this wouldn't be deployed into the apps until after most people have stopped working for the week, potentially creating work for those on-call if there is a user-facing impact.
 
-We propose a broad auto-merge window of between 9am and 4pm, Monday to Friday. Auto-merging must not happen outside of those times. In practice, the auto-merging will actually happen in a much narrower time period, around 9:30am, for reasons outlined below.
+We propose that auto-merging should happen around 9:30am, Monday to Friday, for reasons outlined below.
 
 We considered a [number of different ways][different-ways-to-defer-merging] of limiting the window during which auto-merging should happen. After [investigating][schedule-merge-investigation], there doesn't seem to be a reliable way auto-approving a Dependabot PR and then scheduling the merging of that PR to happen during office hours.
 
-Comparatively, it's trivial to [configure Dependabot to run at certain times][dependabot-configure-timing]. Currently, we set no such preference, so Dependabot often [raises PRs outside of office hours][example-dependabot-pr-out-of-hours]. We therefore propose configuring Dependabot to check for new versions at 9:30am every weekday. The proposed auto-merge implementation relies on running a number of GitHub Actions whenever a Dependabot PR is opened, so this should comfortably restrict auto-merging to happen only in office hours.
+Comparatively, it's trivial to [configure Dependabot to run at certain times][dependabot-configure-timing]. Currently, we set no such preference, so Dependabot often [raises PRs outside of office hours][example-dependabot-pr-out-of-hours]. We therefore propose configuring Dependabot to check for new versions at 9:30am, Monday to Friday. The proposed auto-merge implementation relies on running a number of GitHub Actions whenever a Dependabot PR is opened, so this should comfortably restrict auto-merging to happen only in office hours.
 
 There is one last consideration: Bank Holidays. We want to avoid auto-merging on Bank Holidays as these would be outside of office hours.
 
 Bank Holidays are typically Mondays or Fridays, so we could restrict Dependabot's configuration further, to only raise Dependabot PRs between Tuesday and Thursday. However, this would introduce unnecessary delays for sometimes very important (security) fixes, and also glosses over the fact that some Bank Holidays around Christmas might fall on a different weekday.
 
-Therefore, we propose building a [feature flag][] (for simplicity, a file with contents of either `0` or `1`) to make it easy to turn off auto-merging. The intention is that a developer would disable auto-merging on the last working day before a bank holiday, and then re-enable auto-merging upon their return. The feature has been successfully [spiked][spike-feature-flag] on a temporary repo, but for GOV.UK, the [flag file][] should live in [govuk-saas-config][].
+Therefore, we propose writing an additional `validate_not_a_bank_holiday` step into the auto-merge GitHub Action, which will use [GOV.UK's Bank Holidays API][bank-holidays-api] to ensure that the current date is not a bank holiday. If, for example, Dependabot runs on a Monday that happens to also be a Bank Holiday, the auto-merge would not happen and a developer would need to merge the PR manually at a later date.
 
+[bank-holidays-api]: https://www.gov.uk/bank-holidays.json
 [dependabot-configure-timing]: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#scheduletime
 [different-ways-to-defer-merging]: https://github.com/alphagov/govuk-rfcs/pull/156#issuecomment-1427552572
 [example-dependabot-pr-out-of-hours]: https://github.com/alphagov/content-data-admin/pull/1176
-[feature flag]: https://martinfowler.com/articles/feature-toggles.html
-[flag file]: https://github.com/ChrisBAshton/test-auto-merge/blob/9d6ed1518c39ef8b0e004c0e389a11898fffea02/feature-flags/auto-merge-dependabot
-[govuk-saas-config]: https://github.com/alphagov/govuk-saas-config
 [schedule-merge-investigation]: https://github.com/alphagov/govuk-rfcs/pull/156#issuecomment-1431282282
-[spike-feature-flag]: https://github.com/ChrisBAshton/test-auto-merge/blob/9d6ed1518c39ef8b0e004c0e389a11898fffea02/.github/workflows/dependabot-auto-merge.yml#L32-L44
 
 ## Actions
 
