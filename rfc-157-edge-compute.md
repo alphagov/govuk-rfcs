@@ -199,7 +199,7 @@ This project can be divided into a number of stages:
     - We will develop & deploy the new Fastly services and the new CloudFront distribution separately from our existing CDN service.
     - Both the new Compute@Edge service and the Lambda@Edge handlers should be built together, so that we don't end up painting ourselves into a corner with an architecture that's only suitable for one service.
     - Both services must have access controls during development (I propose an IP allowlist restricting access to the office & VPN).
-    - The new Compute@Edge service (or rather, the VCL service behind it in the "sandwich"), as well as the new CloudFront distribution, must both be added to origin's IP allowlist, so that they are able to make requests to origin.
+    - The new CloudFront distribution must be added to origin's IP allowlist, so that it is able to make requests to origin. The new Compute@Edge service (or rather, the VCL service behind it in the "sandwich") will [already be covered](https://docs.publishing.service.gov.uk/manual/cdn.html#fastly39s-ip-ranges-and-our-access-controls-on-origin-servers) by our existing allowlist.
 2. A/B testing with live traffic by adding the new Compute@Edge service and CloudFront distribution as backends to the existing VCL-based service, and passing a percentage of traffic directly to each
 3. Promotion of the new Fastly config
     - Update our DNS records for GOV.UK to point to the new Compute@Edge service (or rather, the VCL service at the front of the "sandwich").
