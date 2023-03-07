@@ -21,14 +21,14 @@ Move from VCL-based CDN config to edge compute on both Fastly ([Compute@Edge](ht
 Benefits:
 
 - Allows us to deploy the same CDN config to multiple CDNs
-  - This makes it easier for us to build a failover solution that is able to serve the live site (as opposed to a static mirror)
+  - This makes it easier for us to build a failover solution that has feature parity with the primary CDN
 - Using a programming language for CDN config (as opposed to a DSL) allows us to test it locally, as discussed later in this RFC
 
 ## Background
 
 ### VCL (Fastly)
 
-This is the "traditional" way to configure Fastly services. There's a good high-level overview [here](https://developer.fastly.com/learning/vcl/using/).
+This is the "traditional" way to configure Fastly services (see [high-level overview](https://developer.fastly.com/learning/vcl/using/)).
 
 [Our VCL](https://github.com/alphagov/govuk-cdn-config/blob/main/vcl_templates/www.vcl.erb) currently overrides the `RECV`, `FETCH`, `DELIVER` and `ERROR` subroutines, and handles a lot of things including (non-exhaustive):
 
@@ -49,14 +49,14 @@ This is the "traditional" way to configure Fastly services. There's a good high-
 - Stripping cookies in some cases
 - Rendering some custom error pages
 
-We also make use of some features in the Fastly UI, which are not currently available within VCL (or indeed Compute@Edge code):
+We also make use of some features in the Fastly UI, which are not currently available within VCL (or indeed Compute@Edge code - see [Known limitations](#known-limitations)):
 
 - Enabling [shielding](https://docs.fastly.com/en/guides/shielding) for paths beginning with `/alerts`
 - Setting up logging to S3 and Splunk
 
 ### Compute@Edge (Fastly)
 
-[Compute@Edge](https://www.fastly.com/products/edge-compute) is Fastly's serverless edge compute product.
+[Compute@Edge](https://www.fastly.com/products/edge-compute) (C@E) is Fastly's serverless edge compute product.
 
 - Built around WebAssembly, supports [several languages](https://developer.fastly.com/learning/compute/#choose-a-language-to-use)
 - C@E services are built locally into WebAssembly blobs, and can be deployed using the Fastly CLI
@@ -73,7 +73,7 @@ The below sequence diagram shows the path a request makes through a Compute@Edge
 >
 > -- <cite>https://developer.fastly.com/learning/concepts/service-chaining/#computeedge-to-vcl-chaining</cite>
 
-This means that it's currently not possible to implement all of the code from our `vcl_fetch` subroutine within a Compute@Edge service, including e.g. [this code](https://github.com/alphagov/govuk-cdn-config/blob/b0f104094c34c9b72c311a7aae2f04603364a1f1/vcl_templates/www.vcl.erb#L527) which marks a response as uncacheable if the `GOVUK-Account-Session` or `GOVUK-Account-End-Session` are set.
+This means that it's currently not possible to implement all of the code from our `vcl_fetch` subroutine within a Compute@Edge service, including e.g. [this code](https://github.com/alphagov/govuk-cdn-config/blob/b0f104094c34c9b72c311a7aae2f04603364a1f1/vcl_templates/www.vcl.erb#L527-533) which marks a response as uncacheable if the `GOVUK-Account-Session` or `GOVUK-Account-End-Session` are set.
 
 Fastly have plans to address this limitation in the future, but in the meantime a workaround is to ["chain" a VCL service behind our Compute@Edge one](https://developer.fastly.com/learning/concepts/service-chaining/#computeedge-to-vcl-chaining).
 
@@ -191,7 +191,7 @@ When we are ready to test the new CDN config with live traffic, we could potenti
 
 ## Ownership & roadmap
 
-Platform reliability would own most of this work.
+Platform Reliability would own most of this work.
 
 This project can be divided into a number of stages:
 
