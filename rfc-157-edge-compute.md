@@ -67,6 +67,10 @@ The below sequence diagram shows the path a request makes through a Compute@Edge
 
 ![Sequence diagram showing a request being handled on Fastly Compute@Edge](rfc-157/Compute%40Edge%20sequence%20diagram.png)
 
+The below sequence diagram illustrates how backend failover works on Compute@Edge. Again, note that it's our own code that performs the failover.
+
+![Sequence diagram showing backend failover on Fastly Compute@Edge](rfc-157/Compute%40Edge%20backend%20failover.png)
+
 #### Known limitations
 
 > Compute@Edge services currently offer a fetch API that performs a backend fetch through the Fastly edge cache, and stores cacheable responses. There is no way to adjust cache rules for objects received from a backend before they are inserted into the cache within a Compute@Edge service. As a result, if you need to process received objects before caching them, or to set custom cache TTLs, a solution is to place a VCL service in a chain with a Compute@Edge one
@@ -104,7 +108,9 @@ The below sequence diagram shows the path a request makes through a CloudFront d
 
 Origin request/response handlers allow us to do things that Compute@Edge does not yet support (but that are available in VCL), such as modifying a backend request after the cache key has been computed, or modifying a backend response before it gets cached.
 
-Origin request handlers can perform [dynamic origin selection](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-examples.html#lambda-examples-content-based-routing-examples), but unlike Compute@Edge, L@E provides no way to specify fallbacks in the case that one backend is down. We must instead use [CloudFront Origin Groups](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html#concept_origin_groups.lambda) for this purpose.
+Lambda@Edge origin request handlers can perform [dynamic origin selection](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-examples.html#lambda-examples-content-based-routing-examples), but unlike Fastly/C@E, origin failover on CloudFront is handled by CloudFront itself (not our Lambda@Edge code), through the use of [Origin Groups](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html#concept_origin_groups.lambda):
+
+![Origin failover with Lambda@Edge](rfc-157/Lambda%40Edge%20with%20origin%20groups.png)
 
 ## Choice of language
 
@@ -157,6 +163,8 @@ On the Fastly side, we will also need:
 In other words, we will need a VCL -> Compute@Edge -> VCL "sandwich". Such an approach is explicitly mentioned in the [Fastly docs](https://developer.fastly.com/learning/concepts/service-chaining/#chaining-more-than-two-services) as the only use case where a chain of more than 2 services is recommended.
 
 On the Lambda@Edge side, manipulation of the backend response before it hits the cache could be achieved by building an origin response handler. This would create code duplication between Lambda@Edge and the second VCL service in the "sandwich", but that can't be helped right now.
+
+Backend failover will be performed from within the Fastly-specific entrypoint on the Fastly side, and through a CloudFront origin group configured using Terraform on the CloudFront side.
 
 ## Testing
 
