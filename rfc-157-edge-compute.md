@@ -136,27 +136,38 @@ If folks have a strong aversion to TypeScript, JavaScript would also be a good o
 I propose that we build a three-layer architecture, with:
 
 - A platform-agnostic wrapper API to abstract away differences between the platform-specific types (e.g. `Request` and `Response`)
-- Platform-agnostic request and response handlers (corresponding to Lambda@Edge's viewer request and viewer response handlers concepts respectively), where the majority of the code lives, e.g.
+- Platform-agnostic request and response handlers (corresponding to Lambda@Edge's viewer request and viewer response handlers concepts respectively), where the majority of the code lives, e.g. (pseudocode)
   ```typescript
   // Takes the request from the client
   // Returns either a request to be sent to the backend,
   // or a response to be sent to the client
-  function handle_request(req: Request): Request | Response;
+  function handle_request(request: Request): Request | Response
 
   // Takes the response returned from either the request handler or the backend
   // Returns the response to be sent to the client
-  function handle_response(resp: Response): Response;
+  function handle_response(response: Response): Response
   ```
-- Platform-specific entrypoints for Compute@Edge and Lambda@Edge, which call into the platform-agnostic code, e.g. (for Compute@Edge)
+- Platform-specific entrypoints for Compute@Edge and Lambda@Edge, which call into the platform-agnostic code, e.g. (pseudocode)
   ```typescript
-  function perform_backend_fetch(req: Request): Response; // Provided by Fastly SDK
+  // Compute@Edge entrypoint:
+  function perform_backend_fetch(request: Request): Response; // Provided by Fastly SDK
 
-  function fastly_entrypoint(req: Request): Response {
+  function fastly_entrypoint(request: Request): Response {
     const request_or_response = handle_request(request)
     const response = (request_or_response instanceof Request) ?
       perform_backend_fetch(request_or_response) :
-      request_or_response;
-    return handle_response(response);
+      request_or_response
+    return handle_response(response)
+  }
+
+  // Lambda@Edge viewer request handler entrypoint:
+  function viewer_request_handler(request: Request): Request | Response {
+    return handle_request(request)
+  }
+
+  // Lambda@Edge viewer response handler entrypoint:
+  function viewer_response_handler(response: Response): Response {
+    return handle_response(response)
   }
   ```
 
