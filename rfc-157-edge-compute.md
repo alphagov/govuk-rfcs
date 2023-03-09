@@ -206,6 +206,7 @@ I propose that:
 - We should use the [Fastly Terraform provider](https://registry.terraform.io/providers/fastly/fastly/latest/docs) (or possibly the Fastly CLI, if it supports all the features we need) to:
   - Build the new Compute@Edge service into a WASI bundle and deploy it to Fastly
   - Configure the two VCL services in the "sandwich"
+    - These will both be architected as entirely new services, i.e. [`www.vcl.erb`](https://github.com/alphagov/govuk-cdn-config/blob/main/vcl_templates/www.vcl.erb) will remain untouched during the migration process (other than perhaps to add A/B testing logic for the new services), and then removed when the migration is complete.
 - A new Terraform project should be created in `govuk-aws` which:
   - Pulls, bundles (using e.g. Webpack or esbuild), and packages (e.g. as a series of ZIP archives) the Lambda@Edge code
     - It's important therefore that `govuk-cdn-config` have a regression test suite to ensure that the package is always in a buildable state, as otherwise we would be unable to deploy the corresponding Terraform project in `govuk-aws`
