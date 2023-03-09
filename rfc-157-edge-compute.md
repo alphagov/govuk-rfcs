@@ -207,9 +207,9 @@ I propose that:
   - Build the new Compute@Edge service into a WASI bundle and deploy it to Fastly
   - Configure the two VCL services in the "sandwich"
     - These will both be architected as entirely new services, i.e. [`www.vcl.erb`](https://github.com/alphagov/govuk-cdn-config/blob/main/vcl_templates/www.vcl.erb) will remain untouched during the migration process (other than perhaps to add A/B testing logic for the new services), and then removed when the migration is complete.
+- A GitHub Actions workflow should be added to `govuk-cdn-config` that, on push to `main`, builds (using e.g. Webpack or esbuild) and packages (e.g. as a series of ZIP archives) the Lambda@Edge code, and commits the built packages to `govuk-aws`.
+  - Committing built Lambda packages to `govuk-aws` is already an [established precedent](https://github.com/alphagov/govuk-aws/blob/main/terraform/lambda/DownloadLogsAnalytics/download_logs_analytics.zip), and allows us to ensure that the Terraform project is always in a deployable state
 - A new Terraform project should be created in `govuk-aws` which:
-  - Pulls, bundles (using e.g. Webpack or esbuild), and packages (e.g. as a series of ZIP archives) the Lambda@Edge code
-    - It's important therefore that `govuk-cdn-config` have a regression test suite to ensure that the package is always in a buildable state, as otherwise we would be unable to deploy the corresponding Terraform project in `govuk-aws`
   - Creates a new CloudFront distribution, creates the appropriate Lambda functions, and attaches them to the distribution (building upon [this spike](https://github.com/alphagov/govuk-aws/tree/c47b0a265a9f5c6de0b117fe3f48d6c4a56889fb/terraform/lambda/CloudfrontHandlers) in `govuk-aws`, though n.b. I am proposing that the Lambda@Edge code itself should live in `govuk-cdn-config`)
 
 When we are ready to test the new CDN config with live traffic, we could potentially set up A/B testing by adding the new Compute@Edge service and the new CloudFront distribution as (additional) backends of the existing VCL-based service.
