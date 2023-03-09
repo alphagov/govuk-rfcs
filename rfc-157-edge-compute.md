@@ -178,7 +178,7 @@ On the Fastly side, we will also need:
 
 In other words, we will need a VCL -> Compute@Edge -> VCL "sandwich". Such an approach is explicitly mentioned in the [Fastly docs](https://developer.fastly.com/learning/concepts/service-chaining/#chaining-more-than-two-services) as the only use case where a chain of more than 2 services is recommended.
 
-On the Lambda@Edge side, manipulation of the backend response before it hits the cache could be achieved by building an origin response handler. This would create code duplication between Lambda@Edge and the second VCL service in the "sandwich", but that can't be helped right now.
+On the Lambda@Edge side, manipulation of the backend response before it hits the cache could be achieved by building an origin response handler. This would create code duplication between Lambda@Edge and the second VCL service in the "sandwich" (because we're implementing the same behaviour in both VCL and TypeScript). When Compute@Edge gains support for controlling caching around backend responses, we can refactor this to remove the duplication.
 
 Backend failover will be performed from within the Fastly-specific entrypoint on the Fastly side, and through a CloudFront origin group configured using Terraform on the CloudFront side.
 
