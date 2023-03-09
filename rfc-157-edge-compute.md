@@ -12,7 +12,12 @@ By moving to [edge computing](https://en.wikipedia.org/wiki/Edge_computing) inst
   - Our Fastly services are configured using [VCL (varnish cache language)](https://developer.fastly.com/learning/vcl/using/), in [`govuk-cdn-config`](https://github.com/alphagov/govuk-cdn-config).
   - Our CloudFront failover distribution is configured and deployed using Terraform, in [the `infra-mirror-bucket` project in `govuk-aws`](https://github.com/alphagov/govuk-aws/tree/main/terraform/projects/infra-mirror-bucket).
 - Currently only our Fastly configuration is feature-complete; if Fastly goes down then we failover to a CloudFront distribution that is only configured to serve a static mirror of GOV.UK.
-  - Fixing this would entail re-creating all of the features that our custom VCL provides using CloudFront's equivalents. Platform Reliability have already started this work, by creating a new CF distribution that calls into a load balancer in front of our `cache` class nodes, but this new setup [doesn't yet have feature parity](https://docs.google.com/document/d/17_dfWvKNmqyLX1h_PPY6_Cd6IggrrSsP-Peh2De6JQk/edit) with our existing VCL-based Fastly service.
+  - Platform Reliability have begun work on a new CloudFront distribution that's able to serve content from origin by calling into a load balancer in front of our `cache` class nodes, but this new setup [doesn't have feature parity](https://docs.google.com/document/d/17_dfWvKNmqyLX1h_PPY6_Cd6IggrrSsP-Peh2De6JQk/edit) with our existing VCL-based Fastly service, and we have no plans to implement full feature parity with Fastly (as that's the purpose of this RFC).
+  - This lack of feature parity presents us with several issues:
+    - Lack of clarity or confidence around what works in Cloudfront (e.g. developers have to be aware of this when building things, SMT need to be reminded of impact failover will have, we may be more hesitant in triggering the failover, etc.)
+    - Complexities also introduced downstream (e.g. if we failover and A/B testing stops working, data analysts now need to scrub out the failover period in their analysis)
+    - We're less likely to drill the failover in Production to ensure it works (as it will cause a somewhat degraded experience)
+    - It restricts our ability to consider a multi CDN strategy where traffic is split between two CDNs simultaneously 
 
 ## Proposal
 
