@@ -93,7 +93,7 @@ We propose that auto-merging should happen around 9:30am, Monday to Friday, for 
 
 We considered a [number of different ways][different-ways-to-defer-merging] of limiting the window during which auto-merging should happen. After [investigating][schedule-merge-investigation], there doesn't seem to be a reliable way auto-approving a Dependabot PR and then scheduling the merging of that PR to happen during office hours.
 
-Comparatively, it's trivial to [configure Dependabot to run at certain times][dependabot-configure-timing]. Currently, we set no such preference, so Dependabot often [raises PRs outside of office hours][example-dependabot-pr-out-of-hours]. We therefore propose configuring Dependabot to check for new versions at 9:30am, Monday to Friday. The proposed auto-merge implementation relies on running a number of GitHub Actions whenever a Dependabot PR is opened, so this should comfortably restrict auto-merging to happen only in office hours.
+Comparatively, it's trivial to [configure Dependabot to run at certain times][dependabot-configure-timing]. Currently, we set no such preference, so Dependabot often [raises PRs outside of office hours][example-dependabot-pr-out-of-hours]. We therefore propose configuring Dependabot to check for new versions at 9:30am, Monday to Friday. The proposed auto-merge implementation relies on triggering a webhook whenever a Dependabot PR is opened, so this should comfortably restrict auto-merging to happen only in office hours.
 
 As an aside: setting the `schedule.day` and/or `schedule.time` configs [does not prevent security PRs from being raised][schedule-security] outside of those times. This is a good thing, and regardless, an external dependency update would not be auto-merged, even if it were a security one (that's perhaps a discussion for another RFC!).
 
@@ -101,7 +101,7 @@ There is one last consideration: Bank Holidays. We want to avoid auto-merging on
 
 Bank Holidays are typically Mondays or Fridays, so we could restrict Dependabot's configuration further, to only raise Dependabot PRs between Tuesday and Thursday. However, this would introduce unnecessary delays for sometimes very important (security) fixes, and also glosses over the fact that some Bank Holidays around Christmas might fall on a different weekday.
 
-Therefore, we propose writing an additional `validate_not_a_bank_holiday` step into the auto-merge GitHub Action, which will use [GOV.UK's Bank Holidays API][bank-holidays-api] to ensure that the current date is not a bank holiday. If, for example, Dependabot runs on a Monday that happens to also be a Bank Holiday, the auto-merge would not happen and a developer would need to merge the PR manually at a later date.
+Therefore, we propose writing an additional "validate this is not a bank holiday" step into the auto-merge process, which will use [GOV.UK's Bank Holidays API][bank-holidays-api] to ensure that the current date is not a bank holiday. If, for example, Dependabot runs on a Monday that happens to also be a Bank Holiday, the auto-merge would not happen and a developer would need to merge the PR manually at a later date.
 
 [bank-holidays-api]: https://www.gov.uk/bank-holidays.json
 [dependabot-configure-timing]: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#scheduletime
@@ -110,93 +110,81 @@ Therefore, we propose writing an additional `validate_not_a_bank_holiday` step i
 [schedule-merge-investigation]: https://github.com/alphagov/govuk-rfcs/pull/156#issuecomment-1431282282
 [schedule-security]: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#configuration-options-for-the-dependabotyml-file
 
-## Actions
+### Auto-merge implementation
 
-This RFC proposes the following actions.
-
-### Org-wide setting
-
-- What: Engage with the heads of community to enable a necessary org-wide setting
-- Who: Platform Reliability
-- When: Immediately following acceptance of this RFC
-
-Platform Reliability completed a [spike][] enabling the automatic merging of patch releases of `govuk_publishing_components`, for the `govuk-developer-docs` repository only. It successfully [auto-approved and auto-merged a qualifying PR][example-pr].
-
-The automation relies on three steps:
+Platform Reliability completed a [spike][] enabling the automatic merging of patch releases of `govuk_publishing_components`, for the `govuk-developer-docs` repository only. It successfully [auto-approved and auto-merged a qualifying PR][example-pr]. The automation relied on three steps:
 
 1. [Check that the PR matches the criteria above][step-1]
 2. [Approve the PR][step-2]
 3. [Merge the PR][step-3]
 
-There are some nuances to step 2. There is an [org-wide setting][] to "Allow GitHub Actions reviews to count towards required approval", so it should be possible for the GitHub Actions bot to approve these PRs. However, we currently have that setting disabled, after a brief discussion in a [GDS-wide RFC][]. In that RFC, it was acknowledged that enabling the feature would be "low risk", but as there were no identifiable use cases for it at the time, it was left disabled.
+There are some nuances to step 2. There is an [org-wide setting][] to "Allow GitHub Actions reviews to count towards required approval", so it should be possible for the GitHub Actions bot to approve these PRs. However, we currently have that setting disabled, following a [GDS-wide RFC][]. For the spike, we passed a personal access token to the `hmarr/auto-approve-action` instead, which is not subject to the org-wide setting. It therefore looks as though a developer manually approved the example PR, but in reality it was entirely automated.
 
-For the spike, we passed a personal access token to the `hmarr/auto-approve-action` instead, which is not subject to the org-wide setting. It therefore looks as though a developer manually approved the example PR, but in reality it was entirely automated. For cohesion, and to avoid having to manage a personal access token (whether on a real or shared CI account), we propose enabling the org-wide setting and using the GitHub Actions bot to approve PRs.
+Whilst we could enable the org wide setting, or follow the spike approach creating a personal access token (this time for a shared CI account), both of these are [vulnerable to privilege escalation][privilege-escalation]. Consider a developer who does not have admin access to GitHub repositories, thus can't override the mandatory review requirement. A sufficiently motivated developer (or bad actor who has compromised said developer's account) could craft a PR with a GitHub Action workflow that uses the GitHub Actions bot (or shared personal access token) to auto-approve their own PR, giving them free rein to merge malicious code.
+
+For production, it would be safer to use an external mechanism for auto-approving and auto-merging PRs. See the proposed actions below.
 
 [example-pr]: https://github.com/alphagov/govuk-developer-docs/pull/3825
 [GDS-wide RFC]: https://docs.google.com/document/d/1IFz7E4DcWJ09giNB38fxfccU6fdW4TrQi722zztmSxs/edit#heading=h.au70tiw6t1oo
 [org-wide setting]: https://github.blog/changelog/2022-01-14-github-actions-prevent-github-actions-from-approving-pull-requests/
+[privilege-escalation]: https://medium.com/cider-sec/bypassing-required-reviews-using-github-actions-6e1b29135cc7
+[spike]: https://github.com/alphagov/govuk-developer-docs/blob/68146cbddadb6adbf96fe3caaf15a3210ca66a37/.github/workflows/dependabot-auto-merge.yml
 [step-1]: https://github.com/alphagov/govuk-developer-docs/blob/68146cbddadb6adbf96fe3caaf15a3210ca66a37/.github/workflows/dependabot-auto-merge.yml#L9-L43
 [step-2]: https://github.com/alphagov/govuk-developer-docs/blob/68146cbddadb6adbf96fe3caaf15a3210ca66a37/.github/workflows/dependabot-auto-merge.yml#L48-L51
 [step-3]: https://github.com/alphagov/govuk-developer-docs/blob/68146cbddadb6adbf96fe3caaf15a3210ca66a37/.github/workflows/dependabot-auto-merge.yml#L52-L56
 
-### Packaging as a GitHub Action
+## Actions
 
-The [spike][] is a reasonably large and complex GitHub Action workflow file, which we would ideally not duplicate in every GOV.UK repository that wishes to utilise the auto-merging. If this RFC is approved, it is worth spending some time consolidating the spike code into its own [GitHub Action repository][creating-actions].
+This RFC proposes the following actions.
 
-We should be able to reduce the required configuration down to something as readable as:
+### Build an auto-merge service
+
+Platform Reliability will build an auto-merge service, which is called via webhooks configured on every GOV.UK repository. These webhooks can be automatically configured using the [existing govuk-saas-config method for defining webhooks][govuk-saas-config-webhooks]. The webhook would be triggered via pull request.
+
+The service would retrieve the pull request details and fetch a configuration file from the repo in question to determine which internal dependencies are candidates for auto merge (see below), or exit early if no such file exists. It would then follow the same validation steps that were in the spike, i.e. validate that the auto-merge criteria are all met. If the criteria are met, the service would use an access token (associated with a CI account) to approve and merge the PR.
+
+Defining where the service is hosted, and how the keys are stored and accessed, are out of scope for this RFC.
+
+[govuk-saas-config-webhooks]: https://github.com/alphagov/govuk-saas-config/blob/8cfb23db6a200214411fc1de150d3c8582950588/github/lib/configure_repo.rb#L55
+
+### Trial the auto-merge service on one repo
+
+For one repository, Platform Reliability will create the auto merge configuration file and also configure Dependabot to raise PRs during office hours. They will trial it for a number of weeks to ensure that the auto merge service works as intended.
+
+The configuration will be expanded from the initial spike, to include both patch and minor version bumps, of the following internal dependencies (but only where those dependencies are present in the repo):
+
+- `govuk_publishing_components` (18 versions - not including 3 major increases - between October 2022 and January 2023, across 32 apps)
+- `govuk_app_config` (6 versions - not including 1 major release - between October 2022 and January 2023)
+- `gds-api-adapters` (3 major versions between October 2022 and January 2023. 0 minor/patch ones. However, between July and August 2022 there were 4 qualifying patch increases we could have automated.)
+- `rubocop-govuk` (2 versions - 0 major ones - between October 2022 and January 2023, across a large number of repositories)
+
+For `govuk_publishing_components` alone, we've had 576 PRs between October 2022 and January 2023, all of which could have been auto mergeable. If we estimate a minute of due diligence per PR, that amounts to almost 10 hours of wasted dev time.
+
+A possible implementation of the configuration file is below, but this is subject to change:
 
 ```yaml
-name: Dependabot auto-merge
-on: pull_request_target
-
-permissions:
-  contents: write
-  pull-requests: write
-
+# /.govuk_auto_merge_pr.yml
 auto_approve_and_merge:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: alphagov/auto-merge-dependabot@v1.0.0
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        merge-dependencies:
-          - govuk_publishing_components
-          - rubocop-govuk
-        merge-versions:
-          - patch
-          - minor
+  version: 1
+  merge_dependencies:
+    - govuk_publishing_components
+    - rubocop-govuk
+  merge_versions:
+    - patch
+    - minor
 ```
-
-[creating-actions]: https://docs.github.com/en/actions/creating-actions/about-custom-actions
 
 ### Raise initial config PRs
 
-- What: Raise PRs for all applicable GOV.UK repos, to enable auto-merging of certain dependencies using GitHub Actions 
-- Who: Platform Reliability
-- When: After enabling the org-wide setting
+Following a successful trial, Platform Reliability will raise PRs for all applicable GOV.UK repos. Each PR will configure Dependabot to run during office hours, and create the auto-merge configuration file.
 
-Platform Reliability intend to reference the homemade GitHub Action from [Packaging as a GitHub Action](#packaging-a-github-action), raising an initial config PR across all GOV.UK repos that represent continuously deployed apps. Whilst Platform Reliability would create the initial PRs, it would be up to the owning teams to decide whether or not to merge, and to what extent they'd want to reconfigure the repo and version scopes.
-
-Platform Reliability also intend to raise the necessary PRs to restrict Dependabot 'schedule times' as per [5. During office hours](#5-during-office-hours). As above, it will be up to the owning teams to decide whether or not to merge, though we will stipulate that they must not enable auto-merging without also restricting the Dependabot schedule times.
-
-The PR will be expanded from the initial spike, to include both patch and minor version bumps, of the following internal dependencies (but only where those dependencies are present in the repo):
-
-- `govuk_publishing_components` (18 versions - not including 3 major increases - since October 2022, across 32 apps)
-- `govuk_app_config` (6 versions - not including 1 major release - since October 2022)
-- `gds-api-adapters` (3 major versions since October 2022. 0 minor/patch ones. However, between July and August 2022 there were 4 qualifying patch increases we could have automated.)
-- `rubocop-govuk` (2 versions - 0 major ones - since October 2022, across a large number of repositories)
-
-For `govuk_publishing_components` alone, we've had 576 PRs since October 2022, all of which could have been auto mergeable. If we estimate a minute of due diligence per PR, that amounts to almost 10 hours of wasted dev time.
+Whilst Platform Reliability would create the initial PRs, it would be up to the owning teams to decide whether or not to merge, and to what extent they'd want to reconfigure the repo and version scopes. We will stipulate that teams must not include external dependencies on the auto-merge list, and must not enable auto-merging without also restricting the Dependabot schedule times.
 
 ### Review in 3 months
 
-- What: Update documentation reflecting change in policy, allowing auto-merging of dependencies under strict circumstances
-- Who: Platform Reliability
-- When: After 3 month trial period of auto-merging being enabled on GOV.UK
+3 months after raising the auto-merge configurations, Platform Reliability will review the success of the trial, noting any related incidents and also quantifying a rough figure of PRs that have been auto-merged and a reasonable estimate of the resulting time saved.
 
-3 months after raising the auto-merge GitHub Action configurations, Platform Reliability will review the success of the trial, noting any related incidents and also quantifying a rough figure of PRs that have been auto-merged and a reasonable estimate of the resulting time saved.
-
-If the trial is deemed successful, we will keep the GitHub Action configurations, and update several pieces of documentation:
+If the trial is deemed successful, we will keep the configurations and the auto-merge service, and update several pieces of documentation:
 
 1) Update [The GDS Way][] to highlight GOV.UK's policy on auto-merging. Auto-merging goes against the current guidance in The GDS Way, introduced in [gds-way#428][gds-way#428] to document the consensus at the time, though with no reasoning provided.
 2) Update [Manage Ruby Dependencies][] (internal doc) to reference the auto-merging.
@@ -205,6 +193,4 @@ If the trial is deemed successful, we will keep the GitHub Action configurations
 [Manage Ruby Dependencies]: https://docs.publishing.service.gov.uk/manual/manage-ruby-dependencies.html
 [The GDS Way]: https://gds-way.cloudapps.digital/standards/tracking-dependencies.html#update-dependencies-frequently
 
-If the trial is unsuccessful, we will remove all the GitHub Action configurations, disable the org-wide setting, and add an updated note to the top of this RFC.
-
-[spike]: https://github.com/alphagov/govuk-developer-docs/blob/68146cbddadb6adbf96fe3caaf15a3210ca66a37/.github/workflows/dependabot-auto-merge.yml
+If the trial is unsuccessful, we will remove all the configurations, terminate the auto-merge service, and add an updated note to the top of this RFC.
