@@ -41,3 +41,9 @@ While the majority of applications correctly use the API to interact with conten
 - The overnight [environment sync](https://docs.publishing.service.gov.uk/manual/govuk-env-sync.html) job, which dumps live data to S3 and imports it into integration & staging environments
 - Data Services' GCP [Storage Transfer job](https://github.com/alphagov/govuk-s3-mirror/blob/main/terraform/transfer.tf) to upload the S3 backup to Google Cloud Platform for subsequent analysis and processing
 - The [GOV.UK MongoDB Content tool](https://docs.publishing.service.gov.uk/repos/govuk-mongodb-content.html) which allows the user to explore a local copy of the database
+
+## Possible mitigations 
+
+All of the above are solvable problems. Publishing Platform team will make best efforts to submit the necessary changes themselves where practical (this is most likely on the environment sync job) or collaborate with the owning team on changes where we don't have the skills or context to do it well ourselves. 
+
+We've already spoken to Data Services about this change and the impact on their downstream services - the provisional plan is to introduce an additional step on their import side which stands up a PostgreSQL database in GCP and then exports to Mongo from there, as they have a significant number of queries/analyses based on Mongo. We plan to have a period of dual-running on both databases to make a smoother switchover, and allow time for backups to accumulate and for import jobs to be ported over before switching the Mongo DBs off entirely - based on the approach which [The Guardian blogged about](https://www.theguardian.com/info/2018/nov/30/bye-bye-mongo-hello-postgres) when they did a similar migration of their CMS. But these are all implementation questions to be tackled in detail once we achieve consensus on the end state, as outlined in this RFC.
