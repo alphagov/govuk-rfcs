@@ -28,7 +28,7 @@ A previous [options paper](https://docs.google.com/document/d/1evZ6B3a2XMU8YgDru
 
 GOV.UK Publishing Platform team will implement this recommendation - we will port content-store to run on PostgreSQL, using Amazon's RDS managed service in integration, staging and production. This will bring content-store in line with most of GOV.UK, and externalise responsibility for the mechanics of running and updating a highly-available datastore under load, to Amazon. It will also allow us to use the exact same version of PostgreSQL for local development as in production. 
 
-We have already performed tech 'spikes' to prove the concept of a) porting the application, and b) migrating the full dataset over to PostgreSQL (overall [Trello 'epic' card](https://trello.com/c/C1BQDFTG/502-plan-for-migrating-content-store-off-mongodb) ). Whilst there are several possible ways to manage the migration, this RFC is focussed on the target end-state, not how to get there. We can, however, state that we are confident we can achieve this migration with :
+We have already performed tech 'spikes' to prove the concept of a) porting the application, and b) migrating the full dataset over to PostgreSQL (overall [Trello 'epic' card](https://trello.com/c/C1BQDFTG/502-plan-for-migrating-content-store-off-mongodb), [draft PR](https://github.com/alphagov/content-store/pull/1062) on content-store for the spike ). Whilst there are several possible ways to manage the migration, this RFC is focussed on the target end-state, not how to get there. We can, however, state that we are confident we can achieve this migration with :
 
 - zero or near-zero downtime
 - no significant changes to the HTTP content-store APIs
