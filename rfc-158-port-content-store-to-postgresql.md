@@ -20,9 +20,7 @@ There are many consequences of this long-standing tech debt:
 
 [Architectural Decision Record 0038](https://docs.publishing.service.gov.uk/repos/govuk-aws/architecture/decisions/0038-mongo_replacement_by_documentdb.html) recommended in 2019 that in general MongoDB should be replaced with Amazon's proprietary DocumentDB. However this has not proved to be a workable decision in practise for several reasons, including an inability to run DocumentDB locally, its "Mongo compatibility mode" not being fully compatible, and increasing dependence on single-vendor proprietary software against general government policy of choosing open-source by default.
 
-
 ## Proposal
-
 
 A previous [options paper](https://docs.google.com/document/d/1evZ6B3a2XMU8YgDruuS8idseqC38vcogo_bnIDshfrY/edit#) written by Ryan Brooks (previous Lead Technical Architect for GOV.UK Publishing) recommended migrating to RDS PostgreSQL as the most practical option for content-store.
 
