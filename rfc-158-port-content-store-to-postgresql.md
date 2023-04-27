@@ -2,7 +2,7 @@
 
 ## Summary
 
-GOV.UK Publishing should port content-store from its current legacy self-hosted MongoDB, to PostgreSQL running on AWS' RDS.
+GOV.UK Publishing should port [Content Store](https://github.com/alphagov/content-store) from its current legacy self-hosted MongoDB, to PostgreSQL running on AWS' RDS.
 
 ## Problem
 
