@@ -38,7 +38,7 @@ While the majority of applications correctly use the API to interact with conten
 
 - The overnight [environment sync](https://docs.publishing.service.gov.uk/manual/govuk-env-sync.html) job, which dumps live data to S3 and imports it into integration & staging environments
 - Data Services' GCP [Storage Transfer job](https://github.com/alphagov/govuk-s3-mirror/blob/main/terraform/transfer.tf) to upload the S3 backup to Google Cloud Platform for subsequent analysis and processing
-- The [GOV.UK MongoDB Content tool](https://docs.publishing.service.gov.uk/repos/govuk-mongodb-content.html) which allows the user to explore a local copy of the database
+- Data Services' [MongoDB Content tool](https://docs.publishing.service.gov.uk/repos/govuk-mongodb-content.html) which allows the user to explore a local copy of the database
 
 ## Possible mitigations 
 
