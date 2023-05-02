@@ -27,7 +27,11 @@ A previous [options paper](https://docs.google.com/document/d/1evZ6B3a2XMU8YgDru
 
 GOV.UK Publishing Platform team will implement this recommendation - we will port Content Store to run on PostgreSQL, using Amazon's RDS managed service in integration, staging and production. This will bring Content Store in line with most of GOV.UK, and externalise responsibility for the mechanics of running and updating a highly-available datastore under load, to Amazon. It will also allow us to use the exact same version of PostgreSQL for local development as in production. 
 
-We have already performed tech 'spikes' to prove the concept of a) porting the application, and b) migrating the full dataset over to PostgreSQL (overall [Trello 'epic' card](https://trello.com/c/C1BQDFTG/502-plan-for-migrating-content-store-off-mongodb), [forked application](https://github.com/alphagov/content-store/pull/1062) running on PostgreSQL). Whilst there are several possible ways to manage the migration, this RFC is focussed on the target end-state, not how to get there. We can, however, state that we are confident we can achieve this migration with :
+We have already performed tech 'spikes' to prove the concept of a) porting the application, and b) migrating the full dataset over to PostgreSQL (overall [Trello 'epic' card](https://trello.com/c/C1BQDFTG/502-plan-for-migrating-content-store-off-mongodb), [forked application](https://github.com/alphagov/content-store/pull/1062) running on PostgreSQL). 
+
+We have also completed a round of [performance testing](https://docs.google.com/document/d/1e9LYPbytrQ1a6R2T4UBemN-SP-bz7t_DtNSsMchQap8/edit?pli=1) and [optimisation](https://github.com/alphagov/content-store-on-postgresql/pull/3), verifying that for the most typical and critical use case of Content Store - find and return the document corresponding to a given URL path - performance on PostgreSQL is at least as fast as for Mongo on the same hardware.
+
+Whilst there are several possible ways to manage the migration, this RFC is focussed on the target end-state, not how to get there. We can, however, state that we are confident we can achieve this migration with :
 
 - zero or near-zero downtime
 - no significant changes to the HTTP Content Store APIs
