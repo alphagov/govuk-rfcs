@@ -1,0 +1,688 @@
+{
+    "collections":
+    {
+        "app/views/coronavirus_landing_page/components/shared/_accordion_sections.html.erb":
+        {
+            "accordion": 1
+        },
+        "app/views/world_wide_taxons/accordion.html.erb":
+        {
+            "accordion": 1
+        },
+        "app/helpers/application_helper.rb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/development/index.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/organisations/_freedom_of_information.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/organisations/_what_we_do.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/organisations/separate_website.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/past_prime_ministers/show.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/people/_biography.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/people/_current_roles.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/roles/_current_role_holder_with_biography.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/roles/_responsibilities.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/step_nav/show.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/topical_events/show.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1,
+            "metadata": 1
+        },
+        "app/views/subtopics/_subtopic.html.erb":
+        {
+            "metadata": 1
+        },
+        "average_number_of_js_components_per_partial": 2,
+        "total_number_of_partials": 117,
+        "number_of_partials_using_js_components": 15,
+        "percentage_number_of_partials_using_js_components": 13
+    },
+    "email-alert-frontend":
+    {
+        "app/views/account_subscriptions/confirm.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/content_item_signups/confirm.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/content_item_signups/taxon.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/development/index.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/email_alert_signups/new.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/govuk_account_signups/show.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/subscriber_authentication/sign_in.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/subscriber_authentication/use_your_govuk_account.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/subscriptions/new_address.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/subscriptions/new_frequency.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/subscriptions/use_your_govuk_account.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/subscriptions_management/confirm_unsubscribe_all.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/subscriptions_management/index.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/subscriptions_management/update_address.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/subscriptions_management/update_frequency.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/unsubscriptions/confirm.html.erb":
+        {
+            "button": 1
+        },
+        "average_number_of_js_components_per_partial": 1,
+        "total_number_of_partials": 24,
+        "number_of_partials_using_js_components": 16,
+        "percentage_number_of_partials_using_js_components": 67
+    },
+    "feedback":
+    {
+        "app/views/contact/govuk/accessible_format_requests/contact_details.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/contact/govuk/accessible_format_requests/format_type.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/contact/govuk/accessible_format_requests/start_page.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/contact/govuk/new.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "average_number_of_js_components_per_partial": 2,
+        "total_number_of_partials": 14,
+        "number_of_partials_using_js_components": 4,
+        "percentage_number_of_partials_using_js_components": 29
+    },
+    "finder-frontend":
+    {
+        "app/views/email_alert_subscriptions/new.html.erb":
+        {
+            "button": 1,
+            "checkboxes": 1
+        },
+        "app/views/finders/_facet_collection.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/components/_option-select.html.erb":
+        {
+            "checkboxes": 1
+        },
+        "app/views/finders/_checkbox_facet.html.erb":
+        {
+            "checkboxes": 1
+        },
+        "app/views/development/index.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/finders/_show_header.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1,
+            "intervention": 1,
+            "metadata": 1
+        },
+        "app/views/finders/_radio_facet.html.erb":
+        {
+            "radio": 1
+        },
+        "average_number_of_js_components_per_partial": 2,
+        "total_number_of_partials": 28,
+        "number_of_partials_using_js_components": 7,
+        "percentage_number_of_partials_using_js_components": 25
+    },
+    "frontend":
+    {
+        "app/views/application/_location_form.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/completed_transaction/_assisted_digital_satisfaction_survey.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/completed_transaction/_standard_satisfaction_survey.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/electoral/address_picker.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/find_local_council/multiple_authorities.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/find_local_council/one_council.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/help/cookie_settings.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1,
+            "radio": 1
+        },
+        "app/views/help/sign_in.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/licence/_action.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1
+        },
+        "app/views/licence/continues_on.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1
+        },
+        "app/views/licence/multiple_authorities.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/licence/start.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1
+        },
+        "app/views/licence_transaction/_action.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1
+        },
+        "app/views/licence_transaction/continues_on.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1
+        },
+        "app/views/licence_transaction/multiple_authorities.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/local_transaction/devolved_administration_service.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/local_transaction/multiple_authorities.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/local_transaction/results.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1
+        },
+        "app/views/local_transaction/unavailable_service.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/place/multiple_authorities.html.erb":
+        {
+            "button": 1,
+            "radio": 1
+        },
+        "app/views/simple_smart_answers/_current_question.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1,
+            "radio": 1
+        },
+        "app/views/simple_smart_answers/show.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1
+        },
+        "app/views/transaction/show.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1
+        },
+        "app/views/development/index.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/electoral/_contact_details.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/help/tour.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/licence/_authority_details.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/licence_transaction/_authority_details.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/licence_transaction/start.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/local_transaction/index.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/place/_option.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/place/show.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/simple_smart_answers/_outcome.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/transaction/_additional_information_single.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/transaction/_additional_information_tabbed.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1,
+            "tabs": 1
+        },
+        "app/views/completed_transaction/_assistance_received.html.erb":
+        {
+            "radio": 1
+        },
+        "app/views/calendar/when_do_the_clocks_change.html.erb":
+        {
+            "table": 1
+        },
+        "app/views/components/_calendar.html.erb":
+        {
+            "table": 1
+        },
+        "app/views/calendar/bank_holidays.html.erb":
+        {
+            "tabs": 1
+        },
+        "average_number_of_js_components_per_partial": 2,
+        "total_number_of_partials": 74,
+        "number_of_partials_using_js_components": 39,
+        "percentage_number_of_partials_using_js_components": 53
+    },
+    "government-frontend":
+    {
+        "app/views/content_items/manual_section.html.erb":
+        {
+            "accordion": 1,
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/manuals/_updates.html.erb":
+        {
+            "accordion": 1
+        },
+        "app/views/content_items/service_manual_topic.html.erb":
+        {
+            "accordion": 1
+        },
+        "app/views/content_items/service_sign_in/_choose_sign_in.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1,
+            "radio": 1
+        },
+        "app/views/content_items/specialist_document.html.erb":
+        {
+            "button": 1,
+            "govspeak": 1
+        },
+        "app/views/content_items/_attachments.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/_body_with_related_links.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/_document_collection_body.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/case_study.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/consultation.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/contact.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/corporate_information_page.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/detailed_guide.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/fatality_notice.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/field_of_operation.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/gone.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/guide.html+print.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/guide.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/guide_single.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/hmrc_manual_section.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/manuals/_manual_layout.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/news_article.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/publication.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/service_manual_guide.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1,
+            "metadata": 1
+        },
+        "app/views/content_items/service_sign_in/_create_new_account.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/speech.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/statistical_data_set.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/take_part.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/topical_event_about_page.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/travel_advice.html+print.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/travel_advice.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/working_group.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/worldwide_office.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/content_items/worldwide_organisation.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/development/index.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/histories":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/histories/king_charles_street.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/histories/lancaster_house.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/shared/_travel_advice_first_part.html.erb":
+        {
+            "govspeak": 1,
+            "button": 1,
+            "metadata": 1
+        },
+        "app/views/content_items/manuals/_header.html.erb":
+        {
+            "metadata": 1
+        },
+        "app/views/shared/_publisher_metadata_with_logo.html.erb":
+        {
+            "metadata": 1
+        },
+        "average_number_of_js_components_per_partial": 2,
+        "total_number_of_partials": 89,
+        "number_of_partials_using_js_components": 41,
+        "percentage_number_of_partials_using_js_components": 46
+    },
+    "licence-finder":
+    {
+        "app/views/licence_finder/activities.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/licence_finder/business_location.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/licence_finder/licences.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/licence_finder/sectors.html.erb":
+        {
+            "button": 1
+        },
+        "average_number_of_js_components_per_partial": 1,
+        "total_number_of_partials": 12,
+        "number_of_partials_using_js_components": 4,
+        "percentage_number_of_partials_using_js_components": 33
+    },
+    "smart-answers":
+    {
+        "app/views/smart_answers/landing.html.erb":
+        {
+            "button": 1,
+            "intervention": 1
+        },
+        "app/views/smart_answers/question.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/smart_answers/visualise.html.erb":
+        {
+            "button": 1
+        },
+        "app/views/smart_answers/inputs/_checkbox_question.html.erb":
+        {
+            "checkboxes": 1
+        },
+        "lib/smart_answer/erb_renderer/format_capture_helper.rb":
+        {
+            "govspeak": 1,
+            "button": 1
+        },
+        "app/views/smart_answers/inputs/_radio_question.html.erb":
+        {
+            "radio": 1
+        },
+        "app/views/smart_answers/index.html.erb":
+        {
+            "table": 1
+        },
+        "average_number_of_js_components_per_partial": 1,
+        "total_number_of_partials": 25,
+        "number_of_partials_using_js_components": 7,
+        "percentage_number_of_partials_using_js_components": 28
+    }
+}
