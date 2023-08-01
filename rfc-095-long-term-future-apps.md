@@ -1,5 +1,7 @@
 # RFC 95: Long term future of applications
 
+**Update August 2023:** As this is now multiple years old, it can no longer be considered to represent current direction of travel. Information in this related to GOV.UK Publishing applications has been superseded by [RFC-161](https://github.com/alphagov/govuk-rfcs/blob/main/rfc-161-technical-direction-in-publishing-2023.md).
+
 ## Summary
 
 This RFC describes the direction of travel for the applications that make up GOV.UK.
