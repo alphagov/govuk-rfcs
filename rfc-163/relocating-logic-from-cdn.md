@@ -1,4 +1,4 @@
-### Appendix: Proposal for relocating logic from the CDN layer to other parts of the stack
+# Appendix: Proposal for relocating logic from the CDN layer to other parts of the stack
 
 Things that could be moved to WAF:
 
