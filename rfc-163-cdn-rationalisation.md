@@ -78,7 +78,7 @@ We're currently using shielding on `gov.uk/alerts`, so we would need to make use
 
 ### Standardise on Terraform for CDN configuration
 
-The [custom Ruby scripts](https://github.com/alphagov/govuk-cdn-config/tree/main/lib) in [govuk-cdn-config](https://github.com/alphagov/govuk-cdn-config) should be replaced with Terraform project(s).
+The [custom Ruby scripts](https://github.com/alphagov/govuk-cdn-config/tree/main/lib) in [govuk-cdn-config](https://github.com/alphagov/govuk-cdn-config) should be replaced with Terraform project(s). Note that the data.gov.uk Fastly services are [already deployed with Terraform](https://github.com/alphagov/govuk-aws/tree/main/terraform/projects/fastly-datagovuk): this provides a good preview of the direction we want to take the GOV.UK Fastly services in.
 
 Compute@Edge projects require a build step in which they are compiled to a WebAssembly binary, before they can be deployed. We should commit this compiled binary to the repository that contains the Terraform code, most likely in an automated way via GitHub Actions, to ensure that our Terraform code is always in a deployable state (regardless of the state of the Compute@Edge code).
 
