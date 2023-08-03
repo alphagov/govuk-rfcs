@@ -10,7 +10,7 @@ Things that could be moved to WAF:
   - This was the outcome of an [incident report](https://docs.google.com/document/d/12DzQsDeu7zUcICy9zVporjprX4qZFIrpOOWtYYRx-nk/edit) - details cannot be provided here, as this is a public repo
 - Serving an HTTP 404 response with a hardcoded template[^autodiscover-template] if the request URL matches `/autodiscover/autodiscover.xml`[^autodiscover-matcher]
   - Context: https://github.com/alphagov/govuk-cdn-config/pull/86
-  - Blocking this from our WAF would change semantics (HTTP 403 vs 404), and would remove the hardcoded page template, but no users are likely to visit this URL anyway
+  - Blocking this from our WAF would remove the hardcoded page template, but no users are likely to visit this URL anyway
 
 [^ip-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L182-L187
 [^http-basic-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L202-L207
