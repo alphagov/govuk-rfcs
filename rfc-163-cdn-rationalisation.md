@@ -81,3 +81,5 @@ We're currently using shielding on `gov.uk/alerts`, so we would need to make use
 The [custom Ruby scripts](https://github.com/alphagov/govuk-cdn-config/tree/main/lib) in [govuk-cdn-config](https://github.com/alphagov/govuk-cdn-config) should be replaced with Terraform project(s).
 
 Compute@Edge projects require a build step in which they are compiled to a WebAssembly binary, before they can be deployed. We should commit this compiled binary to the repository that contains the Terraform code, most likely in an automated way via GitHub Actions, to ensure that our Terraform code is always in a deployable state (regardless of the state of the Compute@Edge code).
+
+## [Appendix: Proposal for relocating logic from the CDN layer to other parts of the stack](rfc-163/relocating-logic-from-cdn.md)
