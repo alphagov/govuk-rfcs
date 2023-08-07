@@ -104,8 +104,7 @@ Undecided/needs input from other developers:
 - GOV.UK accounts: Mapping from headers to cookies and back[^accounts-1][^accounts-2][^accounts-3]
   - This is described in more detail in [RFC-134](https://github.com/alphagov/govuk-rfcs/blob/main/rfc-134-govuk-wide-session-cookie-and-login.md), and the discussion on [the associated PR](https://github.com/alphagov/govuk-rfcs/pull/134)
   - Code exists in our VCL to map between a cookie named `__Host-govuk_account_session` in user requests/responses, and the `GOVUK-Account-Session` and `GOVUK-Account-End-Session` headers in backend requests/responses, and to control the cache behaviour of these requests/responses
-  - We have a couple of options here:
-    - Pass the cookie through to origin and move the logic there (which goes against established precedent of stripping all cookies)
+  - We might instead be able to pass the cookie through to origin, but that would go against established precedent of stripping all cookies. Undecided whether or not this is a good idea.
 - A/B testing[^ab-1][^ab-2]
   - TODO: what are folks looking into in this space?
 
