@@ -34,7 +34,7 @@ Things that could be implemented in our applications:
 
 - Setting feature flags, such as showing recommended related links for Whitehall content[^whitehall-recommended-links]
   - On the old platform it was necessary to implement these flags in the CDN layer to prevent the need to deploy a new release every time we wanted to enable/disable a feature. A header is set on the backend request to indicate to the application whether the feature is enabled or disabled.
-  - In the replatformed world, this becomes a lot easier: we can enable/disable features through environment variables (as opposed to headers), and then enabling or disabling becomes a matter of pushing a new commit to `govuk-helm-charts` and waiting a couple of minutes for Argo to pick it up.
+  - In the replatformed world, this becomes a lot easier: we can implement feature flags through environment variables (as opposed to headers), and then enabling or disabling the feature becomes a matter of [updating the environment variables in `govuk-helm-charts`](https://govuk-kubernetes-cluster-user-docs.publishing.service.gov.uk/manage-app/set-env-var/#update-an-ordinary-non-secret-environment-variable) and waiting a couple of minutes for Argo to pick up the changes.
   - We will also need to [update the docs](https://docs.publishing.service.gov.uk/manual/related-links.html#suspending-all-suggested-related-links)
 
 [^whitehall-recommended-links]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L251
