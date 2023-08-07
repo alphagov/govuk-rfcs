@@ -106,7 +106,6 @@ Undecided/needs input from other developers:
   - Code exists in our VCL to map between a cookie named `__Host-govuk_account_session` in user requests/responses, and the `GOVUK-Account-Session` and `GOVUK-Account-End-Session` headers in backend requests/responses, and to control the cache behaviour of these requests/responses
   - We might instead be able to pass the cookie through to origin, but that would go against established precedent of stripping all cookies. Undecided whether or not this is a good idea.
 - A/B testing[^ab-1][^ab-2]
-  - TODO: what are folks looking into in this space?
 
 [^accounts-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L504-L522
 [^accounts-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L350-L361
