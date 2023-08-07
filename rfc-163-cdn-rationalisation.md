@@ -20,7 +20,7 @@ The lack of feature parity between the two CDNs presents us with several issues:
 - We're less likely to drill the failover in Production to ensure it works (as it will cause a somewhat degraded experience)
 - It restricts our ability to consider a multi CDN strategy where traffic is split between two CDNs simultaneously 
 
-A number of the things that we currently handle at the CDN level might perhaps be better handled at other places in the stack. By moving things out of the CDN layer, we minimise the amount of duplicated effort in maintaining equivalent but different configurations for each CDN.
+A number of the things that we currently handle at the CDN level might perhaps be better handled at other places in the stack. By moving things out of the CDN layer, we could minimise the amount of duplicated effort in maintaining equivalent but different configurations for each CDN.
 
 Fastly have recently introduced an edge compute platform called [Compute@Edge](https://www.fastly.com/products/edge-compute). This platform would allow us to express our CDN logic in a programming language, using an SDK provided by Fastly, instead of having to grapple with VCL. This could make it easier to maintain the functionality that can't be relocated to other parts of the stack, as well as allowing us to set up integration tests for our CDN logic. We are not (yet) proposing migrating to Compute@Edge, but if and when we decide to do so, it will be easier if there is less functionality to migrate.
 
