@@ -101,7 +101,6 @@ Known issues with our current config that could be addressed more easily if we m
 
 Undecided/needs input from other developers:
 
-- Setting TLSversion request header for requests to Licensify for some reason[^licensify-tlsversion]
 - GOV.UK accounts: Mapping from headers to cookies and back[^accounts-1][^accounts-2][^accounts-3]
   - This is described in more detail in [RFC-134](https://github.com/alphagov/govuk-rfcs/blob/main/rfc-134-govuk-wide-session-cookie-and-login.md), and the discussion on [the associated PR](https://github.com/alphagov/govuk-rfcs/pull/134)
   - Code exists in our VCL to map between a cookie named `__Host-govuk_account_session` in user requests/responses, and the `GOVUK-Account-Session` and `GOVUK-Account-End-Session` headers in backend requests/responses, and to control the cache behaviour of these requests/responses
@@ -110,7 +109,6 @@ Undecided/needs input from other developers:
 - A/B testing[^ab-1][^ab-2]
   - TODO: what are folks looking into in this space?
 
-[^licensify-tlsversion]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L338-L340
 [^accounts-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L504-L522
 [^accounts-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L350-L361
 [^accounts-3]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L488-L492
