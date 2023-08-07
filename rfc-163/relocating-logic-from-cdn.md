@@ -39,7 +39,7 @@ Things that could be implemented in our applications:
 
 [^whitehall-recommended-links]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L251
 
-Things that need to remain in our CDN (but become easier to implement/maintain if we migrate to Compute@Edge):
+Things that need to remain in our CDN (but become easier to implement/maintain if we later migrate to Compute@Edge):
 
 - Require authentication for Fastly `PURGE` requests[^purge-auth]
   - This doesn't need parity on Cloudfront
@@ -47,7 +47,6 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
 - Stripping query string params only for the homepage and `/alerts`[^remove-query]
   - This appears to be a DDoS prevention measure(?) - should we expand this protection to other routes?
 - Automatic failover to static S3/GCS mirror if origin is unhealthy (only in staging and production)[^mirror-failover]
-  - This involves a lot of steps which are out of scope for this RFC, such as URL rewriting, customising cache behaviour, setting up grace periods and saint mode, and response code rewriting. If we move to Compute@Edge we will need to reimplement all of this (but it should be much easier to follow the logic then)
 - Stripping the `Accept-Encoding` header if the content is already compressed[^strip-accept-encoding]
   - Context: https://github.com/alphagov/govuk-cdn-config/pull/379
   - [Fastly already normalises the `Accept-Encoding` header](https://developer.fastly.com/reference/http/http-headers/Accept-Encoding/#normalization), but it doesn't automatically remove it if the requested content is already compressed
@@ -55,7 +54,7 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
   - Manually set `Fastly-Cachetype` to `PRIVATE` if `Cache-Control: Private`[^cache-control-private]
   - Explicit `pass` if `Cache-Control: max-age=0`[^cache-control-max-age]
   - Explicitly `pass` if `Cache-Control: no-(store|cache)`[^cache-control-no-store]
-  - It is unclear which (if any) of these remain necessary if we move to Compute@Edge (it's also unclear why Fastly doesn't respect them automatically 🤷‍♂️)
+  - It is unclear which (if any) of these remain necessary if we decide to move to Compute@Edge (it's also unclear why Fastly doesn't respect them automatically 🤷‍♂️)
 - Setting a request id header to allow requests to be traced through the stack[^request-id]
   - It's important to set this at the earliest opportunity, which is when we first receive the request (at edge)
 - JA3 denylisting[^ja3-1][^ja3-2]
@@ -75,7 +74,7 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
 [^ja3-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L178-L180
 [^ja3-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L195-L199
 
-Things that become unnecessary if we move to Compute@Edge:
+Things that need to stay in VCL for now, but will become unnecessary if we later move to Compute@Edge:
 
 - Explicitly marking HTTP 307 responses from origin as cacheable[^http-307-caching]
   - Fastly VCL is built on an old version of Varnish which didn't do this by default; if we migrate to Compute@Edge then we shouldn't need this anymore
@@ -94,7 +93,7 @@ Things that we could probably remove:
 [^force-tls-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L218-L220
 [^force-tls-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L561-L568
 
-Known issues with our current config that could be addressed more easily in Compute@Edge:
+Known issues with our current config that could be addressed more easily if we move to Compute@Edge:
 
 - Currently if origin returns an HTTP 500, and we failover to the S3 mirror, but the requested path is not present in the mirror, the user receives an HTTP 403 and a very ugly XML-based error page
   - This is expected behaviour: S3 returns a 403 if the file is missing and the access key that was used to make the request does not have the `s3:ListBucket` permission
@@ -108,7 +107,6 @@ Undecided/needs input from other developers:
   - Code exists in our VCL to map between a cookie named `__Host-govuk_account_session` in user requests/responses, and the `GOVUK-Account-Session` and `GOVUK-Account-End-Session` headers in backend requests/responses, and to control the cache behaviour of these requests/responses
   - We have a couple of options here:
     - Pass the cookie through to origin and move the logic there (which goes against established precedent of stripping all cookies)
-    - Reimplement this behaviour in both Compute@Edge and our Cloudfront distribution
 - A/B testing[^ab-1][^ab-2]
   - TODO: what are folks looking into in this space?
 
