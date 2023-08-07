@@ -46,7 +46,7 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
 - Sorting query string params[^sort-query] and removing Google Analytics campaign params[^remove-utm] to improve cache hit rate
 - Stripping query string params only for the homepage and `/alerts`[^remove-query]
   - This appears to be a DDoS prevention measure(?) - should we expand this protection to other routes?
-- Automatic failover to static S3/GCS mirror if origin is unhealthy (only in staging and production)[^mirror-failover]
+- Automatic failover to static S3/GCS mirror if origin is unhealthy or returns an HTTP 5xx (only in staging and production - in integration we want to be able to see errors as they happen)[^mirror-failover]
 - Stripping the `Accept-Encoding` header if the content is already compressed[^strip-accept-encoding]
   - Context: https://github.com/alphagov/govuk-cdn-config/pull/379
   - [Fastly already normalises the `Accept-Encoding` header](https://developer.fastly.com/reference/http/http-headers/Accept-Encoding/#normalization), but it doesn't automatically remove it if the requested content is already compressed
