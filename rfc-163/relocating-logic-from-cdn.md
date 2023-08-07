@@ -5,7 +5,7 @@ Things that could be moved to WAF:
 - IP allowlisting on staging and production EKS[^ip-allowlist]
 - Requiring HTTP Basic auth on integration[^http-basic-1][^http-basic-2] (unless the user's IP is in the allowlist[^http-basic-allowlist])
 - IP denylisting[^ip-denylist]
-  - This functionality is currently unused (the dictionary that the denylist is read from is empty), but it exists in case we ever need to quickly block IP addresses (for example, during an incident), so we need to preserve it
+  - This functionality is currently unused (the dictionary that the denylist is read from is empty), but it exists in case we ever need to quickly block IP addresses (for example, during an incident).
 - Silently ignore certain requests[^drop-requests-1][^drop-requests-2]
   - This was the outcome of an [incident report](https://docs.google.com/document/d/12DzQsDeu7zUcICy9zVporjprX4qZFIrpOOWtYYRx-nk/edit) - details cannot be provided here, as this is a public repo
 - Serving an HTTP 404 response with a hardcoded template[^autodiscover-template] if the request URL matches `/autodiscover/autodiscover.xml`[^autodiscover-matcher]
