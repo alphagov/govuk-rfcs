@@ -30,7 +30,7 @@ Across GDS we are standardising on infrastructure as code, and the use of Terraf
 
 ### Where possible, relocate logic from the CDN layer to other parts of the stack
 
-Please see the [appendix](rfc-163/relocating-logic-from-cdn.md) for specific examples of what functionality we are proposing to move, and where we are proposing to move it to. Note however that this is not an exhaustive list, and is subject to change; the main point is that we want to move as much functionality out of the CDN as possible, to make it easier to maintain.
+Please see the [appendix](rfc-163/relocating-logic-from-cdn.md) for specific examples of what functionality we are proposing to move, and where we are proposing to move it to. Note however that this is not an exhaustive list, and is subject to change; the main point is that we want to move as much functionality out of our CDN services as possible, to make them easier to maintain.
 
 ### Standardise on Terraform for CDN configuration
 
