@@ -34,6 +34,12 @@ Please see the [appendix](rfc-163/relocating-logic-from-cdn.md) for specific exa
 
 ### Standardise on Terraform for CDN configuration
 
-The [custom Ruby scripts](https://github.com/alphagov/govuk-cdn-config/tree/main/lib) in [govuk-cdn-config](https://github.com/alphagov/govuk-cdn-config) should be replaced with Terraform project(s). Note that the data.gov.uk Fastly services are [already deployed with Terraform](https://github.com/alphagov/govuk-aws/tree/main/terraform/projects/fastly-datagovuk): this provides a good preview of the direction we want to take the GOV.UK Fastly services in.
+The [custom Ruby scripts](https://github.com/alphagov/govuk-cdn-config/tree/main/lib) in [govuk-cdn-config](https://github.com/alphagov/govuk-cdn-config) should be replaced with Terraform projects.
+
+Platform Engineering have already begun work on migrating the WWW and Assets services to Terraform, with the new code living in [`govuk-fastly`](https://github.com/alphagov/govuk-fastly) and [`govuk-fastly-secrets`](https://github.com/alphagov/govuk-fastly-secrets). Once this work is complete, the Bouncer service, the service domain redirect service (which handles redirecting from https://service.gov.uk to https://www.gov.uk), and the TLD redirect service (which handles redirecting from https://gov.uk to https://www.gov.uk) should also be migrated to this new repo.
+
+The data.gov.uk Fastly services are [already deployed with Terraform](https://github.com/alphagov/govuk-aws/tree/main/terraform/projects/fastly-datagovuk) - we may want to consider migrating this code from `govuk-aws` to `govuk-fastly`, to keep all of our Fastly configuration in one place.
+
+The Apt service should no longer be needed once all of our EC2 infrastructure has been decommissioned, and so it makes little sense to refactor or migrate this code.
 
 ## [Appendix: Proposal for relocating logic from the CDN layer to other parts of the stack](rfc-163/relocating-logic-from-cdn.md)
