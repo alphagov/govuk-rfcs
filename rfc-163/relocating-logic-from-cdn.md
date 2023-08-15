@@ -2,10 +2,6 @@
 
 Things that could be moved to WAF:
 
-- IP allowlisting on staging and production EKS[^ip-allowlist]
-- Requiring HTTP Basic auth on integration[^http-basic-1][^http-basic-2] (unless the user's IP is in the allowlist[^http-basic-allowlist])
-- IP denylisting[^ip-denylist]
-  - This functionality is currently unused (the dictionary that the denylist is read from is empty), but it exists in case we ever need to quickly block IP addresses (for example, during an incident).
 - Silently ignore certain requests[^drop-requests-1][^drop-requests-2]
   - This was the outcome of an [incident report](https://docs.google.com/document/d/12DzQsDeu7zUcICy9zVporjprX4qZFIrpOOWtYYRx-nk/edit) - details cannot be provided here, as this is a public repo
 - Serving an HTTP 404 response with a hardcoded template[^autodiscover-template] if the request URL matches `/autodiscover/autodiscover.xml`[^autodiscover-matcher]
@@ -13,11 +9,6 @@ Things that could be moved to WAF:
 - Redirecting `/security.txt` and `/.well-known/security.txt` to `https://vdp.cabinetoffice.gov.uk/.well-known/security.txt`[^redirect-security-txt-1][^redirect-security-txt-2]
   - This one might be a stretch - while we _could_ implement this via WAF, it's not the kind of behaviour that you'd typically associate with a firewall
 
-[^ip-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L182-L187
-[^http-basic-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L202-L207
-[^http-basic-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L614-L620
-[^http-basic-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L154-L165
-[^ip-denylist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L189-L192
 [^drop-requests-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L223
 [^drop-requests-2]: https://github.com/alphagov/govuk-cdn-config-secrets/blob/536de2171d17297c08a0a328df53a6b65002e2c4/fastly/fastly.yaml#L30-L39
 [^autodiscover-template]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L579-L603
@@ -27,6 +18,12 @@ Things that could be moved to WAF:
 
 Things that need to remain in our CDN (but become easier to implement/maintain if we later migrate to Compute@Edge):
 
+- Access control (this _must_ happen at the CDN layer, where caching takes place):
+  - IP allowlisting on staging and production EKS[^ip-allowlist]
+  - Requiring HTTP Basic auth on integration[^http-basic-1][^http-basic-2] (unless the user's IP is in the allowlist[^http-basic-allowlist])
+  - IP denylisting[^ip-denylist]
+    - This functionality is currently unused (the dictionary that the denylist is read from is empty), but it exists in case we ever need to quickly block IP addresses (for example, during an incident).
+  - JA3 denylisting[^ja3-1][^ja3-2]
 - Require authentication for Fastly `PURGE` requests[^purge-auth]
   - This doesn't need parity on Cloudfront
 - Sorting query string params[^sort-query] and removing Google Analytics campaign params[^remove-utm] to improve cache hit rate
@@ -43,9 +40,12 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
   - It is unclear which (if any) of these remain necessary if we decide to move to Compute@Edge (it's also unclear why Fastly doesn't respect them automatically 🤷‍♂️)
 - Setting a request id header to allow requests to be traced through the stack[^request-id]
   - It's important to set this at the earliest opportunity, which is when we first receive the request (at edge)
-- JA3 denylisting[^ja3-1][^ja3-2]
-  - Ideally this would be handled by our WAF, but AWS WAF does not currently support it ([though it _is_ supported on CloudFront](https://aws.amazon.com/about-aws/whats-new/2022/11/amazon-cloudfront-supports-ja3-fingerprint-headers/), so it's possible that WAF will get it at some point in the future)
 
+[^ip-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L182-L187
+[^http-basic-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L202-L207
+[^http-basic-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L614-L620
+[^http-basic-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L154-L165
+[^ip-denylist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L189-L192
 [^purge-auth]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L171
 [^sort-query]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L236
 [^remove-utm]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L239
