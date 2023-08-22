@@ -59,6 +59,14 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
   - It is unclear which (if any) of these remain necessary if we decide to move to Compute@Edge (it's also unclear why Fastly doesn't respect them automatically 🤷‍♂️)
 - Setting a request id header to allow requests to be traced through the stack[^request-id]
   - It's important to set this at the earliest opportunity, which is when we first receive the request (at edge)
+- Mapping from headers to cookies and back
+  - It is considered a [best practice](https://developer.fastly.com/reference/http/http-headers/Cookie/#best-practices) to strip cookies before forwarding the request to origin. For this reason our VCL contains logic to map from headers to cookies and back, to implement the following features:
+    - GOV.UK accounts[^accounts-1][^accounts-2][^accounts-3]
+      - This is described in more detail in [RFC-134](https://github.com/alphagov/govuk-rfcs/blob/main/rfc-134-govuk-wide-session-cookie-and-login.md), and the discussion on [the associated PR](https://github.com/alphagov/govuk-rfcs/pull/134)
+      - Code exists in our VCL to map between a cookie named `__Host-govuk_account_session` in user requests/responses, and the `GOVUK-Account-Session` and `GOVUK-Account-End-Session` headers in backend requests/responses, and to control the cache behaviour of these requests/responses
+    - A/B testing[^ab-1][^ab-2]
+      - Code exists in our VCL to select a variant for each active test, pass the chosen variant to origin, and store the chosen variant in a cookie so that the same variant will be chosen on the next request
+  - This functionality needs to remain in the CDN layer, but becomes much easier to implement in Compute@Edge (details of this might follow in a future RFC).
 
 [^http-basic-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L202-L207
 [^http-basic-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L614-L620
@@ -76,6 +84,11 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
 [^request-id]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L254
 [^ja3-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L178-L180
 [^ja3-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L195-L199
+[^accounts-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L504-L522
+[^accounts-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L350-L361
+[^accounts-3]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L488-L492
+[^ab-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L524-L555
+[^ab-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/_multivariate_tests.vcl.erb
 
 Things that need to stay in VCL for now, but will become unnecessary if we later move to Compute@Edge:
 
@@ -93,17 +106,3 @@ Known issues with our current config that could be addressed more easily if we m
 - Currently if origin returns an HTTP 500, and we failover to the S3 mirror, but the requested path is not present in the mirror, the user receives an HTTP 403 and a very ugly XML-based error page
   - This is expected behaviour: S3 returns a 403 if the file is missing and the access key that was used to make the request does not have the `s3:ListBucket` permission
   - The fix is to intercept HTTP 403 responses _only from the S3 backend_, and replace them with a hardcoded error page - much easier to implement in Compute@Edge than in VCL
-
-Undecided/needs input from other developers:
-
-- GOV.UK accounts: Mapping from headers to cookies and back[^accounts-1][^accounts-2][^accounts-3]
-  - This is described in more detail in [RFC-134](https://github.com/alphagov/govuk-rfcs/blob/main/rfc-134-govuk-wide-session-cookie-and-login.md), and the discussion on [the associated PR](https://github.com/alphagov/govuk-rfcs/pull/134)
-  - Code exists in our VCL to map between a cookie named `__Host-govuk_account_session` in user requests/responses, and the `GOVUK-Account-Session` and `GOVUK-Account-End-Session` headers in backend requests/responses, and to control the cache behaviour of these requests/responses
-  - We might instead be able to pass the cookie through to origin, but that would go against established precedent of stripping all cookies. Undecided whether or not this is a good idea.
-- A/B testing[^ab-1][^ab-2]
-
-[^accounts-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L504-L522
-[^accounts-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L350-L361
-[^accounts-3]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L488-L492
-[^ab-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L524-L555
-[^ab-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/_multivariate_tests.vcl.erb
