@@ -19,7 +19,6 @@ Things that could be moved to WAF:
 Things that need to remain in our CDN (but become easier to implement/maintain if we later migrate to Compute@Edge):
 
 - Access control (this _must_ happen at the CDN layer, where caching takes place):
-  - IP allowlisting on staging and production EKS[^ip-allowlist]
   - Requiring HTTP Basic auth on integration[^http-basic-1][^http-basic-2] (unless the user's IP is in the allowlist[^http-basic-allowlist])
   - IP denylisting[^ip-denylist]
     - This functionality is currently unused (the dictionary that the denylist is read from is empty), but it exists in case we ever need to quickly block IP addresses (for example, during an incident).
@@ -41,7 +40,6 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
 - Setting a request id header to allow requests to be traced through the stack[^request-id]
   - It's important to set this at the earliest opportunity, which is when we first receive the request (at edge)
 
-[^ip-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L182-L187
 [^http-basic-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L202-L207
 [^http-basic-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L614-L620
 [^http-basic-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L154-L165
