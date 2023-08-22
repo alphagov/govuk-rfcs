@@ -23,9 +23,11 @@ Things that could be moved to WAF:
 
 Things that need to remain in our CDN (but become easier to implement/maintain if we later migrate to Compute@Edge):
 
-- Access control (this _must_ happen at the CDN layer, where caching takes place):
-  - Requiring HTTP Basic auth on integration[^http-basic-1][^http-basic-2] (unless the user's IP is in the allowlist[^http-basic-allowlist])
-  - JA3 denylisting[^ja3-1][^ja3-2]
+- JA3 denylisting[^ja3-1][^ja3-2]
+  - The JA3 fingerprint is computed from the TLS handshake, meaning it has to be computed at the node to which the client's TLS connection is made (i.e. the CDN)
+  - We _could_ compute the JA3 fingerprint at the CDN layer and pass it via a header to the WAF in which the actual blocking takes place, but it's unclear what the benefit of that would be
+- Requiring HTTP Basic auth on integration[^http-basic-1][^http-basic-2] (unless the user's IP is in the allowlist[^http-basic-allowlist])
+  - We probably _could_ move this to our WAF, but then we would need to add something like `Vary: Authorization, Fastly-Client-IP` to the response, which would largely defeat caching
 - Require authentication for Fastly `PURGE` requests[^purge-auth]
   - This doesn't need parity on Cloudfront
 - Sorting query string params[^sort-query] and removing Google Analytics campaign params[^remove-utm] to improve cache hit rate
