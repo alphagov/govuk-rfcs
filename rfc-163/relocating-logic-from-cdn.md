@@ -21,6 +21,21 @@ Things that could be moved to WAF:
 [^redirect-security-txt-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L231-L233
 [^redirect-security-txt-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L606-L612
 
+Things that we could probably remove:
+
+- Feature flag for showing recommended related links for Whitehall content[^whitehall-recommended-links]
+  - This was added as a safety mechanism for the introduction of related links, in case something really inappropriate was found. There are ways to manually override the links now, and we've never used the feature flag, so we can probably remove it now.
+  - If we remove this functionality then we will also need to [update the docs](https://docs.publishing.service.gov.uk/manual/related-links.html#suspending-all-suggested-related-links).
+  - Regarding feature flags as a general concept:
+    - On the old platform it was necessary to implement these flags in the CDN layer to prevent the need to deploy a new release every time we wanted to enable/disable a feature. A header is set on the backend request to indicate to the application whether the feature is enabled or disabled.
+    - In the replatformed world, this becomes a lot easier: we can implement feature flags through environment variables (as opposed to headers), and then enabling or disabling the feature becomes a matter of [updating the environment variables in `govuk-helm-charts`](https://govuk-kubernetes-cluster-user-docs.publishing.service.gov.uk/manage-app/set-env-var/#update-an-ordinary-non-secret-environment-variable) and waiting a couple of minutes for Argo to pick up the changes.
+- Enforcing the use of TLS[^force-tls-1][^force-tls-2]
+  - Origin already performs an HTTP 301 redirect to the TLS version of the site. Browsers and CDNs should cache this response.
+
+[^force-tls-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L218-L220
+[^force-tls-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L561-L568
+[^whitehall-recommended-links]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L251
+
 Things that need to remain in our CDN (but become easier to implement/maintain if we later migrate to Compute@Edge):
 
 - JA3 denylisting[^ja3-1][^ja3-2]
@@ -72,21 +87,6 @@ Things that need to stay in VCL for now, but will become unnecessary if we later
 [^http-307-caching]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L459-L461
 [^brotli-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L329-L333
 [^brotli-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L388-L402
-
-Things that we could probably remove:
-
-- Feature flag for showing recommended related links for Whitehall content[^whitehall-recommended-links]
-  - This was added as a safety mechanism for the introduction of related links, in case something really inappropriate was found. There are ways to manually override the links now, and we've never used the feature flag, so we can probably remove it now.
-  - If we remove this functionality then we will also need to [update the docs](https://docs.publishing.service.gov.uk/manual/related-links.html#suspending-all-suggested-related-links).
-  - Regarding feature flags as a general concept:
-    - On the old platform it was necessary to implement these flags in the CDN layer to prevent the need to deploy a new release every time we wanted to enable/disable a feature. A header is set on the backend request to indicate to the application whether the feature is enabled or disabled.
-    - In the replatformed world, this becomes a lot easier: we can implement feature flags through environment variables (as opposed to headers), and then enabling or disabling the feature becomes a matter of [updating the environment variables in `govuk-helm-charts`](https://govuk-kubernetes-cluster-user-docs.publishing.service.gov.uk/manage-app/set-env-var/#update-an-ordinary-non-secret-environment-variable) and waiting a couple of minutes for Argo to pick up the changes.
-- Enforcing the use of TLS[^force-tls-1][^force-tls-2]
-  - Origin already performs an HTTP 301 redirect to the TLS version of the site. Browsers and CDNs should cache this response.
-
-[^force-tls-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L218-L220
-[^force-tls-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L561-L568
-[^whitehall-recommended-links]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L251
 
 Known issues with our current config that could be addressed more easily if we move to Compute@Edge:
 
