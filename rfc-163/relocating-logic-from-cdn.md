@@ -8,6 +8,9 @@ Things that could be moved to WAF:
   - Context: https://github.com/alphagov/govuk-cdn-config/pull/86
 - Redirecting `/security.txt` and `/.well-known/security.txt` to `https://vdp.cabinetoffice.gov.uk/.well-known/security.txt`[^redirect-security-txt-1][^redirect-security-txt-2]
   - This one might be a stretch - while we _could_ implement this via WAF, it's not the kind of behaviour that you'd typically associate with a firewall
+- Requiring HTTP Basic auth on integration[^http-basic-1][^http-basic-2] (unless the user's IP is in the allowlist[^http-basic-allowlist])
+  - If we handle this in the WAF then we will need to be careful around caching. We might be able to do something like setting `Vary: Authorization` in the response from the WAF, and additionally set `Vary: Fastly-Client-IP` if and only if the `Authorization` header is missing
+  - Will need to spike this approach to see if it's actually easier than handling at edge
 
 [^drop-requests-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L223
 [^drop-requests-2]: https://github.com/alphagov/govuk-cdn-config-secrets/blob/536de2171d17297c08a0a328df53a6b65002e2c4/fastly/fastly.yaml#L30-L39
@@ -15,6 +18,9 @@ Things that could be moved to WAF:
 [^autodiscover-matcher]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L226-L228
 [^redirect-security-txt-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L231-L233
 [^redirect-security-txt-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L606-L612
+[^http-basic-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L202-L207
+[^http-basic-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L614-L620
+[^http-basic-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L154-L165
 
 Things that we could probably remove:
 
@@ -45,8 +51,6 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
 - JA3 denylisting[^ja3-1][^ja3-2]
   - The JA3 fingerprint is computed from the TLS handshake, meaning it has to be computed at the node to which the client's TLS connection is made (i.e. the CDN)
   - We _could_ compute the JA3 fingerprint at the CDN layer and pass it via a header to the WAF in which the actual blocking takes place, but this would have implications on caching and so probably isn't feasible
-- Requiring HTTP Basic auth on integration[^http-basic-1][^http-basic-2] (unless the user's IP is in the allowlist[^http-basic-allowlist])
-  - We probably _could_ move this to our WAF, but then we would need to add something like `Vary: Authorization, Fastly-Client-IP` to the response, which would largely defeat caching
 - Require authentication for Fastly `PURGE` requests[^purge-auth]
   - This doesn't need parity on Cloudfront
 - Sorting query string params[^sort-query] and removing Google Analytics campaign params[^remove-utm] to improve cache hit rate
@@ -73,9 +77,6 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
   - This functionality needs to remain in the CDN layer, but becomes much easier to implement in Compute@Edge (details of this might follow in a future RFC).
 
 [^ip-denylist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L189-L192
-[^http-basic-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L202-L207
-[^http-basic-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L614-L620
-[^http-basic-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L154-L165
 [^purge-auth]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L171
 [^sort-query]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L236
 [^remove-utm]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L239
