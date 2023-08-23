@@ -2,10 +2,6 @@
 
 Things that could be moved to WAF:
 
-- IP denylisting[^ip-denylist]
-  - This functionality is currently unused (the dictionary that the denylist is read from is empty), but it exists in case we ever need to quickly block IP addresses (for example, during an incident).
-  - This can be moved to WAF: if the user is in the denylist, their request should be blocked and they should receive an HTTP 403. The CDN should not cache any client errors, including HTTP 403 responses, meaning that if a non-denylisted user subsequently makes a request, their request will succeed.
-  - Note that if a non-denylisted user makes a cacheable request (e.g. a `GET` request to the homepage), and then a denylisted user makes the same request, they will receive the cached version instead of an HTTP 403. This _shouldn't_ be a problem, as cacheable resources are by nature public. The purpose of this access control is to protect origin from attacks, rather than to restrict access to certain pages.
 - Silently ignore certain requests[^drop-requests-1][^drop-requests-2]
   - This was the outcome of an [incident report](https://docs.google.com/document/d/12DzQsDeu7zUcICy9zVporjprX4qZFIrpOOWtYYRx-nk/edit) - details cannot be provided here, as this is a public repo
 - Serving an HTTP 404 response with a hardcoded template[^autodiscover-template] if the request URL matches `/autodiscover/autodiscover.xml`[^autodiscover-matcher]
@@ -13,7 +9,6 @@ Things that could be moved to WAF:
 - Redirecting `/security.txt` and `/.well-known/security.txt` to `https://vdp.cabinetoffice.gov.uk/.well-known/security.txt`[^redirect-security-txt-1][^redirect-security-txt-2]
   - This one might be a stretch - while we _could_ implement this via WAF, it's not the kind of behaviour that you'd typically associate with a firewall
 
-[^ip-denylist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L189-L192
 [^drop-requests-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L223
 [^drop-requests-2]: https://github.com/alphagov/govuk-cdn-config-secrets/blob/536de2171d17297c08a0a328df53a6b65002e2c4/fastly/fastly.yaml#L30-L39
 [^autodiscover-template]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L579-L603
@@ -45,9 +40,11 @@ Things that we could probably remove:
 
 Things that need to remain in our CDN (but become easier to implement/maintain if we later migrate to Compute@Edge):
 
+- IP denylisting[^ip-denylist] (this must happen at the CDN layer, where caching takes place)
+  - This functionality is currently unused (the dictionary that the denylist is read from is empty), but it exists in case we ever need to quickly block IP addresses (for example, during an incident).
 - JA3 denylisting[^ja3-1][^ja3-2]
   - The JA3 fingerprint is computed from the TLS handshake, meaning it has to be computed at the node to which the client's TLS connection is made (i.e. the CDN)
-  - We _could_ compute the JA3 fingerprint at the CDN layer and pass it via a header to the WAF in which the actual blocking takes place, but it's unclear what the benefit of that would be
+  - We _could_ compute the JA3 fingerprint at the CDN layer and pass it via a header to the WAF in which the actual blocking takes place, but this would have implications on caching and so probably isn't feasible
 - Requiring HTTP Basic auth on integration[^http-basic-1][^http-basic-2] (unless the user's IP is in the allowlist[^http-basic-allowlist])
   - We probably _could_ move this to our WAF, but then we would need to add something like `Vary: Authorization, Fastly-Client-IP` to the response, which would largely defeat caching
 - Require authentication for Fastly `PURGE` requests[^purge-auth]
@@ -75,6 +72,7 @@ Things that need to remain in our CDN (but become easier to implement/maintain i
       - Code exists in our VCL to select a variant for each active test, pass the chosen variant to origin, and store the chosen variant in a cookie so that the same variant will be chosen on the next request
   - This functionality needs to remain in the CDN layer, but becomes much easier to implement in Compute@Edge (details of this might follow in a future RFC).
 
+[^ip-denylist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L189-L192
 [^http-basic-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L202-L207
 [^http-basic-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L614-L620
 [^http-basic-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L154-L165
