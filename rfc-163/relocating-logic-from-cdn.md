@@ -29,12 +29,19 @@ Things that we could probably remove:
   - Regarding feature flags as a general concept:
     - On the old platform it was necessary to implement these flags in the CDN layer to prevent the need to deploy a new release every time we wanted to enable/disable a feature. A header is set on the backend request to indicate to the application whether the feature is enabled or disabled.
     - In the replatformed world, this becomes a lot easier: we can implement feature flags through environment variables (as opposed to headers), and then enabling or disabling the feature becomes a matter of [updating the environment variables in `govuk-helm-charts`](https://govuk-kubernetes-cluster-user-docs.publishing.service.gov.uk/manage-app/set-env-var/#update-an-ordinary-non-secret-environment-variable) and waiting a couple of minutes for Argo to pick up the changes.
+- Pre-replatforming EKS things
+  - While our EKS cluster was still being tested we maintained two separate services for each environment (a "live" service pointed at our old EC2 infrastructure, and an access-controlled EKS service pointed at the new cluster)
+  - The EKS service definitions are now symlinks for the main VCL definitions, but the WWW service template still contains EKS-related conditionals[^eks-1][^eks-2] and references to the traffic split experiment[^eks-traffic-split]
+  - Now that replatforming is complete, we should clean up this leftover logic
 - Enforcing the use of TLS[^force-tls-1][^force-tls-2]
   - Origin already performs an HTTP 301 redirect to the TLS version of the site. Browsers and CDNs should cache this response.
 
 [^force-tls-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L218-L220
 [^force-tls-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L561-L568
 [^whitehall-recommended-links]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L251
+[^eks-1]: https://github.com/alphagov/govuk-cdn-config/blob/main/vcl_templates/www.vcl.erb#L154
+[^eks-2]: https://github.com/alphagov/govuk-cdn-config/blob/main/vcl_templates/www.vcl.erb#L182
+[^eks-traffic-split]: https://github.com/alphagov/govuk-cdn-config/blob/main/vcl_templates/www.vcl.erb#L243
 
 Things that need to remain in our CDN (but become easier to implement/maintain if we later migrate to Compute@Edge):
 
