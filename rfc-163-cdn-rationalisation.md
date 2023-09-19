@@ -3,6 +3,7 @@
 ## Summary
 
 - Where possible, relocate logic from the CDN layer to other parts of the stack
+- Avoid adding new VCL unless absolutely necessary
 - Standardise on Terraform for CDN configuration
 
 ## Problems
@@ -34,6 +35,9 @@ Across GDS we are standardising on infrastructure as code, and the use of Terraf
 
 Please see the [appendix](rfc-163/relocating-logic-from-cdn.md) for specific examples of what functionality we are proposing to move, and where we are proposing to move it to. Note however that this is not an exhaustive list, and is subject to change; the main point is that we want to move as much functionality out of our CDN services as possible, to make them easier to maintain.
 
+### Avoid adding new VCL unless absolutely necessary
+
+See section above. Wherever possible, we should consider where else our logic might live, whether that's at the application layer, the Router layer or the WAF layer. Now that we've started using Terraform to manage our Fastly configuration, some features may also be able to be represented in Terraform rather than VCL.
 ### Standardise on Terraform for CDN configuration
 
 Platform Engineering have already migrated most of our Fastly services to Terraform, with the new code living in [`govuk-fastly`](https://github.com/alphagov/govuk-fastly) and [`govuk-fastly-secrets`](https://github.com/alphagov/govuk-fastly-secrets). The service domain redirect service (which handles redirecting from https://service.gov.uk to https://www.gov.uk), and the TLD redirect service (which handles redirecting from https://gov.uk to https://www.gov.uk) should also be migrated to this new repo.
