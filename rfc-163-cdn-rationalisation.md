@@ -7,11 +7,13 @@
 
 ## Problems
 
-We currently configure our Fastly services using [Fastly's custom fork](https://developer.fastly.com/learning/vcl/using/) of the VCL domain-specific language, within [govuk-cdn-config](https://github.com/alphagov/govuk-cdn-config). We deploy this code using [custom Ruby scripts](https://github.com/alphagov/govuk-cdn-config/tree/main/lib).
+We currently configure our Fastly services using [Fastly's custom fork](https://developer.fastly.com/learning/vcl/using/) of the VCL domain-specific language, within [govuk-fastly](https://github.com/alphagov/govuk-fastly).
 
 We also have a work-in-progress CloudFront distribution that we can use for failover in the event that Fastly experiences an outage. This is due to be merged soon in alphagov/govuk-infrastructure#929.
 
-In its current state, our CDN configuration is highly complex and does many things, making it brittle and difficult to maintain, and hampering efforts to ensure parity between the two CDNs. Its current approach to testing also leaves a lot to be desired - as we are unable to verify the behaviour of the VCL through automated tests, we instead simply [run RuboCop over the repo](https://github.com/alphagov/govuk-cdn-config/blob/5bff7b9d3b7ef51b493bb00e609fc714da2dc67a/Rakefile#L8), [verify that the VCL rendered from our ERB templates matches what we expect](https://github.com/alphagov/govuk-cdn-config/blob/5bff7b9d3b7ef51b493bb00e609fc714da2dc67a/spec/www_vcl_erb_spec.rb), and [verify that our hand-written Ruby deploy scripts work](https://github.com/alphagov/govuk-cdn-config/blob/5bff7b9d3b7ef51b493bb00e609fc714da2dc67a/spec/deploy_service_spec.rb).
+In its current state, our CDN configuration is highly complex and does many things, making it brittle and difficult to maintain, and hampering efforts to ensure parity between the two CDNs.
+
+Its current approach to testing also leaves a lot to be desired. In its previous guise as `govuk-cdn-config`, we simply [ran RuboCop over the repo](https://github.com/alphagov/govuk-cdn-config/blob/5bff7b9d3b7ef51b493bb00e609fc714da2dc67a/Rakefile#L8), [verified that the VCL rendered from our ERB templates matched what we expected](https://github.com/alphagov/govuk-cdn-config/blob/5bff7b9d3b7ef51b493bb00e609fc714da2dc67a/spec/www_vcl_erb_spec.rb), and [verified that our hand-written Ruby deploy scripts work](https://github.com/alphagov/govuk-cdn-config/blob/5bff7b9d3b7ef51b493bb00e609fc714da2dc67a/spec/deploy_service_spec.rb). The new repo, `govuk-fastly`, currently lacks tests and continuous integration entirely.
 
 The lack of feature parity between the two CDNs presents us with several issues:
 
@@ -24,7 +26,7 @@ A number of the things that we currently handle at the CDN level might perhaps b
 
 Fastly have recently introduced an edge compute platform called [Compute@Edge](https://www.fastly.com/products/edge-compute). This platform would allow us to express our CDN logic in a programming language, using an SDK provided by Fastly, instead of having to grapple with VCL. This could make it easier to maintain the functionality that can't be relocated to other parts of the stack, as well as allowing us to set up integration tests for our CDN logic. We are not (yet) proposing migrating to Compute@Edge, but if and when we decide to do so, it will be easier if there is less functionality to migrate.
 
-Across GDS we are standardising on infrastructure as code, and the use of Terraform to describe this infrastructure. Our Fastly service configuration has so far avoided this treatment, and is still deployed using custom Ruby code. We should address this by replacing our [handwritten Ruby scripts](https://github.com/alphagov/govuk-cdn-config/tree/main/lib) in [govuk-cdn-config](https://github.com/alphagov/govuk-cdn-config) with Terraform.
+Across GDS we are standardising on infrastructure as code, and the use of Terraform to describe this infrastructure. We should standardise on Terraform for CDN deployment across all of our services.
 
 ## Proposal
 
@@ -34,9 +36,7 @@ Please see the [appendix](rfc-163/relocating-logic-from-cdn.md) for specific exa
 
 ### Standardise on Terraform for CDN configuration
 
-The [custom Ruby scripts](https://github.com/alphagov/govuk-cdn-config/tree/main/lib) in [govuk-cdn-config](https://github.com/alphagov/govuk-cdn-config) should be replaced with Terraform projects.
-
-Platform Engineering have already begun work on migrating the WWW and Assets services to Terraform, with the new code living in [`govuk-fastly`](https://github.com/alphagov/govuk-fastly) and [`govuk-fastly-secrets`](https://github.com/alphagov/govuk-fastly-secrets). Once this work is complete, the Bouncer service, the service domain redirect service (which handles redirecting from https://service.gov.uk to https://www.gov.uk), and the TLD redirect service (which handles redirecting from https://gov.uk to https://www.gov.uk) should also be migrated to this new repo.
+Platform Engineering have already migrated most of our Fastly services to Terraform, with the new code living in [`govuk-fastly`](https://github.com/alphagov/govuk-fastly) and [`govuk-fastly-secrets`](https://github.com/alphagov/govuk-fastly-secrets). The service domain redirect service (which handles redirecting from https://service.gov.uk to https://www.gov.uk), and the TLD redirect service (which handles redirecting from https://gov.uk to https://www.gov.uk) should also be migrated to this new repo.
 
 The data.gov.uk Fastly services are [already deployed with Terraform](https://github.com/alphagov/govuk-aws/tree/main/terraform/projects/fastly-datagovuk) - we may want to consider migrating this code from `govuk-aws` to `govuk-fastly`, to keep all of our Fastly configuration in one place.
 
