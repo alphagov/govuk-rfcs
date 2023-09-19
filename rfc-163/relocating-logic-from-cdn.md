@@ -1,13 +1,19 @@
 # Appendix: Proposal for relocating logic from the CDN layer to other parts of the stack
 
+Things that could be moved to router:
+
+- Redirecting `/security.txt` and `/.well-known/security.txt` to `https://vdp.cabinetoffice.gov.uk/.well-known/security.txt`[^redirect-security-txt-1][^redirect-security-txt-2]
+  - The redirects for https://service.gov.uk/security.txt and https://data.gov.uk/security.txt are currently broken, but are considered out of scope for this RFC
+
+[^redirect-security-txt-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L231-L233
+[^redirect-security-txt-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L606-L612
+
 Things that could be moved to WAF:
 
 - Silently ignore certain requests[^drop-requests-1][^drop-requests-2]
   - This was the outcome of an [incident report](https://docs.google.com/document/d/12DzQsDeu7zUcICy9zVporjprX4qZFIrpOOWtYYRx-nk/edit) - details cannot be provided here, as this is a public repo
 - Serving an HTTP 404 response with a hardcoded template[^autodiscover-template] if the request URL matches `/autodiscover/autodiscover.xml`[^autodiscover-matcher]
   - Context: https://github.com/alphagov/govuk-cdn-config/pull/86
-- Redirecting `/security.txt` and `/.well-known/security.txt` to `https://vdp.cabinetoffice.gov.uk/.well-known/security.txt`[^redirect-security-txt-1][^redirect-security-txt-2]
-  - This one might be a stretch - while we _could_ implement this via WAF, it's not the kind of behaviour that you'd typically associate with a firewall
 - Requiring HTTP Basic auth on integration[^http-basic-1][^http-basic-2] (unless the user's IP is in the allowlist[^http-basic-allowlist])
   - If we handle this in the WAF then we will need to be careful around caching. We might be able to do something like setting `Vary: Authorization` in the response from the WAF, and additionally set `Vary: Fastly-Client-IP` if and only if the `Authorization` header is missing
   - Will need to spike this approach to see if it's actually easier than handling at edge
@@ -16,8 +22,6 @@ Things that could be moved to WAF:
 [^drop-requests-2]: https://github.com/alphagov/govuk-cdn-config-secrets/blob/536de2171d17297c08a0a328df53a6b65002e2c4/fastly/fastly.yaml#L30-L39
 [^autodiscover-template]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L579-L603
 [^autodiscover-matcher]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L226-L228
-[^redirect-security-txt-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L231-L233
-[^redirect-security-txt-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L606-L612
 [^http-basic-1]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L202-L207
 [^http-basic-2]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L614-L620
 [^http-basic-allowlist]: https://github.com/alphagov/govuk-cdn-config/blob/55e587b238338caea1c7187c1f5d70cac8e5b104/vcl_templates/www.vcl.erb#L154-L165
