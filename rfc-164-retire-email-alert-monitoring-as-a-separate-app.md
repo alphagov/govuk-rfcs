@@ -6,7 +6,7 @@ Replace the current email-alert-monitoring system with a task built into email-a
 
 ## Problem
 
-Email-alert-monitoring is a stand-alone app run as a cronjob (currently on Jenkins, although it's being moved over to EKS). It's designed to confirm that medical and travel alert emails have been sent out on time, and supports an SLA. It's clearly critical that we have some way of knowing that these alerts have gone out, but the current system has a number of problems:
+email-alert-monitoring is a stand-alone app run as a cronjob (currently on Jenkins, although it's being moved over to EKS). It's designed to confirm that medical and travel alert emails have been sent out on time, and supports an SLA. It's clearly critical that we have some way of knowing that these alerts have gone out, but the current system has a number of problems:
 
 - It relies on a slightly heath-robinson collection of google accounts
 - Its method of matching alerts to emails is brittle
@@ -35,7 +35,7 @@ The app is called as a cronjob once every 30 minutes. It opens the [RSS feed] fo
 
 ### How email-alert-monitoring currently works for Travel Advice Alerts
 
-The app is called as a cronjob once every 15 mintues. It opens a [healthcheck URL] on the Travel Advice Publisher app, which contains a list of all travel alerts published in the last 2 days, but excluding the last 150 minutes. For these, it makes a list of the subject lines of the emails that should have been sent out, as well as the time (this is because more than one travel advice alert migt be issued for the same country in a two day period, so matching purely on the subject line isn't sufficient). It then uses the GMail API to read the inbox of govuk_email_check@digital.cabinet-office.gov.uk to check for the existence of those emails. If any are missing, an alert happens. Minimum time between publishing and alert is 2 and a half hours.
+The app is called as a cronjob once every 15 mintues. It opens a [healthcheck URL] on the travel-advice-publisher app, which contains a list of all travel alerts published in the last 2 days, but excluding the last 150 minutes. For these, it makes a list of the subject lines of the emails that should have been sent out, as well as the time (this is because more than one travel advice alert migt be issued for the same country in a two day period, so matching purely on the subject line isn't sufficient). It then uses the GMail API to read the inbox of govuk_email_check@digital.cabinet-office.gov.uk to check for the existence of those emails. If any are missing, an alert happens. Minimum time between publishing and alert is 2 and a half hours.
 
 [healthcheck URL]: https://travel-advice-publisher.publishing.service.gov.uk/healthcheck/recently-published-editions
 
@@ -49,9 +49,17 @@ Problems can occur when trying to match by subject line if the title of the aler
 
 We currently keep a record of every single email sent out via email-alert-api (the Email model). These records are [kept for one week, then deleted]. When emails are sent out, we could save the notify response ID in the Email record. This would allow us to get the [current delivery status] of the email using the Notify API. As long as one email sent in response to an alert has a delivery status of "delivered", we would have roughly the same assurance as we do now that the email alert has been sent successfully. It would also allow us the opportunity (if we wanted) to make a more stringent alert (say, that a certain percentage of the alert emails were delivered successfully) that we can't currently test.
 
-We would need some way of matching the emails in the Email model to the emails expected to have been sent out. An MVP would be to use the exact same matching pattern (subject line and optionally time) that we use at the moment. This would get us the same level of reliability as now, but would retain the same problems (that if an alert's title is changed after it is sent out, the match will not work). To combat this, we could retain in Email records the content item that triggered them, and augment the [RSS feed] and [healthcheck URL] to add the content item into each displayed item. This is already publically available information and has no real security implication, but would require small changes to Travel Advice Publisher and Finder Frontend.
+We're rate limited in calls to Notify, so we'd need to make sure these calls were tied into the existing rate limiting service in email-alert-api
+
+We would need some way of matching the emails in the Email model to the emails expected to have been sent out. An MVP would be to use the exact same matching pattern (subject line and optionally time) that we use at the moment. This would get us the same level of reliability as now, but would retain the same problems (that if an alert's title is changed after it is sent out, the match will not work). To combat this, we could retain in Email records the content item that triggered them, and augment the [RSS feed] and [healthcheck URL] to add the content item into each displayed item. This is already publically available information and has no real security implication, but would require small changes to travel-advice-publisher and finder-frontend.
 
 [kept for one week, then deleted]: https://github.com/alphagov/email-alert-api/blob/main/app/workers/email_deletion_worker.rb#L5
 [current delivery status]: https://docs.notifications.service.gov.uk/ruby.html#get-the-status-of-one-message
 
--
+
+
+### Proposed Action Plan
+
+- Create PoC branch for Finder Frontend (to add content item into RSS feed)
+- Create PoC branch for Travel Advice Publisher (to add content item into healthcheck URL)
+- Create PoC branch for Email-alert-api (to implement alert tasks)
