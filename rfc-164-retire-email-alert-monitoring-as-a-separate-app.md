@@ -8,7 +8,7 @@ Replace the current email-alert-monitoring system with a task built into email-a
 
 email-alert-monitoring is a stand-alone app run as a cronjob (currently on Jenkins, although it's being moved over to EKS). It's designed to confirm that medical and travel alert emails have been sent out on time, and supports an SLA. It's clearly critical that we have some way of knowing that these alerts have gone out, but the current system has a number of problems:
 
-- It relies on a slightly heath-robinson collection of google accounts
+- It relies on a slightly Heath Robinson collection of google accounts
 - Its method of matching alerts to emails is brittle
 - False alarms well outnumber valid alarms (which causes annoying on-call pages)
 - It's not entirely clear how actionable the valid alarms are
@@ -44,6 +44,13 @@ The app is called as a cronjob once every 15 mintues. It opens a [healthcheck UR
 Problems can occur when trying to match by subject line if the title of the alert is altered after the email has been sent out. The [RSS feed] or [healthcheck URL] will contain a title that differs from the subject line of the email sent out. This will cause a failed match, and an alert will go off, even though for practical purposes the email has been sent. This causes false alarms, and needs someone to add a [hard-coded exception] into the matching code, increasing toil.
 
 [hard-coded execption]: https://github.com/alphagov/email-alert-monitoring/blob/main/lib/email_verifier.rb#L8-L36
+
+### What Notify API can tell us about the status of an email
+
+Notify API gives us a [current delivery status] for an email, which begins as "sending" and is changed to "delivered" when Notify receives a callback from Amazon SES (the backing service Notify uses to delivery emails) to confirm the mailserver handling emails for the recipient address has accepted the email. This is a reasonably solid assurance that the email has got to the receipient, and is definitely at the point where further handling of the email is outside of our control - the only things that might stop the recipient seeing the email at that point are:
+- The mailserver might fail to deliver internally: Valid, but we can't currently test that unless the failure occurs in the exact GMail server handling our account anyway.
+- A spam filter might redirect the message: Untestable, relies on idiosyncratic account setup, and out of our control
+- The recipient might ignore the message: Untestable, and out of our control.
 
 ### How we could replace this with a job internal to email-alert-api
 
