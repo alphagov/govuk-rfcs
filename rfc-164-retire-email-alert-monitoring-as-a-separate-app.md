@@ -62,4 +62,8 @@ We would need some way of matching the emails in the Email model to the emails e
 
 - Create PoC branch for Finder Frontend (to add content item into RSS feed)
 - Create PoC branch for Travel Advice Publisher (to add content item into healthcheck URL)
-- Create PoC branch for Email-alert-api (to implement alert tasks)
+- Create PoC branch for Email-alert-api (to implement current query/matching)
+- TBC Work out how email-alert-monitoring actually triggers alerts, and replicate in email-alert-api
+- Test in integration
+- Go/No Go
+- Retire email-alert-monitoring
