@@ -51,7 +51,8 @@ Problems can occur when trying to match by subject line if the title of the aler
 
 ### What Notify API can tell us about the status of an email
 
-Notify API gives us a [current delivery status] for an email, which begins as "sending" and is changed to "delivered" when Notify receives a callback from Amazon SES (the backing service Notify uses to delivery emails) to confirm the mailserver handling emails for the recipient address has accepted the email. This is a reasonably solid assurance that the email has got to the receipient, and is definitely at the point where further handling of the email is outside of our control - the only things that might stop the recipient seeing the email at that point are:
+Notify API gives us a [current delivery status] for an email, which begins as "sending" and is changed to "delivered" when Notify receives a callback from Amazon SES (the backing service Notify uses to delivery emails) to confirm the mailserver handling emails for the recipient address has accepted the email. This is a reasonably solid assurance that the email has got to the recipient, and is definitely at the point where further handling of the email is outside of our control - the only things that might stop the recipient seeing the email at that point are:
+
 - The mailserver might fail to deliver internally: Valid, but we can't currently test that unless the failure occurs in the exact GMail server handling our account anyway.
 - A spam filter might redirect the message: Untestable, relies on idiosyncratic account setup, and out of our control
 - The recipient might ignore the message: Untestable, and out of our control.
