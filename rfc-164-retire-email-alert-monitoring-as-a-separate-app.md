@@ -17,7 +17,7 @@ email-alert-monitoring is a stand-alone app run as a cronjob (currently on Jenki
 
 We should retire email-alert-monitoring as a separate application, and instead build a system into email-alert-api that can be called by a cron job (as is currently the case for the separate app).
 
-Currently it looks like we're not tracking the id for emails sent out via notify, but we do store email information for one day. By storing the notify ID, either for all emails (easier) or just for alert emails, we could then [query notify as to their current status]. Our cron job could query the current status for the relevant alert emails, and if _one_ email is in the "delivered" state, we have roughly as much proof that they're being delivered as we currently do.
+Currently it looks like we're not tracking the id for emails sent out via Notify, but we do store email information for one day. By storing the Notify ID, either for all emails (easier) or just for alert emails, we could then [query Notify as to their current status]. Our cron job could query the current status for the relevant alert emails, and if _one_ email is in the "delivered" state, we have roughly as much proof that they're being delivered as we currently do.
 
 As a side-effect of adding this, we could also potentially query every alert email in the given period to determine how many of our alerts on average are getting delivered (and perhaps identify recipients who no longer exist).
 
