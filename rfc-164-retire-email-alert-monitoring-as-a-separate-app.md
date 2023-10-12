@@ -23,7 +23,7 @@ As a side-effect of adding this, we could also potentially query every alert ema
 
 This isn't quite as end-to-end as the current system (if something was delivered, does that mean it's actually in a given person's inbox?), but since any record that Notify deems delivered is at the absolute boundaries of anything actionable by GOV.UK, there seems to be little to gain by tracking the alerts further than that. We can keep the existing subscription to use in cases where we needed to check that emails have been physically seen in the inbox, but those checks can be done manually by second line (and the inboxes in question can be free google group inboxes rather than paid-for gmail accounts, since we won't need the API that gmail accounts have and google groups don't have. This would also simplify access, since we wouldn't need to store and retrieve secrets to access the gmail account when working on second line).
 
-[query notify as to their current status]: https://docs.notifications.service.gov.uk/ruby.html#get-the-status-of-one-message
+[query Notify as to their current status]: https://docs.notifications.service.gov.uk/ruby.html#get-the-status-of-one-message
 
 ## Technical Details
 
