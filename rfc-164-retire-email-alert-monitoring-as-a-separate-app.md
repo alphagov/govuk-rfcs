@@ -43,7 +43,7 @@ The app is called as a cronjob once every 15 mintues. It opens a [healthcheck UR
 
 Problems can occur when trying to match by subject line if the title of the alert is altered after the email has been sent out. The [RSS feed] or [healthcheck URL] will contain a title that differs from the subject line of the email sent out. This will cause a failed match, and an alert will go off, even though for practical purposes the email has been sent. This causes false alarms, and needs someone to add a [hard-coded exception] into the matching code, increasing toil.
 
-[hard-coded execption]: https://github.com/alphagov/email-alert-monitoring/blob/main/lib/email_verifier.rb#L8-L36
+[hard-coded execption]: https://github.com/alphagov/email-alert-monitoring/blob/79a865dcd8be07447735ae8ae99b78002241504a/lib/email_verifier.rb#L8-L36
 
 ### What Notify API can tell us about the status of an email
 
