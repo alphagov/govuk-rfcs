@@ -39,6 +39,10 @@ The app is called as a cronjob once every 15 minutes. It opens a [healthcheck UR
 
 [healthcheck URL]: https://travel-advice-publisher.publishing.service.gov.uk/healthcheck/recently-published-editions
 
+### How the alerts actually happen (Jenkins)
+
+Where we use the phrase "an alert happens" above, the actual mechanism is that the email-alert-monitoring task exits with a fail status (2), and the Jenkins job running the task uses the Failure_Passive_check job to send a passive check to ICINGA with a failed status. Icinga handles escalation to Pagerduty.
+
 ### Problems with matching subject lines
 
 Problems can occur when trying to match by subject line if the title of the alert is altered after the email has been sent out. The [RSS feed] or [healthcheck URL] will contain a title that differs from the subject line of the email sent out. This will cause a failed match, and an alert will go off, even though for practical purposes the email has been sent. This causes false alarms, and needs someone to add a [hard-coded exception] into the matching code, increasing toil.
@@ -59,6 +63,8 @@ We currently keep a record of every single email sent out via email-alert-api (t
 We're rate limited in calls to Notify, so we'd need to make sure these calls were tied into the existing rate limiting service in email-alert-api
 
 We would need some way of matching the emails in the Email model to the emails expected to have been sent out. An MVP would be to use the exact same matching pattern (subject line and optionally time) that we use at the moment. This would get us the same level of reliability as now, but would retain the same problems (that if an alert's title is changed after it is sent out, the match will not work). To combat this, we could retain in Email records the content item that triggered them, and augment the [RSS feed] and [healthcheck URL] to add the content item into each displayed item. This is already publically available information and has no real security implication, but would require small changes to travel-advice-publisher and finder-frontend.
+
+To trigger an alert, we could either use a Prometheus collector on a reasonable metric, or use the prometheus push gateway. Collector is probably preferable.
 
 [kept for one week, then deleted]: https://github.com/alphagov/email-alert-api/blob/main/app/workers/email_deletion_worker.rb#L5
 [current delivery status]: https://docs.notifications.service.gov.uk/ruby.html#get-the-status-of-one-message
