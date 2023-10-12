@@ -41,7 +41,7 @@ The app is called as a cronjob once every 15 minutes. It opens a [healthcheck UR
 
 ### How the alerts actually happen (Jenkins)
 
-Where we use the phrase "an alert happens" above, the actual mechanism is that the email-alert-monitoring task exits with a fail status (2), and the Jenkins job running the task uses the Failure_Passive_check job to send a passive check to ICINGA with a failed status. Icinga handles escalation to Pagerduty.
+Where we use the phrase "an alert happens" above, the actual mechanism is that the email-alert-monitoring task exits with a fail status (2), and the Jenkins job running the task uses the Failure_Passive_check job to send a passive check to Icinga with a failed status. Icinga handles escalation to PagerDuty.
 
 ### Problems with matching subject lines
 
