@@ -80,7 +80,7 @@ Currently travel-advice-publisher and specialist-publisher (the publishing tool 
 
 [kept for one week, then deleted]: https://github.com/alphagov/email-alert-api/blob/main/app/workers/email_deletion_worker.rb#L5
 [current delivery status]: https://docs.notifications.service.gov.uk/ruby.html#get-the-status-of-one-message
-[rate limiting service]: https://rubygems.org/gems/ratelimit/versions/1.0.2?locale=en
+[rate limiting service]: https://github.com/alphagov/email-alert-api/blob/032fe645e62b5d3b26fedba84a3e852a87575a8b/lib/services.rb#L2C1-L4
 
 ### Proposed Action Plan
 
