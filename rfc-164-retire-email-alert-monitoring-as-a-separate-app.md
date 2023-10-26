@@ -47,7 +47,13 @@ Where we use the phrase "an alert happens" above, the actual mechanism is that t
 
 Problems can occur when trying to match by subject line if the title of the alert is altered after the email has been sent out. The [RSS feed] or [healthcheck URL] will contain a title that differs from the subject line of the email sent out. This will cause a failed match, and an alert will go off, even though for practical purposes the email has been sent. This causes false alarms, and needs someone to add a [hard-coded exception] into the matching code, increasing toil.
 
-[hard-coded execption]: https://github.com/alphagov/email-alert-monitoring/blob/79a865dcd8be07447735ae8ae99b78002241504a/lib/email_verifier.rb#L8-L36
+[hard-coded exception]: https://github.com/alphagov/email-alert-monitoring/blob/79a865dcd8be07447735ae8ae99b78002241504a/lib/email_verifier.rb#L8-L36
+
+### Problems with matching by times
+
+Since the travel advice system matches by time and subject, this can lead to additionalo false alarms if the email being sent out is delayed over a minute boundary (since the code is matching on the minute the alert was created). Again, this has to be handled by a [hard-coded execption].
+
+[false alarms]: https://github.com/alphagov/email-alert-monitoring/pull/106
 
 ### What the Notify callback can tell us about the status of an email
 
