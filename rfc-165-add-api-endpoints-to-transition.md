@@ -41,3 +41,12 @@ involves:
 
 The documentation in the Transition and Bouncer repositories must be updated to
 reflect these changes.
+
+## Consequences
+
+- Bouncer's dependency on the database shared with Transition is removed.
+- Bouncer's codebase will be less complex.
+- This approach will likely be less performant than the current approach. We
+  plan to take this into consideration during development by identifying and
+  measuring relevant performance metrics.
+- Bouncer depends on the availability of Transition's API.
