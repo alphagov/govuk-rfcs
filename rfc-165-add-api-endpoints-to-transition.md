@@ -25,8 +25,11 @@ ActiveRecord subclasses and dependency versions consistent.
 
 ## Proposal
 
-We should add API endpoints to Transition that will enable us to retrieve the
-data required for Bouncer to function.
+Bouncer should retrieve data from Transition via an API. This involves:
+- Adding API endpoints that allow us to retrieve the minimum amount of data for
+  Bouncer to function.
+- Adding adapters to GDS API Adapters.
+- Removing database dependencies from Bouncer.
 
 This approach is an alternative to merging to the Bouncer codebase into
 Transition entirely. Merging the applications is a more complex task that
