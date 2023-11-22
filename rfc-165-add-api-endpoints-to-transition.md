@@ -31,6 +31,10 @@ Bouncer should retrieve data from Transition via an API. This involves:
 - Adding adapters to GDS API Adapters.
 - Removing database dependencies from Bouncer.
 
+There has been a push recently to fully separate our frontend and backend apps.
+This approach would fit in well with this theme, essentially turning Transition
+into a publishing app and Bouncer into a platform concern.
+
 This approach is an alternative to merging to the Bouncer codebase into
 Transition entirely. Merging the applications is a more complex task that
 involves:
