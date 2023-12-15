@@ -23,6 +23,12 @@ between Transition and Bouncer.
 This includes the use of ActiveRecord; we must take the effort to keep
 ActiveRecord subclasses and dependency versions consistent.
 
+As this approach is unusual in the wider context of GOV.UK, this also has the
+potential to make working with this system more difficult to grasp and process
+for software developers. The additional cognitive load that this places on
+individuals and teams may hurt productivity and make tasks such as onboarding
+new developers more difficult.
+
 ## Proposal
 
 Bouncer should retrieve data from Transition via an API. This involves:
