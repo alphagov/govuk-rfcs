@@ -134,21 +134,21 @@ This RFC proposes a breaking change to the API as follows:
 
 ```yaml
 api_version: 2
-default_behaviour:
-  external_dependencies_allowed: true # default: `false`
-  allow_automerging: true # default: `false`
+defaults:
+  update_external_dependencies: true # default: `false`
+  auto_merge: true # default: `true`
   allowed_semver_bumps: # default: `[patch, minor]`
     - patch
     - minor
   # each of the above properties can be overridden on a per-dependency basis
-overrides: # suitably renamed from `auto_merge`. (The only reason this needs to be considered a breaking change!)
+overrides: # suitably renamed from `auto_merge`.
   # Now we only need to specify `allowed_semver_bumps` if we're overriding the default behaviour:
   - dependency: rubocop-govuk
     allowed_semver_bumps:
       - patch
   # We can also opt a specific dependency out of automatic patching as follows:
   - dependency: foo
-    allow_automerging: false
+    auto_merge: false
 ```
 
 This configuration structure allows for a high degree of configurability - see [Appendix](#appendix).
@@ -187,41 +187,43 @@ A policy that enables automatic patch/minor patching of all dependencies:
 
 ```yaml
 api_version: 2
-default_behaviour:
-  external_dependencies_allowed: true
-  allow_automerging: true
+defaults:
+  update_external_dependencies: true
+  auto_merge: true
 ```
 
 A policy that enables automatic patch/minor patching of all internal dependencies:
 
 ```yaml
 api_version: 2
-default_behaviour:
-  external_dependencies_allowed: false
-  allow_automerging: true
+defaults:
+  update_external_dependencies: false
+  auto_merge: true
 ```
 
 A policy that enables automatic patch/minor patching of all internal dependencies, and one specific external dependency:
 
 ```yaml
 api_version: 2
-default_behaviour:
-  external_dependencies_allowed: false
-  allow_automerging: true
+defaults:
+  update_external_dependencies: false
+  auto_merge: true
 overrides:
   - dependency: some-special-external-dependency
-    external_dependencies_allowed: true
+    update_external_dependencies: true
 ```
 
 A policy that retains the (old) internal-only, allow-list only patching behaviour:
 
 ```yaml
 api_version: 2
+defaults:
+  auto_merge: false
 overrides:
   - dependency: rubocop-govuk
-    allow_automerging: true
+    auto_merge: true
   - dependency: govuk_app_config
-    allow_automerging: true
+    auto_merge: true
   # etc...
 ```
 
