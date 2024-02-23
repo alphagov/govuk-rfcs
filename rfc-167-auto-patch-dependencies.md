@@ -177,7 +177,7 @@ Documentation that will need updating:
 
 # Status
 
-Proposed
+Accepted
 
 # Appendix
 
