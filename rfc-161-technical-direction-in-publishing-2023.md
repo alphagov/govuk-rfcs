@@ -1,3 +1,10 @@
+---
+status: accepted
+implementation: in_progress
+status_last_reviewed: 2024-03-04
+status_notes: 'Should be superseded by Technical Direction in Publishing 2024'
+---
+
 # Technical Direction in Publishing 2023
 
 ## Summary

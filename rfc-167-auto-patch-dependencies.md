@@ -1,3 +1,9 @@
+---
+status: accepted
+implementation: in_progress
+status_last_reviewed: 2024-03-04
+---
+
 # Allow automatic patching of all dependencies
 
 ## Summary

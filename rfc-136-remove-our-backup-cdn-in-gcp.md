@@ -1,3 +1,9 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+---
+
 # Remove the backup CDN in Google Cloud Platform (GCP)
 
 ## Summary

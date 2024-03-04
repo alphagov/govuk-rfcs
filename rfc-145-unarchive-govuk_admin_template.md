@@ -1,8 +1,10 @@
 ---
-Author: Ryan Brooks
-Date: January 2022
-Deadline for decision: 14th January 2022
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+status_notes: "We're getting close to being able to archive this again, with the publishing apps removing their dependency on Bootstrap"
 ---
+
 # Unarchive govuk_admin_template Bootstrap project
 ## Summary
 

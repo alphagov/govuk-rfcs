@@ -1,3 +1,9 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+---
+
 # 144 More reliable emergency banner deployment
 
 Author: Bill Franklin\

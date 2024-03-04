@@ -1,3 +1,9 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+---
+
 # Simplify our CDN config, and standardise on Terraform for deployment
 
 ## Summary

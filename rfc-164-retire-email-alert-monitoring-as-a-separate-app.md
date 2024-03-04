@@ -1,3 +1,9 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+---
+
 # Retire email-alert-monitoring as a separate app
 
 ## Summary

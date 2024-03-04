@@ -1,3 +1,11 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+---
+
+# Merge dependabot pull requests with a single review
+
 ## Problem
 
 I think there are two somewhat related problems that I'd like to see

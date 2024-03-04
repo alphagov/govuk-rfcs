@@ -1,3 +1,13 @@
+---
+status: accepted
+implementation: in_progress
+status_last_reviewed: 2024-03-04
+status_notes: This is in a bit of a confusing, half-way house state. Content
+  items do have attachments hashes, but the HTML in the content item is still
+  there and still used in the frontend. We also still have the concept of
+  inline attachments, which are a further inconsistency.
+---
+
 # Store attachment data in content items
 
 ## Summary
