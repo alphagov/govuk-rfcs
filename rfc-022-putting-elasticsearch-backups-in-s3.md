@@ -1,4 +1,12 @@
-## **Problem**
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-06
+---
+
+# Putting Elasticsearch backups into S3
+
+## Problem
 
 Currently, we don't have good (any?) backups for our elasticsearch indexes. &nbsp;This is particularly critical for the index which powers the main site search, since it takes at least 2 hours to rebuild the indexes for the "/government" content from scratch, and requires lots of separate apps to be prodded to rebuild the indexes for the mainstream index.
 
@@ -10,7 +18,7 @@ Our current mechanism for syncing the search indexes to other environments, and 
 - requires ssh access to preview machines to get developer builds
 - developers can't get an up-to-date copy of the search index - latency of at least a day (more when nightly jobs have failed)
 
-**Proposal**
+## Proposal
 
 Since elasticsearch 1.0, elasticsearch has supported&nbsp;["Snapshot and Restore"](https://www.elastic.co/guide/en/elasticsearch/reference/1.4/modules-snapshots.html), which allows a snapshot of a search index to be copied to either a shared filesystem, or to amazon S3. &nbsp;I propose that we use S3, for its ease of setup, and because it will allow us to share the resulting backups easily.
 
