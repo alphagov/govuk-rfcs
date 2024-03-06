@@ -1,4 +1,12 @@
-## **Problem**
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-06
+---
+
+# Supporting slug changes in the Publishing API
+
+## Problem
 
 - slug changes are **costly and increasingly common** for live content
 - we also need to handle slug changes for **draft content**
@@ -24,13 +32,13 @@ The primary identifier used for content items in the publishing API is the&nbsp;
 
 If the slug of a draft content item changes, our only option at present would be to&nbsp;require the publishing application to notify the publishing API of this change so that it can remove the document at the previous slug (publishing API currently does not support deletion of content items).
 
-## **Proposal**
+## Proposal
 
-### **Proposal 1: we should assume that slug changes will happen and incorporate this into the design of the publishing API**
+### Proposal 1: we should assume that slug changes will happen and incorporate this into the design of the publishing API
 
 The simplifying assumption that slug changes do not happen is no longer serving us.
 
-### **Proposal 2: use content\_id as the primary identifier of content items**
+### Proposal 2: use content\_id as the primary identifier of content items
 
 In order to cater for the above change in assumptions, we should use a persistent abstract identifier for content items. We already have such an identifier in the systems, in the form of&nbsp;`content_id`.&nbsp;
 
@@ -54,8 +62,6 @@ This will allow the publishing API to understand when the slug of a content item
 
 Further down the line, if we move to a system where publishing API keeps some kind of 'transaction log' record, this API will allow us to keep a record of the changes of a documents slug over time. Having this data in a single transaction log will mean that we have all the information in one place to verify and enforce consistency in downstream systems.
 
-&nbsp;
-
 ## Status of this RFC
 
 This is an early draft, there are probably many things I have missed or not thought about.
@@ -66,20 +72,3 @@ This is an early draft, there are probably many things I have missed or not thou
 - Does anything need fleshing out further?
 
 Thanks for reading and for your input!
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
