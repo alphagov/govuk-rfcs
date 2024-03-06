@@ -1,4 +1,13 @@
-## **Problem**
+---
+status: superseded
+implementation: superseded
+status_last_reviewed: 2024-03-06
+status_notes: We no longer use this infrastructure.
+---
+
+# How to prevent published frontends from reading from the draft content store
+
+## Problem
 
 The old draft stack used firewall rules to ensure that instances of frontend applications intended to serve published content were prevented from inadvertently reading from the instance of the content-store application used to serve draft (unpublished) content.
 
@@ -6,7 +15,7 @@ This is an operational risk for GOV.UK, since unpublished content may be [embarg
 
 Now that applications serving draft content are hosted in the same vCloud organisation as their counterpart instances&nbsp;used for published content&nbsp;(see ), we must identify any vectors through which the published frontends could read from the draft content store.
 
-**Proposal**
+## Proposal
 
 ### Risk vectors
 
