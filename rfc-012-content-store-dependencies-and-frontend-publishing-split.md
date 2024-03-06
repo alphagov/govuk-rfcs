@@ -1,3 +1,11 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-06
+---
+
+# Content store dependencies and frontend publishing split
+
 ## **Aims**
 
 This RFC is about making it easy to handle dependencies between pieces of content, across multiple "owning" apps, and about making it possible to keep a search index up to date.
