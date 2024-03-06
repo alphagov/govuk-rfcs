@@ -1,10 +1,18 @@
-# Problem
+---
+status: accepted
+implementation: superseded
+status_last_reviewed: 2024-03-06
+---
+
+# Migrating to a new Elasticsearch cluster
+
+## Problem
 
 We are migrating GOV.UK search from an elasticsearch cluster running elasticsearch 0.90.12 to one running elasticsearch 1.4.4. &nbsp;This can't be done as a rolling upgrade, so instead we have brought up a new cluster and plan to migrate the data over.
 
 We're also moving rummager to run in a new cluster at the same time (on search-[123].api.production).
 
-# Current status
+## Current status
 
 elasticsearch-[123].backend cluster is running elasticsearch 0.90.12, and is the live search index
 
@@ -14,7 +22,7 @@ api-elasticsearch-[123].api cluster is running elasticsearch 1.4.4, with all ind
 
 search-[123].api cluster is running rummager, talking to api-elasticsearch-[123].api cluster, but handling no requests from apps. &nbsp;Rummager is deployed on these machines under the app name "rummager".
 
-# Steps
+## Steps
 
 | Aim | How | Preparation |
 | --- | --- | --- |
