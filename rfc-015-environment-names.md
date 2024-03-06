@@ -1,8 +1,16 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-06
+---
+
+# Environment names
+
 ## Problem
 
 The current naming scheme for our different environments is confusing and does not match the standard definitions. We need to come up with a set of definitive names that avoid confusion and allow us and our publishing users to distinctly identify particular environments.
 
-### Proposal
+## Proposal
 
 | Environment name | Live URL | Preview URL | Existing environment name | Existing live URL |
 | ---------------- | -------- | ----------- | ------------------------- | ----------------- |
