@@ -1,15 +1,14 @@
-&nbsp;
-
-&nbsp;
-
 ---
-status: "ACCEPTED"
-notes: "Got thumbsups from a developer and an interaction designer"
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-06
 ---
+
+# Customise call-to-action text on simple Smart Answer start pages
 
 ## Problem
 
-According to Liz Lutgendorff&nbsp;people get confused by 'Start now' on some Simple Smart Answers' start pages when it's not related to the thing they're doing, eg paying or contacting a department/agency.
+According to a colleague people get confused by 'Start now' on some Simple Smart Answers' start pages when it's not related to the thing they're doing, eg paying or contacting a department/agency.
 
 For example, there are roughly 30 contacts per day for 1st line about the contact [dvla](https://www.gov.uk/contact-the-dvla)&nbsp;/&nbsp;[dvsa](https://www.gov.uk/contact-dvsa) Simple Smart Answers. See [feedex entries for /contact-dvsa](https://support.production.alphagov.co.uk/anonymous_feedback?path=%2Fcontact-dvsa) and [/contact-the-dvla](https://support.production.alphagov.co.uk/anonymous_feedback?path=%2Fcontact-the-dvla).
 
