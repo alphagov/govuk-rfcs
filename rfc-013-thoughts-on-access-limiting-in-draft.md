@@ -1,8 +1,16 @@
-## **Problem**
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-06
+---
+
+# Thoughts on access limiting in draft
+
+## Problem
 
 Editions in Whitehall have the ability to be marked as "access limited". This means that until they are published, only users in the organisation the edition belongs to, or (for world news articles) associated with the world locations of the organisation, can view the edition in draft. This functionality needs to be replicated in the draft stack so that access-limited content is only viewable by the relevant users before publication.
 
-### Agreed solution
+## Agreed solution
 
 After discussion it has been decided to split authorisation and authentication. The content-store will be responsible for authorisation, i.e. determining if a user can see a given content item. A new minimal app will live in front of the router and be responsible for authentication, i.e. identifying a user with a signon session. This will involve the following changes:
 
