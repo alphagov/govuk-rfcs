@@ -1,8 +1,17 @@
-## **Problem**
+---
+status: superseded
+implementation: superseded
+status_last_reviewed: 2024-03-06
+status_notes: This is no longer a part of the GOV.UK stack
+---
+
+# Monitoring for 404s
+
+## Problem
 
 We have recently experienced two incidents ( and&nbsp;) where sections of GOV.UK started returning HTTP 404 responses for content which was previously valid. &nbsp;No automated monitoring picked up these incidents - we'd like to have automated monitoring if this happens in future.
 
-**Proposal**
+## Proposal
 
 The plan is simply to monitor a list of pages on GOV.UK to ensure that they return valid responses. &nbsp;All else in this RFC is details.
 
@@ -133,10 +142,3 @@ We'll make two assumptions about accidentally published pages:
 To avoid making false-positive alerts about such pages, we'll exclude any such pages; ie, any pages which haven't been published for more than 7 days, unless they're in the top 100 pages served by their app. This information is available from analytics.
 
 These assumptions aren't "watertight", but if violated would result in false positive alerts. We'd probably want to know about such problems anyway, and I think they'll very rarely be incorrect assumptions, so this seems likely not to be a problem. We can iterate the thresholds if they do turn out to be a problem.
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
