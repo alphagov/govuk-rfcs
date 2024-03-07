@@ -1,12 +1,20 @@
-# Problem
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-06
+---
+
+# 12 Factor Rails apps
+
+## Problem
 
 Our applications at the moment are more tightly coupled to the infrastructure than is necessary or good. This is going to make transitioning to a containerised setup harder.
 
-# Proposal
+## Proposal
 
 This is therefore a proposal for how we should configure our Rails apps to use ideas from [The Twelve-Factor App](http://12factor.net/) to reduce this coupling. This details how Rails apps should behave because most of our apps are Rails, but these proposals can easily be applied to apps using other technologies.
 
-## Configuration
+### Configuration
 
 Any config details that are specific to the deployment environment should be passed to the app using environment variables. This includes any credentials, locations of database servers etc. More details - [http://12factor.net/config](http://12factor.net/config)
 
@@ -14,7 +22,7 @@ Many of the default generated Rails config files include code to read these valu
 
 These environment variables will be set by whatever mechanism is responsible for starting the app. At present, this is handled by the `govuk_setenv` script that reads environment variables from files managed by puppet. In future this mechanism may change, but the important point is that the applications themselves won't need to be updated to reflect this change, they'll continue to read the same environment variables.
 
-## Logging
+### Logging
 
 Applications should not deal with opening logfiles etc. Instead they should log to `STDOUT`, and `STDERR`. The OS should deal with capturing these streams and storing them as appropriate. Details - [http://12factor.net/logs](http://12factor.net/logs)
 
@@ -23,7 +31,7 @@ Applications should not deal with opening logfiles etc. Instead they should log 
 
 I've created an example app, and configured it to log as described - [https://github.com/alext/twelve-factor-rails/pull/1](https://github.com/alext/twelve-factor-rails/pull/1)
 
-## Asset serving
+### Asset serving
 
 Twelve-factor recommends that:
 
@@ -39,13 +47,13 @@ This RFC proposes that:
 - apps MAY use a Sendfile mechanism to offload the serving of files **if and only if** the request includes an `X-Sendfile-Type` header (Rails already provides this feature via the `Rack::Sendfile` middleware which is included by default)
 - apps SHOULD set appropriate `Cache-Control` headers for the assets they serve.
 
-## Dependencies
+### Dependencies
 
 A twelve-factor app should "Explicitly declare and isolate dependencies" ([http://12factor.net/dependencies](http://12factor.net/dependencies)). Rails apps mostly have this covered through the use of Bundler and Gemfiles.
 
 One area that's not so well covered is any non-gem dependencies provided by the OS. This includes things like external programs (imagemagick, tika etc...), and any libraries required by gems with native extensions (eg libxml), and the compilers necessary to build them. This also includes the ruby interpreter itself (currently specified by the .ruby-version file, but provided by the OS). There's no obvious way to resolve this with our current infrastructure, we therefore recommend that a decision on how to resolve this is deferred until we migrate to a containerised setup.
 
-## Separate the build and release stages
+### Separate the build and release stages
 
 Our current deploy process doesn't map onto the process described by twelve-factor ([http://12factor.net/build-release-run](http://12factor.net/build-release-run)).
 
@@ -53,7 +61,7 @@ We're currently using a Capistrano deploy style which does most of the building 
 
 We should investigate how to build a single artefact that can be simply deployed and run on servers taking all the necessary config from the environment.  This is probably another point that should be deferred until we are transitioning to a containerised setup.
 
-# 12-factor principles
+## 12-factor principles
 
 For reference these are all the twelve-factor principles:
 

@@ -1,4 +1,13 @@
-## **Problem**
+---
+status: superseded
+implementation: superseded
+status_last_reviewed: 2024-03-06
+status_notes: We no longer use these infrastructure components.
+---
+
+# Simpler draft stack
+
+## Problem
 
 The current draft stack design is laid out as an exact copy of the `frontend`, `API`, and `management` VDCs in the GOV.UK vCloud Organisation. Because we've replicated all our data store clusters (Mongo and ElasticSearch), as well as our monitoring stack, we have over 30 machines in this VDC.
 
@@ -13,7 +22,7 @@ Creating a new org has some extra implications to our setup, namely:
   - we now have at least 2 Kibana instances, so logs are no longer all in one place
 - Data synchronisation is a problem because we have to create VPNs between Orgs
 
-**Proposal**
+## Proposal
 
 To reduce the complexity, we propose to, within the main GOV.UK Production vCloud Org:
 
@@ -30,30 +39,4 @@ This has a few advantages over the previous design:
 - It simplifies operations - we can use the existing Errbit, Icinga, and Kibana setups; and for 2nd line staff no change is required to SSH configuration
 
 it also has one main negative - the security model previously offered (total separation of content and data/requests) is no longer as simple to come by. We plan to address this using vShield Edge firewalling (see ).
-
-**Related RFCs**
-
-- &nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
 

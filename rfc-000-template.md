@@ -1,3 +1,9 @@
+---
+status: proposed
+implementation: proposed
+status_last_reviewed:
+---
+
 # My RFC Title
 
 ## Summary
