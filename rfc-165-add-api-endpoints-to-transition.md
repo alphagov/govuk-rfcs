@@ -1,3 +1,12 @@
+---
+status: to_be_deleted
+implementation: not_planned
+status_last_reviewed: 2024-03-04
+status_notes: >
+  People aren't clear whether the value of doing this outweighs the cost of implementing it.
+  Given that disagreement, it seems unlikely that any team is going to pick this up.
+---
+
 # Add API endpoints to Transition for consumption by Bouncer
 
 ## Summary

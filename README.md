@@ -31,4 +31,31 @@ For RFCs where the outcome is an agreed Action Plan, you may want to update the 
 
 Some RFCs in this repository were migrated from Confluence. They’ve been automatically converted to Markdown, so some formatting might be incorrect. Please fix any issues as you find them in new PRs.
 
+## RFC metadata as YAML frontmatter
+
+Some RFCs have YAML frontmatter which allows us to track their status / implementation etc.
+
+<details>
+<summary>Script to list all RFC metadata</summary>
+
+```ruby
+#!/usr/bin/env ruby
+
+require "csv"
+require "yaml"
+
+frontmatter_columns = %w[status implementation status_last_reviewed status_notes]
+CSV do |csv|
+  csv << ["filename", *frontmatter_columns]
+  Dir.glob("rfc-*.md") do |filename|
+    first_line = File.readlines(filename).first
+    frontmatter = {}
+    frontmatter = YAML.load_file(filename, permitted_classes: [Date]) if first_line =~ /^---$/
+    csv << [filename, *frontmatter.values_at(*frontmatter_columns)]
+  end
+end
+```
+
+</details>
+
 [govuk-tech-members]: https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!forum/govuk-tech-members

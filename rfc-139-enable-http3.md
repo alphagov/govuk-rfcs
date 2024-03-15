@@ -1,3 +1,10 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+status_notes: RFC could do with a note on how this is performing now that it's been rolled out.
+---
+
 # Enabling HTTP/3 on GOV.UK
 
 ## Summary

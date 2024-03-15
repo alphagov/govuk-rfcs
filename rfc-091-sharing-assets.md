@@ -1,3 +1,10 @@
+---
+status: unclear
+implementation: abandoned
+status_last_reviewed: 2024-03-04
+status_notes: We're currently thinking about consolidating apps as a better alternative to changing the way we share assets.
+---
+
 # Sharing assets
 
 ## Summary

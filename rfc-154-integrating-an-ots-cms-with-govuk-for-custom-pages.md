@@ -1,3 +1,12 @@
+---
+status: accepted
+implementation: abandoned
+status_last_reviewed: 2024-03-04
+status_notes: >
+  We demonstrated that this was technically possible, but the business hasn't
+  agreed that integrating an off-the-shelf CMS is still a priority at this point.
+---
+
 # Integrating an off-the-shelf CMS with GOV.UK infrastructure to power custom pages
 
 ## Summary

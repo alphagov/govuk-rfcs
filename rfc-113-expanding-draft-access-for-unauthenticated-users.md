@@ -1,3 +1,9 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+---
+
 # Expanding draft access for unauthenticated users to allow multi-page fact checks
 
 ## Summary

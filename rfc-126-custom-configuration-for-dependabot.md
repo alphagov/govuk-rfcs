@@ -1,3 +1,9 @@
+---
+status: superseded
+implementation: superseded
+status_last_reviewed: 2024-03-04
+---
+
 # Custom configuration for Dependabot
 
 UPDATE AUGUST 2022: this is now superseded. We've agreed to remove 'allow lists' to preserve security updates. See [RFC-153](https://github.com/alphagov/govuk-rfcs/pull/153).

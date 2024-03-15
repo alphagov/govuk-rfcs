@@ -1,3 +1,9 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+---
+
 # Providing alternative GOV.UK service start pages for the GOV.UK Verify single IDP journey
 
 ## Summary

@@ -1,7 +1,9 @@
 ---
-Author: Ian James
-Date: 2 August 2022
-Deadline for decision: 16 August 2022
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+status_notes: >
+  This is done for CSS, but not JS as we're still working out how ES modules will change the way we load JS.
 ---
 
 # Serve component CSS and JavaScript as individual files

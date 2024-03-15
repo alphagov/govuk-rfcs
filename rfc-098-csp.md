@@ -1,3 +1,10 @@
+---
+status: accepted
+implementation: done
+status_last_reviewed: 2024-03-04
+status_notes: RFC may not be accurate in the implementation details.
+---
+
 # RFC 98: Implement Content Security Policy
 
 ## Summary
