@@ -35,7 +35,7 @@ We have considered two principal options for tech stacks:
 
 ### Option 1 - Adopt a serverless stack on AWS
 
-![Architecture diagram showing a simplified approach to running serverless applications on AWS](rfc-000/serverless.png)
+![Architecture diagram showing a simplified approach to running serverless applications on AWS](rfc-170/serverless.png)
 
 Under this option, we would adopt a serverless stack which broadly mirrors the approach taken on DI. Connectivity would be provided by API Gateways (see note below about the proposed approach to this). Compute would be based on Lambda functions, running the Node.JS runtime.
 
@@ -53,7 +53,7 @@ The principal drawback of this option is that it is not currently a stack that i
 
 ### Option 2 - Adopt a Ruby-based containerised stack on AWS
 
-![Architecture diagram showing a possible approach to running containerised Rails applications on AWS](rfc-000/containers.png)
+![Architecture diagram showing a possible approach to running containerised Rails applications on AWS](rfc-170/containers.png)
 
 In this option, we would build a Rails application (potentially more than one, if we deemed it correct from an architectural perspective). This Rails application would sit in a Docker container, and we would host it on Amazon Elastic Container Service (ECS) - or Elastic Kubernetes Service (EKS) if deemed a better fit.
 
