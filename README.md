@@ -1,6 +1,6 @@
 # GOV.UK Request For Comments
 
-GOV.UK staff use this repository as a forum to discuss and make technical decisions. The outcomes of these discussions can be either an Action Plan, or a new Standard that GOV.UK should follow. This repository is open as a reference for other teams within GDS and wider government.
+GOV.UK staff use this repository as a forum to discuss and make technical decisions. The outcomes of these discussions can be either an action plan, or a new standard that GOV.UK should follow. This repository is open as a reference for other teams within GDS and wider government.
 
 ## Process
 
