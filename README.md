@@ -23,16 +23,14 @@ Should consensus not be reached by the deadline, an RFC can either have the dead
 
 If the proposal is no longer applicable the RFC PR can be closed. Please include a comment explaining why to help anyone considering the problem in future.
 
-## Managing Standards
+## Editing past RFCs
 
-Standards RFCs shouldn’t be substantially altered after they are accepted, although it’s fine to correct typos and other mistakes via a new PR. In order to change a Standard, the original RFC must be superseded by a new one. The process for this is:
+RFCs should not be substantially altered after they are accepted as they intended to be kept as a point-in-time record of a decision. There are however a few reasons why you may change one that has been accepted:
 
-1. Create a new RFC PR as above, noting in the summary which RFC it is superseding.
-2. In the same branch, mark the old RFC as superseded and link to the new RFC and move (using `git mv`) it into the archived directory.
-3. When the new RFC is accepted and the PR is merged, the old RFC will no longer be active.
-
-## Managing Action Plans
-For RFCs where the outcome is an agreed Action Plan, you may want to update the RFC with meaningful status updates in new PRs. Once the plan is either complete or no longer relevant, it should be moved to the archived directory in a new PR.
+- to fix typos and other minor mistakes
+- to record a status change of the RFC in the YAML frontmatter (remember to update the status_last_reviewed date)
+- to mark an RFC as being superseded with a link to the RFC that supersedes it
+- any relevant post implementation, or post abandonment, supplementary details that would be useful for someone interested in the area.
 
 ## Historical RFCs
 
