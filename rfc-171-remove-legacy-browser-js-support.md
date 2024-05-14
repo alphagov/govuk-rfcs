@@ -55,7 +55,7 @@ This isn't a valid option. We need to keep up to date with `govuk-frontend` and 
 
 #### Upgrade, but don't use modern JS
 
-`govuk-frontend` includes an [option for not using ES modules](https://frontend.design-system.service.gov.uk/importing-css-assets-and-javascript/#import-javascript-using-alternative-module-formats) but this will result in larger JS files, which would reduce the performance of GOV.UK. Support for this option may not continue indefinitely.
+`govuk-frontend` includes an [option for not using ES modules](https://frontend.design-system.service.gov.uk/import-javascript/) but this will result in larger JS files, which would reduce the performance of GOV.UK. Support for this option may not continue indefinitely.
 
 Our initial upgrade to version 5.1 is planned to use this option but ultimately we should move away from it.
 
