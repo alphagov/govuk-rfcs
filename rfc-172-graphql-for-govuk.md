@@ -164,7 +164,6 @@ Closely related to the difficulty we have doing more granular content modelling,
 Mobile apps may want to fetch information which would be displayed across several pages on the web, and using content-store this would require making n API calls (where n is the number of pages the information would have appeared on). For example, to display a list of travel advice grouped by alert status, you would need to make 226 API calls to fetch alert_status for each country. In GraphQL this would be a single call, something like:
 
 ```graphql
-
 {
   travelAdviceIndex(basePath:  "/foreign-travel-advice")  {
     children  {
@@ -350,29 +349,19 @@ Real world performance may be better or worse (production database is a large in
 
 ```graphql
 fragment  personInfo  on  Person  {
+  title
+  basePath
+  privyCounsellor
 
-title
-
-basePath
-
-privyCounsellor
-
-roles  {
-
-title
-
-basePath
-
-}
-
+  roles  {
+    title
+    basePath
+  }
 }
 
 fragment  image  on  Person  {
-
-imageUrl
-
-imageAltText
-
+  imageUrl
+  imageAltText
 }
 
 query  ministersIndexPage  {
@@ -426,10 +415,6 @@ query  ministersIndexPage  {
 
 ### Query to list governments
 
-Performance: Proof of concept takes < 10ms with the default page size of 10 on a local database running on a 2019 MacBook Pro. With the page size big enough to get all 56 past governments takes between 10ms and 100ms.
-
-Pagination follows [GraphQL's recommended style](https://graphql.org/learn/pagination/) (with separate pageInfo / nodes / edges fields in the query)
-
 ```graphql
 query  governments  {
   governments  {
@@ -449,10 +434,6 @@ query  governments  {
 ```
 
 ### Query to list documents related to a topical event
-
-Performance: Proof of concept takes ~20ms on a local database running on a 2019 MacBook Pro.
-
-The PoC implementation of this query is a bit smoke-and-mirrors - it doesn't filter the consultations / announcements etc. correctly.
 
 ```graphql
 query  topicalEvent  {
