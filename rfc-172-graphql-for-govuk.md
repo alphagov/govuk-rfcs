@@ -11,11 +11,11 @@ Summary
 
 We propose adding a new [GraphQL][graphql] content delivery API to GOV.UK. This API would provide a read-only view of GOV.UK's content, similar to the existing [content-store][content-store] API, but supporting much more flexible queries. In particular:
 
--   Selecting only the subset of fields relevant to the client
+- Selecting only the subset of fields relevant to the client
 
--   Dynamically following links between content relevant to the client, for example on /government/ministers index page [listing the ministers, and for each minister all of the roles they currently hold](#query-to-get-the-content-on-the-ministers-index-page)
+- Dynamically following links between content relevant to the client, for example on /government/ministers index page [listing the ministers, and for each minister all of the roles they currently hold](#query-to-get-the-content-on-the-ministers-index-page)
 
--   Aggregations of content, for example [listing governments](#query-to-list-governments) or [listing documents related to a topical event](#query-to-list-documents-related-to-a-topical-event)
+- Aggregations of content, for example [listing governments](#query-to-list-governments) or [listing documents related to a topical event](#query-to-list-documents-related-to-a-topical-event)
 
 The implementation of this API would avoid many of the issues which make GOV.UK's current [publishing-api][publishing-api] / [content-store][content-store] / [search-api-v1][search-api-v1] architecture so complicated. In particular, it would avoid precomputing link expansion at the point when documents are published, and instead collect the links relevant to the client at query time. Similarly, with appropriate indexes in place, the API would cover many (or possibly all) of [the use cases we have for search-api-v1][search-api-v1-use-cases] and its associated Elasticsearch database.
 
@@ -90,9 +90,9 @@ GraphQL isn't the only possible solution to this problem - it would be completel
 
 As mentioned above, there are two types of link.
 
--   "[Link set links][link-set-links]" link all versions (draft and published, in all locales) of a document to the latest version of another document.
+- "[Link set links][link-set-links]" link all versions (draft and published, in all locales) of a document to the latest version of another document.
 
--   "[Edition links][edition-links]" link a specific edition of a document (e.g. the latest draft, or the latest published version) to the latest version of another document.
+- "[Edition links][edition-links]" link a specific edition of a document (e.g. the latest draft, or the latest published version) to the latest version of another document.
 
 In many cases, edition links are preferable, because they allow users to draft adding / removing / reordering links on a specific edition. With link set links, you can't change the links on a draft without immediately changing the links on the published edition.
 
@@ -165,8 +165,8 @@ Mobile apps may want to fetch information which would be displayed across severa
 
 ```graphql
 {
-  travelAdviceIndex(basePath:  "/foreign-travel-advice")  {
-    children  {
+  travelAdviceIndex(basePath: "/foreign-travel-advice") {
+    children {
       title
       alertStatus
     }
@@ -215,21 +215,21 @@ Depending on our confidence in the API, we take the proof of concept as far as p
 
 Detailed plans for a production ready GraphQL API are out of scope for this RFC, but there are a few things we expect to consider.
 
-1.  Whether to stick with graphql-ruby, or to consider something like [AWS AppSync][aws-app-sync] as an alternative implementation approach
+1. Whether to stick with graphql-ruby, or to consider something like [AWS AppSync][aws-app-sync] as an alternative implementation approach
 
-2.  Whether to query the primary publishing-api database, and risk performance and locking issues since it also handles significant spikes of write load, or whether to introduce a read replica and serve GraphQL queries from that.
+2. Whether to query the primary publishing-api database, and risk performance and locking issues since it also handles significant spikes of write load, or whether to introduce a read replica and serve GraphQL queries from that.
 
-3.  Whether to home the GraphQL code inside publishing-api's codebase and application, or whether to create a new microservice exclusively for the GraphQL API (probably querying a replica of publishing-api's database)
+3. Whether to home the GraphQL code inside publishing-api's codebase and application, or whether to create a new microservice exclusively for the GraphQL API (probably querying a replica of publishing-api's database)
 
-4.  How to implement authentication for non-GOV.UK-microservice API clients (e.g. mobile apps), or whether to make the API fully public, as content-store is (although I think this is inadvisable)
+4. How to implement authentication for non-GOV.UK-microservice API clients (e.g. mobile apps), or whether to make the API fully public, as content-store is (although I think this is inadvisable)
 
-5.  How to implement support for draft content
+5. How to implement support for draft content
 
-6.  How to authorise which clients are permitted to query draft content, and which are only permitted to query published content
+6. How to authorise which clients are permitted to query draft content, and which are only permitted to query published content
 
-7.  Whether pagination is required for nested resources, or whether we can only use pagination for top level queries
+7. Whether pagination is required for nested resources, or whether we can only use pagination for top level queries
 
-8.  Whether we need to adjust caching behaviour to lessen the impact of performance degradations (e.g. by using [stale-while-revalidate][stale-while-revalidate])
+8. Whether we need to adjust caching behaviour to lessen the impact of performance degradations (e.g. by using [stale-while-revalidate][stale-while-revalidate])
 
 We will also need to ensure that the implementation is able to meet various non-functional requirements - that it can handle production load with sufficiently high reliability and performance, that it's sufficiently observable etc.
 
@@ -241,10 +241,11 @@ Consequences
 The content-store API effectively only makes very simple queries which can make efficient use of index scans and don't require any database joins - effectively doing this:
 
 ```sql
-SELECT  "content_items".*
-FROM  "content_items"
-WHERE  "content_items"."base_path"  =  $1
-ORDER  BY  "content_items"."id"  ASC  LIMIT  1
+SELECT   *
+FROM     content_items
+WHERE    base_path = ?
+ORDER BY id ASC
+LIMIT    1
 ```
 
 several hundred times per second.
@@ -322,17 +323,17 @@ The proposed initial proof of concept is a fairly small change to the overall ar
 
 In the long term, if the GraphQL approach meets all of its objectives, we could potentially remove some of the biggest sources of complexity in GOV.UK's architecture. Potentially including:
 
--   Content Store
+- Content Store
 
--   Draft Content Store (instead serving draft frontend requests from the GraphQL API, with appropriate authorization in place)
+- Draft Content Store (instead serving draft frontend requests from the GraphQL API, with appropriate authorization in place)
 
--   Search API V1
+- Search API V1
 
--   Router / Router API
+- Router / Router API
 
--   Link Expansion
+- Link Expansion
 
--   Dependency Resolution
+- Dependency Resolution
 
 Reducing the number of times we have to replicate data and attempt to keep it synchronised should improve GOV.UK's overall reliability, and make it easier to understand, maintain and evolve.
 
@@ -348,65 +349,65 @@ Performance: Proof of concept takes between ~500ms and ~1000ms on a local databa
 Real world performance may be better or worse (production database is a large instance, but it's also busy). Implementation could be further optimised by not fetching entire Editions, and instead plucking only the fields required.
 
 ```graphql
-fragment  personInfo  on  Person  {
+fragment personInfo on Person {
   title
   basePath
   privyCounsellor
 
-  roles  {
+  roles {
     title
     basePath
   }
 }
 
-fragment  image  on  Person  {
+fragment image on Person {
   imageUrl
   imageAltText
 }
 
-query  ministersIndexPage  {
-  ministersIndex(basePath:  "/government/ministers")  {
+query ministersIndexPage {
+  ministersIndex(basePath: "/government/ministers") {
     contentId
     basePath
     schemaName
     contentId
 
-    cabinetMinisters  {
+    cabinetMinisters {
       ...personInfo
       ...image
     }
 
-    alsoAttendsCabinet  {
+    alsoAttendsCabinet {
       ...personInfo
       ...image
     }
 
-    ministerialDepartments  {
+    ministerialDepartments {
       title
       basePath
 
-      ministers  {
+      ministers {
         ...personInfo
       }
     }
 
-    houseOfCommonsWhips  {
+    houseOfCommonsWhips {
       ...personInfo
     }
 
-    juniorLordsOfTheTreasuryWhips  {
+    juniorLordsOfTheTreasuryWhips {
       ...personInfo
     }
 
-    assistantWhips  {
+    assistantWhips {
       ...personInfo
     }
 
-    houseOfLordsWhips  {
+    houseOfLordsWhips {
       ...personInfo
     }
 
-    baronessesAndLordsInWaitingWhips  {
+    baronessesAndLordsInWaitingWhips {
       ...personInfo
     }
   }
@@ -416,14 +417,14 @@ query  ministersIndexPage  {
 ### Query to list governments
 
 ```graphql
-query  governments  {
-  governments  {
-    pageInfo  {
+query governments {
+  governments {
+    pageInfo {
       hasNextPage
       endCursor
     }
 
-    nodes  {
+    nodes {
       title
       startedOn
       endedOn
@@ -436,42 +437,42 @@ query  governments  {
 ### Query to list documents related to a topical event
 
 ```graphql
-query  topicalEvent  {
-  topicalEvent(basePath:  "/government/topical-events/spring-budget-2023")  {
+query topicalEvent {
+  topicalEvent(basePath: "/government/topical-events/spring-budget-2023") {
     title
     startDate
     endDate
 
-    orderedFeaturedDocuments  {
+    orderedFeaturedDocuments {
       title
       href
       summary
 
-      image  {
+      image {
         url
         altText
       }
     }
 
-    latest(first:  3)  {
+    latest(first: 3) {
       title
       basePath
       documentType
     }
 
-    consultations(first:  3)  {
+    consultations(first: 3) {
       title
       basePath
       documentType
     }
 
-    announcements(first:  3)  {
+    announcements(first: 3) {
       title
       basePath
       documentType
     }
 
-    guidanceAndRegulation(first:  3)  {
+    guidanceAndRegulation(first: 3) {
       title
       basePath
       documentType
