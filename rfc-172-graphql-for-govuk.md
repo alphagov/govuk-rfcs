@@ -260,11 +260,40 @@ Also the queries at >1 level of depth need to go from a set of content_ids to a 
 
 <details><summary>Example query and execution plan expanding links on the fly</summary>
 
-<https://www.pgexplain.dev/plan/600b1236-448d-4409-8c82-fa988cf2bee9#plan>
+This query produces the following execution plan:
 
-<!-- TODO - move this image into the RFC -->
+```sql
+SELECT "editions".*, document.*, links.*, link_sets.*
+FROM "editions"
+INNER JOIN "documents" "document" ON "document"."id" = "editions"."document_id"
+INNER JOIN "links" ON "links"."target_content_id" = "document"."content_id"
+INNER JOIN "link_sets" ON "link_sets"."id" = "links"."link_set_id"
+WHERE "editions"."state" = 'published' AND "document"."locale" = 'en' AND "link_sets"."content_id" IN ('9bdb6017-48c9-4590-b795-3c19d5e59320', '14aa298f-03a8-4e76-96de-483efa3d001f', '8f8d90e7-5289-4942-82f3-ed03b1a0ac10', 'cac74185-649e-4e2b-b5b8-2c5ec86c6609');
+```
 
-![](https://lh7-us.googleusercontent.com/h-GVXlEVfNCTR-WILkQyOiU1XMIgrWS9IZlVZp9PIp-eQQo3hrnjGKttZNu6rJ11zTxKI6lF8Lr3cWaReO-2xFYetXdcaNqRTE80bTGCxbW24b4x2-3-82CU74cBN7TkgVf7a1-y-A4Xd_m35cOkRgo)
+```
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|QUERY PLAN                                                                                                                                                                                                          |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|Nested Loop  (cost=1.73..5525.02 rows=97 width=923) (actual time=0.048..0.277 rows=27 loops=1)                                                                                                                      |
+|  ->  Nested Loop  (cost=1.29..1946.70 rows=160 width=154) (actual time=0.030..0.157 rows=28 loops=1)                                                                                                               |
+|        ->  Nested Loop  (cost=0.86..917.64 rows=168 width=107) (actual time=0.022..0.061 rows=28 loops=1)                                                                                                          |
+|              ->  Index Scan using index_link_sets_on_content_id on link_sets  (cost=0.42..33.77 rows=4 width=40) (actual time=0.012..0.024 rows=4 loops=1)                                                         |
+|                    Index Cond: (content_id = ANY ('{9bdb6017-48c9-4590-b795-3c19d5e59320,14aa298f-03a8-4e76-96de-483efa3d001f,8f8d90e7-5289-4942-82f3-ed03b1a0ac10,cac74185-649e-4e2b-b5b8-2c5ec86c6609}'::uuid[]))|
+|              ->  Index Scan using index_links_on_link_set_id on links  (cost=0.44..220.39 rows=58 width=67) (actual time=0.004..0.006 rows=7 loops=4)                                                              |
+|                    Index Cond: (link_set_id = link_sets.id)                                                                                                                                                        |
+|        ->  Index Scan using index_documents_on_content_id_and_locale on documents document  (cost=0.43..6.13 rows=1 width=47) (actual time=0.003..0.003 rows=1 loops=28)                                           |
+|              Index Cond: ((content_id = links.target_content_id) AND ((locale)::text = 'en'::text))                                                                                                                |
+|  ->  Index Scan using index_editions_on_document_id_and_state on editions  (cost=0.43..22.29 rows=7 width=769) (actual time=0.003..0.003 rows=1 loops=28)                                                          |
+|        Index Cond: ((document_id = document.id) AND ((state)::text = 'published'::text))                                                                                                                           |
+|Planning Time: 1.115 ms                                                                                                                                                                                             |
+|Execution Time: 0.318 ms                                                                                                                                                                                            |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+```
+
+Which can be [explored visually in PG Explain][pg-explain-query-plan]
+
+![PG Explain Visualizer showing the execution plan above](rfc-172/pgexplain-query-plan-visualisation.png)
 
 </details>
 
