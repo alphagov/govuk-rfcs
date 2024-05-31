@@ -17,7 +17,7 @@ We propose adding a new [GraphQL][graphql] content delivery API to GOV.UK. This 
 
 - Aggregations of content, for example [listing governments](#query-to-list-governments) or [listing documents related to a topical event](#query-to-list-documents-related-to-a-topical-event)
 
-The implementation of this API would avoid many of the issues which make GOV.UK's current [publishing-api][publishing-api] / [content-store][content-store] / [search-api-v1][search-api-v1] architecture so complicated. In particular, it would avoid precomputing link expansion at the point when documents are published, and instead collect the links relevant to the client at query time. Similarly, with appropriate indexes in place, the API would cover many (or possibly all) of [the use cases we have for search-api-v1][search-api-v1-use-cases] and its associated Elasticsearch database.
+The implementation of this API would avoid many of the issues which make GOV.UK's current [publishing-api][publishing-api] / [content-store][content-store] / [search-api-v1][search-api-v1] architecture so complicated. In particular, it would avoid precomputing link expansion at the point when documents are published, and instead collect the links relevant to the client at query time. Similarly, with appropriate indexes in place, the API would cover many of [the use cases we have for search-api-v1][search-api-v1-use-cases] and its associated Elasticsearch database.
 
 Our hypothesis is that in the long run, this GraphQL content delivery API could fully replace both the content-store API and search-api-v1, resulting in a significantly simpler technical architecture.
 
