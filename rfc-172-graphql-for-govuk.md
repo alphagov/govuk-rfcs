@@ -260,6 +260,8 @@ Detailed plans for a production ready GraphQL API are out of scope for this RFC,
 
 9. Whether to allow third-parties to access the API, and if so what governance we should have around use of the API
 
+10. How we'll support message queue consumers, such as the background jobs which keep the search indices up to date. Particularly where pages in the search index might need to be updated when linked content changes.
+
 We will also need to ensure that the implementation is able to meet various non-functional requirements - that it can handle production load with sufficiently high reliability and performance, that it's sufficiently observable etc.
 
 Consequences
