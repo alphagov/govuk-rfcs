@@ -193,6 +193,8 @@ If we're happy to proceed based on what we learn from the proof of concept, we w
 
 As an initial proof of concept, we will develop a simple GraphQL API using [GraphQL Ruby][graphql-ruby] inside publishing-api. This API be disabled by a feature flag in production, but in other environments it will run in the same process as publishing-api, and query the primary publishing-api database.
 
+As far as possible, we'll keep all code specific to this proof of concept in the `app/graphql` directory in publishing-api, so if we decide not to keep it we can easily roll it back.
+
 We will only implement GraphQL queries (i.e. the API will be read-only). There's no plan to enable GraphQL mutations or subscriptions.
 
 The API will initially support published content only - it will not show any draft information.
