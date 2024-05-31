@@ -209,6 +209,27 @@ During the proof of concept phase, we'll still use content-store primarily in pr
 
 However, we will do some limited experiments calling the proof of concept GraphQL API from frontend application in limited situations (for example for a few specific pages, or for a few specific content types). Again, we'll control this with feature flags, so we will restrict this behaviour to particular environments, and particular cookie values or query string parameters. To allow this, we'll add experimental support for the GraphQL API to gds-api-adapters.
 
+Performance wise, we're interested in getting a feel for performance in the worst case. To this end, we should investigate what would be required to render the following pages:
+- Pages with large amounts of expanded links
+  - [/government/ministers](https://www.gov.uk/government/ministers)
+  - [/world/all](https://www.gov.uk/world/all)
+  - [/government/organisations/foreign-commonwealth-development-office](https://www.gov.uk/government/organisations/foreign-commonwealth-development-office)
+  - [/government/ministers/prime-minister](https://www.gov.uk/government/ministers/prime-minister)
+  - [/victim-crime-abroad](https://www.gov.uk/victim-crime-abroad)
+- Pages with large amounts of govspeak we'd need to render
+  - [/cma-cases/private-healthcare-market-investigation](https://www.gov.uk/cma-cases/private-healthcare-market-investigation)
+  - [/cma-cases/energy-market-investigation](https://www.gov.uk/cma-cases/energy-market-investigation)
+  - [/cma-cases/review-of-banking-for-small-and-medium-sized-businesses-smes-in-the-uk](https://www.gov.uk/cma-cases/review-of-banking-for-small-and-medium-sized-businesses-smes-in-the-uk)
+- Pages which use search-api to get lists of things
+  - [/government/organisations/companies-house](https://www.gov.uk/government/organisations/companies-house)
+  - [/entering-staying-uk/visa-applications](https://www.gov.uk/entering-staying-uk/visa-applications)
+  - [/search/services](https://www.gov.uk/search/services)
+  - [/browse/driving/driving-licences](https://www.gov.uk/browse/driving/driving-licences)
+- "Simple" smart answers
+  - [/fuel-scale-charge](https://www.gov.uk/fuel-scale-charge)
+  - [/student-finance-forms](https://www.gov.uk/student-finance-forms)
+  - [/vehicles-can-drive](https://www.gov.uk/vehicles-can-drive)
+
 From these experiments, we hope to learn more about the developer experience of using the GraphQL API from the frontend codebases, and to learn about the API's performance in a more realistic environment (i.e. using an RDS publishing-api database which is a network hop away from the rails app, instead of a local database). We may consider doing some light load testing at this point. It would be especially interesting to investigate API performance during a large republishing event, which can cause very large spikes in write load on publishing-api, and may motivate us to consider using a read replica of the database.
 
 Depending on our confidence in the API, we take the proof of concept as far as production eventually, but only in situations where we can carefully control the amount of load and quickly roll back to using content-store if there are any issues. Running in production will give us more realistic information about performance in reality - in particular, how does performance of the API change with a publishing-api database under standard write load due to normal publishing activity.
