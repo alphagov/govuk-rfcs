@@ -195,6 +195,8 @@ We will only implement GraphQL queries (i.e. the API will be read-only). There's
 
 The API will initially support published content only - it will not show any draft information.
 
+The proof of concept API will only be accessible internally - we will not give members of the public, other departments, or other bits of GDS access until we're confident it can be supported.
+
 Authentication will use a signon bearer token, as we currently do with publishing-api itself. All users of the API will have full read access - there is no need for Authorization until we introduce draft content.
 
 To allow efficient loading of large numbers of editions, we'll use the [Dataloader][graphql-ruby-dataloader] pattern, which batches queries together to reduce the total number of queries needed.
@@ -230,6 +232,8 @@ Detailed plans for a production ready GraphQL API are out of scope for this RFC,
 7. Whether pagination is required for nested resources, or whether we can only use pagination for top level queries
 
 8. Whether we need to adjust caching behaviour to lessen the impact of performance degradations (e.g. by using [stale-while-revalidate][stale-while-revalidate])
+
+9. Whether to allow third-parties to access the API, and if so what governance we should have around use of the API
 
 We will also need to ensure that the implementation is able to meet various non-functional requirements - that it can handle production load with sufficiently high reliability and performance, that it's sufficiently observable etc.
 
