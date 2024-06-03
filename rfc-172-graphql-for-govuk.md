@@ -1,7 +1,7 @@
 ---
-status: proposed
-implementation: proposed
-status_last_reviewed: 2024-05-13
+status: accepted
+implementation: pending
+status_last_reviewed: 2024-06-03
 ---
 
 # GraphQL for GOV.UK
