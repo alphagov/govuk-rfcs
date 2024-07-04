@@ -272,31 +272,11 @@ Once a candidate has been merged, the following steps would be needed.
 * Decide how to handle app ownership and maintenance and what that means now we have fewer or only one app
 * Consider renaming `frontend`
 
-## Other options to explore
+## Other options considered
 
-We write this knowing that new technologies are constantly emerging that may prove useful in this area. One such technology is [Rails Engines], which allows you to wrap a specific Rails application or subset of functionality and share it with other applications or within a larger packaged application.
+### Convert apps to engines to mount in Frontend
 
-As a separate piece of related work, we propose exploring Rails Engines as follows.
-
-### Option 1: Engines in existing app
-To consider converting the existing apps into engines that can be mounted inside a single host app. This would allow us to keep separate repos for each current application while still simplifying the overall architecture.
-
-Advantages of Engines:
-
-* Separate repos provide a natural encapsulation of code/tests, meaning that a test suite could be kept for just the routes mentioned in the engine, keeping test suites run times lower.
-* As with a monolith, Layouts could be in the “host” app, simplifying the engine code and allowing us to remove the static/slimmer app/gem complexity.
-* As with a monolith, the single host app would be the only one that had to be deployed, allowing us to reduce the number of apps/config in Kubernetes.
-* Re-engineering into engines would allow us to split functions in a more granular way than they have been with apps - for instance, it might make sense for frontend to be more than one engine, perhaps an engine for homepage, an engine for simple smart answers, and an engine for location-based content types like places and local_transactions, etc.
-
-Disadvantages of Engines:
-
-* We’d still have to know exactly which engine served a given route, so there’s still a little knowledge overhead in working out where changes/fixes would need to be made.
-* Little existing experience with engines in GOV.UK (the component guide is an engine, but it doesn’t get changed much and isn’t used outside of development)
-
-### Option 2: Engines in new app
-If option 1 proves fruitful, we’ll consider whether it’s feasible to make a generic host app (either an existing app  hollowed out, or a new app) that can host a configurable number of engines. This would give us the advantage of the engine system but with the ability to scale a little more granularly (if most traffic was going to the finder engine, an app which only included the hosting engine could be deployed, allowing scaling of only finder functionality). It’s worth noting that there would be routing implications for this solution, so it’s not necessarily a viable option.
-
-
+If we wanted to keep the conceptually split functions of the apps but remove the rendering complexity of slimmer/static/router we could recreate the routes and business logic of the existing apps in Rails Engines that would be mounted inside the monolith. This option was rejected on the basis that it would not give us much code-separation advantage over simple namespace discipline within the monolith, and there would still be developer overhead in working with multiple repos.
 
 [collections]: https://github.com/alphagov/collections
 [email-alert-frontend]: https://github.com/alphagov/email-alert-frontend
