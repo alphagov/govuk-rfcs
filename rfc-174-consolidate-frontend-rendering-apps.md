@@ -79,13 +79,15 @@ The relationship between [router and router-api] is quite tangled. `router-api` 
 There was an attempt to switch `router-api` to [use PostgreSQL] but this was paused indefinitely due to other priorities and the complexity of the work.
 
 ### Local preview and sharing changes to GOV.UK is difficult
-Manually testing user journeys from a page is difficult, particularly where code changes are spread across more than one application. To test locally, developers have to have multiple applications running which slows down their local machines.
+Manually testing user journeys from a page is difficult, particularly where code changes are spread across more than one application. To test locally, developers have to have multiple applications running which slows down their local machines. This prevents us from easily replicating and fixing user-facing errors (for example, a bug in the email-signup-journey needs multiple apps running locally to replicate).
 
 Having fewer apps would also mean that GOV.UK Docker, our system for running apps locally, could be simplified or potentially removed entirely.
 
-Sharing changes for non-engineering disciplines to preview is also difficult. This can be done by deploying branches to integration, but these branches are frequently overwritten by dependency updates.
+Sharing changes for non-engineering disciplines to preview is also difficult. We currently use Heroku for previews but this is only possible when the changes being previewed involve a single application. Previewing a user journey that involves pages from more than one app cannot be done in Heroku because links from a page in one app do not link to another. For example, a journey from the homepage to a search page and then a mainstream browse page crosses multiple app boundaries, and the links would 404 in Heroku.
 
-We can use Heroku for previews but this is also complicated by multiple apps. Previewing a user journey that involves pages from more than one app cannot be done in Heroku because links from a page in one app do not link to another. For example, a journey from the homepage to a search page and then a mainstream browse page crosses multiple app boundaries, and the links would 404 in Heroku. Previews can be done using Heroku, but this would be greatly simplified by having only a single application.
+An alternative way of previewing is deploying branches to integration, but these branches are frequently overwritten by dependency updates so this is not a reliable alternative.
+
+Previewing would be greatly simplified by having only a single application.
 
 ### `static` and `slimmer` are complicated and inflexible
 GOV.UK page layouts are rendered by `static` using the [slimmer] gem. This includes the header and footer common to all pages, even though the code for those elements comes from [govuk_publishing_components]. Having a single application would allow us to remove our dependency upon `static`.
