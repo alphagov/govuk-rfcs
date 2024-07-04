@@ -157,7 +157,6 @@ The host app will follow the default MVC structure of Rails applications, with s
 │   ├── helpers
 │   ├── models
 │   ├── presenters
-│   ├── services
 │   ├── views
 ├── config
 │   ├── data
@@ -169,17 +168,14 @@ The host app will follow the default MVC structure of Rails applications, with s
 
 Under `/app`:
 
+`helpers`
+- General utility methods for a view.
+
 `models`
 - Frontend apps do not have database records, so models here are created to store data received from api calls (eg content items from content store), process data that will be written to apis (eg feedback items to zendesk), and information ingested from YAML/JSON/CSVs.
 
-`services`
-- Api calls for search and content-store, and apis external to GOV.UK
-
 `presenters`
 - Presentation related transformations on model data. It is a wrapper around a model for use in a view.
-
-`helpers`
-- General utility methods for a view.
 
 Under `/lib`
 
