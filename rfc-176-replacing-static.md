@@ -8,7 +8,7 @@ status_last_reviewed:
 
 ## Summary
 
-We propose two new gems: `govuk_web_banners` and `govuk_web_layout` which will replace the [slimmer] gem, the [static] application, and will give us the option if necessary to remove parts of the [govuk_publishing_components] gem that might not belong there. Between them they will handle static’s four main responsibilities: banners, static assets, layouts, and headers/footers, but in a less astonishing way.
+We propose two new gems: `govuk_web_banners` and `govuk_web_layout` which will replace the [slimmer] gem, the [static] application, and will give us the option if necessary to remove parts of the [govuk_publishing_components] gem that might not belong there. Between them they will handle static’s four main responsibilities: banners, static assets, layouts, but in a less astonishing way. They will also simplify configuration of the shared header and footer content.
 
 ## Problem
 
@@ -16,7 +16,7 @@ The `static`/`slimmer`/`govuk_publishing components` triumviurate is a clever wa
 
 Making a remote call through middleware to get a layout which the app already has is not an idiomatic rails way of rendering a page, and it presents a complexity barrier to changes to the frontend apps.
 
-The reason for this complex system is that it gives `static` the ability to centralise static assets and handle adding various banners into apps. Those abilities haven't been trivial to replace. Previous RFCs have touched on: a replacing `static` with a gem ([RFC-84]), moving the content that populates header and footer into the content store ([RFC-118]), adding shared asset folders ([RFC-91]) or the gordian knot solution of merging all affected apps ([RFC-174]). Although ultimately these RFCs were not implmented, the good news is that they were all pretty good solutions to part of the problem, they just needed some advancements in how our apps were built and deployed (which we now have). We’ve also established that some of the things static does can be done at a slightly slower pace and still be acceptable (for instance, that a 15 minute lag between the emergency banner being deployed and being visible site-wide is acceptable ([RFC-144])).
+The reason for this complex system is that it gives `static` the ability to centralise static assets and handle adding various banners into apps. Those abilities haven't been trivial to replace. Previous RFCs have touched on: a replacing `static` with a gem ([RFC-84]), adding shared asset folders ([RFC-91]) or the gordian knot solution of merging all affected apps ([RFC-174]). They've also looked at related problems of shared configuration by moving the content that populates header and footer into the content store ([RFC-118]). Although ultimately these RFCs were not implmented, the good news is that they were all pretty good solutions to part of the problem, they just needed some advancements in how our apps were built and deployed (which we now have). We’ve also established that some of the things static does can be done at a slightly slower pace and still be acceptable (for instance, that a 15 minute lag between the emergency banner being deployed and being visible site-wide is acceptable ([RFC-144])).
 
 
 ## Solutions
@@ -51,34 +51,33 @@ Our proposal is that we include the current duplicated recruitment banner config
 
 GOV.UK uses the standard rails assets pipeline for creation of assets, in which at asset compile time a fingerprint is generated for each asset based on the asset’s content, and during HTML page rendering the base names of the assets are replaced with the fingerprinted version. This allows clients to implement a pretty simple caching policy - they can always cache a given asset for as long as they like, because the asset’s name will change if the content changes - if the client doesn’t already have that fingerprinted file, they will need to download it.
 
-Asset pre-compilation happens when the container image is built (during the ‘deploy’ GitHub Actions workflow). This process generates the compiled assets and the Sprockets manifest. The manifest is the mechanism for Rails to map the original asset name (`crown.png`) to the fingerprinted asset name (`crown-b2ba232ade53223.png`), so the deployed app has a record of everything that was compiled as part of its assets:precompile step.
+Asset pre-compilation happens when the container image is built (during the ‘deploy’ GitHub Actions workflow). This process generates the compiled assets and the Sprockets manifest. The manifest is the mechanism for Rails to map the original asset name (`search-button.png`) to the fingerprinted asset name (`search-button-b2ba232ade53223.png`), so the deployed app has a record of everything that was compiled as part of its assets:precompile step.
 
-Upon deployment into the Kubernetes cluster, a job runs which copies anything from `/app/public/assets/<name of app>` into an S3 bucket `s3://govuk-app-assets-<environment>/assets/<name of app>`. [Fastly maps] any call for (e.g.) `https://www.gov.uk/assets/` to that bucket, so a request for `https://www.gov.uk/assets/frontend/crown-b2ba232ade53223.png` will be served from that s3 bucket.
-
+Upon deployment into the Kubernetes cluster, a job runs which copies anything from `/app/public/assets/<name of app>` into an S3 bucket `s3://govuk-app-assets-<environment>/assets/<name of app>`. [Fastly maps] any call for (e.g.) `https://www.gov.uk/assets/` to that bucket, so a request for `https://www.gov.uk/assets/static/search-button-b2ba232ade53223.png` will be served from that s3 bucket.
 
 ![Current asset deploy pathway](rfc-176/current_govuk_asset_pathway.png)
 
-#### What this means for shared assets
-Because the upload-assets job in [govuk-helm-charts] includes the app name, there currently isn’t a mechanism for apps to upload assets in a shared context. If two apps both precompile a CSS file for the Table component, for instance, the fingerprint will be the same, but the path will be different, so a client that views two pages with Tables on (one in [frontend], one in [government-frontend]) will download the same file twice.
+#### What this means for `static`'s assets
 
-However, because all of these apps upload to different folders in the same S3 bucket, it would be relatively easy to add a second step to the upload which took assets from (say) `/app/public/assets/shared` on the deployed images and upload that to a shared folder. Because the same asset compiled in two different apps ends up with the same name, the second app’s uploaded asset would overwrite the first one with the exact same name and data. As long as mechanisms were in place to prevent confusion from two apps uploading at the same time (this may already be present in S3), we could safely write to the same shared assets directory.
+Because the upload-assets job in [govuk-helm-charts] includes the app name, there currently isn’t a mechanism for apps to upload assets in a shared context. If we move `static`'s assets into a gem, and two apps both precompile the gem's search-button.png, for instance, the fingerprint will be the same, but the path will be different, so a client that views two pages with the search button (one in [frontend], one in [government-frontend]) will download the same file twice.
 
-#### How will we do this in practice?
-Although sprockets-rails wants to put things in one directory (the assets.prefix directory configured in application.rb), it is possible to split assets by source by modifying the Sprockets::Asset class to return a digest path with different prefixes based on the asset name. Since asset engine gems tend to be namespaced (govuk_publishing_components is, for instance), we can use the gem name to determine whether a thing should go into shared or not. If the asset starts with a gem name on a list we provide, it can be prefixed with /shared, and if not it can be prefixed with the application name as usual.
+However, because all of these apps upload to different folders in the same S3 bucket, it would be relatively to just remove the app name from the path, so that all assets were just compiled into `/app/public/assets` on the deployed images and upload that to a shared folder (indeed, this is the default for rails, so we could actually remove a configuration line from every app). Because the same asset compiled in two different apps ends up with the same name, the second app’s uploaded asset would overwrite the first one with the exact same name and data. S3 writes are transactional, so two apps uploading at the exact same time should not be a problem.
 
-Ideally we’d do this by subclassing the Sprockets environment (which is responsible for loading Assets) to provide a modified class, but at worst we could do it by monkeypatching (there’s a proof of concept of this).
+#### Additional benefits
+
+Moving to this simpler compilation method also allows apps to share assets provided by other gems (like the `govuk_publishing_components` gem), improving the end-user experience still further.
 
 ![Proposed asset deploy pathway](rfc-176/proposed_govuk_asset_pathway.png)
 
 ### Layouts (move to `govuk_web_layout`)
-All of the layouts in `static` are banner-aware configuration wrappers around a call to the public layout component included in the [govuk_publishing_components] gem. In practise this means that applications are having to make network calls to ask another application to return them a layout that they already have access to, and could easily configure themselves if necessary.
+All of the layouts in `static` are banner-aware configuration wrappers around a call to the public layout component included in the `govuk_publishing_components` gem. In practise this means that applications are having to make network calls to ask another application to return them a layout that they already have access to, and could easily configure themselves if necessary.
 
 We propose that to start with we replicate this layout configuration in the gem (so that there is little additional configuration needed in the host application), and at a later stage we audit the layouts to determine if the additional configuration is something that can be provided in a default load-time step and explicitly overridden by the applications. This should give us more flexibility in terms of personalisation.
 
-### Header and Footer Content (move to `govuk_web_layout`)
-Updating header and footer content is a developer task in `static` - there are no content items that can be edited in the publishing apps. Ideally we’d prefer this not to be the case, but that’s out of the scope of this current document.
+### Header and Footer Content (move into `govuk_web_layout` from `govuk_publishing_components` and `frontend`)
+Updating header and footer content is a developer task in `govuk_publishing_components` and in `frontend` - there are no content items that can be edited in the publishing apps. Ideally we’d prefer this not to be the case, but that’s out of the scope of this current document.
 
-We propose for the moment moving the header and footer content into the gem, where it can be included as part of the layouts also provided by the gem. This gives us a similar developer experience to today (in that editing the content is in one place), while allowing us to remove that functionality from [static].
+We propose for the moment moving the header and footer content into the gem, where it can be included as part of the layouts also provided by the gem. This gives us an improved developer experience to today (in that editing the content would be in one place), while allowing us to remove that configuration from `govuk_publishing_components` and in `frontend`.
 
 ### Additional Considerations
 
@@ -86,7 +85,7 @@ Adding a couple more gems to every frontend app may mean that frontend developme
 
 ## Proposed Roadmap
 
-There are two initial streams, reflecting the fact that the gems could potentially be worked on independently. The work in each stream is arranged so that even if we don’t take the ultimate step, we’ll still be doing useful work. After these streams are complete, a final stream of work can retire `static`.
+There are two initial streams, reflecting the fact that the gems could potentially be worked on independently. The work in each stream is arranged so that even if we don’t take the ultimate step, we’ll still be doing useful work. After these streams are complete, a final stream of work can retire `static`. There is also an optional stream to share assets from other gems between the apps, which could be started before or after the otherk work streams.
 
 ### Stream 1: Banner Gem
 - Create prototype banner gem.
@@ -96,12 +95,16 @@ There are two initial streams, reflecting the fact that the gems could potential
 - Move current global banner code code into the gem, and use that code in `static`
 - Convert the global banner code to use the same Redis system that the emergency banner uses.
 
-### Stream 2: Layout/Shared Asset Gem
+### Stream 2: Layout Gem
 - Create prototype layout gem
-- Trial moving shared assets into the gem, and allowing a host app to compile them into a shared asset bucket.
+- Trial moving static's assets into the gem, and allowing a host app to compile them into the shared asset bucket.
 - Add a second app to the trial, to ensure that the shared components can be accessed by both.
 - Trial adding most common layout into gem (this may require some progress on the banner gem so that we can include the banner code as part of the common layout)
 - Compare application with layouts from gem with similar app with layout from static.
+- Move header/footer configuration from the publishing components gem into the layout gem.
+
+### Optional Stream: Shared assets in other apps
+- Trial simplifying how other apps compile their assets so that they put them in the assets root rather than in subfolders.
 
 ### Final Stream: Retire static
 
@@ -109,6 +112,19 @@ There are two initial streams, reflecting the fact that the gems could potential
 - If trial is successful, move remaining apps to the new system.
 - Retire `static`/`slimmer`
 
+## When Would These Gems Be Retired?
+
+It's worth adding a little bit about what the predicted lifespan of these gems would be, so that we have a clear idea of when it would make sense to retire, merge, or add to them.
+
+### The `govuk_web_banner` gem
+
+The banner gem is useful as long as there are multiple front-end apps that need to render the various banners. At the moment this is _all_ frontend apps for the emergency and global banners, and a subset for the recruitment banners. If that subset (or all) of the frontend apps were merged, we should consider whether to move the gem into that combined app. We could also merge this gem into the layout gem, given that most of the frontend apps relying on the banner gem would ultimately be using the layout gem too.
+
+It's also worth noting that the components used by this gem are _only_ used by this gem at the moment. If we think that is likely to be the case forever, we could move them into this gem and out of `govuk_publishing_components`.
+
+### The `govuk_web_layouts` gem
+
+Most of the work of this gem is configuration of the `public_layout` component. It might be that that configuration would be better done by individual code in the various frontend apps (for instance, configuration sets only used in one app don't need to be in the gem). As the number of frontend apps decreases, we should consider whether it's better to keep that configuration code in this gem or move it into the individual apps and allow the gem to reduce scope. If we follow this path, we might get to the point where only static assets are included in the gem, in which case it might be worth considering moving them into another gem with smaller scope, or handling them elsewhere.
 
 [content-store]: https://github.com/alphagov/content-store
 [frontend]: https://github.com/alphagov/frontend
