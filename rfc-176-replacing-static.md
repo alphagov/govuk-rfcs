@@ -92,14 +92,14 @@ There are two initial streams, reflecting the fact that the gems could potential
 - Create prototype banner gem.
 - Moving the recruitment banners into that gem, trial including them in one of the four apps which currently contain recruitment banner code.
 - If trial looks promising, move the other three apps to use the gem.
-- Move the emergency banner code into the gem, and including the gem in `static`
+- Move the emergency banner code into the gem, and include the gem in `static`
 - Move current global banner code code into the gem, and use that code in `static`
 - Convert the global banner code to use the same Redis system that the emergency banner uses.
 
 ### Stream 2: Layout/Shared Asset Gem
 - Create prototype layout gem
 - Trial moving shared assets into the gem, and allowing a host app to compile them into a shared asset bucket.
-- Add a second app to the trial, to ensure that the shared components can be access by both.
+- Add a second app to the trial, to ensure that the shared components can be accessed by both.
 - Trial adding most common layout into gem (this may require some progress on the banner gem so that we can include the banner code as part of the common layout)
 - Compare application with layouts from gem with similar app with layout from static.
 
