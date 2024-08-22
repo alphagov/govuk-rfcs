@@ -8,7 +8,7 @@ status_last_reviewed:
 
 ## Summary
 
-We propose two new gems: `govuk_web_banners` and `govuk_web_layout` which will replace the [slimmer] gem, the [static] application, and will give us the option if necessary to remove parts of the [govuk_publishing_components] gem that might not belong there. Between them they will handle static’s four main responsibilities: banners, static assets, layouts, but in a less astonishing way. They will also simplify configuration of the shared header and footer content.
+We propose two new gems: `govuk_web_banners` and `govuk_web_static_content` which will replace the [slimmer] gem, the [static] application, and will give us the option if necessary to remove parts of the [govuk_publishing_components] gem that might not belong there. Between them and some devolution of code to existing apps they will handle static’s four main responsibilities: banners, static assets, error pages and layouts, but in a less astonishing way. They will also simplify configuration of the shared header and footer content.
 
 ## Problem
 
@@ -45,7 +45,7 @@ This isn’t a problem with `static`, but fits the banner theme and provides a n
 
 Our proposal is that we include the current duplicated recruitment banner config, code, and partial views in the gem. Then we can include the gem in each application and put a single call to it in the relevant app layouts. This means we can keep the configuration in one place, where it’s more easily checked for problems, and a single release of the banner gem will be automatically pulled into each relevant app at the next dependabot merge.
 
-### Static Assets (move to `govuk_web_layout`)
+### Static Assets (move to `govuk_web_static_content`)
 
 #### How GOV.UK handles assets
 
@@ -65,27 +65,33 @@ However, because all of these apps upload to different folders in the same S3 bu
 
 #### Additional benefits
 
-Moving to this simpler compilation method also allows apps to share assets provided by other gems (like the `govuk_publishing_components` gem), improving the end-user experience still further.
+Moving to this simpler compilation method also allows apps to share assets provided by other gems (like the `govuk_publishing_components` gem), improving the end-user experience still further. This same simplification can easily be applied to other apps.
 
 ![Proposed asset deploy pathway](rfc-176/proposed_govuk_asset_pathway.png)
 
-### Layouts (move to `govuk_web_layout`)
+### Error Pages (move to `govuk_web_static_content`, pick one app (probably `frontend`) to host tasks)
+
+Currently error pages are rendered by static during a deploy rake task, and uploaded to an S3 bucket.. We propose moving the error page templates into the static content gem, which will allow them to be laid out in one place and in future potentially returned as they might normally be returned by a rails app. For the moment, though, a single app would be picked to render the pages for upload to the S3 bucket - `frontend` seems like the natural host, since [RFC-175] proposes merging a number of the other frontend apps into that.
+
+### Layouts (call directly within apps)
 All of the layouts in `static` are banner-aware configuration wrappers around a call to the public layout component included in the `govuk_publishing_components` gem. In practise this means that applications are having to make network calls to ask another application to return them a layout that they already have access to, and could easily configure themselves if necessary.
 
-We propose that to start with we replicate this layout configuration in the gem (so that there is little additional configuration needed in the host application), and at a later stage we audit the layouts to determine if the additional configuration is something that can be provided in a default load-time step and explicitly overridden by the applications. This should give us more flexibility in terms of personalisation.
+We propose that we move the layout calls to inside the frontend apps, determine if the additional configuration is something that can be provided in a default load-time step and explicitly overridden by the applications. This should give us more flexibility in terms of personalisation.
 
-### Header and Footer Content (move into `govuk_web_layout` from `govuk_publishing_components` and `frontend`)
+### Header and Footer Content (move into `govuk_web_static_content` from `govuk_publishing_components` and `frontend`)
 Updating header and footer content is a developer task in `govuk_publishing_components` and in `frontend` - there are no content items that can be edited in the publishing apps. Ideally we’d prefer this not to be the case, but that’s out of the scope of this current document.
 
-We propose for the moment moving the header and footer content into the gem, where it can be included as part of the layouts also provided by the gem. This gives us an improved developer experience to today (in that editing the content would be in one place), while allowing us to remove that configuration from `govuk_publishing_components` and in `frontend`.
+We propose for the moment moving the header and footer content into the static content gem, where it can be included directly into the apps (and into the layouts the apps will at that point be handling). This gives us an improved developer experience to today (in that editing the content would be in one place), while allowing us to remove that configuration from `govuk_publishing_components` and in `frontend`.
 
 ### Additional Considerations
 
 Adding a couple more gems to every frontend app may mean that frontend development may become more awkward in situations where local versions of multiple gems are needed. These are likely to be few, but we should be prepared to monitor the developer experience in these situations. Hopefully, though, the clear division of purpose between these gems and the components gem should mean that most work can be done with at most one local gem.
 
+If we move components into the gem (for instance, the global banner, which is currently an app component in static), we will try to ensure that the component guide from the gem treats them the same way it does in-app components, and we do not have to replicate the component guide code inside the gem.
+
 ## Proposed Roadmap
 
-There are two initial streams, reflecting the fact that the gems could potentially be worked on independently. The work in each stream is arranged so that even if we don’t take the ultimate step, we’ll still be doing useful work. After these streams are complete, a final stream of work can retire `static`. There is also an optional stream to share assets from other gems between the apps, which could be started before or after the otherk work streams.
+There are three initial streams, reflecting the fact that the gems could potentially be worked on independently. The work in each stream is arranged so that even if we don’t take the ultimate step, we’ll still be doing useful work. After these streams are complete, a final stream of work can retire `static`. There is also an optional stream to share assets from other gems between the apps, which could be started before or after the otherk work streams.
 
 ### Stream 1: Banner Gem
 - Create prototype banner gem.
@@ -95,13 +101,16 @@ There are two initial streams, reflecting the fact that the gems could potential
 - Move current global banner code code into the gem, and use that code in `static`
 - Convert the global banner code to use the same Redis system that the emergency banner uses.
 
-### Stream 2: Layout Gem
-- Create prototype layout gem
+### Stream 2: Static Content Gem
+- Create prototype static content gem
+- Trial moving static's error page content into the gem, and allowing a single app (`frontend`) to render/upload them in the same way static does now.
 - Trial moving static's assets into the gem, and allowing a host app to compile them into the shared asset bucket.
-- Add a second app to the trial, to ensure that the shared components can be accessed by both.
-- Trial adding most common layout into gem (this may require some progress on the banner gem so that we can include the banner code as part of the common layout)
-- Compare application with layouts from gem with similar app with layout from static.
-- Move header/footer configuration from the publishing components gem into the layout gem.
+- Add a second app to the trial, to ensure that the shared assets / error pages can still be served.
+- Move header/footer content into the gem,
+
+### Stream 3: Layouts in Apps
+- Trial modifying an app ([email-alert-frontend], because it has one of the most complicated current uses of static layouts) to use the layouts directly (this would be partially reliant on Stream 1 for production-readiness, because it would need banner gem support for banners, but the trial can start independently)
+- Modify the rest of the apps.
 
 ### Optional Stream: Shared assets in other apps
 - Trial simplifying how other apps compile their assets so that they put them in the assets root rather than in subfolders.
@@ -112,7 +121,7 @@ There are two initial streams, reflecting the fact that the gems could potential
 - If trial is successful, move remaining apps to the new system.
 - Retire `static`/`slimmer`
 
-## When Would These Gems Be Retired?
+## When Would These Gems Be Retired, and when would they change?
 
 It's worth adding a little bit about what the predicted lifespan of these gems would be, so that we have a clear idea of when it would make sense to retire, merge, or add to them.
 
@@ -122,11 +131,14 @@ The banner gem is useful as long as there are multiple front-end apps that need 
 
 It's also worth noting that the components used by this gem are _only_ used by this gem at the moment. If we think that is likely to be the case forever, we could move them into this gem and out of `govuk_publishing_components`.
 
-### The `govuk_web_layouts` gem
+### The `govuk_web_static_content` gem
 
-Most of the work of this gem is configuration of the `public_layout` component. It might be that that configuration would be better done by individual code in the various frontend apps (for instance, configuration sets only used in one app don't need to be in the gem). As the number of frontend apps decreases, we should consider whether it's better to keep that configuration code in this gem or move it into the individual apps and allow the gem to reduce scope. If we follow this path, we might get to the point where only static assets are included in the gem, in which case it might be worth considering moving them into another gem with smaller scope, or handling them elsewhere.
+Most of the work of this gem is in supporting assets that need to be available to all pages and configuration of shared menus. If the frontend apps are all merged, this content can become part of that app and the gem can be retired.
+
+If we consider the public layout component unnecessary to maintain in `govuk_publishing_components`, it could be moved into this gem, and then later into the frontend app if there is only one.
 
 [content-store]: https://github.com/alphagov/content-store
+[email-alert-frontend]: https://github.com/alphagov/email-alert-frontend
 [frontend]: https://github.com/alphagov/frontend
 [government-frontend]: https://github.com/alphagov/government-frontend
 [govuk-helm-charts]: https://github.com/alphagov/govuk-helm-charts
