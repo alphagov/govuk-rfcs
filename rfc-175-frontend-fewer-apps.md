@@ -121,6 +121,7 @@ The host app will follow the default MVC structure of Rails applications, with s
 ├── config
 │   ├── data
 │   ├── locales
+├── data
 ├── lib
 │   ├── tasks
 └── .gitignore
@@ -147,10 +148,15 @@ Use `lib` rather than `app/lib` for custom code that enhances the app but doesn�
 Under `/config`
 
 `data`
-- YAML, JSON, CSV config files. Data files should be placed here rather than under `/lib/data`.
+- YAML, JSON, CSV config files. Data files should be placed here if they are clearly used in the configuration of the app. Ideally, though, we should **avoid using data files** for configuration where possible (see `/data` below)
 
 `locales`
 - Static content like lists of contact information should ideally be stored in the locale files to promote localisation.
+
+Under `/data`
+
+- YAML, JSON, CSV files used as data by Models. However, note that ideally we should **avoid using data files** - where possible, all information required for rendering should come from the content item or other APIs or be a static part of the app.
+
 
 Namespaces will be used to group functionality e.g. for StepBySteps, and resources in the routes file. This structure will be documented in README of the host app.
 Each application will be analysed before being consolidated to ensure redundant code is not being moved over.
