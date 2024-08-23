@@ -1,7 +1,7 @@
 ---
-status: proposed
-implementation: proposed
-status_last_reviewed:
+status: accepted
+implementation: pending
+status_last_reviewed: 2024-08-23
 ---
 
 # Consolidate Frontend Content-Rendering Apps
