@@ -1,7 +1,7 @@
 ---
-status: proposed
-implementation: proposed
-status_last_reviewed:
+status: accepted
+implementation: pending
+status_last_reviewed: 2024-09-03
 ---
 
 # Replacing Static
