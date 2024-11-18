@@ -1,5 +1,5 @@
 ---
-status: proposed
+status: accepted
 implementation: blocked
 status_last_reviewed: 2024-10-29
 ---
