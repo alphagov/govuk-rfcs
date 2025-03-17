@@ -21,7 +21,7 @@ GOV.UK publishing has found asset management a difficult challenge in recent his
 
 ## Proposal
 
-There SHOULD be a single mechanism for updating the state of an asset based on the owning edition's state. This SHOULD be achieved via Publishing API, which will reduce the burden on the publishing applications to maintain consistency between Publishing API and Asset Manager. This will make the data flow consistent with how Search API and Router API are updated, and decouple the publishing applications from Asset Manager.
+There SHOULD be a single mechanism for updating the state of an asset based on the owning edition's state. This SHOULD be achieved via Publishing API, which will reduce the burden on the publishing applications to maintain consistency between Publishing API and Asset Manager. This will make the data flow consistent with how Search API and Email Alert API are updated, and decouple the publishing applications from Asset Manager.
 
 In this scenario, publishing applications MUST upload binary assets directly to Asset Manager (as per the current process). Asset Manager can set the default lifecycle state for new assets as follows:
 
@@ -59,7 +59,7 @@ After this, publishing applications must continue to include sufficient informat
 }
 ```
 
-Asset Manager's ID for the asset is part of the attachment URL, but we MAY provide it as a separate field so that Asset Manager can easily perform a lookup for the correct asset. We MUST add a deletion marker and the replacement ID (if replaced) to the attachment data to allow Asset Manager to make the correct state adjustments for attachment assets. Deleted and replaced attachments MUST be filtered out of the data sent to content store.
+Asset Manager's ID for the asset is part of the attachment URL (except for in some legacy Whitehall assets), but we MAY provide it as a separate field so that Asset Manager can easily perform a lookup for the correct asset. [Work has already started to do that in Whitehall](https://github.com/alphagov/whitehall/pull/9641). If there are any assets that only have a legacy Whitehall ID, we MUST ensure that those assets receive a new ID as well. We MUST add a deletion marker and the replacement ID (if replaced) to the attachment data to allow Asset Manager to make the correct state adjustments for attachment assets. Deleted and replaced attachments MUST be filtered out of the data sent to content store.
 
 Images look like this:
 
@@ -74,7 +74,7 @@ Images look like this:
 
 Again, we MAY include the Asset Manager IDs for each image, and we MUST provide deletion and replacement state. Deleted and replaced images MUST be filtered out of the data sent to content store.
 
-Publishing API already places a message on a RabbitMQ exchange each time an edition is published. We MUST add another topic for updates to draft editions so that Asset Manager can make additional updates to access limiting and access bypass states for draft documents. This may also be useful in the future to provide draft stack capability for Search API.
+Publishing API already places a message on a RabbitMQ exchange each time an edition is published. We MUST add another topic for updates to draft editions so that Asset Manager can make additional updates to access limiting and access bypass states for draft documents. This may also be useful in the future to provide draft stack capability for Search API (see [related tech debt card](https://trello.com/c/5nN8vKG7/600-create-draft-search-index-to-enable-draft-search-preview)).
 
 Unpublishings look like this:
 
@@ -116,7 +116,7 @@ Unpublishings look like this:
 }
 ```
 
-We MUST add a way to look up assets belonging to unpublished editions so that they can be redirected. We COULD add the asset IDs for each attachment and image to the redirect, or we COULD create a separate `unpublished_documents` topic to handle these events. It is likely that the easiest thing to do would be to include the attachment data in the unpublishing details.
+We MUST add a way to look up assets belonging to unpublished editions so that they can be redirected. We COULD add the asset IDs for each attachment and image to the redirect, or we COULD create a separate `unpublished_documents` topic to handle these events. It is likely that the easiest thing to do would be to include the attachment data in the unpublishing details, but there might be additional value in having a separate topic.
 
 ## Implementation
 
