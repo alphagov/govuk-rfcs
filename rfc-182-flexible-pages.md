@@ -180,10 +180,6 @@ It might be that flexible pages are used to create a group of pages, with a requ
 
 #### Tracking
 
-Page view and link tracking is handled automatically for all pages on GOV.UK. Tracking is also built into all relevant components by default, for example when details elements are expanded or collapsed, however some additional information may be necessary (for example the total number of details elements on a page). Future work on tracking for flexible pages could include:
+For MVP no options for adding GA4 tracking will be included. This means that tracking will be limited to standard page views, plus any default tracking included with frontend components (for example specific tracking on the contents list component).
 
-- the ability to enable or disable tracking on flexible sections through the publishing interface
-- the ability to add extra information into tracking for a flexible section
-- a toggle to enable/disable scroll tracking on a flexible page
-
-For MVP no tracking options will be included other than the default.
+Future work will include consideration for more tracking options.
