@@ -54,7 +54,7 @@ A further improvement to creating flexible pages would be to provide preset opti
 
 Option 1: start from a blank page
 
-- users would be able to select from a list of flexible sections and customise them within the constraints defined (e.g. a page title flexible section should always be first)
+- users would be able to add flexible sections from an existing list, add content to them and reorder them if required (within defined constraints)
 
 Option 2: select a preset page type
 
@@ -63,9 +63,16 @@ Option 2: select a preset page type
 
 ### Next steps
 
-#### MVP candidate
+We will build a minimum viable product (MVP). This will involve:
 
-The page type chosen as the basis for this work is the building history pages, specifically:
+- choosing an existing page type to convert to a flexible page (probably a static page)
+- determining the flexible sections needed to construct the page and creating them
+- deciding on a content schema for the page
+- creating the minimum system necessary to make the page editable
+
+#### Candidate for MVP
+
+The page type chosen as the basis for this work is the history of a building page e.g.
 
 - [10 Downing Street](https://www.gov.uk/government/history/10-downing-street)
 - [11 Downing Street](https://www.gov.uk/government/history/11-downing-street)
@@ -136,6 +143,12 @@ details:
           text: “The rise of Downing street”
       content: (govspeak content)
 ```
+
+#### Making the MVP editable
+
+The minimum system required to make the MVP editable would be a hard coded content item stored as a YAML file within the `frontend` application. This system will be implemented first to allow spike frontend work to be carried out without the dependency of a publishing interface.
+
+For MVP the aim will be to have a publishing interface to replace the YAML file. This interface will be the minimum required to create only a history page, based on the idea for a preset page type (proposed earlier), but with the potential for more flexibility in the underlying data structures, to build on for future work.
 
 ### Future considerations
 
