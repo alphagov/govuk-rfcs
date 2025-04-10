@@ -101,13 +101,19 @@ Screenshot | Flexible section
 ![Page title of the history page](rfc-182/history-pages-2.png) | Page title
 ![Rich text of the history page](rfc-182/history-pages-3.png) | Rich text with contents list
 
-Page title: content wrapped in a two thirds width column. Content authors would be able to add:
+**Page title**: content wrapped in a two thirds width column. Content authors would be able to add:
 
 - heading level 1 (required)
 - heading context (optional)
 - lead paragraph (optional)
 
-Rich text with contents list: content wrapped in a one third/two thirds column layout. Content authors would be able to add:
+Constraints:
+
+- only one **Page title** per flexible page
+- pages must have a **Page title** (or equivalent flexible section, in future there would likely be others that provide a heading level 1)
+- **Page title** must be the first flexible section (i.e. at the top of the page)
+
+**Rich text with contents list**: content wrapped in a one third/two thirds column layout. Content authors would be able to add:
 
 - image src (optional)
 - image alt text (optional)
@@ -116,6 +122,12 @@ Rich text with contents list: content wrapped in a one third/two thirds column l
 - rich text
 
 Image and contents list would appear in the left column. Rich text content will appear in the right.
+
+Constraints:
+
+- only one **Rich text with contents list** per flexible page (for MVP, at least)
+
+Future work may be required if more than one **Rich text with contents list** is required per page (for example to make the contents list only appear in the first one).
 
 #### Content schemas
 
