@@ -152,6 +152,12 @@ For MVP the aim will be to have a publishing interface to replace the YAML file.
 
 ### Future considerations
 
+#### Choice of URLs
+
+Flexible pages will need options for setting their URLs. For the MVP this will be limited to `/government/history/<slug>`.
+
+Future work will allow for further URL options, but this will be balanced with permission levels for content authors. For example it may be that only those with higher permission would be able to create a top level URL e.g. `/coronavirus`.
+
 #### Tagging content to a page
 
 Flexible pages will eventually need a mechanism to allow content to appear on them, for example a list of related documents or news articles. There are two ways that content can be tagged to appear like this:
