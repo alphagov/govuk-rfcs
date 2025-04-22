@@ -182,15 +182,6 @@ Flexible pages will need a mechanism to allow content to appear on them, for exa
 
 Like other GOV.UK content, flexible pages will need to be drafted, reviewed, previewed and published. These mechanisms will need to be included as part of the publishing interface.
 
-If flexible pages are successful there may eventually be a lot of them on GOV.UK. This could lead to difficulties with managing and navigating them in publishing interfaces, as they would all be of the same type. For example, if flexible pages were used to create world location pages, there would be nothing to differentiate them from other flexible pages.
-
-There should be a way of tagging flexible pages in the publishing interface to provide a way to navigate and filter them. Tags will be added as the work progresses, but initial tags should be created for:
-
-- the page type we choose for MVP e.g. “name of page type”
-- unique or custom pages created to respond to world events (such as coronavirus) e.g. “custom page”
-
-Initially the creation of new tags will be handled by developers but eventually this should be handled by those with a specific publishing permission level such as content leads. Schema name and document type are two separate fields in content items, so a tag could be used in place of one of these fields.
-
 #### Reusable content
 
 It might be that flexible pages are used to create a group of pages, with a requirement that they link to each other with a common navigation menu or share other elements. In this situation it would be helpful if there was a mechanism for managing this, other than having to manually update every page in the group when a new page is added. It is possible that the Content Block Manager may be of use here.
