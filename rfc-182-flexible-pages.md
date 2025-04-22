@@ -170,14 +170,13 @@ Flexible pages will need options for setting their URLs. For the MVP this will b
 
 Future work will allow for further URL options, but this will be balanced with permission levels for content authors. For example it may be that only those with higher permission would be able to create a top level URL e.g. `/coronavirus`.
 
+#### Breadcrumbs
+
+The MVP for history pages will have a simple breadcrumb containing `Home -> History of the UK Government`. This will need to be extended for other breadcrumbs in future.
+
 #### Tagging content to a page
 
-Flexible pages will eventually need a mechanism to allow content to appear on them, for example a list of related documents or news articles. There are two ways that content can be tagged to appear like this:
-
-- The page itself can be configured to show content tagged to a specific taxon or topic
-- Content can be tagged to match an existing page (for example a Topical Event page)
-
-This could also be part of what breadcrumbs will be shown for a flexible page i.e. where it appears in the taxonomy. This will need to be considered for future work.
+Flexible pages will need a mechanism to allow content to appear on them, for example a list of related documents or news articles. Whitehall already has options for tagging pages to organisations, topical events, ministers and other items, so hopefully we can reuse that as much as possible.
 
 #### Publishing and managing flexible pages
 
