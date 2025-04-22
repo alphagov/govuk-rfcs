@@ -193,7 +193,7 @@ Initially the creation of new tags will be handled by developers but eventually 
 
 #### Reusable content
 
-It might be that flexible pages are used to create a group of pages, with a requirement that they link to each other with a common navigation menu or share other elements. In this situation it would be helpful if there was a mechanism for managing this, other than having to manually update every page in the group when a new page is added. This will need to be considered for future work.
+It might be that flexible pages are used to create a group of pages, with a requirement that they link to each other with a common navigation menu or share other elements. In this situation it would be helpful if there was a mechanism for managing this, other than having to manually update every page in the group when a new page is added. It is possible that the Content Block Manager may be of use here.
 
 #### Tracking
 
