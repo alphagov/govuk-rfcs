@@ -122,7 +122,7 @@ Future work may be required if more than one **Rich text with contents list** is
 
 #### Content item schema
 
-For an application to render a flexible page it will need a content item to be passed from a publishing interface, which will need an agreed schema. Below is a proposal for the flexible pages portion of the content item in a simplified form for readability, for the history page above.
+For an application to render a flexible page it will need a content item to be passed from a publishing interface, which will need an agreed schema. Below is an example of what the flexible pages portion of the content item could look like for the history page above.
 
 ```
 document_type: history_page
