@@ -120,7 +120,7 @@ Constraints:
 
 Future work may be required if more than one **Rich text with contents list** is required per page (for example to make the contents list only appear in the first one).
 
-#### Content schemas
+#### Content item schema
 
 For an application to render a flexible page it will need a content item to be passed from a publishing interface, which will need an agreed schema. Below is a proposal for the flexible pages portion of the content item in a simplified form for readability, for the history page above.
 
@@ -172,6 +172,10 @@ Flexible pages will need a mechanism to allow content to appear on them, for exa
 #### Publishing and managing flexible pages
 
 Like other GOV.UK content, flexible pages will need to be drafted, reviewed, previewed and published. These mechanisms will need to be included as part of the publishing interface.
+
+#### Sharing the definition of a flexible section between publishing and frontend
+
+We will need a way to share the specifics of every flexible section between the applications that need to know about them. The current system is to use a JSON schema, which whitehall could request from publishing-api. The specifics of this are not required for MVP.
 
 #### Reusable content
 
