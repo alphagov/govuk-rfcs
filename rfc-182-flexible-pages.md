@@ -50,16 +50,7 @@ Content would likely be based around existing GOV.UK Publishing frontend compone
 
 ### Flexible pages preset layouts
 
-A further improvement to creating flexible pages would be to provide preset options for creating particular page types. Users would be able to choose from two options in the publishing interface when creating a new flexible page:
-
-Option 1: start from a blank page
-
-- users would be able to add flexible sections from an existing list, add content to them and reorder them if required (within defined constraints)
-
-Option 2: select a preset page type
-
-- users would select a preset type from a list e.g. history page, help page
-- the flexible sections required for that page would be automatically added into the editing window, allowing users to then add content within those flexible sections but not allowing them to reorder them
+A further improvement to creating flexible pages would be to provide preset options for creating particular page types. Users would be able to either start from a 'blank' page (allowing the insertion and reordering of flexible sections) or choose an existing page type e.g. history of a building page (where the required flexible sections are automatically added and cannot be reordered).
 
 ### Next steps
 
