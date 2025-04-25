@@ -149,7 +149,7 @@ details:
 
 #### Making the MVP editable
 
-The minimum system required to make the MVP editable would be a hard coded content item stored as a YAML file within the `frontend` application. This system will be implemented first to allow spike frontend work to be carried out without the dependency of a publishing interface.
+We will begin by representing the history page schema of flexible sections in a hard-coded YAML file within the `frontend` application, to allow spike frontend work to be carried out without the dependency of a publishing interface.
 
 For MVP the aim will be to have a publishing interface to replace the YAML file. This interface will be the minimum required to create only a history page, based on the idea for a preset page type (proposed earlier), but with the potential for more flexibility in the underlying data structures, to build on for future work.
 
