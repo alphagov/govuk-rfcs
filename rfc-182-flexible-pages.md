@@ -10,7 +10,7 @@ status_last_reviewed:
 
 Flexible pages is the name for a new kind of page on GOV.UK that will provide more options for customisation than existing page types. This will allow new pages to be created with minimal developer involvement, particularly where GOV.UK must respond quickly to urgent page requirements.
 
-This document details the proposed initial technical approach for flexible pages, specifically their structure and associated governing rules.
+This document details the proposed initial technical approach for flexible pages, specifically their structure and associated governing rules. It focuses on how such pages will be rendered, and the expected content structures being passed to the frontend. How those structures are published in the first place is out of scope for this RFC, though some suggestions have been provided for completeness.
 
 The plan is to create a minimal viable product (MVP) of flexible pages that will allow us to use them to recreate an existing page type. Further work will then be done to expand and improve flexible pages beyond MVP.
 
