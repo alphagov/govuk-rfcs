@@ -29,7 +29,7 @@ Instead, we propose a middle ground, where users cannot control page layout but 
 
 Flexible sections occupy the full width of the page and would never occur visibly side by side. They contain a layout based on existing GOV.UK layouts (for example a two thirds/one third layout) but allow no control over that layout.
 
-A flexible section should be designed for a particular use and only allow content within its layout based on that use. Users should be able to choose a flexible section and add content into it, but have little to no control over how that content is positioned. Users should be able to change the order of flexible sections within a page.
+A flexible section should be designed for a particular use and only allow content within its layout based on that use. Users would eventually be able to choose a flexible section and add content into it, but have no control over how that content is positioned. Users should be able to change the order of flexible sections within a page. The frontend should allow for flexible sections to be rendered in any order within a page.
 
 Flexible sections should be specific enough to provide an understandable ‘building block’ for making a page, without being generic enough to allow users free reign - they should have a specific purpose. For example, a flexible section that only defines layout would allow too much freedom to put content anywhere within it.
 
