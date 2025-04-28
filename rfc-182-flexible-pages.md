@@ -10,7 +10,7 @@ status_last_reviewed:
 
 Flexible pages is the name for a new kind of page on GOV.UK that will provide more options for customisation than existing page types. This will allow new pages to be created with minimal developer involvement, particularly where GOV.UK must respond quickly to urgent page requirements.
 
-This document details the proposed initial technical approach for flexible pages, specifically their structure and associated governing rules. It focuses on how such pages will be rendered, and the expected content structures being passed to the frontend. How those structures are published in the first place is out of scope for this RFC, though some suggestions have been provided for completeness.
+This document details the proposed initial technical approach for flexible pages. It focuses on how such pages will be rendered, and the expected content structures being passed to the frontend. How those structures are published in the first place is out of scope for this RFC, though some suggestions have been provided for completeness.
 
 The plan is to create a minimal viable product (MVP) of flexible pages that will allow us to use them to recreate an existing page type. Further work will then be done to expand and improve flexible pages beyond MVP.
 
@@ -31,7 +31,7 @@ Flexible sections occupy the full width of the page and would never occur visibl
 
 A flexible section should be designed for a particular use and only allow content within its layout based on that use. Users would eventually be able to choose a flexible section and add content into it, but have no control over how that content is positioned. Users should be able to change the order of flexible sections within a page. The frontend should allow for flexible sections to be rendered in any order within a page.
 
-Flexible sections should be specific enough to provide an understandable ‘building block’ for making a page, without being generic enough to allow users free reign - they should have a specific purpose. For example, a flexible section that only defines layout would allow too much freedom to put content anywhere within it.
+Flexible sections should be specific enough to provide an understandable ‘building block’ for making a page, without being generic enough to allow users free rein - they should have a specific purpose. For example, a flexible section that only defines layout would allow too much freedom to put content anywhere within it.
 
 Examples of flexible sections could be:
 
@@ -50,7 +50,7 @@ Content would likely be based around existing GOV.UK Publishing frontend compone
 
 ### Flexible pages preset layouts
 
-A further improvement to creating flexible pages would be to provide preset options for creating particular page types. Users would be able to either start from a 'blank' page (allowing the insertion and reordering of flexible sections) or choose an existing page type e.g. history of a building page (where the required flexible sections are automatically added and cannot be reordered).
+A further improvement to creating flexible pages would be to provide preset options for creating particular page types. Users would be able to either start from a 'blank' page (allowing the insertion and reordering of flexible sections) or choose an existing page type e.g. history of a building page (where the required flexible sections are automatically added and cannot be reordered). For MVP we will focus on the the existing page type approach, to minimise the complexity of the publishing interface.
 
 ### Next steps
 
@@ -151,9 +151,11 @@ details:
 
 We will begin by representing the history page schema of flexible sections in a hard-coded YAML file within the `frontend` application, to allow spike frontend work to be carried out without the dependency of a publishing interface.
 
-For MVP the aim will be to have a publishing interface to replace the YAML file. This interface will be the minimum required to create only a history page, based on the idea for a preset page type (proposed earlier), but with the potential for more flexibility in the underlying data structures, to build on for future work.
+For MVP the aim will be to have a publishing interface to replace the YAML file. This interface will be the minimum required to create only a history page, based on the idea for a preset page type (proposed earlier). There will be no choice of flexible sections or reordering of them as part of the MVP, but there will be potential for more flexibility in the underlying data structures, to build on for future work.
 
 ### Future considerations
+
+This is only an initial proposal for the flexible pages work and there are still a lot of unknowns, but here are some of the things we will need to make a plan for in the future.
 
 #### Choice of URLs
 
