@@ -1,7 +1,7 @@
 ---
 status: accepted
-implementation: in_progress
-status_last_reviewed: 2025-02-04
+implementation: done
+status_last_reviewed: 2026-01-14
 ---
 
 # Replacing Static
