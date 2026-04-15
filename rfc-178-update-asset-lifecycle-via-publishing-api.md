@@ -8,9 +8,11 @@ status_last_reviewed:
 
 ## Summary
 
-Currently, each publishing application updates the state of each asset associated with an edition of a document when the edition's state changes. For example, when an edition is published, Whitehall updates the `draft` state of any assets associated with the edition to `false` by making an API call to Asset Manager. This will cause Asset Manager to serve the asset from the live domain. Other publishing applications which support asset uploads, such as Specialist Publisher and Manuals Publisher, make the same API call each time a document is published.
+Currently, each publishing application updates the state of each attachment asset associated with an edition of a document when the edition's state changes. For example, when an edition is published, Whitehall updates the `draft` state of any assets associated with the edition to `false` by making an API call to Asset Manager. This will cause Asset Manager to serve the asset from the live domain. Other publishing applications which support asset uploads, such as Specialist Publisher and Manuals Publisher, make the same API call each time a document is published.
 
 To reduce this duplication and reduce the chatty API connections between the publishing applications and Asset Manager, we could have Asset Manager consume messages placed on RabbitMQ by Publishing API whenever an edition's state is updated. The message processor could then inspect the state of the edition's attachments and images and apply the appropriate updates to the relevant asset states, for example by updating the redirect URL associated with the assets if the edition has been unpublished.
+
+At present, image assets do not have a lifecycle. They are immediately considered "live" as soon as they are uploaded to Asset Manager, and their state is never updated by Whitehall or any other publishing application. They have a different risk profile and are therefore excluded from the scope of this RFC, but it would in theory be possible to apply a similar approach to images should it be decided in future that they require a lifecycle.
 
 ## Problem
 
@@ -35,7 +37,7 @@ In this scenario, publishing applications MUST upload binary assets directly to 
 }
 ```
 
-For new assets, we COULD provide the necessary auth bypass ID and access limiting organisation IDs with the original asset, but it would be preferable not to do that if we can avoid it. Ideally the only path to setting this data would be via Publishing API. To enable this, we COULD create a new piece of state in Asset Manager which prevents serving the asset until a first update to the edition is processed.
+For new assets, we COULD provide the necessary auth bypass ID and access limiting organisation IDs with the original asset, but it would be preferable not to do that if we can avoid it because it would reduce coupling between the publishing application and Asset Manager. Ideally the only interaction between the publishing application and Asset Manager would be the initial file upload, and the only path to setting the asset state would be via Publishing API. To enable this, we SHOULD create a new piece of state in Asset Manager which prevents serving the asset until a first update to the edition is processed.
 
 After this, publishing applications must continue to include sufficient information about attachments and images in Publishing API payloads to allow Asset Manager to make appropriate state updates. Attachments sent to Publishing API by Whitehall look like this:
 
@@ -59,22 +61,34 @@ After this, publishing applications must continue to include sufficient informat
 }
 ```
 
-Asset Manager's ID for the asset is part of the attachment URL (except for in some legacy Whitehall assets), but we MAY provide it as a separate field so that Asset Manager can easily perform a lookup for the correct asset. [Work has already started to do that in Whitehall](https://github.com/alphagov/whitehall/pull/9641). If there are any assets that only have a legacy Whitehall ID, we MUST ensure that those assets receive a new ID as well. We MUST add a deletion marker and the replacement ID (if replaced) to the attachment data to allow Asset Manager to make the correct state adjustments for attachment assets. Deleted and replaced attachments MUST be filtered out of the data sent to content store.
+Asset Manager's ID for the asset is part of the attachment URL (except for in some legacy Whitehall assets), but we SHOULD provide it as a separate field so that Asset Manager can easily perform a lookup for the correct asset. [Work has already started to do that in Whitehall](https://github.com/alphagov/whitehall/pull/9641). We MUST add a deletion marker and the replacement ID (if replaced) to the attachment data to allow Asset Manager to make the correct state adjustments for attachment assets. Deleted and replaced attachments MUST be filtered out of the data sent to content store by Publishing API.
 
-Images look like this:
+Following the changes proposed, the JSON for the attachment above would look something like:
 
 ```json
 {
-  "alt_text": "The launch of the Amelia Troubridge photography exhibition at Getty Images Gallery, London.",
-  "caption": "The launch of the Amelia Troubridge photography exhibition at Getty Images Gallery, London.",
-  "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/65710/s960_Fanzi-Down.jpg",
-  "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/65710/s300_Fanzi-Down.jpg"
+    "accessible": false,
+    "alternative_format_contact_email": "different.format@hmrc.gov.uk",
+    "asset_manager_id": "67bf19a4750837d7604dbb96",
+    "attachment_type": "file",
+    "command_paper_number": "",
+    "content_type": "application/vnd.oasis.opendocument.text",
+    "deleted": false,
+    "file_size": 11349,
+    "filename": "Amendments_5_to_8_to_Clause_37-Claim_for_relief_on_foreign_income.odt",
+    "hoc_paper_number": "",
+    "id": "8485786",
+    "isbn": "",
+    "replaced_by_asset_manager_id": null,
+    "title": "Amendments 5 to 8 to Clause 37: Claim for relief on foreign income",
+    "unique_reference": "",
+    "unnumbered_command_paper": false,
+    "unnumbered_hoc_paper": false,
+    "url": "https://assets.publishing.service.gov.uk/media/67bf19a4750837d7604dbb96/Amendments_5_to_8_to_Clause_37-Claim_for_relief_on_foreign_income.odt"
 }
 ```
 
-Again, we MAY include the Asset Manager IDs for each image, and we MUST provide deletion and replacement state. Deleted and replaced images MUST be filtered out of the data sent to content store.
-
-Publishing API already places a message on a RabbitMQ exchange each time an edition is published. We MUST add another topic for updates to draft editions so that Asset Manager can make additional updates to access limiting and access bypass states for draft documents. This may also be useful in the future to provide draft stack capability for Search API (see [related tech debt card](https://trello.com/c/5nN8vKG7/600-create-draft-search-index-to-enable-draft-search-preview)).
+Publishing API already places a message on an ActiveMQ exchange each time an edition is published. We MUST add another topic to the exchange for updates to draft editions so that Asset Manager can make additional updates to access limiting and auth bypass states for draft documents. This may also be useful in the future to provide draft stack capability for Search API (see [related tech debt card](https://trello.com/c/5nN8vKG7/600-create-draft-search-index-to-enable-draft-search-preview)).
 
 Unpublishings look like this:
 
@@ -116,17 +130,34 @@ Unpublishings look like this:
 }
 ```
 
-We MUST add a way to look up assets belonging to unpublished editions so that they can be redirected. We COULD add the asset IDs for each attachment and image to the redirect, or we COULD create a separate `unpublished_documents` topic to handle these events. It is likely that the easiest thing to do would be to include the attachment data in the unpublishing details, but there might be additional value in having a separate topic.
+We MUST add a way to look up assets belonging to unpublished editions so that they can be redirected. It is likely that the simplest way to achieve this would be to include the attachment data in the unpublishing details. Alternatively, we could create an "unpublished document" topic on the ActiveMQ exchange, but that would be a change from the current model of how Publishing API and downstream services interact, and probably doesn't make sense in a world where a redirect is a valid content item.
+
+Adding the attachment data in the unpublishing details would look as follows:
+
+```json
+{
+  "details": {
+    "attachments": [
+      {
+        "asset_manager_id": "67bf19a4750837d7604dbb96",
+        "redirect_url": "/government/collections/brexit-guidance"
+      }
+    ]
+  }
+}
+```
+
+Generally it is expected that publishing apps will simply redirect unpublished attachments to the parent redirect URL, but explicitly including a redirect URL for each attachment does give us options in the future if publishers would like to redirect some attachment URLs elsewhere.
 
 ## Implementation
 
-Asset Manager can use the `GovukMessageQueueConsumer` to consume RabbitMQ messages from the `published_documents` topic. Here is how Search API consumes the queue: https://github.com/alphagov/search-api/blob/main/lib/tasks/message_queue.rake.
+Asset Manager can use the `GovukMessageQueueConsumer` to consume ActiveMQ messages from the `published_documents` topic. Here is how Search API consumes the queue: https://github.com/alphagov/search-api/blob/main/lib/tasks/message_queue.rake.
 
 As mentioned above, we MUST add a new topic for draft documents.
 
-The message processing code MUST be retryable, and SHOULD use an exponential backoff strategy. RabbitMQ does not enable such behaviour out of the box, so we COULD write the messages to another form of storage (most likely Asset Manager's existing MongoDB database) and then read the messages back in a retryable Sidekiq job. This would be an improvement to the Search API workflow which writes the message directly to the Sidekiq Redis instance, causing the Redis memory to become very full when jobs are building up faster than workers can handle the jobs. Alternatively we COULD adopt the strategy used by GOV.UK Chat, which uses a [separate delay retry queue](https://github.com/alphagov/govuk-chat/blob/main/lib/tasks/message_queue.rake) with a constant backoff so that we can avoid the unnecessary use of Sidekiq.
+The message processing code MUST be retryable, and COULD use an exponential backoff strategy. ActiveMQ does not enable such behaviour out of the box, so we SHOULD adopt the strategy used by GOV.UK Chat (and now also Search API v1), which uses a [separate delay retry queue](https://github.com/alphagov/govuk-chat/blob/main/lib/tasks/message_queue.rake) with a constant backoff. Exponential backoff would be preferable to avoid potential "thundering herd" issues, but we have an established pattern in place from other GOV.UK apps, so we should adopt that for now.
 
-We MUST ensure that data consistency is maintained even if messages arrive at Asset Manager from the Publishing API out-of-order. To achieve this, we COULD apply the same strategy as Content Store and Search API by checking the payload version of each message. If the asset has been updated by a more recent message than the version included in the current message, then the message should be dropped.
+We MUST ensure that data consistency is maintained even if messages arrive at Asset Manager from the Publishing API out-of-order. To achieve this, we SHOULD apply the same strategy as Content Store and Search API by checking the payload version of each message. If the asset has been updated by a more recent message than the version included in the current message, then the message should be dropped.
 
 We SHOULD initially restrict the message processor to only process messages where the document has a publishing app of Whitehall. Once we have proven that we can manage asset lifecycle state via Publishing API for Whitehall assets, we can migrate other publishing applications to use the same system.
 
