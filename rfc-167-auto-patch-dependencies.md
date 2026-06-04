@@ -185,7 +185,7 @@ Documentation that will need updating:
 
 Accepted
 
-See also [RFC-178](https://github.com/alphagov/govuk-rfcs/pull/178), which amends this RFC to require a Dependabot cooldown period for external dependency auto-merging.
+See also [RFC-178](https://github.com/alphagov/govuk-rfcs/blob/main/rfc-178-require-dependabot-cooldown-for-external-auto-merging.md), which amends this RFC to require a Dependabot cooldown period for external dependency auto-merging.
 
 # Appendix
 
