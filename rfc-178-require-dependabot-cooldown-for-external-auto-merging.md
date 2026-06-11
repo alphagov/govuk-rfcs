@@ -1,7 +1,7 @@
 ---
-status: proposed
-implementation: proposed
-status_last_reviewed: 2026-04-20
+status: accepted
+implementation: done
+status_last_reviewed: 2026-06-11
 ---
 
 # Require Dependabot cooldown for external dependency auto-merging
@@ -90,5 +90,5 @@ One extra GitHub API call per repo per run.
 [RFC-167]: https://github.com/alphagov/govuk-rfcs/blob/main/rfc-167-auto-patch-dependencies.md
 [govuk-dependabot-merger]: https://github.com/alphagov/govuk-dependabot-merger
 [pr-131]: https://github.com/alphagov/govuk-dependabot-merger/pull/131
-[cooldown]: https://docs.github.com/en/code-security/dependabot/configuration-options-for-the-dependabot.yml-file#cooldown
+[cooldown]: https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference#cooldown-
 [own-dependabot-yml]: https://github.com/alphagov/govuk-dependabot-merger/blob/main/.github/.dependabot.yml
