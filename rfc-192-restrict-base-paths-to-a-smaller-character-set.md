@@ -16,7 +16,7 @@ compliant with this restriction already.
 
 ## Problem
 
-The restrictions we've placed on what constitutes a valid base path are currently quite permissive ([seen in publishing-api]). They allow upper and lowercase letters, a selection of special characters including `@`s and `%` signs followed by hexadecimal codes. This presents a few problems.
+The restrictions we've placed on what constitutes a valid base path are currently pretty permissive ([seen in publishing-api]). There's a straightforward length restriction (Elasticsearch, used by [search-api-v1] can't handle paths longer than 511 chars), but the characters allowed are quite broad. They allow upper and lowercase letters, a selection of special characters including `@`s and `%` signs followed by hexadecimal codes. This presents a few problems.
 
 1) It's hard for frontend apps to deal quickly with obvious penetration attempts like `GET /find-local-council/%20HTTP/1.1%0D%0X-header:%20attempt`. This is clearly not a reasonable URL, but it _might_ be, so frontend apps have to pass it on to content-store (or the GraphQL endpoint), for them to reject it. And
 although content-store _does_ have code to handle requests like these before they get to a database call, it's not clear that's actually the correct behaviour. This URL _is_ valid according to our current validations, so there aren't safe rules to reject it.
@@ -50,4 +50,5 @@ The only exception allowed to this is for content items of `schema_name: redirec
 [gds-api-adapters]: https://github.com/alphagov/gds-api-adapters
 [handle people typing with their caps lock on]: https://github.com/alphagov/govuk-puppet/pull/4524
 [publishing-api]: https://github.com/alphagov/publishing-api
+[search-api-v1]: https://github.com/alphagov/search-api
 [seen in publishing-api]: https://github.com/alphagov/publishing-api/blob/7e2bf9ef7e7721067a1fc2ef7c2b2ad8aa411c61/content_schemas/formats/shared/definitions/paths.jsonnet#L1-L15
