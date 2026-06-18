@@ -31,6 +31,10 @@ One way of graceful handling would be to allow the potentially invalid urls to c
 
 Fortunately, of the 2126 potentially invalid base paths, all but 131 of them already are redirects, reducing the amount of work significantly. 20 of them are invalid only because they include upper case characters, which means if we allowed nginx to lowercase all paths before passing them through, we could lowercase them without breaking links. 96 are invalid because they include `_`s, which we could reasonably redirect to a path with `-`s.  There are two with both underscores _and_ upper case characters, which we could handle with a combination of the above techniques. Finally there are 13 that are content blocks, which seem to have base_paths of the format `/content-blocks/content_block_<type>/<slug>` - since content blocks are few at the moment, it would perhaps be possible to convert these to use dashes in the second part of the path.
 
+### Accents and other languages
+
+One possible concern with the restriction is that we're limiting base paths to english characters. But since GOV.UK is currently a website in English that supports non-English content (ie we can handle non-English content, but the page surrounds are always in English), limiting urls to english characters seems reasonable. The only additional language we're required to support is Welsh, and the written form of Welsh is made entirely of English characters. Welsh does support accents, but it appears to be acceptable in slugs to substitute non-accented versions of the characters (this is what the Welsh government site does). It seems reasonable that we do the same thing (indeed, Whitehall already does this).
+
 ## Proposal
 
 We accept that base_paths MUST NOT be longer than 511 characters, MUST start with a /, and MUST contain only the characters `a-z`, `0-9`, `.`, `-`, and `/`.
