@@ -78,8 +78,11 @@ The only exception allowed to this is for content items of `schema_name: redirec
 
 ## Benefits of implementing the RFC
 
-- All apps will share a single view of what a valid base path is (through the shared method in [gds-api-adapters]), reducing mismatches between publishing apps and the publishing platform.
-- Frontend apps will be able to reject invalid URLs (such as from penetration attacks) at the initial call rather than passing it through to content store or publishing API, improving security and reducing internal network calls.
+- All apps will share a single view of what a valid base path is (through the shared method in [gds-api-adapters]), reducing mismatches between publishing apps and the publishing platform. The current gap between what publishing apps, the platform, and the frontend apps consider valid base_paths is both a security risk in itself and a source of unexpected errors and toil.
+- Improved security for frontend apps, and reduced internal traffic. Rather than having to pass them through and rely on [content-store] or [publishing-api] catching them, frontend apps will be able to trivially reject attack attempts such as those includeding:
+    - Encoded control characters
+    - Path traversal attempts
+    - Malformed requests
 - GOV.UK's handling of mixed case URLs in requests will be simplified (every call including upper-case letters will be replaced with the lower-case variant), reducing surprise behaviour.
 - It will also be proactive, reducing the number of direct interventions necessary when an advertising campaign includes mixed case in the contact URL.
 - We will be able to get rid of redirects that only exist to handle mixed case.
