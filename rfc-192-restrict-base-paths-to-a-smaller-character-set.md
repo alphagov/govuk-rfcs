@@ -1,7 +1,7 @@
 ---
-status: draft
-implementation: draft
-status_last_reviewed:
+status: accepted
+implementation: in progress
+status_last_reviewed: 2026-07-14
 ---
 
 # Restrict base paths to a smaller character set
