@@ -16,7 +16,7 @@ compliant with this restriction already.
 
 ## Problem
 
-The restrictions we've placed on what constitutes a valid base path are currently pretty permissive ([seen in publishing-api]). There's a straightforward length restriction (Elasticsearch, used by [search-api-v1] can't handle paths longer than 511 chars), but the characters allowed are quite broad. They allow upper and lowercase letters, a selection of special characters including `@`s and `%` signs followed by hexadecimal codes. This presents a few problems.
+The restrictions we've placed on what constitutes a valid base path are currently pretty permissive ([seen in publishing-api]). There's a straightforward length restriction (Elasticsearch, used by [search-api-v1] can't handle paths longer than 512 chars), but the characters allowed are quite broad. They allow upper and lowercase letters, a selection of special characters including `@`s and `%` signs followed by hexadecimal codes. This presents a few problems.
 
 1) It's hard for frontend apps to deal quickly with obvious penetration attempts like `GET /find-local-council/%20HTTP/1.1%0D%0X-header:%20attempt`. This is clearly not a reasonable URL, but it _might_ be, so frontend apps have to pass it on to content-store (or the GraphQL endpoint), for them to reject it. And
 although content-store _does_ have code to handle requests like these before they get to a database call, it's not clear that's actually the correct behaviour. This URL _is_ valid according to our current validations, so there aren't safe rules to reject it.
@@ -44,10 +44,11 @@ Since we'll still want to manage these non-compliant base paths, [short-url-mana
 ## Proposal
 
 We accept that base_paths:
-- MUST NOT be longer than 511 characters
+- MUST NOT be longer than 512 characters
 - MUST start with a `/`
 - MUST contain only the characters `a-z`, `0-9`, `.`, `-`, and `/`.
 - MUST NOT contain two / or dot characters in a row (in any combination: `//` `..` `./` and `/.` are all invalid)
+- MUST NOT end with a dot character
 
 The only exception allowed to this is for content items of `schema_name: redirect`
 
