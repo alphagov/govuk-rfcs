@@ -100,7 +100,6 @@ This will include information on the different requests to Publishing API that n
 This will include details and examples on how to:
 
 - Change the publishing applications to send the links as Edition Links, instead of Link Set Links.
-- Update the publishing application user interface to support multiple editions of a document.
 - Remove the Link Set Links from Publishing API's database.
 - Modify the schema to remove the Link Set Links.
 - Make requests to Publishing API to obtain details of linkable documents that are published by other publishing apps.
