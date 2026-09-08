@@ -99,7 +99,6 @@ This will include information on the different requests to Publishing API that n
 
 This will include details and examples on how to:
 
-- Modify the schema to support Edition Links.
 - Change the publishing applications to send the links as Edition Links, instead of Link Set Links.
 - Update the publishing application user interface to support multiple editions of a document.
 - Remove the Link Set Links from Publishing API's database.
@@ -107,6 +106,8 @@ This will include details and examples on how to:
 - Make requests to Publishing API to obtain details of linkable documents that are published by other publishing apps.
 
 It is not expected that the teams who own publishing applications will be able to complete this work immediately. It should be prioritised alongside other technical debt.
+
+Prior to this work commencing, the Content APIs team will add optional Edition Links to all schemas that currently use Link Set Links, on an equivalent basis, so publishing applications can send links in either format during migration.
 
 The Content APIs team will create a tracker to identify which content schemas have been migrated to use only Edition Links. This will update automatically, based on the content of the content schema files.
 
