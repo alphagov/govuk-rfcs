@@ -116,9 +116,17 @@ Due to the cross-team nature of this work, it is proposed that the Publishing Le
 
 Content Tagger manages tags which are represented as Link Set Links of a limited number of link types. These are updated via the "patch links" endpoint in Publishing API. Content Tagger is not aware of editions, and does not publish the content of these documents.
 
-The primary motivation behind Content Tagger appears to be to provide a tagging interface for document types whose publishing applications do not have this functionality.
+The primary motivation behind Content Tagger appears to be to provide a tagging interface for document types whose publishing applications do not have this functionality. Content Tagger currently permits the following Link Set Links to be added to any document that has been published by any publishing application:
 
-This RFC therefore proposes Content Tagger becoming a taxonomy-management application by retiring Content Tagger's tagging functionality. The publishing applications would get native taxonomy editing (which is already the case in Whitehall). This moves the editorial workflow closer to the content being tagged.
+- Mainstream browse pages
+- Organisations
+- Parent content item
+- Related content items
+- Topic taxonomy tags
+
+This RFC therefore proposes Content Tagger becoming a taxonomy-management application by retiring Content Tagger's tagging functionality. The publishing applications would get native editing for all the links listed above. This moves the editorial workflow closer to the content being tagged.
+
+The publishing applications would pull the list of options from Publishing API, then add the tag as an Edition Link.
 
 This would create consistency across all publishing applications, by ensuring content is tagged solely in the publishing application, and remove the confusion caused by some publishing applications having their own interface.
 
