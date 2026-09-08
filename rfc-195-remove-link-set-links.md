@@ -102,7 +102,7 @@ This will include details and examples on how to:
 - Change the publishing applications to send the links as Edition Links, instead of Link Set Links.
 - Remove the Link Set Links from Publishing API's database.
 - Modify the schema to remove the Link Set Links.
-- Make requests to Publishing API to obtain details of linkable documents that are published by other publishing apps.
+- Make requests to Publishing API to obtain details of linkable documents that are published by other publishing apps (e.g. if a mainstream document were to be tagged with a World Location, then Mainstream Publisher would need to query Publishing API to get a list of all World Locations as they are published by Whitehall).
 
 It is not expected that the teams who own publishing applications will be able to complete this work immediately. It should be prioritised alongside other technical debt.
 
