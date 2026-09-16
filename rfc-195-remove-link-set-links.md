@@ -156,7 +156,7 @@ The only current usage of this link type across GOV.UK is [in `email-alert-api`]
 
 There are currently 25 users subscribed to email alerts for `policy_areas` links, and there have been no matched content changes within the current retention period (one year).
 
-It is therefore proposed that as part of this work, we would contact subscribers of policy areas to inform them this type of subscription has been deprecated. After a short grace period, we will remove all the `policy_areas` links from Publishing API's database and the associated code from Email Alert API.
+It is therefore proposed that as part of this work, the Content APIs team would contact subscribers of policy areas to inform them this type of subscription has been deprecated. After a short grace period, we will remove all the `policy_areas` links from Publishing API's database and the associated code from Email Alert API.
 
 This is not required to migrate publishing applications to Edition Links, but retaining `policy_areas` Link Set Links would prevent us from completely removing Link Set Links from Publishing API. We therefore propose treating this work as an essential part of the deprecation of Link Set Links.
 
