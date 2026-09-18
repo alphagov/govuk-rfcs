@@ -162,6 +162,7 @@ Working backwards, we need to build support into the downstream consumers of con
 1. In Frontend, make a change to [ContentItem](https://github.com/alphagov/frontend/blob/d3073a4fd70e304d47aae413a160cbd42ae959eb/app/models/content_item.rb#L14) so that the `body` method grabs the first appropriate item (`type: "html"`) from `details.content` if it exists, otherwise falling back to `details.body`.
 1. In search-api, make a change to [indexable_content_parts](https://github.com/alphagov/search-api/blob/87a43870dc63f1e08d72092cd0eb389a8aaf5bb0/lib/govuk_index/presenters/indexable_content_presenter.rb#L39-L44) to look for `details.content` and to retrieve any objects which have a `value`.
 1. In search-api-v2, make a change to [INDEXABLE_CONTENT_VALUES_JSON_PATHS](https://github.com/alphagov/search-api-v2/blob/e13de24a3b825b7a2c805c011d1693cec435d058/app/models/concerns/publishing_api/content.rb#L15) to include `$.details.content[*]['value']`.
+1. In Content Data API, make a change to the [parse](https://github.com/alphagov/content-data-api/blob/ad910b9acb047e85fd23b5d747d13e854a325e1f/app/domain/etl/edition/content/parsers/body_content.rb#L4) method to look for `details.content` and to retrieve and concatenate any objects which have a `value` (falling back to `details.body` if no `details.content` is found).
 
 Then in the publishing stack:
 
