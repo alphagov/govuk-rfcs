@@ -178,6 +178,14 @@ In terms of governance, we also propose:
 1. A shared document in the [Content API docs](https://content-api.publishing.service.gov.uk/reference.html), describing the different object types that can appear in `details.content[]`. That way, all downstream consumers have a reference they can build against.
 1. Pact tests could be considered further down the line, when more object types are created, but are overkill at this stage.
 
+### Consequences
+
+1. All StandardEdition-based content types are republished to represent their content as a single-element `details.content[]` array.
+1. Every format that migrates to StandardEdition in future will be republished to represent its content as a single-element `details.content[]` array.
+1. No change is expected to affected documents' behaviour with regards to GOV.UK search, email alerts and Content Data.
+1. No change to the Whitehall user interface is anticipated at this stage. No major changes will be made without user research.
+1. The Whitehall team will work with the maintainers of Frontend to build support for any new object types in the `details.content[]` array.
+
 ### Beyond
 
 Where we iterate on the foundation above is out of scope for this RFC. But as an indicator of the kind of value this change can unlock, here are some thoughts below.
