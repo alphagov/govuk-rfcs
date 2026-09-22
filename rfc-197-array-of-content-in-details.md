@@ -175,7 +175,7 @@ At this point we'd now have the foundations in place, across the stack, to allow
 
 In terms of governance, we also propose:
 
-1. A shared document in the Developer Docs, describing the different object types that can appear in `details.content[]`. That way, all downstream consumers have a reference they can build against.
+1. A shared document in the [Content API docs](https://content-api.publishing.service.gov.uk/reference.html), describing the different object types that can appear in `details.content[]`. That way, all downstream consumers have a reference they can build against.
 1. Pact tests could be considered further down the line, when more object types are created, but are overkill at this stage.
 
 ### Beyond
