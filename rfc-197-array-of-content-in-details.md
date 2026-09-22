@@ -221,6 +221,10 @@ We might achieve this in Whitehall in the short term by:
 
 Longer term, one can imagine some sort of [WordPress Gutenberg](https://wordpress.org/gutenberg/)-like WYSIWYG interface where the publisher can create and rearrange structured content, allowing them to inject all manner of special content (such as maps, videos, etc) anywhere in the content body. That interface could also allow for arbitrary tagging of each piece of content.
 
+Alternatively, one can imagine a DITA-based component content management system (CCMS), in which we consolidate self-contained reusable component-level content types, each with their own `content_id`, into curated pages of content, as described [in this RFC comment](https://github.com/alphagov/govuk-rfcs/pull/197#issuecomment-5720165963). That doesn't sound too far away from [this suggestion](https://github.com/alphagov/govuk-rfcs/pull/197#discussion_r3959682816), in which Content Block Manager might be iterated to offer 'standalone' blocks that would sit directly in the array, rather than embeddable blocks that only exist within a bigger piece of content.
+
+The RFC doesn't lock us into any of the above approaches. Moreover, it could be argued it is a necessary pre-requisite for any of them.
+
 ## Appendix
 
 ### Naming
