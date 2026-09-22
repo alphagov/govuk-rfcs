@@ -65,7 +65,7 @@ Instead of a single `details.body` string of HTML, we will iterate towards `deta
 
 This data structure allows us to solve the content-granularity and content-tagging problems outlined earlier.
 
-Note that we can't simply change the shape of `details.body` - even though it [supports arrays of content](https://github.com/alphagov/publishing-api/blob/12a6091765cc90cb499b9b04d810729feb0e9d21/docs/arch/adr-003-representation-for-multiple-content-types.md) - because there is logic that some of the content from the Content API response. See [Appendix: Naming](#naming). It is safer and more explicit to migrate to a new property name entirely.
+Note that we can't simply change the shape of `details.body` - even though it [supports arrays of content](https://github.com/alphagov/publishing-api/blob/12a6091765cc90cb499b9b04d810729feb0e9d21/docs/arch/adr-003-representation-for-multiple-content-types.md) - because there is logic that filters out some of the content from the Content API response. See [Appendix: Naming](#naming). It is safer and more explicit to migrate to a new property name entirely.
 
 ### Example
 
