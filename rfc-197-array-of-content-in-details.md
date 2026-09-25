@@ -1,7 +1,7 @@
 ---
-status: proposed
-implementation: proposed
-status_last_reviewed:
+status: accepted
+implementation: in progress
+status_last_reviewed: 2026-09-22
 ---
 
 # New convention: array of content instead of single 'body' 
