@@ -1,6 +1,6 @@
 ---
 status: accepted
-implementation: pending
+implementation: abandoned
 status_last_reviewed: 2024-06-03
 ---
 
